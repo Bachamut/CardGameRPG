@@ -1,0 +1,136 @@
+{
+  "Heavy Strike":
+  {
+    "card_id": 1,
+    "card_name": "Heavy Strike",
+    "action_type": "basic_attack",
+    "description": "Slow crushing blow",
+    "character_class": "warrior",
+    "base_value": 5,
+    "multiplier": 1.2,
+    "ap_cost": 2,
+    "mana_cost": 0,
+    "caster_status": {},
+    "target_status": {}
+  },
+
+  "Fast Strike":
+  {
+    "card_id": 2,
+    "card_name": "Fast Strike",
+    "action_type": "basic_attack",
+    "description": "Quick light attack",
+    "character_class": "warrior",
+    "base_value": 3,
+    "multiplier": 0.5,
+    "ap_cost": 1,
+    "mana_cost": 0,
+    "caster_status": {},
+    "target_status": {}
+  },
+
+    "Piercing Strike":
+  {
+    "card_id": 3,
+    "card_name": "Piercing Strike",
+    "action_type": "piercing_attack",
+    "description": "Armor penetrating attack",
+    "character_class": "warrior",
+    "base_value": 8,
+    "multiplier": 0.5,
+    "ap_cost": 2,
+    "mana_cost": 0,
+    "caster_status": {},
+    "target_status": {}
+  },
+
+    "Nimble Strike":
+  {
+    "card_id": 4,
+    "card_name": "Nimble Strike",
+    "action_type": "agile_attack",
+    "description": "Nimble dagger attack",
+    "character_class": "rogue",
+    "base_value": 2,
+    "multiplier": 0.8,
+    "ap_cost": 1,
+    "mana_cost": 0,
+    "caster_status": {},
+    "target_status": {}
+  },
+
+    "Magic Strike":
+  {
+    "card_id": 5,
+    "card_name": "Magic Strike",
+    "action_type": "magic_attack",
+    "description": "Magical enhanced attack",
+    "character_class": "mage",
+    "base_value": 2,
+    "multiplier": 1.6,
+    "ap_cost": 2,
+    "mana_cost": 2,
+    "caster_status": {},
+    "target_status": {}
+  },
+
+    "Arcana Shot":
+  {
+    "card_id": 6,
+    "card_name": "Arcana Shot",
+    "action_type": "magic_spell",
+    "description": "Magical bolt",
+    "character_class": "mage",
+    "base_value": 0,
+    "multiplier": 1.4,
+    "ap_cost": 1,
+    "mana_cost": 4,
+    "caster_status": {},
+    "target_status": {}
+  },
+
+  "Bow Shot":
+  {
+    "card_id": 7,
+    "card_name": "Bow Shot",
+    "action_type": "bow_attack",
+    "description": "Bow & arrow",
+    "character_class": "archer",
+    "base_value": 2,
+    "multiplier": 1.8,
+    "ap_cost": 2,
+    "mana_cost": 0,
+    "caster_status": {},
+    "target_status": {}
+  },
+
+  "Shadow Dagger":
+  {
+    "card_id": 8,
+    "card_name": "Shadow Dagger",
+    "action_type": "agile_attack",
+    "description": "Shadow technique deadly strike",
+    "character_class": "rogue",
+    "base_value": 8,
+    "multiplier": 1.4,
+    "ap_cost": 2,
+    "mana_cost": 5,
+    "caster_status": {},
+    "target_status": {}
+  },
+
+  "Shield Bash":
+  {
+    "card_id": 9,
+    "card_name": "Shield Bash",
+    "action_type": "basic_attack",
+    "description": "Stun your enemy",
+    "character_class": "warrior",
+    "base_value": 2,
+    "multiplier": 0.4,
+    "ap_cost": 2,
+    "mana_cost": 0,
+    "caster_status": {},
+    "target_status": {"stun": 2, "break": 1}
+  }
+}
