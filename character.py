@@ -22,7 +22,7 @@ class Character():
         self.modifiers = Attributes()
         self.inventory = Inventory(20)
         self.equipment = Equipment()
-        self.deck = Deck()
+        self.deck = Deck(8, 20)
 
     def add_item(self, item):
         # add item to inventory
