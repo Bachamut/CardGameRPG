@@ -8,7 +8,7 @@ class InvalidSlotException(Exception):
     pass
 
 
-class EmptySlotException(object):
+class EmptySlotException(Exception):
     pass
 
 
@@ -20,32 +20,32 @@ class Character():
         self.character_class = ''
         self.attributes = Attributes()
         self.modifiers = Attributes()
-        self.inventory = Inventory()
+        self.inventory = Inventory(20)
         self.equipment = Equipment()
         self.deck = Deck()
 
     def add_item(self, item):
-        # dodanie przedmiotu do inwentarza
-        self.inventory.container.append(item)
+        # add item to inventory
+        self.inventory.append(item)
 
     def remove_item(self, item):
-        # usunięcie przedmiotu z inwentarza
-        self.inventory.container.remove(item)
+        # remove item form inventory
+        self.inventory.remove(item)
 
     def add_equip(self, slot, item):
-
+        # add item to equipment slot
         if item.slot_type == slot:
-            self.inventory.container.pop(item)
-            self.inventory.container.append(self.equipment.equipment_slots[slot])
-            self.equipment.equipment_slots[slot] = item
+            self.inventory.pop(item)
+            self.inventory.append(self.equipment[slot])
+            self.equipment[slot] = item
         else:
             raise InvalidSlotException("Invalid Slot Exception")
 
     def remove_equip(self, slot, item):
-
-        if self.equipment.equipment_slots(slot) != '':
-            self.equipment.equipment_slots[slot] = ''
-            self.inventory.container.append(item)
+        # remove item form equipment slot
+        if self.equipment[slot] != None:
+            self.equipment[slot] = None
+            self.inventory.append(item)
         else:
             raise EmptySlotException("Empty Slot Exception")
 

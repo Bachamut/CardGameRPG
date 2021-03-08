@@ -23,23 +23,23 @@ card7 = CardManager.create_card("Bow Shot")
 card8 = CardManager.create_card("Shadow Dagger")
 card9 = CardManager.create_card("Shield Bash")
 
-player.deck.append(card1)
-player.deck.append(card2)
-player.deck.append(card3)
-player.deck.append(card4)
-player.deck.append(card5)
-player.deck.append(card6)
-player.deck.append(card7)
-player.deck.append(card8)
-player.deck.append(card9)
+player.deck.deck.append(card1)
+player.deck.deck.append(card2)
+player.deck.deck.append(card3)
+player.deck.deck.append(card4)
+player.deck.deck.append(card5)
+player.deck.deck.append(card6)
+player.deck.deck.append(card7)
+player.deck.deck.append(card8)
+player.deck.deck.append(card9)
 
 def get_hand(player):
 
-    return player.deck
+    return player.deck.deck
 
 hand = get_hand(player)
 
-selected_card = hand[0]
+# selected_card = hand[0]
 
 # print(goblin.name.title() + " ma " + str(goblin.attributes.health) + " punktów życia.")
 # Process.action_process(player, goblin, selected_card)

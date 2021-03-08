@@ -7,7 +7,7 @@ class ActionType():
             for key, value in card.target_status.items():
                 status_name = key
                 status_duration = int(value)
-                print(f'status {status_name} {status_duration}')
+                print(f'status: {status_name} - {status_duration}')
 
     @staticmethod
     def magic_attack(caster, target, card):
