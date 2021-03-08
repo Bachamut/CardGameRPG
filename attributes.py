@@ -14,16 +14,17 @@ class Attributes():
 
     @staticmethod
     def compare_attributes(attribute_first, attribute_second):
-
+        f = attribute_first
+        s = attribute_second
         result = Attributes()
-        result.health = attribute_first.health - attribute_second.health
-        result.mana = attribute_first.mana - attribute_second.mana
-        result.action_points = attribute_first.action_points - attribute_second.action_points
-        result.strength = attribute_first.strength - attribute_second.strength
-        result.dexterity = attribute_first.dexterity - attribute_second.dexterity
-        result.stamina = attribute_first.stamina - attribute_second.stamina
-        result.magic = attribute_first.magic - attribute_second.magic
-        result.physical_resist = attribute_first.physical_resist - attribute_second.physical_resist
-        result.magic_resist = attribute_first.magic_resist - attribute_second.magic_resist
+        result.health = f.health - s.health
+        result.mana = f.mana - s.mana
+        result.action_points = f.action_points - s.action_points
+        result.strength = f.strength - s.strength
+        result.dexterity = f.dexterity - s.dexterity
+        result.stamina = f.stamina - s.stamina
+        result.magic = f.magic - s.magic
+        result.physical_resist = f.physical_resist - s.physical_resist
+        result.magic_resist = f.magic_resist - s.magic_resist
 
         return result

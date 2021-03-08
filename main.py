@@ -23,18 +23,33 @@ card7 = CardManager.create_card("Bow Shot")
 card8 = CardManager.create_card("Shadow Dagger")
 card9 = CardManager.create_card("Shield Bash")
 
-player.deck.append(card1)
-player.deck.append(card2)
-player.deck.append(card3)
-player.deck.append(card4)
-player.deck.append(card5)
-player.deck.append(card6)
-player.deck.append(card7)
-player.deck.append(card8)
-player.deck.append(card9)
+
+player.deck.card_pool.append(card1)
+player.deck.card_pool.append(card1)
+player.deck.card_pool.append(card2)
+player.deck.card_pool.append(card2)
+player.deck.card_pool.append(card2)
+player.deck.card_pool.append(card3)
+player.deck.card_pool.append(card4)
+player.deck.card_pool.append(card5)
+player.deck.card_pool.append(card6)
+player.deck.card_pool.append(card7)
+player.deck.card_pool.append(card8)
+player.deck.card_pool.append(card9)
+print(f'Ilość kart w pool: {len(player.deck.card_pool)}')
+print(f'Ilość kart w deck: {len(player.deck)}')
+
+player.deck.add_card(card1)
+player.deck.add_card(card1)
+player.deck.add_card(card2)
+player.deck.add_card(card2)
+player.deck.add_card(card2)
+player.deck.add_card(card3)
+player.deck.add_card(card9)
+print(f'Ilość kart w pool: {len(player.deck.card_pool)}')
+print(f'Ilość kart w deck: {len(player.deck)}')
 
 def get_hand(player):
-
     return player.deck
 
 hand = get_hand(player)
@@ -67,7 +82,7 @@ hand = get_hand(player)
 #       + str(goblin.attributes.health) + " punktów życia.")
 # Process.kill_character(goblin)
 
-selected_card = hand[8]
+selected_card = hand[-1]
 
 print(goblin.name.title() + " ma " + str(goblin.attributes.health) + " punktów życia.")
 Process.action_process(player, goblin, selected_card)

@@ -12,9 +12,8 @@ class Card():
         self.multiplier = None
         self.ap_cost = None
         self.mana_cost = None
-        self.caster_status = []
-        self.target_status = []
-
+        self.caster_status = {}
+        self.target_status = {}
 
     def get_card(self):
 
