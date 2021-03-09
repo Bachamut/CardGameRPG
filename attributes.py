@@ -3,7 +3,7 @@ class Attributes():
     def __init__(self):
 
         self.health = 0
-        self.mana = 0
+        self.energy = 0
         self.action_points = 3
         self.strength = 0
         self.dexterity = 0
@@ -18,7 +18,7 @@ class Attributes():
         s = attribute_second
         result = Attributes()
         result.health = f.health - s.health
-        result.mana = f.mana - s.mana
+        result.energy = f.energy - s.energy
         result.action_points = f.action_points - s.action_points
         result.strength = f.strength - s.strength
         result.dexterity = f.dexterity - s.dexterity

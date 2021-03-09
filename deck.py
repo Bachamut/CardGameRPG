@@ -23,3 +23,7 @@ class Deck(list):
         self.card_pool.remove(card)
         self.append(card)
 
+    def remove_card(self, card):
+        self.remove(card)
+        self.card_pool.append(card)
+

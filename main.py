@@ -4,15 +4,27 @@ from character_manager import CharacterManager
 from item_manager import ItemManager
 from process import Process
 
+CardManager.load_config('card_types.json')
 CharacterManager.load_config('character_types.json')
+ItemManager.load_config('item_types.json')
+
 player = CharacterManager.create_character("character_edward")
 goblin = CharacterManager.create_character("character_goblin")
 
-ItemManager.load_config('item_types.json')
 item1 = ItemManager.create_item('Short sword')
 item2 = ItemManager.create_item('Simple shield')
 
-CardManager.load_config('card_types.json')
+player.add_item(item1)
+player.add_item(item2)
+print(player.inventory)
+print(player.equipment)
+
+player.add_equip('hand_r', item1)
+player.add_equip('hand_l', item2)
+
+print(player.equipment)
+
+
 card1 = CardManager.create_card("Heavy Strike")
 card2 = CardManager.create_card("Fast Strike")
 card3 = CardManager.create_card("Piercing Strike")
@@ -89,4 +101,11 @@ Process.action_process(player, goblin, selected_card)
 print(player.name.title() + " trafia " + goblin.name.title() + " swoim " + selected_card.card_name + " za "
       + str(selected_card.ap_cost) + "AP, zadając " + str(ActionType.dmg) + " obrażeń, zostaje mu "
       + str(goblin.attributes.health) + " punktów życia.")
-Process.kill_character(goblin)
+print(goblin.status)
+Process.end_turn(goblin)
+print(goblin.name.title() + " ma " + str(goblin.attributes.health) + " punktów życia.")
+print(goblin.status)
+print(f' {goblin.attributes.health}, {goblin.attributes.action_points}')
+Process.end_turn(goblin)
+print(goblin.status)
+print(f' {goblin.attributes.health}, {goblin.attributes.action_points}')

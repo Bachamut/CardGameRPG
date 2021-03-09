@@ -22,7 +22,7 @@ class CharacterManager():
         character.name = config['name']
         character.character_class = config['character_class']
         character.attributes.health = config['health']
-        character.attributes.mana = config['mana']
+        character.attributes.energy = config['energy']
         character.attributes.strength = config['strength']
         character.attributes.dexterity = config['dexterity']
         character.attributes.magic = config['magic']

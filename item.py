@@ -1,6 +1,10 @@
 from attributes import Attributes
 
 
+class NoCardInItemException(Exception):
+    pass
+
+
 class Item():
     """Define information about game item"""
 
@@ -14,6 +18,13 @@ class Item():
         self.required_attributes = Attributes()
         self.modifiers = Attributes()
         self.add_card = []
+
+
+    def get_card(self):
+        if self.add_card:
+            return self.add_card
+        else:
+            raise NoCardInItemException("No Card In Item Exception")
 
     def set_item(self,
                  item_id,

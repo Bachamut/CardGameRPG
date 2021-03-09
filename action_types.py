@@ -24,7 +24,6 @@ class ActionType():
                          card.multiplier * (100 - target.attributes.physical_resist) / 100
         target.attributes.health -= ActionType.dmg
         caster.attributes.action_points -= card.ap_cost
-        ActionType.set_status(card)
 
     @staticmethod
     def piercing_attack(caster, target, card):
