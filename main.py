@@ -21,9 +21,9 @@ print(player.equipment)
 
 player.add_equip('hand_r', item1)
 player.add_equip('hand_l', item2)
-
 print(player.equipment)
 
+player.remove_equip('hand_r', item1)
 
 card1 = CardManager.create_card("Heavy Strike")
 card2 = CardManager.create_card("Fast Strike")
@@ -34,7 +34,6 @@ card6 = CardManager.create_card("Arcana Shot")
 card7 = CardManager.create_card("Bow Shot")
 card8 = CardManager.create_card("Shadow Dagger")
 card9 = CardManager.create_card("Shield Bash")
-
 
 player.deck.card_pool.append(card1)
 player.deck.card_pool.append(card1)
@@ -58,8 +57,10 @@ player.deck.add_card(card2)
 player.deck.add_card(card2)
 player.deck.add_card(card3)
 player.deck.add_card(card9)
+
 print(f'Ilość kart w pool: {len(player.deck.card_pool)}')
 print(f'Ilość kart w deck: {len(player.deck)}')
+
 
 def get_hand(player):
     return player.deck

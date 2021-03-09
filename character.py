@@ -65,8 +65,25 @@ class Character():
         if self.equipment[slot] != None:
             self.equipment[slot] = None
             self.inventory.append(item)
+            try:
+                self._remove_item_card(item)
+            except NoCardInItemException:
+                print(f'Usunięto przedmiot {item}')
+                print(f'Nie usunięto karty ponieważ nie ma żadnych w przedmiocie')
+            else:
+                print(f'Usunięto przedmiot {item}')
+                print(f'Usunięto kartę {item.add_card}')
         else:
             raise EmptySlotException("Empty Slot Exception")
+
+    def _remove_item_card(self, item):
+        card_list = item.get_card()
+        for key, value in card_list.items():
+            for number in range(0, value):
+                # poprawić kod by podawać nazwę karty
+                self.deck.card_pool.pop(0)
+
+
 
 
 
