@@ -17,7 +17,7 @@ class Item():
         self.item_value = None
         self.required_attributes = Attributes()
         self.modifiers = Attributes()
-        self.add_card = []
+        self.add_card = {}
 
 
     def get_card(self):
@@ -42,4 +42,4 @@ class Item():
         self.item_value = item_value
         self.required_attributes = Attributes()
         self.modifiers = Attributes()
-        self.add_card = []
+        self.add_card = {}

@@ -5,13 +5,13 @@ class Status():
         if card.caster_status:
             for key, value in card.caster_status.items():
                 if key in caster.status:
-                    caster.status[key] = caster.status[key] + value
+                    caster.status[key] += value
                 else:
                     caster.status[key] = value
         if card.target_status:
             for key, value in card.target_status.items():
                 if key in target.status:
-                    target.status[key] = target.status[key] + value
+                    target.status[key] += value
                 else:
                     target.status[key] = value
 

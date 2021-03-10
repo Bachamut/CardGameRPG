@@ -1,18 +1,29 @@
-class EquipmentFullException(Exception):
+class InventoryFullException(Exception):
     pass
 
 
-class Inventory(list):
+class Inventory(dict):
 
     def __init__(self, capacity):
         super(Inventory, self).__init__()
         self._capacity = capacity
 
-    def append(self, item):
-        if len(self) <= self._capacity:
-            return list.append(self, item)
+    def add_item(self, key_name, quantity=1):
+        # jeżeli ilość kluczy jest >= capacity to nie będzie stackować dalej itemów
+        if len(self) < self._capacity:
+            if key_name in self:
+                self[key_name] += quantity
+            else:
+                self[key_name] = quantity
         else:
-            raise EquipmentFullException("Equipment Full Exception")
+            raise InventoryFullException("Inventory Full Exception")
+
+    def remove_item(self, key_name, quantity=1):
+        # remove item form inventory
+        if key_name in self:
+            self[key_name] -= quantity
+            if self[key_name] <= 0:
+                del self[key_name]
 
     # def set_capacity(capacity):
 
