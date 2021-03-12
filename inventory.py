@@ -9,8 +9,7 @@ class Inventory(dict):
         self._capacity = capacity
 
     def add_item(self, key_name, quantity=1):
-        # jeżeli ilość kluczy jest >= capacity to nie będzie stackować dalej itemów
-        if len(self) < self._capacity:
+        if sum(self.values()) < self._capacity:
             if key_name in self:
                 self[key_name] += quantity
             else:

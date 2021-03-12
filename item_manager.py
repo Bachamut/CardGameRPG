@@ -25,6 +25,7 @@ class ItemManager():
         item.slot_type = config['slot_type']
         item.description = config['description']
         item.item_value = config['item_value']
+        item.stack_amount = config['stack_amount']
         item.required_attributes.health = config['r_health']
         item.required_attributes.energy = config['r_energy']
         item.required_attributes.strength = config['r_strength']

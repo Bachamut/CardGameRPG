@@ -15,6 +15,7 @@ class Item():
         self.slot_type = ''
         self.description = ''
         self.item_value = None
+        self.stack_amount = None
         self.required_attributes = Attributes()
         self.modifiers = Attributes()
         self.add_card = {}

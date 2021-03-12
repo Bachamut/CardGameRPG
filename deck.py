@@ -14,4 +14,3 @@ class Deck(dict):
             return self
         else:
             raise InvalidDeckSizeException("Invalid Deck Size Exception")
-

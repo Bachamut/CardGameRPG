@@ -38,10 +38,11 @@ class Character():
         # add item to equipment slot
         item_instance = ItemManager.create_item(item)
         if item_instance.slot_type == slot:
-            self.inventory[item] -= 1
+            self.inventory.remove_item(item)
+            # self.inventory[item] -= 1
             if self.equipment[slot] != None:
                 removed_item = self.equipment[slot]
-                self.inventory[removed_item.item_name] += 1
+                self.inventory.add_item(removed_item.item_name)
             self.equipment[slot] = item_instance
             # add card from item to deck
             try:
@@ -66,7 +67,7 @@ class Character():
         # remove item form equipment slot
         if self.equipment[slot] != None:
             removed_item = self.equipment[slot]
-            self.inventory[removed_item.item_name] += 1
+            self.inventory.add_item(removed_item.item_name)
             self.equipment[slot] = None
             try:
                 self._remove_item_card(removed_item)
@@ -76,6 +77,7 @@ class Character():
             else:
                 print(f'Z ekwipunku usunięto przedmiot: {removed_item.item_name}')
                 print(f'Usunięto kartę {removed_item.add_card}')
+
         else:
             raise EmptySlotException("Empty Slot Exception")
 

@@ -14,7 +14,6 @@ class BattleLogic():
                 card = CardManager.create_card(card_instance)
                 character.battledeck.append(card)
 
-
     @staticmethod
     def card_draw(character, draw_pile):
         card = draw_pile.pop(0)
