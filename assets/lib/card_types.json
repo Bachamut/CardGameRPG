@@ -1,6 +1,7 @@
 {
   "Heavy Strike":
   {
+    "resource": "HeavyStrikeCard",
     "card_id": 1,
     "card_name": "Heavy Strike",
     "action_type": "basic_attack",
@@ -16,6 +17,7 @@
 
   "Fast Strike":
   {
+    "resource": "FastStrikeCard",
     "card_id": 2,
     "card_name": "Fast Strike",
     "action_type": "basic_attack",
@@ -31,6 +33,7 @@
 
     "Piercing Strike":
   {
+    "resource": "PiercingStrikeCard",
     "card_id": 3,
     "card_name": "Piercing Strike",
     "action_type": "piercing_attack",
@@ -46,6 +49,7 @@
 
     "Nimble Strike":
   {
+    "resource": "NimbleStrikeCard",
     "card_id": 4,
     "card_name": "Nimble Strike",
     "action_type": "agile_attack",
@@ -61,6 +65,7 @@
 
     "Magic Strike":
   {
+    "resource": "MagicStrikeCard",
     "card_id": 5,
     "card_name": "Magic Strike",
     "action_type": "magic_attack",
@@ -76,6 +81,7 @@
 
     "Arcana Shot":
   {
+    "resource": "ArcanaShotCard",
     "card_id": 6,
     "card_name": "Arcana Shot",
     "action_type": "magic_spell",
@@ -91,6 +97,7 @@
 
   "Bow Shot":
   {
+    "resource": "BowShotCard",
     "card_id": 7,
     "card_name": "Bow Shot",
     "action_type": "bow_attack",
@@ -106,6 +113,7 @@
 
   "Shadow Dagger":
   {
+    "resource": "ShadowDaggerCard",
     "card_id": 8,
     "card_name": "Shadow Dagger",
     "action_type": "agile_attack",
@@ -121,6 +129,7 @@
 
   "Shield Bash":
   {
+    "resource": "ShieldBashCard",
     "card_id": 9,
     "card_name": "Shield Bash",
     "action_type": "basic_attack",

@@ -1,11 +1,11 @@
-from attributes import Attributes
-from battle_logic import BattleLogic
-from card_manager import CardManager
-from deck import Deck
-from equipment import Equipment
-from inventory import Inventory
-from item import NoCardInItemException
-from item_manager import ItemManager
+from assets.lib.attributes import Attributes
+from assets.lib.battle_logic import BattleLogic
+from assets.lib.card_manager import CardManager
+from assets.lib.deck import Deck
+from assets.lib.equipment import Equipment
+from assets.lib.inventory import Inventory
+from assets.lib.item import NoCardInItemException
+from assets.lib.item_manager import ItemManager
 
 
 class InvalidSlotException(Exception):
@@ -32,6 +32,7 @@ class Character():
         self.status = {}
         self.battledeck = []
         self.hand = []
+        self.card_draw = 3
 
 
     def add_equip(self, slot, item):

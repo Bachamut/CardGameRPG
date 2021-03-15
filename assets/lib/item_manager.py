@@ -1,6 +1,6 @@
 import json
 
-from item import Item
+from assets.lib.item import Item
 
 
 class ItemManager():

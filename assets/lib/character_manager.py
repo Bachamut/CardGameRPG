@@ -1,6 +1,6 @@
 import json
 
-from character import Character
+from assets.lib.character import Character
 
 
 class CharacterManager():

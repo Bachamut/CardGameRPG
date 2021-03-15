@@ -1,6 +1,6 @@
 import json
 
-from card import Card
+from assets.lib.card import Card
 
 
 class CardManager():

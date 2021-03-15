@@ -1,4 +1,4 @@
-from attributes import Attributes
+from assets.lib.attributes import Attributes
 
 
 class NoCardInItemException(Exception):

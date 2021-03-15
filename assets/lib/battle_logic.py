@@ -1,4 +1,4 @@
-from card_manager import CardManager
+from assets.lib.card_manager import CardManager
 import random
 
 class BattleLogic():
@@ -24,7 +24,4 @@ class BattleLogic():
         draw_pile = random.sample(character.battledeck, len(character.battledeck))
         for draw_card in range(0, draw_amount):
             BattleLogic.card_draw(character, draw_pile)
-
-    # @staticmethod
-    # def deck_shuffle():
 

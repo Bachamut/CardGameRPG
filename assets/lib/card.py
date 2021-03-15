@@ -1,10 +1,14 @@
-class Card():
+from game_object.game_object import GameObject
+
+
+class Card(GameObject):
     """Define information about card object"""
 
     def __init__(self):
+        super(Card, self).__init__()
 
         self.card_id = None
-        self.name = ''
+        self.card_name = ''
         self.action_type = ''
         self.description = ''
         self.character_class = []
@@ -15,10 +19,15 @@ class Card():
         self.caster_status = {}
         self.target_status = {}
 
+        self.selected = False
+
+    def on_create(self):
+        pass
+
     def get_card(self):
 
         self.card_info = {'card_id': self.card_id,
-                          'name': self.name,
+                          'name': self.card_name,
                           'action_type': self.action_type,
                           'description': self.description,
                           'character_class': self.character_class,

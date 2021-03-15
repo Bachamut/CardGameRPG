@@ -14,9 +14,7 @@ goblin = CharacterManager.create_character("character_goblin")
 
 player.inventory.add_item('Short sword')
 player.inventory.add_item('Simple shield')
-player.inventory.add_item('Simple shield')
-player.inventory.add_item('Short sword')
-player.inventory.add_item('Simple shield')
+
 print(f'\nParametry startowe:')
 print(f'deck: {player.deck}')
 print(f'card_pool: {player.card_pool}')
