@@ -1,0 +1,11 @@
+{
+  "project_name": "Card Game RPG",
+  "window_width": "1200",
+  "window_height": "800",
+  "aspect_ratio": "16:10",
+  "full_screen": false,
+  "grid_points": "4",
+  "project_icon": "assets/grid_logo.png",
+  "target_fps": "60",
+  "debug": true
+}

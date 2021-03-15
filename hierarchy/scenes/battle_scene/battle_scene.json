@@ -1,0 +1,173 @@
+{
+  "scene_name": "battle_scene",
+  "resources": ["resources.json"],
+
+  "entities":
+          [
+            {
+              "entity": "GameLogic",
+              "object":
+              {
+                "object_class": "GameLogic",
+                "object_type": null,
+                "object_label": "GameLogic",
+                "create": true,
+                "properties": ["ScriptProperty", "EventProperty"],
+                "configure_properties":
+                {
+                  "ScriptProperty": {"set_script": "GameLogic"}
+                }
+              }
+            },
+            {
+              "entity": "CardContainer",
+              "object":
+              {
+                "object_class": "CardContainer",
+                "object_type": null,
+                "object_label": "CardContainer",
+                "create": true,
+                "properties": ["ScriptProperty", "EventProperty", "TransformProperty", "TranslateProperty"],
+                "configure_properties":
+                {
+                  "ScriptProperty": {"set_script": "CardContainer"}
+                }
+              }
+            },
+            {
+              "entity": "ArcanaShot",
+              "object":
+              {
+                "object_class": "Card",
+                "object_type": "Card",
+                "object_label": "ArcanaShot",
+                "create": false,
+                "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+                "configure_properties":
+                {
+                  "SpriteProperty": {"set_resource": "ArcanaShotCard"}
+                }
+              }
+            },
+            {
+              "entity": "BowShot",
+              "object":
+              {
+                "object_class": "Card",
+                "object_type": "Card",
+                "object_label": "BowShot",
+                "create": false,
+                "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+                "configure_properties":
+                {
+                  "SpriteProperty": {"set_resource": "BowShotCard"}
+                }
+              }
+            },
+            {
+              "entity": "FastStrike",
+              "object":
+              {
+                "object_class": "Card",
+                "object_type": "Card",
+                "object_label": "FastStrike",
+                "create": false,
+                "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+                "configure_properties":
+                {
+                  "SpriteProperty": {"set_resource": "FastStrikeCard"}
+                }
+              }
+            },
+            {
+              "entity": "HeavyStrike",
+              "object":
+              {
+                "object_class": "Card",
+                "object_type": "Card",
+                "object_label": "HeavyStrike",
+                "create": false,
+                "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+                "configure_properties":
+                {
+                  "SpriteProperty": {"set_resource": "HeavyStrikeCard"}
+                }
+              }
+            },
+            {
+              "entity": "MagicStrike",
+              "object":
+              {
+                "object_class": "Card",
+                "object_type": "Card",
+                "object_label": "MagicStrike",
+                "create": false,
+                "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+                "configure_properties":
+                {
+                  "SpriteProperty": {"set_resource": "MagicStrikeCard"}
+                }
+              }
+            },
+            {
+              "entity": "NimbleStrike",
+              "object":
+              {
+                "object_class": "Card",
+                "object_type": "Card",
+                "object_label": "NimbleStrike",
+                "create": false,
+                "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+                "configure_properties":
+                {
+                  "SpriteProperty": {"set_resource": "NimbleStrikeCard"}
+                }
+              }
+            },
+            {
+              "entity": "PiercingStrike",
+              "object":
+              {
+                "object_class": "Card",
+                "object_type": "Card",
+                "object_label": "PiercingStrike",
+                "create": false,
+                "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+                "configure_properties":
+                {
+                  "SpriteProperty": {"set_resource": "PiercingStrikeCard"}
+                }
+              }
+            },
+            {
+              "entity": "ShadowDagger",
+              "object":
+              {
+                "object_class": "Card",
+                "object_type": "Card",
+                "object_label": "ShadowDagger",
+                "create": false,
+                "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+                "configure_properties":
+                {
+                  "SpriteProperty": {"set_resource": "ShadowDaggerCard"}
+                }
+              }
+            },
+            {
+              "entity": "ShieldBash",
+              "object":
+              {
+                "object_class": "Card",
+                "object_type": "Card",
+                "object_label": "ShieldBash",
+                "create": false,
+                "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+                "configure_properties":
+                {
+                  "SpriteProperty": {"set_resource": "ShieldBashCard"}
+                }
+              }
+            }
+          ]
+}

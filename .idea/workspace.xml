@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2c053c44-00c5-4458-923d-beb1f262ae7d" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1pCvl3fiYROf81b3Ddng4HcQASt" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../modules" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\python_projects\CardGame\CardGameRPG\assets\lib" />
+      <recent name="C:\python_projects\CardGame\CardGameRPG\assets" />
+      <recent name="C:\python_projects\CardGameRPG" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="card_game_rpg" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="CardGameRPG" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/card_game_rpg.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2c053c44-00c5-4458-923d-beb1f262ae7d" name="Default Changelist" comment="" />
+      <created>1614700033742</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1614700033742</updated>
+    </task>
+    <task id="LOCAL-00001" summary="changed:&#10;character&#10;inventory&#10;deck">
+      <created>1615158404050</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1615158404050</updated>
+    </task>
+    <task id="LOCAL-00002" summary="changed:&#10;character funtion matched to rebuild code.&#10;Deck's renamed variables.&#10;rebuild:&#10;Inventory inherits by list&#10;Equipment inherits by dict">
+      <created>1615168222458</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1615168222458</updated>
+    </task>
+    <task id="LOCAL-00003" summary="rebuild:&#10;Deck inherits by list">
+      <created>1615170176540</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1615170176540</updated>
+    </task>
+    <task id="LOCAL-00004" summary="change:&#10;new method added in Deck">
+      <created>1615173016683</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1615173016683</updated>
+    </task>
+    <task id="LOCAL-00005" summary="new:&#10;Status class with status methods&#10;methods for status processing&#10;equip&amp;remove inventory items&#10;change:&#10;refactor Attributes.mana-&gt;energy">
+      <created>1615319119770</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1615319119770</updated>
+    </task>
+    <task id="LOCAL-00006" summary="new:&#10;_remove_item_card method&#10;change:">
+      <created>1615328850233</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1615328850233</updated>
+    </task>
+    <task id="LOCAL-00007" summary="new:&#10;Refactor deck, inventory and used methods&#10;BattleLogic class">
+      <created>1615407233738</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1615407233738</updated>
+    </task>
+    <task id="LOCAL-00008" summary="initial commit">
+      <created>1615846016676</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1615846016676</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="changed:&#10;character&#10;inventory&#10;deck" />
+    <MESSAGE value="changed:&#10;character funtion matched to rebuild code.&#10;Deck's renamed variables.&#10;rebuild:&#10;Inventory inherits by list&#10;Equipment inherits by dict" />
+    <MESSAGE value="rebuild:&#10;Deck inherits by list" />
+    <MESSAGE value="change:&#10;new method added in Deck" />
+    <MESSAGE value="new:&#10;Status class with status methods&#10;methods for status processing&#10;equip&amp;remove inventory items&#10;change:&#10;refactor Attributes.mana-&gt;energy" />
+    <MESSAGE value="new:&#10;_remove_item_card method&#10;change:" />
+    <MESSAGE value="new:&#10;Refactor deck, inventory and used methods&#10;BattleLogic class" />
+    <MESSAGE value="initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
