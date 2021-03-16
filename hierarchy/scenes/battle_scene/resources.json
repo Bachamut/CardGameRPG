@@ -8,16 +8,40 @@
               "file": "game_logic"
             },
             {
-              "key": "CardContainer",
+              "key": "Character",
               "type": "script",
               "path": "assets/lib",
-              "file": "card_container"
+              "file": "character"
             },
             {
               "key": "Card",
               "type": "script",
               "path": "assets/lib",
               "file": "card"
+            },
+            {
+              "key": "Item",
+              "type": "script",
+              "path": "assets/lib",
+              "file": "item"
+            },
+            {
+              "key": "CharacterContainer",
+              "type": "script",
+              "path": "assets/lib",
+              "file": "character_container"
+            },
+            {
+              "key": "CardContainer",
+              "type": "script",
+              "path": "assets/lib",
+              "file": "card_container"
+            },
+            {
+              "key": "ItemContainer",
+              "type": "script",
+              "path": "assets/lib",
+              "file": "item_container"
             },
             {
               "key": "ArcanaShotCard",

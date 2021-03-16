@@ -1,6 +1,7 @@
 import pygame
 
 from assets.lib.card_manager import CardManager
+from assets.lib.character_container import CharacterContainer
 from assets.lib.game_logic import GameLogic
 from game_object.game_object import GameObject
 
@@ -25,7 +26,7 @@ class CardContainer(GameObject):
         self._initialized = True
 
         step = 0
-        for key, value in GameLogic.current_player.deck.items():
+        for key, value in CharacterContainer.current_player.deck.items():
             for number in range(0, value):
                 card = CardManager.create_card(key)
                 card.object_class = 'Card'
@@ -49,7 +50,7 @@ class CardContainer(GameObject):
                 self.onboard_cards[0].selected = True
 
     def on_script(self):
-        if not self._initialized and GameLogic.initialized:
+        if not self._initialized and GameLogic.initialized and CharacterContainer._initialize:
             self._initialize()
         else:
             pass
@@ -69,7 +70,7 @@ class CardContainer(GameObject):
 
     def _on_arrow_right(self, event):
         if event.key == pygame.K_RIGHT:
-            if self.selected_card < 2:
+            if self.selected_card < (sum(CharacterContainer.current_player.deck.values()) - 1):
                 self.onboard_cards[self.selected_card].selected = False
                 self.selected_card += 1
                 print(f'{self.selected_card}')

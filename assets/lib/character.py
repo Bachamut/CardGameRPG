@@ -6,6 +6,7 @@ from assets.lib.equipment import Equipment
 from assets.lib.inventory import Inventory
 from assets.lib.item import NoCardInItemException
 from assets.lib.item_manager import ItemManager
+from game_object.game_object import GameObject
 
 
 class InvalidSlotException(Exception):
@@ -16,7 +17,7 @@ class EmptySlotException(Exception):
     pass
 
 
-class Character():
+class Character(GameObject):
 
     def __init__(self):
 

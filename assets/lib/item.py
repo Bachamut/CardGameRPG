@@ -1,11 +1,12 @@
 from assets.lib.attributes import Attributes
+from game_object.game_object import GameObject
 
 
 class NoCardInItemException(Exception):
     pass
 
 
-class Item():
+class Item(GameObject):
     """Define information about game item"""
 
     def __init__(self):

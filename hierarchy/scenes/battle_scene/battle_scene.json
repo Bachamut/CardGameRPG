@@ -20,6 +20,36 @@
               }
             },
             {
+              "entity": "CharacterContainer",
+              "object":
+              {
+                "object_class": "CharacterContainer",
+                "object_type": null,
+                "object_label": "CharacterContainer",
+                "create": true,
+                "properties": ["ScriptProperty", "TransformProperty"],
+                "configure_properties":
+                {
+                  "ScriptProperty": {"set_script": "CharacterContainer"}
+                }
+              }
+            },
+            {
+              "entity": "ItemContainer",
+              "object":
+              {
+                "object_class": "ItemContainer",
+                "object_type": null,
+                "object_label": "ItemContainer",
+                "create": false,
+                "properties": ["ScriptProperty", "EventProperty", "TransformProperty", "TranslateProperty"],
+                "configure_properties":
+                {
+                  "ScriptProperty": {"set_script": "ItemContainer"}
+                }
+              }
+            },
+            {
               "entity": "CardContainer",
               "object":
               {
