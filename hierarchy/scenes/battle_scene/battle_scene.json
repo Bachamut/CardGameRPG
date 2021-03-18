@@ -20,47 +20,92 @@
               }
             },
             {
-              "entity": "CharacterContainer",
+              "entity": "BattleLogic",
               "object":
               {
-                "object_class": "CharacterContainer",
+                "object_class": "BattleLogic",
                 "object_type": null,
-                "object_label": "CharacterContainer",
+                "object_label": "BattleLogic",
+                "create": true,
+                "properties": ["ScriptProperty", "EventProperty"],
+                "configure_properties":
+                {
+                  "ScriptProperty": {"set_script": "BattleLogic"}
+                }
+              }
+            },
+            {
+              "entity": "CharacterModel",
+              "object":
+              {
+                "object_class": "CharacterModel",
+                "object_type": null,
+                "object_label": "CharacterModel",
+                "create": true,
+                "properties": ["ScriptProperty", "EventProperty"],
+                "configure_properties":
+                {
+                  "ScriptProperty": {"set_script": "CharacterModel"}
+                }
+              }
+            },
+            {
+              "entity": "CardModel",
+              "object":
+              {
+                "object_class": "CardModel",
+                "object_type": null,
+                "object_label": "CardModel",
+                "create": true,
+                "properties": ["ScriptProperty", "EventProperty", "TransformProperty", "TranslateProperty"],
+                "configure_properties":
+                {
+                  "ScriptProperty": {"set_script": "CardModel"}
+                }
+              }
+            },
+            {
+              "entity": "CharacterView",
+              "object":
+              {
+                "object_class": "CharacterView",
+                "object_type": null,
+                "object_label": "CharacterView",
                 "create": true,
                 "properties": ["ScriptProperty", "TransformProperty"],
                 "configure_properties":
                 {
-                  "ScriptProperty": {"set_script": "CharacterContainer"}
+                  "ScriptProperty": {"set_script": "CharacterView"}
                 }
               }
             },
             {
-              "entity": "ItemContainer",
+              "entity": "ItemView",
               "object":
               {
-                "object_class": "ItemContainer",
+                "object_class": "ItemView",
                 "object_type": null,
-                "object_label": "ItemContainer",
+                "object_label": "ItemView",
                 "create": false,
-                "properties": ["ScriptProperty", "EventProperty", "TransformProperty", "TranslateProperty"],
+                "properties": ["ScriptProperty"],
                 "configure_properties":
                 {
-                  "ScriptProperty": {"set_script": "ItemContainer"}
+                  "ScriptProperty": {"set_script": "ItemView"}
                 }
               }
             },
             {
-              "entity": "CardContainer",
+              "entity": "CardView",
               "object":
               {
-                "object_class": "CardContainer",
+                "object_class": "CardView",
                 "object_type": null,
-                "object_label": "CardContainer",
+                "object_label": "CardView",
                 "create": true,
                 "properties": ["ScriptProperty", "EventProperty", "TransformProperty", "TranslateProperty"],
                 "configure_properties":
                 {
-                  "ScriptProperty": {"set_script": "CardContainer"}
+                  "ScriptProperty": {"set_script": "CardView"}
                 }
               }
             },

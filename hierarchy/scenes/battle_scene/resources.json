@@ -8,6 +8,12 @@
               "file": "game_logic"
             },
             {
+              "key": "BattleLogic",
+              "type": "script",
+              "path": "assets/lib",
+              "file": "battle_logic"
+            },
+            {
               "key": "Character",
               "type": "script",
               "path": "assets/lib",
@@ -26,22 +32,34 @@
               "file": "item"
             },
             {
-              "key": "CharacterContainer",
+              "key": "CharacterModel",
               "type": "script",
               "path": "assets/lib",
-              "file": "character_container"
+              "file": "character_model"
             },
             {
-              "key": "CardContainer",
+              "key": "CardModel",
               "type": "script",
               "path": "assets/lib",
-              "file": "card_container"
+              "file": "card_model"
             },
             {
-              "key": "ItemContainer",
+              "key": "CharacterView",
               "type": "script",
               "path": "assets/lib",
-              "file": "item_container"
+              "file": "character_view"
+            },
+            {
+              "key": "CardView",
+              "type": "script",
+              "path": "assets/lib",
+              "file": "card_view"
+            },
+            {
+              "key": "ItemView",
+              "type": "script",
+              "path": "assets/lib",
+              "file": "item_view"
             },
             {
               "key": "ArcanaShotCard",
