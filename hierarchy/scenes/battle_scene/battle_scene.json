@@ -35,6 +35,21 @@
               }
             },
             {
+              "entity": "BattleBackground",
+              "object":
+              {
+                "object_class": "GameObject",
+                "object_type": null,
+                "object_label": "BattleBackground",
+                "create": true,
+                "properties": ["BlitProperty", "SpriteProperty", "TransformProperty"],
+                "configure_properties":
+                {
+                  "SpriteProperty": {"set_resource": "BattleBackground"}
+                }
+              }
+            },
+            {
               "entity": "CharacterModel",
               "object":
               {

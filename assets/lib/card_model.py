@@ -1,5 +1,7 @@
 from random import sample
 
+import pygame
+
 from assets.lib.battle_logic import BattleLogic
 from assets.lib.card_manager import CardManager
 from assets.lib.character_model import CharacterModel
@@ -11,15 +13,16 @@ class CardModel(GameObject):
 
     _initialized = False
     active = BattleLogic.card_model_active
+    onboard_cards = []
+    selected_card = 0
 
     def __init__(self):
         super(CardModel, self).__init__()
-        self.character = BattleLogic.current_character
-
-        self.selected_card = 0
+        self.character = None
 
     def _initialize(self):
         CardModel._initialized = True
+        self.character = BattleLogic.current_character
 
     def on_create(self):
         self.position = self.property('TransformProperty').position
@@ -51,7 +54,7 @@ class CardModel(GameObject):
                 position.y = 576
 
                 GameObject.add_new_object(card_instance)
-                # CardView.attach_child(card_instance)
+                # CardModel.onboard_cards.append(card_instance)
 
                 character.battledeck.append(card_instance)
         # creating draw_pile that is used in battle mode
@@ -70,7 +73,7 @@ class CardModel(GameObject):
             CardModel.draw_card(character)
 
     def on_script(self):
-        if not self._initialized and GameLogic._initialized and BattleLogic._initialized and CharacterModel._initialized:
+        if not self._initialized and GameLogic._initialized and BattleLogic._initialized and CharacterModel._initialized and BattleLogic.started:
             self._initialize()
         else:
             pass
@@ -78,37 +81,27 @@ class CardModel(GameObject):
         if BattleLogic.card_model_active:
             pass
 
-    #     # przenieść do CardView
-    #     for card in self.character.draw_pile:
-    #         if card.selected == True:
-    #             position = card.property('TransformProperty').position
-    #             position.y = 0
-    #         elif card.selected == False:
-    #             position = card.property('TransformProperty').position
-    #             position.y = 16
-    #
     def on_event(self, event):
-        if BattleLogic.card_model_active:
-            pass
+        if BattleLogic.card_model_active and CardModel._initialized:
+
+            if event.type == pygame.KEYDOWN:
+                self._on_arrow_right(event)
+                self._on_arrow_left(event)
         pass
-    #
-    #     if event.type == pygame.KEYDOWN:
-    #         self._on_arrow_right(event)
-    #         self._on_arrow_left(event)
-    #
-    # def _on_arrow_right(self, event):
-    #     if event.key == pygame.K_RIGHT:
-    #         # CharacterView.current_character -> BattleLogic.current_character
-    #         if self.selected_card < (sum(CharacterView.current_player.deck.values()) - 1):
-    #             self.character.hand[self.selected_card].selected = False
-    #             self.selected_card += 1
-    #             print(f'{self.selected_card}')
-    #             self.character.hand[self.selected_card].selected = True
-    #
-    # def _on_arrow_left(self, event):
-    #     if event.key == pygame.K_LEFT:
-    #         if self.selected_card > 0:
-    #             self.character.hand[self.selected_card].selected = False
-    #             self.selected_card -= 1
-    #             print(f'{self.selected_card}')
-    #             self.character.hand[self.selected_card].selected = True
+
+    def _on_arrow_right(self, event):
+        if event.key == pygame.K_RIGHT:
+            # CharacterView.current_character -> BattleLogic.current_character
+            if CardModel.selected_card < len(self.character.hand) - 1:
+                self.character.hand[CardModel.selected_card].selected = False
+                CardModel.selected_card += 1
+                print(f'{self.selected_card}')
+                self.character.hand[CardModel.selected_card].selected = True
+
+    def _on_arrow_left(self, event):
+        if event.key == pygame.K_LEFT:
+            if CardModel.selected_card > 0:
+                self.character.hand[CardModel.selected_card].selected = False
+                CardModel.selected_card -= 1
+                print(f'{self.selected_card}')
+                self.character.hand[CardModel.selected_card].selected = True

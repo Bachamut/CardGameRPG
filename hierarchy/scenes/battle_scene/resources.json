@@ -62,6 +62,24 @@
               "file": "item_view"
             },
             {
+              "key": "BattleBackground",
+              "type": "image",
+              "path": "assets",
+              "file": "BattleBackground.png"
+            },
+            {
+              "key": "Players",
+              "type": "image",
+              "path": "assets",
+              "file": "Players.png"
+            },
+            {
+              "key": "Enemies",
+              "type": "image",
+              "path": "assets",
+              "file": "Enemies.png"
+            },
+            {
               "key": "ArcanaShotCard",
               "type": "image",
               "path": "assets/cards",
