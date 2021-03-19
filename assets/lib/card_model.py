@@ -1,4 +1,4 @@
-from random import random
+from random import sample
 
 from assets.lib.battle_logic import BattleLogic
 from assets.lib.card_manager import CardManager
@@ -54,19 +54,20 @@ class CardModel(GameObject):
                 # CardView.attach_child(card_instance)
 
                 character.battledeck.append(card_instance)
+        # creating draw_pile that is used in battle mode
+        character.draw_pile = sample(character.battledeck, len(character.battledeck))
 
-        # character.draw_pile = random.sample(character.battledeck, len(character.battledeck))
-        character.draw_pile = character.battledeck
-
-    def draw_card(self):
-        card = self.character.draw_pile.pop(0)
-        self.character.hand.append(card)
+    @staticmethod
+    def draw_card(character):
+        card = character.draw_pile.pop(0)
+        character.hand.append(card)
         # zrobić opuszczanie kart poprzednio wybranych
-        self.character.hand[0].selected = True
+        character.hand[0].selected = True
 
-    def draw_hand(self):
-        for card in range(0, self.character.card_draw):
-            self.draw_card()
+    @staticmethod
+    def draw_hand(character):
+        for it in range(0, character.card_draw):
+            CardModel.draw_card(character)
 
     def on_script(self):
         if not self._initialized and GameLogic._initialized and BattleLogic._initialized and CharacterModel._initialized:
@@ -77,24 +78,24 @@ class CardModel(GameObject):
         if BattleLogic.card_model_active:
             pass
 
-        # przenieść do CardView
-        # for card in self.character.draw_pile:
-        #     if card.selected == True:
-        #         position = card.property('TransformProperty').position
-        #         position.y = 0
-        #     elif card.selected == False:
-        #         position = card.property('TransformProperty').position
-        #         position.y = 16
-
+    #     # przenieść do CardView
+    #     for card in self.character.draw_pile:
+    #         if card.selected == True:
+    #             position = card.property('TransformProperty').position
+    #             position.y = 0
+    #         elif card.selected == False:
+    #             position = card.property('TransformProperty').position
+    #             position.y = 16
+    #
     def on_event(self, event):
         if BattleLogic.card_model_active:
             pass
         pass
-
-        # if event.type == pygame.KEYDOWN:
-            # self._on_arrow_right(event)
-            # self._on_arrow_left(event)
-
+    #
+    #     if event.type == pygame.KEYDOWN:
+    #         self._on_arrow_right(event)
+    #         self._on_arrow_left(event)
+    #
     # def _on_arrow_right(self, event):
     #     if event.key == pygame.K_RIGHT:
     #         # CharacterView.current_character -> BattleLogic.current_character

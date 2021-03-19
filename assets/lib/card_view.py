@@ -1,5 +1,7 @@
+import pygame
+
+from assets.lib.battle_logic import BattleLogic
 from assets.lib.card_model import CardModel
-from assets.lib.game_logic import GameLogic
 from game_object.game_object import GameObject
 
 
@@ -12,18 +14,19 @@ class CardView(GameObject):
 
 
     #     self.position = None
-    #     self.onboard_cards = []
-    #     self.selected_card = 0
+
+        self.selected_card = 0
 
     def on_create(self):
         pass
 
     def _initialize(self):
         CardView._initialized = True
-
+        self.character = BattleLogic.current_character
         self.position = self.property('TransformProperty').position
         self.position.y = 576
         self.position.x = 24
+        self.character.hand[0].selected = True
 
     #     step = 0
     #     for key, value in CharacterView.current_character.deck.items():
@@ -50,18 +53,18 @@ class CardView(GameObject):
     #             self.onboard_cards[0].selected = True
 
     def on_script(self):
-        if not CardView._initialized and CardModel._initialized:
+        if not CardView._initialized and CardModel._initialized and BattleLogic.started == True:
             self._initialize()
         else:
             pass
 
-    #     for card in self.onboard_cards:
-    #         if card.selected == True:
-    #             position = card.property('TransformProperty').position
-    #             position.y = 0
-    #         elif card.selected == False:
-    #             position = card.property('TransformProperty').position
-    #             position.y = 16
+        # for card in self.character.hand:
+        #     if card.selected == True:
+        #         position = card.property('TransformProperty').position
+        #         position.y = 0
+        #     elif card.selected == False:
+        #         position = card.property('TransformProperty').position
+        #         position.y = 16
     #
     def on_event(self, event):
         pass
@@ -71,16 +74,16 @@ class CardView(GameObject):
     #
     # def _on_arrow_right(self, event):
     #     if event.key == pygame.K_RIGHT:
-    #         if self.selected_card < (sum(CharacterView.current_character.deck.values()) - 1):
-    #             self.onboard_cards[self.selected_card].selected = False
+    #         if self.selected_card < (sum(self.character.hand.values()) - 1):
+    #             self.character.hand[self.selected_card].selected = False
     #             self.selected_card += 1
     #             print(f'{self.selected_card}')
-    #             self.onboard_cards[self.selected_card].selected = True
+    #             self.character.hand[self.selected_card].selected = True
     #
     # def _on_arrow_left(self, event):
     #     if event.key == pygame.K_LEFT:
     #         if self.selected_card > 0:
-    #             self.onboard_cards[self.selected_card].selected = False
+    #             self.character.hand[self.selected_card].selected = False
     #             self.selected_card -= 1
     #             print(f'{self.selected_card}')
-    #             self.onboard_cards[self.selected_card].selected = True
+    #             self.character.hand[self.selected_card].selected = True

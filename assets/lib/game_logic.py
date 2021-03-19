@@ -35,17 +35,12 @@ class GameLogic(GameObject):
         GameLogic.party.append(player)
 
         player = CharacterManager.create_character("character_lucius")
-        player.inventory.add_item('Short sword')
-        player.add_equip('hand_r', 'Short sword')
-        player.deck['Nimble Strike'] = 2
+        player.deck['Nimble Strike'] = 4
         GameLogic.party.append(player)
 
     def _create_enemy(self):
         enemy = CharacterManager.create_character("character_goblin")
-        enemy.inventory.add_item('Short sword')
-        enemy.inventory.add_item('Simple shield')
-        enemy.add_equip('hand_r', 'Short sword')
-        enemy.add_equip('hand_l', 'Simple shield')
+        enemy.deck['Piercing Strike'] = 4
         GameLogic.enemies.append(enemy)
 
     def on_create(self):

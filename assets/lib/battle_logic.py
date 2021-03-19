@@ -38,6 +38,7 @@ class BattleLogic(GameObject):
             card_model = GameObject.get_object_pool().select_with_label('CardModel')[0]
             for character in character_model.order_list:
                 card_model.create_battledeck(character)
+                card_model.draw_hand(character)
 
             BattleLogic.character_model_active = False
             BattleLogic.card_model_active = True
