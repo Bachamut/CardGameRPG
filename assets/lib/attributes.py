@@ -9,6 +9,7 @@ class Attributes():
         self.dexterity = 0
         self.stamina = 0
         self.magic = 0
+        self.speed = 0
         self.physical_resist = 0
         self.magic_resist = 0
 
@@ -24,6 +25,7 @@ class Attributes():
         result.dexterity = f.dexterity - s.dexterity
         result.stamina = f.stamina - s.stamina
         result.magic = f.magic - s.magic
+        result.speed = f.speed - s.speed
         result.physical_resist = f.physical_resist - s.physical_resist
         result.magic_resist = f.magic_resist - s.magic_resist
 

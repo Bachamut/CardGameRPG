@@ -1,6 +1,4 @@
 from assets.lib.attributes import Attributes
-from assets.lib.battle_logic import BattleLogic
-from assets.lib.card_manager import CardManager
 from assets.lib.deck import Deck
 from assets.lib.equipment import Equipment
 from assets.lib.inventory import Inventory
@@ -31,9 +29,12 @@ class Character(GameObject):
         self.card_pool = Deck()
         # self.battle = BattleLogic()
         self.status = {}
-        self.battledeck = []
-        self.hand = []
         self.card_draw = 3
+        # used only for BattleMode
+        self.battledeck = []
+        self.draw_pile = []
+        self.discard_pile = []
+        self.hand = []
 
 
     def add_equip(self, slot, item):

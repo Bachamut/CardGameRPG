@@ -7,9 +7,9 @@ from assets.lib.item_manager import ItemManager
 
 class GameLogic(GameObject):
 
-    # current_player = None
-    # players_list = []
-    initialized = False
+    party = []
+    enemies = []
+    _initialized = False
 
     def __init__(self):
         super(GameLogic, self).__init__()
@@ -17,31 +17,42 @@ class GameLogic(GameObject):
         self.card_container = None
 
     def _initialize(self):
-        GameLogic.initialized = True
+        GameLogic._initialized = True
 
         CardManager.load_config('assets/lib/card_types.json')
         CharacterManager.load_config('assets/lib/character_types.json')
         ItemManager.load_config('assets/lib/item_types.json')
 
-        self.character_container = GameObject.get_object_pool().select_with_label('CharacterContainer')[0]
-        self.card_container = GameObject.get_object_pool().select_with_label('CardContainer')[0]
-        self.character_container.on_create()
-        self.card_container.on_create()
+        self._create_party()
+        self._create_enemy()
 
-        # player = CharacterManager.create_character("character_edward")
-        # goblin = CharacterManager.create_character("character_goblin")
-        # GameLogic.players_list.append(player)
-        # GameLogic.players_list.append(goblin)
-        # GameLogic.current_player = GameLogic.players_list[0]
-        #
-        # GameLogic.current_player.inventory.add_item('Short sword')
-        # GameLogic.current_player.add_equip('hand_r', 'Short sword')
+    def _create_party(self):
+        player = CharacterManager.create_character("character_edward")
+        player.inventory.add_item('Short sword')
+        player.inventory.add_item('Simple shield')
+        player.add_equip('hand_r', 'Short sword')
+        player.add_equip('hand_l', 'Simple shield')
+        GameLogic.party.append(player)
+
+        player = CharacterManager.create_character("character_lucius")
+        player.inventory.add_item('Short sword')
+        player.add_equip('hand_r', 'Short sword')
+        player.deck['Nimble Strike'] = 2
+        GameLogic.party.append(player)
+
+    def _create_enemy(self):
+        enemy = CharacterManager.create_character("character_goblin")
+        enemy.inventory.add_item('Short sword')
+        enemy.inventory.add_item('Simple shield')
+        enemy.add_equip('hand_r', 'Short sword')
+        enemy.add_equip('hand_l', 'Simple shield')
+        GameLogic.enemies.append(enemy)
 
     def on_create(self):
         pass
 
     def on_script(self):
-        if not GameLogic.initialized and len(GameObject.get_object_pool().select_with_label('CardContainer')) != 0:
+        if not GameLogic._initialized:
             self._initialize()
         else:
             pass

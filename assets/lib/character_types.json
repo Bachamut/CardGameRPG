@@ -8,6 +8,22 @@
     "strength": 8,
     "dexterity": 5,
     "magic": 0,
+    "speed": 20,
+    "stamina": 9,
+    "physical_resist": 10,
+    "magic_resist": 4
+  },
+
+  "character_lucius":
+  {
+    "name": "Lucius",
+    "character_class": "rogue",
+    "health": 60,
+    "energy": 50,
+    "strength": 5,
+    "dexterity": 8,
+    "magic": 0,
+    "speed": 23,
     "stamina": 9,
     "physical_resist": 10,
     "magic_resist": 4
@@ -22,6 +38,7 @@
     "strength": 5,
     "dexterity": 3,
     "magic": 0,
+    "speed": 18,
     "stamina": 4,
     "physical_resist": 10,
     "magic_resist": 2

@@ -26,6 +26,7 @@ class CharacterManager():
         character.attributes.strength = config['strength']
         character.attributes.dexterity = config['dexterity']
         character.attributes.magic = config['magic']
+        character.attributes.speed = config['speed']
         character.attributes.stamina = config['stamina']
         character.attributes.physical_resist = config['physical_resist']
         character.attributes.magic_resist = config['magic_resist']
