@@ -125,6 +125,36 @@
               }
             },
             {
+              "entity": "Players",
+              "object":
+              {
+                "object_class": "GameObject",
+                "object_type": null,
+                "object_label": "Players",
+                "create": true,
+                "properties": ["SpriteProperty", "BlitProperty", "TransformProperty", "TranslateProperty"],
+                "configure_properties":
+                {
+                  "SpriteProperty": {"set_resource": "Players"}
+                }
+              }
+            },
+            {
+              "entity": "Enemies",
+              "object":
+              {
+                "object_class": "GameObject",
+                "object_type": null,
+                "object_label": "Enemies",
+                "create": true,
+                "properties": ["SpriteProperty", "BlitProperty", "TransformProperty", "TranslateProperty"],
+                "configure_properties":
+                {
+                  "SpriteProperty": {"set_resource": "Enemies"}
+                }
+              }
+            },
+            {
               "entity": "ArcanaShot",
               "object":
               {
