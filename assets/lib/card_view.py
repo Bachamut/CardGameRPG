@@ -1,8 +1,9 @@
+import pygame
+
 from assets.lib.battle_logic import BattleLogic
-from assets.lib.card_model import CardModel
+from assets.lib.card_model import CardModel, CARD_VIEW_ON_RISE, CARD_VIEW_ON_FALL
 from assets.lib.character_model import CharacterModel
 from game_object.game_object import GameObject
-
 
 class CardView(GameObject):
 
@@ -12,6 +13,8 @@ class CardView(GameObject):
         super(CardView, self).__init__()
         self.onboard_cards = None
         self.selected_card = None
+
+        self.previous_character = None
     #     self.position = None
 
 
@@ -21,12 +24,14 @@ class CardView(GameObject):
 
     def _initialize(self):
         CardView._initialized = True
-        self.character = BattleLogic.current_character
+        # self.character = BattleLogic.current_character
         self.position = self.property('TransformProperty').position
         self.position.y = 576
         self.position.x = 24
         self.onboard_cards = CardModel.onboard_cards
         self.selected_card = CardModel.selected_card
+
+        self.previous_character = BattleLogic.current_character
 
         #     step = 0
     #     for key, value in CharacterView.current_character.deck.items():
@@ -52,9 +57,20 @@ class CardView(GameObject):
     #             self.onboard_cards.append(card)
     #             self.onboard_cards[0].selected = True
 
-    def on_rise(self):
+    def on_signal(self, signal):
+        if signal.type == CARD_VIEW_ON_RISE:
+            self._on_rise()
+        if signal.type == CARD_VIEW_ON_FALL:
+            self._on_fall()
+
+    def _on_rise(self):
+
+        print(f'\nCurrent Character: {BattleLogic.current_character.name}')
+        for card in BattleLogic.current_character.hand:
+            print(card.card_name)
+
         step = 0
-        for card in self.character.hand:
+        for card in BattleLogic.current_character.hand:
             self.attach_child(card)
             card.property('SpriteProperty').visible = True
 
@@ -64,8 +80,16 @@ class CardView(GameObject):
             step += 128
             position.y = 576
 
-    def on_fall(self):
-        for card in self.character.hand:
+        print(f'\nPrevious Character: {self.previous_character.name}')
+        previous = BattleLogic.current_character
+        self.previous_character = previous
+
+    def _on_fall(self):
+        print(f'On_Fall')
+        print(f'Previous Character: {self.previous_character.name}')
+
+        for card in self.previous_character.hand:
+            # self.detach_child(card)
             card.property('SpriteProperty').visible = False
 
             position = card.property('TransformProperty').position
@@ -76,7 +100,7 @@ class CardView(GameObject):
             self._initialize()
         elif CardView._initialized:
 
-            for card in self.character.hand:
+            for card in BattleLogic.current_character.hand:
                 if card.selected == True:
                     position = card.property('TransformProperty').position
                     position.y = 0

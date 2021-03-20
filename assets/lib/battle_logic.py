@@ -1,6 +1,9 @@
+import pygame
+
 from assets.lib.game_logic import GameLogic
 from game_object.game_object import GameObject
 
+CHARACTER_CHANGED = pygame.event.custom_type()
 
 class BattleLogic(GameObject):
 
@@ -26,7 +29,11 @@ class BattleLogic(GameObject):
         else:
             pass
 
-        if BattleLogic.started == False and len(GameObject.get_object_pool().select_with_label('CharacterModel')) != 0:
+        if BattleLogic.started == False \
+            and len(GameObject.get_object_pool().select_with_label('CharacterModel')) != 0 \
+            and len(GameObject.get_object_pool().select_with_label('CardModel')) != 0 \
+            and len(GameObject.get_object_pool().select_with_label('CardView')) != 0:
+
             BattleLogic.started = True
             # Generating party and initial character order
             character_model = GameObject.get_object_pool().select_with_label('CharacterModel')[0]
@@ -43,8 +50,29 @@ class BattleLogic(GameObject):
             BattleLogic.character_model_active = False
             BattleLogic.card_model_active = True
 
+            # print(BattleLogic.current_character.name)
+            # for card in BattleLogic.current_character.hand:
+            #     print(card.card_name)
+
+            signal = pygame.event.Event(CHARACTER_CHANGED)
+            pygame.event.post(signal)
+
         elif BattleLogic.started == True:
+            # signal = pygame.event.Event(CHARACTER_CHANGED)
+            # pygame.event.post(signal)
             pass
 
     def on_event(self, event):
-        pass
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+
+                character_model = GameObject.get_object_pool().select_with_label('CharacterModel')[0]
+                character_model.update_order()
+                BattleLogic.current_character = character_model.get_next()
+
+                # print(BattleLogic.current_character.name)
+                # for card in BattleLogic.current_character.hand:
+                #     print(card.card_name)
+
+                signal = pygame.event.Event(CHARACTER_CHANGED)
+                pygame.event.post(signal)

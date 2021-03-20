@@ -2,12 +2,14 @@ from random import sample
 
 import pygame
 
-from assets.lib.battle_logic import BattleLogic
+from assets.lib.battle_logic import BattleLogic, CHARACTER_CHANGED
 from assets.lib.card_manager import CardManager
 from assets.lib.character_model import CharacterModel
 from assets.lib.game_logic import GameLogic
 from game_object.game_object import GameObject
 
+CARD_VIEW_ON_RISE = pygame.event.custom_type()
+CARD_VIEW_ON_FALL = pygame.event.custom_type()
 
 class CardModel(GameObject):
 
@@ -18,11 +20,11 @@ class CardModel(GameObject):
 
     def __init__(self):
         super(CardModel, self).__init__()
-        self.character = None
+        # self.character = None
 
     def _initialize(self):
         CardModel._initialized = True
-        self.character = BattleLogic.current_character
+        # self.character = BattleLogic.current_character
 
     def on_create(self):
         self.position = self.property('TransformProperty').position
@@ -83,19 +85,30 @@ class CardModel(GameObject):
                 self._on_arrow_left(event)
         pass
 
+    def on_signal(self, signal):
+        if BattleLogic.card_model_active and CardModel._initialized:
+            if signal.type == CHARACTER_CHANGED:
+                signal = pygame.event.Event(CARD_VIEW_ON_FALL)
+                pygame.event.post(signal)
+
+                signal = pygame.event.Event(CARD_VIEW_ON_RISE)
+                pygame.event.post(signal)
+
+        pass
+
     def _on_arrow_right(self, event):
         if event.key == pygame.K_RIGHT:
             # CharacterView.current_character -> BattleLogic.current_character
-            if CardModel.selected_card < len(self.character.hand) - 1:
-                self.character.hand[CardModel.selected_card].selected = False
+            if CardModel.selected_card < len(BattleLogic.current_character.hand) - 1:
+                BattleLogic.current_character.hand[CardModel.selected_card].selected = False
                 CardModel.selected_card += 1
                 print(f'{self.selected_card}')
-                self.character.hand[CardModel.selected_card].selected = True
+                BattleLogic.current_character.hand[CardModel.selected_card].selected = True
 
     def _on_arrow_left(self, event):
         if event.key == pygame.K_LEFT:
             if CardModel.selected_card > 0:
-                self.character.hand[CardModel.selected_card].selected = False
+                BattleLogic.current_character.hand[CardModel.selected_card].selected = False
                 CardModel.selected_card -= 1
                 print(f'{self.selected_card}')
-                self.character.hand[CardModel.selected_card].selected = True
+                BattleLogic.current_character.hand[CardModel.selected_card].selected = True

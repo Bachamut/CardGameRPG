@@ -72,7 +72,7 @@
                 "object_type": null,
                 "object_label": "CardModel",
                 "create": true,
-                "properties": ["ScriptProperty", "EventProperty", "TransformProperty", "TranslateProperty"],
+                "properties": ["ScriptProperty", "EventProperty", "TransformProperty", "TranslateProperty", "SignalProperty"],
                 "configure_properties":
                 {
                   "ScriptProperty": {"set_script": "CardModel"}
@@ -117,7 +117,7 @@
                 "object_type": null,
                 "object_label": "CardView",
                 "create": true,
-                "properties": ["ScriptProperty", "EventProperty", "TransformProperty", "TranslateProperty"],
+                "properties": ["ScriptProperty", "EventProperty", "TransformProperty", "TranslateProperty", "SignalProperty"],
                 "configure_properties":
                 {
                   "ScriptProperty": {"set_script": "CardView"}
