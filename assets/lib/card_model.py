@@ -88,6 +88,8 @@ class CardModel(GameObject):
     def on_signal(self, signal):
         if BattleLogic.card_model_active and CardModel._initialized:
             if signal.type == CHARACTER_CHANGED:
+                CardModel.selected_card = 0
+                
                 signal = pygame.event.Event(CARD_VIEW_ON_FALL)
                 pygame.event.post(signal)
 
