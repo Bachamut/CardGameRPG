@@ -32,7 +32,6 @@ class CardModel(GameObject):
     @staticmethod
     def create_battledeck(character):
 
-        step = 0
         for card, amount in character.deck.items():
             for it in range(0, amount):
                 card_instance = CardManager.create_card(card)
@@ -45,13 +44,8 @@ class CardModel(GameObject):
                 card_instance.add_property('SpriteProperty')
                 card_instance.add_property('TranslateProperty')
                 card_instance.property('SpriteProperty').set_resource(CardManager.card_config[card]['resource'])
+                card_instance.property('SpriteProperty').visible = False
                 card_instance.on_create()
-
-                # przenieść do CardView
-                position = card_instance.property('TransformProperty').position
-                position.x += step
-                step += 128
-                position.y = 576
 
                 GameObject.add_new_object(card_instance)
                 # CardModel.onboard_cards.append(card_instance)

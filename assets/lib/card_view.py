@@ -52,14 +52,29 @@ class CardView(GameObject):
     #             self.onboard_cards.append(card)
     #             self.onboard_cards[0].selected = True
 
+    def on_rise(self):
+        step = 0
+        for card in self.character.hand:
+            self.attach_child(card)
+            card.property('SpriteProperty').visible = True
+
+            position = card.property('TransformProperty').position
+            position.x = 0
+            position.x += step
+            step += 128
+            position.y = 576
+
+    def on_fall(self):
+        for card in self.character.hand:
+            card.property('SpriteProperty').visible = False
+
+            position = card.property('TransformProperty').position
+            position.x = 0
+
     def on_script(self):
         if not CardView._initialized and CardModel._initialized and CharacterModel._initialized and BattleLogic._initialized and BattleLogic.started:
             self._initialize()
         elif CardView._initialized:
-
-            for card in self.character.hand:
-                self.attach_child(card)
-            print(len(self._children))
 
             for card in self.character.hand:
                 if card.selected == True:
