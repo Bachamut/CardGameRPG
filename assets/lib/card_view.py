@@ -14,7 +14,7 @@ class CardView(GameObject):
         self.onboard_cards = None
         self.selected_card = None
 
-        self.previous_character = None
+        # self.previous_character = None
     #     self.position = None
 
 
@@ -31,7 +31,7 @@ class CardView(GameObject):
         self.onboard_cards = CardModel.onboard_cards
         self.selected_card = CardModel.selected_card
 
-        self.previous_character = BattleLogic.current_character
+        # self.previous_character = BattleLogic.current_character
 
         #     step = 0
     #     for key, value in CharacterView.current_character.deck.items():
@@ -80,15 +80,15 @@ class CardView(GameObject):
             step += 128
             position.y = 576
 
-        print(f'\nPrevious Character: {self.previous_character.name}')
+        print(f'\nPrevious Character: {CardModel.previous_character.name}')
         previous = BattleLogic.current_character
-        self.previous_character = previous
+        CardModel.previous_character = previous
 
     def _on_fall(self):
         print(f'On_Fall')
-        print(f'Previous Character: {self.previous_character.name}')
+        print(f'Previous Character: {CardModel.previous_character.name}')
 
-        for card in self.previous_character.hand:
+        for card in CardModel.previous_character.hand:
             # self.detach_child(card)
             card.property('SpriteProperty').visible = False
 

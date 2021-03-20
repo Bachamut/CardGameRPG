@@ -18,6 +18,8 @@ class CardModel(GameObject):
     onboard_cards = []
     selected_card = 0
 
+    previous_character = None
+
     def __init__(self):
         super(CardModel, self).__init__()
         # self.character = None
@@ -25,6 +27,8 @@ class CardModel(GameObject):
     def _initialize(self):
         CardModel._initialized = True
         # self.character = BattleLogic.current_character
+
+        CardModel.previous_character = BattleLogic.current_character
 
     def on_create(self):
         self.position = self.property('TransformProperty').position
@@ -89,6 +93,11 @@ class CardModel(GameObject):
         if BattleLogic.card_model_active and CardModel._initialized:
             if signal.type == CHARACTER_CHANGED:
                 CardModel.selected_card = 0
+
+                for card in CardModel.previous_character.hand:
+                    card.selected = False
+
+                BattleLogic.current_character.hand[0].selected = True
                 
                 signal = pygame.event.Event(CARD_VIEW_ON_FALL)
                 pygame.event.post(signal)
