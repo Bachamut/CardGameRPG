@@ -54,8 +54,6 @@ class CardModel(GameObject):
                 card_instance.on_create()
 
                 GameObject.add_new_object(card_instance)
-                # CardModel.onboard_cards.append(card_instance)
-
                 character.battledeck.append(card_instance)
         # creating draw_pile that is used in battle mode
         character.draw_pile = sample(character.battledeck, len(character.battledeck))
@@ -64,7 +62,6 @@ class CardModel(GameObject):
     def draw_card(character):
         card = character.draw_pile.pop(0)
         character.hand.append(card)
-        # zrobić opuszczanie kart poprzednio wybranych
         character.hand[0].selected = True
 
     @staticmethod

@@ -95,6 +95,21 @@
               }
             },
             {
+              "entity": "PartyStatusView",
+              "object":
+              {
+                "object_class": "PartyStatusView",
+                "object_type": null,
+                "object_label": "PartyStatusView",
+                "create": true,
+                "properties": ["ScriptProperty", "TransformProperty", "SignalProperty"],
+                "configure_properties":
+                {
+                  "ScriptProperty": {"set_script": "PartyStatusView"}
+                }
+              }
+            },
+            {
               "entity": "ItemView",
               "object":
               {

@@ -39,8 +39,13 @@ class GameLogic(GameObject):
         GameLogic.party.append(player)
 
     def _create_enemy(self):
-        enemy = CharacterManager.create_character("character_goblin")
-        enemy.deck['Piercing Strike'] = 4
+        enemy = CharacterManager.create_character("warrior_goblin")
+        enemy.deck['Fast Strike'] = 2
+        enemy.deck['Piercing Strike'] = 1
+        GameLogic.enemies.append(enemy)
+
+        enemy = CharacterManager.create_character("archer_goblin")
+        enemy.deck['Bow Shot'] = 3
         GameLogic.enemies.append(enemy)
 
     def on_create(self):

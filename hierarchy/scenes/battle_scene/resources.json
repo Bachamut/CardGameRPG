@@ -44,6 +44,12 @@
               "file": "card_model"
             },
             {
+              "key": "PartyStatusView",
+              "type": "script",
+              "path": "assets/lib",
+              "file": "party_status_view"
+            },
+            {
               "key": "CharacterView",
               "type": "script",
               "path": "assets/lib",

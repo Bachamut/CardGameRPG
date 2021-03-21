@@ -11,7 +11,7 @@
     "speed": 20,
     "stamina": 9,
     "physical_resist": 10,
-    "magic_resist": 4
+    "magic_resist": 5
   },
 
   "character_lucius":
@@ -26,12 +26,12 @@
     "speed": 23,
     "stamina": 9,
     "physical_resist": 10,
-    "magic_resist": 4
+    "magic_resist": 5
   },
 
-  "character_goblin":
+  "warrior_goblin":
   {
-    "name": "Zielony goblin",
+    "name": "Goblin wojownik",
     "character_class": "warrior",
     "health": 40,
     "energy": 25,
@@ -41,6 +41,21 @@
     "speed": 18,
     "stamina": 4,
     "physical_resist": 10,
-    "magic_resist": 2
+    "magic_resist": 0
+  },
+
+  "archer_goblin":
+  {
+    "name": "Goblin łucznik",
+    "character_class": "archer",
+    "health": 30,
+    "energy": 20,
+    "strength": 3,
+    "dexterity": 6,
+    "magic": 0,
+    "speed": 16,
+    "stamina": 4,
+    "physical_resist": 0,
+    "magic_resist": 0
   }
 }

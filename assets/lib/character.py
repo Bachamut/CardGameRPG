@@ -51,10 +51,10 @@ class Character(GameObject):
             try:
                 self._add_item_card(item_instance)
             except NoCardInItemException:
-                print(f'Do ekwipunku dodano przedmiot: {item}')
+                print(f'{self.name}: Do ekwipunku dodano przedmiot: {item}')
                 print(f'Nie dodano karty')
             else:
-                print(f'Do ekwipunku dodano przedmiot: {item}')
+                print(f'{self.name}: Do ekwipunku dodano przedmiot: {item}')
                 print(f'Dodano kartę {item_instance.add_card}')
         else:
             raise InvalidSlotException("Invalid Slot Exception")
@@ -75,10 +75,10 @@ class Character(GameObject):
             try:
                 self._remove_item_card(removed_item)
             except NoCardInItemException:
-                print(f'Z ekwipunku usunięto przedmiot: {removed_item.item_name}')
+                print(f'{self.name}: Z ekwipunku usunięto przedmiot: {removed_item.item_name}')
                 print(f'Nie usunięto karty ponieważ nie ma żadnych w przedmiocie')
             else:
-                print(f'Z ekwipunku usunięto przedmiot: {removed_item.item_name}')
+                print(f'{self.name}: Z ekwipunku usunięto przedmiot: {removed_item.item_name}')
                 print(f'Usunięto kartę {removed_item.add_card}')
 
         else:
