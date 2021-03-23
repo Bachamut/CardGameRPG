@@ -21,6 +21,7 @@ class CharacterModel(GameObject):
         self.party_list = []
         self.enemy_list = []
         self.queue_list = []
+        self.temp_queue = []
 
         self.character_list = {}
 

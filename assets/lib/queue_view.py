@@ -34,10 +34,20 @@ class QueueView(GameObject):
         self.line.update(f'{BattleLogic.current_character.name}')
         self.attach_child(self.line)
         self.line.property('SpriteProperty').visible = True
-
         position = self.line.property('TransformProperty').position
         position.y = 40
         position.x = 0
+
+        self.line_current_char = TextLine.get_instance()
+        self.line_current_char.set_font(font)
+        self.line_current_char.update(f'{BattleLogic.current_character.name}')
+        self.attach_child(self.line_current_char)
+        self.line_current_char.property('SpriteProperty').visible = True
+        position = self.line_current_char.property('TransformProperty').position
+        position.y = 16
+        position.x = 0
+
+
 
     def on_create(self):
         pass
@@ -51,9 +61,11 @@ class QueueView(GameObject):
     def on_signal(self, signal):
         if signal.type == CHARACTER_CHANGED:
             CharacterModel = GameObject.get_object_pool().select_with_label('CharacterModel')[0]
+            BattleLogic = GameObject.get_object_pool().select_with_label('BattleLogic')[0]
             line = ''
+            self.line_current_char.update(f'Current Character: {BattleLogic.current_character.name}')
             for character in CharacterModel.queue_list:
                 line += character.name + ', '
-            self.line.update(f'{line}')
+            self.line.update(f'Next: {line}')
 
 
