@@ -37,18 +37,6 @@ class CharacterView(GameObject):
         self.position.x = 256
         self.position.y = 232
 
-        # player = CharacterManager.create_character("character_edward")
-        # goblin = CharacterManager.create_character("character_goblin")
-        # CharacterView.players_list.append(player)
-        # CharacterView.players_list.append(goblin)
-        # CharacterView.current_player = CharacterView.players_list[0]
-        #
-        # CharacterView.current_player.inventory.add_item('Short sword')
-        # CharacterView.current_player.inventory.add_item('Simple shield')
-        # CharacterView.current_player.add_equip('hand_r', 'Short sword')
-        # CharacterView.current_player.add_equip('hand_l', 'Simple shield')
-
-
     def on_script(self):
         if not self._initialized and BattleLogic._initialized:
             self._initialize()

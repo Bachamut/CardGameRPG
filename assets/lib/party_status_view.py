@@ -1,6 +1,5 @@
 import pygame
 
-from assets.lib.battle_logic import BattleLogic
 from assets.lib.character_model import CharacterModel
 from assets.lib.text_line import TextLine
 from game_object.game_object import GameObject
@@ -51,8 +50,6 @@ class PartyStatusView(GameObject):
                 position.y += step
                 step += 60
                 position.x = 0
-
-
 
     def on_signal(self, signal):
         pass

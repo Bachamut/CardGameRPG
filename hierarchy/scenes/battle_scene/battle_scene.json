@@ -110,6 +110,21 @@
               }
             },
             {
+              "entity": "QueueView",
+              "object":
+              {
+                "object_class": "QueueView",
+                "object_type": null,
+                "object_label": "QueueView",
+                "create": true,
+                "properties": ["ScriptProperty", "TransformProperty", "SignalProperty"],
+                "configure_properties":
+                {
+                  "ScriptProperty": {"set_script": "QueueView"}
+                }
+              }
+            },
+            {
               "entity": "ItemView",
               "object":
               {

@@ -1,5 +1,3 @@
-import pygame
-
 from assets.lib.battle_logic import BattleLogic
 from assets.lib.card_model import CardModel, CARD_VIEW_ON_RISE, CARD_VIEW_ON_FALL
 from assets.lib.character_model import CharacterModel
@@ -14,11 +12,6 @@ class CardView(GameObject):
         self.onboard_cards = None
         self.selected_card = None
 
-        # self.previous_character = None
-    #     self.position = None
-
-
-
     def on_create(self):
         pass
 
@@ -30,32 +23,6 @@ class CardView(GameObject):
         self.position.x = 24
         self.onboard_cards = CardModel.onboard_cards
         self.selected_card = CardModel.selected_card
-
-        # self.previous_character = BattleLogic.current_character
-
-        #     step = 0
-    #     for key, value in CharacterView.current_character.deck.items():
-    #         for number in range(0, value):
-    #             card = CardManager.create_card(key)
-    #             card.object_class = 'Card'
-    #             card.object_type = 'Card'
-    #             card.object_label = card.card_name
-    #             card.add_property('TransformProperty')
-    #             card.add_property('BlitProperty')
-    #             card.add_property('SpriteProperty')
-    #             card.add_property('TranslateProperty')
-    #             card.property('SpriteProperty').set_resource(CardManager.card_config[key]['resource'])
-    #             card.on_create()
-    #
-    #             position = card.property('TransformProperty').position
-    #             position.x += step
-    #             step += 128
-    #             position.y = 576
-    #
-    #             GameObject.add_new_object(card)
-    #             self.attach_child(card)
-    #             self.onboard_cards.append(card)
-    #             self.onboard_cards[0].selected = True
 
     def on_signal(self, signal):
         if signal.type == CARD_VIEW_ON_RISE:
@@ -80,7 +47,7 @@ class CardView(GameObject):
             step += 128
             position.y = 576
 
-        print(f'\nPrevious Character: {CardModel.previous_character.name}')
+        # print(f'\nPrevious Character: {CardModel.previous_character.name}')
         previous = BattleLogic.current_character
         CardModel.previous_character = previous
 

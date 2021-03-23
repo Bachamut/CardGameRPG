@@ -31,7 +31,7 @@
 
   "warrior_goblin":
   {
-    "name": "Goblin wojownik",
+    "name": "Goblin warrior",
     "character_class": "warrior",
     "health": 40,
     "energy": 25,
@@ -46,7 +46,7 @@
 
   "archer_goblin":
   {
-    "name": "Goblin łucznik",
+    "name": "Goblin archer",
     "character_class": "archer",
     "health": 30,
     "energy": 20,

@@ -50,6 +50,12 @@
               "file": "party_status_view"
             },
             {
+              "key": "QueueView",
+              "type": "script",
+              "path": "assets/lib",
+              "file": "queue_view"
+            },
+            {
               "key": "CharacterView",
               "type": "script",
               "path": "assets/lib",
