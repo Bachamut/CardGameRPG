@@ -90,7 +90,7 @@ class QueueView(GameObject):
             battle_logic = GameObject.get_object_pool().select_with_label('BattleLogic')[0]
             line = ''
             self.line_current_char.update(f'Current Character: {battle_logic.current_character.name}')
-            for character in character_model.queue_list:
+            for character in battle_logic.queue_view:
                 line += character.name + ', '
             self.line.update(f'Next: {line}')
 

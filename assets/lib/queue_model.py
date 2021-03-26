@@ -1,54 +1,56 @@
+import copy
+
+
 class QueueModel():
 
-    def __init__(self, character_model):
-        self.cm = character_model
-        self.temp_queue = []
-        self.end_cycle = {}
-        self.it = 0
+    def __init__(self):
+        self.characters_speed = dict()
+        self.modifiers = dict()
 
-    def create_queue(self):
-        self.cm.units = self.cm.party_list + self.cm.enemy_list
-        for unit in self.cm.units:
-            speed = unit.attributes.speed
-            self.cm.character_list[unit] = speed
+        self.party = dict()
 
-    def update_queue(self):
-        count = 10
+        self.queue = list()
 
-        for n in range(0, count-len(self.temp_queue)):
-            self.temp_queue.append(self._get_next())
-        print(len(self.temp_queue))
-        # print(f'\n---QUEUE---')
-        # for character in self.cm.queue_list:
-        #     print(character.name)
-        # print(f'---END QUEUE---')
-        next_char = self.temp_queue.pop(0)
-        self.cm.queue_list = self.temp_queue[0:9]
-        return next_char
+    def setup_speeds(self, character_model):
+        units = character_model.party_list + character_model.enemy_list
+        for u in units:
+            speed = u.attributes.speed
+            self.characters_speed[u] = speed
+            self.party[u] = 0
+            self.modifiers[u] = 0
 
-    def _get_next(self):
+    @staticmethod
+    def update_party(party, characters_speed, modifiers):
+        for c in party:
+            party[c] += characters_speed[c] + modifiers[c]
 
-        while True:
-            if self.it == len(self.cm.character_list):
-                self.end_cycle = self.cm.character_list
-                print(f'---CYCLE END---')
-                for character, speed in self.cm.character_list.items():
-                    print(f'{character.name} speed = {speed}')
-                self.it = 0
-            fastest_char = max(self.cm.character_list, key=self.cm.character_list.get)
-            if self.cm.character_list[fastest_char] >= 100:
-                self.cm.character_list[fastest_char] -= 100
-                next_char = fastest_char
-                print("\nEND LOOP")
-                for character, speed in self.cm.character_list.items():
-                    print(f'{character.name} speed = {speed}')
-                self.it += 1
-                return next_char
-                break
-            else:
-                for unit in self.cm.units:
-                    speed = unit.attributes.speed
-                    self.cm.character_list[unit] += speed
-            print("\nIN LOOP")
-            for character, speed in self.cm.character_list.items():
-                print(f'{character.name} speed = {speed}')
+    @staticmethod
+    def get_next(party):
+        fastest = max(party, key=party.get)
+        if party[fastest] >= 100:
+            return fastest
+        elif party[fastest] < 100:
+            return None
+
+    @staticmethod
+    def reduce_speed(party, character):
+        party[character] -= 100
+
+    @staticmethod
+    def get_queue(queue, party, character_speeds, modifiers):
+        _party = dict()
+
+        for key, value in party.items():
+            _party[key] = value
+
+        quantity = 8
+
+        while quantity - len(queue) != 0:
+            character = QueueModel.get_next(_party)
+            if character != None:
+                queue.append(character)
+                QueueModel.reduce_speed(_party, character)
+            elif character == None:
+                QueueModel.update_party(_party, character_speeds, modifiers)
+
+        return _party, queue

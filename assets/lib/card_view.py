@@ -32,7 +32,7 @@ class CardView(GameObject):
 
     def _on_rise(self):
 
-        print(f'\nCurrent Character: {BattleLogic.current_character.name}')
+        # print(f'\nCurrent Character: {BattleLogic.current_character.name}')
         # for card in BattleLogic.current_character.hand:
         #     print(card.card_name)
 
@@ -47,13 +47,13 @@ class CardView(GameObject):
             step += 128
             position.y = 576
 
-        print(f'\nPrevious Character: {CardModel.previous_character.name}')
+        # print(f'\nPrevious Character: {CardModel.previous_character.name}')
         previous = BattleLogic.current_character
         CardModel.previous_character = previous
 
     def _on_fall(self):
-        print(f'On_Fall')
-        print(f'Previous Character: {CardModel.previous_character.name}')
+        # print(f'On_Fall')
+        # print(f'Previous Character: {CardModel.previous_character.name}')
 
         for card in CardModel.previous_character.hand:
             # self.detach_child(card)

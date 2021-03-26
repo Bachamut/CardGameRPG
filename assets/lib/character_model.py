@@ -27,7 +27,6 @@ class CharacterModel(GameObject):
 
     def _initialize(self):
         CharacterModel._initialized = True
-        self.queue_model = QueueModel(self)
 
     def create_party(self):
         for character in self.party:
