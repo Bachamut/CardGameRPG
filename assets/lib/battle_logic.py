@@ -47,12 +47,22 @@ class BattleLogic(GameObject):
             self.queue_model = QueueModel()
             self.queue_model.setup_speeds(character_model)
 
-            party, queue = self.queue_model.get_queue(
-                self.queue_model.queue,
+            queue = self.queue_model.get_queue(
                 self.queue_model.party,
                 self.queue_model.characters_speed,
                 self.queue_model.modifiers)
+
             BattleLogic.current_character = queue[0]
+
+            next_seed = QueueModel.get_next_seed(
+                self.queue_model.party,
+                self.queue_model.characters_speed,
+                self.queue_model.modifiers
+            )
+
+            for key, values in self.queue_model.party.items():
+                self.queue_model.party[key] = next_seed[key]
+
             self.queue_view = queue
 
             print('')
@@ -86,14 +96,21 @@ class BattleLogic(GameObject):
                 character_model = GameObject.get_object_pool().select_with_label('CharacterModel')[0]
                 # WIP
 
-                self.queue_model.queue.pop(0)
-                party, queue = self.queue_model.get_queue(
-                    self.queue_model.queue,
+                queue = self.queue_model.get_queue(
                     self.queue_model.party,
                     self.queue_model.characters_speed,
                     self.queue_model.modifiers)
 
                 BattleLogic.current_character = queue[0]
+
+                next_seed = QueueModel.get_next_seed(
+                    self.queue_model.party,
+                    self.queue_model.characters_speed,
+                    self.queue_model.modifiers
+                )
+
+                for key, values in self.queue_model.party.items():
+                    self.queue_model.party[key] = next_seed[key]
 
                 self.queue_view = queue
 

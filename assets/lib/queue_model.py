@@ -9,8 +9,6 @@ class QueueModel():
 
         self.party = dict()
 
-        self.queue = list()
-
     def setup_speeds(self, character_model):
         units = character_model.party_list + character_model.enemy_list
         for u in units:
@@ -37,8 +35,26 @@ class QueueModel():
         party[character] -= 100
 
     @staticmethod
-    def get_queue(queue, party, character_speeds, modifiers):
+    def get_next_seed(party, character_speeds, modifiers):
         _party = dict()
+
+        for key, value in party.items():
+            _party[key] = value
+
+        while True:
+            character = QueueModel.get_next(_party)
+            if character != None:
+                QueueModel.reduce_speed(_party, character)
+                break
+            elif character == None:
+                QueueModel.update_party(_party, character_speeds, modifiers)
+
+        return _party
+
+    @staticmethod
+    def get_queue(party, character_speeds, modifiers):
+        _party = dict()
+        queue = list()
 
         for key, value in party.items():
             _party[key] = value
@@ -53,4 +69,4 @@ class QueueModel():
             elif character == None:
                 QueueModel.update_party(_party, character_speeds, modifiers)
 
-        return _party, queue
+        return queue
