@@ -38,7 +38,7 @@ class PartyStatusView(GameObject):
             party = GameObject.get_object_pool().select_with_label('CharacterModel')[0]
             step = 0
             font = pygame.font.Font("assets/DisposableDroidBB.ttf", 22)
-            for character in party.party_list:
+            for character in party.party:
                 line = TextLine.get_instance()
                 line.set_font(font)
                 line.update(f'{character.name} - HP:{character.attributes.health} EP:{character.attributes.energy}')

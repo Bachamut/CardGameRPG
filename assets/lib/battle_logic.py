@@ -45,7 +45,7 @@ class BattleLogic(GameObject):
             character_model.create_enemies()
 
             self.queue_model = QueueModel()
-            self.queue_model.setup_speeds(character_model)
+            self.queue_model.setup_queue(character_model.party + character_model.enemies)
 
             queue = self.queue_model.get_queue(
                 self.queue_model.party,
@@ -74,7 +74,7 @@ class BattleLogic(GameObject):
             # BattleLogic.current_character = character_model.queue_model.update_queue()
 
             card_model = GameObject.get_object_pool().select_with_label('CardModel')[0]
-            for character in character_model.party_list + character_model.enemy_list:
+            for character in character_model.party + character_model.enemies:
                 card_model.create_battledeck(character)
                 card_model.draw_hand(character)
 

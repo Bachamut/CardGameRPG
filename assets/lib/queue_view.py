@@ -49,32 +49,6 @@ class QueueView(GameObject):
         position.y = 16
         position.x = 0
 
-    #     step = 0
-    #     for character in character_model.queue_list:
-    #         line = TextLine.get_instance()
-    #
-    #         font = pygame.font.Font("assets/DisposableDroidBB.ttf", 16)
-    #         line = TextLine.get_instance()
-    #         line.set_font(font)
-    #         line.update(f'{character.name}')
-    #         self.attach_child(line)
-    #         line.property('SpriteProperty').visible = True
-    #
-    #         position = line.property('TransformProperty').position
-    #         position.y = 0
-    #         position.y += step
-    #         step += 20
-    #         position.x = 0
-    #
-    # def create_line(self, character):
-    #     character_model = GameObject.get_object_pool().select_with_label('CharacterModel')[0]
-    #     font = pygame.font.Font("assets/DisposableDroidBB.ttf", 16)
-    #     self.line = TextLine.get_instance()
-    #     self.line.set_font(font)
-    #     self.line.update(f'{character.name}')
-    #     self.attach_child(self.line)
-    #     self.line.property('SpriteProperty').visible = True
-
     def on_create(self):
         pass
 

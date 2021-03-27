@@ -1,24 +1,27 @@
-import copy
 
-
-class QueueModel():
+class QueueModel:
 
     def __init__(self):
         self.characters_speed = dict()
         self.modifiers = dict()
-
         self.party = dict()
 
-    def setup_speeds(self, character_model):
-        units = character_model.party_list + character_model.enemy_list
-        for u in units:
-            speed = u.attributes.speed
-            self.characters_speed[u] = speed
-            self.party[u] = 0
-            self.modifiers[u] = 0
+    def setup_queue(self, units):
+        for character in units:
+            self.add_character(character)
+
+    def add_character(self, character):
+        self.characters_speed[character] = character.attributes.speed
+        self.party[character] = 0
+        self.modifiers[character] = 0
+
+    def remove_character(self, character):
+        self.characters_speed.pop(character)
+        self.party.pop(character)
+        self.modifiers.pop(character)
 
     @staticmethod
-    def update_party(party, characters_speed, modifiers):
+    def update_speed(party, characters_speed, modifiers):
         for c in party:
             party[c] += characters_speed[c] + modifiers[c]
 
@@ -36,37 +39,37 @@ class QueueModel():
 
     @staticmethod
     def get_next_seed(party, character_speeds, modifiers):
-        _party = dict()
+        party_seed = dict()
 
         for key, value in party.items():
-            _party[key] = value
+            party_seed[key] = value
 
         while True:
-            character = QueueModel.get_next(_party)
-            if character != None:
-                QueueModel.reduce_speed(_party, character)
+            character = QueueModel.get_next(party_seed)
+            if character is not None:
+                QueueModel.reduce_speed(party_seed, character)
                 break
-            elif character == None:
-                QueueModel.update_party(_party, character_speeds, modifiers)
+            elif character is None:
+                QueueModel.update_speed(party_seed, character_speeds, modifiers)
 
-        return _party
+        return party_seed
 
     @staticmethod
     def get_queue(party, character_speeds, modifiers):
-        _party = dict()
+        party_seed = dict()
         queue = list()
 
         for key, value in party.items():
-            _party[key] = value
+            party_seed[key] = value
 
         quantity = 8
 
         while quantity - len(queue) != 0:
-            character = QueueModel.get_next(_party)
-            if character != None:
+            character = QueueModel.get_next(party_seed)
+            if character is not None:
                 queue.append(character)
-                QueueModel.reduce_speed(_party, character)
-            elif character == None:
-                QueueModel.update_party(_party, character_speeds, modifiers)
+                QueueModel.reduce_speed(party_seed, character)
+            elif character is None:
+                QueueModel.update_speed(party_seed, character_speeds, modifiers)
 
         return queue
