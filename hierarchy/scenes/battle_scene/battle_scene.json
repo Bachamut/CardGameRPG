@@ -95,17 +95,17 @@
               }
             },
             {
-              "entity": "PartyStatusView",
+              "entity": "PartyView",
               "object":
               {
-                "object_class": "PartyStatusView",
+                "object_class": "PartyView",
                 "object_type": null,
-                "object_label": "PartyStatusView",
+                "object_label": "PartyView",
                 "create": true,
                 "properties": ["ScriptProperty", "TransformProperty", "SignalProperty"],
                 "configure_properties":
                 {
-                  "ScriptProperty": {"set_script": "PartyStatusView"}
+                  "ScriptProperty": {"set_script": "PartyView"}
                 }
               }
             },

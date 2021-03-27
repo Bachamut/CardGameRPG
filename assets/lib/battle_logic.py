@@ -4,7 +4,7 @@ from assets.lib.game_logic import GameLogic
 from game_object.game_object import GameObject
 from lib.queue_model import QueueModel
 
-CHARACTER_CHANGED = pygame.event.custom_type()
+CHARACTER_CHANGED_SIGNAL = pygame.event.custom_type()
 
 class BattleLogic(GameObject):
 
@@ -50,7 +50,8 @@ class BattleLogic(GameObject):
             queue = self.queue_model.get_queue(
                 self.queue_model.party,
                 self.queue_model.characters_speed,
-                self.queue_model.modifiers)
+                self.queue_model.modifiers
+            )
 
             BattleLogic.current_character = queue[0]
 
@@ -81,7 +82,7 @@ class BattleLogic(GameObject):
             BattleLogic.character_model_active = False
             BattleLogic.card_model_active = True
 
-            signal = pygame.event.Event(CHARACTER_CHANGED)
+            signal = pygame.event.Event(CHARACTER_CHANGED_SIGNAL)
             pygame.event.post(signal)
 
         elif BattleLogic.started == True:
@@ -118,7 +119,7 @@ class BattleLogic(GameObject):
                 for key, value in self.queue_model.party.items():
                     print(f'{key.name}: {value} | {self.queue_model.characters_speed[key]} +{self.queue_model.modifiers[key]}')
 
-                signal = pygame.event.Event(CHARACTER_CHANGED)
+                signal = pygame.event.Event(CHARACTER_CHANGED_SIGNAL)
                 pygame.event.post(signal)
 
         if event.type == pygame.KEYDOWN:

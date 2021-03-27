@@ -5,14 +5,14 @@ from assets.lib.text_line import TextLine
 from game_object.game_object import GameObject
 
 
-class PartyStatusView(GameObject):
+class PartyView(GameObject):
 
     _initialized = False
 
     def __init__(self):
-        super(PartyStatusView, self).__init__()
+        super(PartyView, self).__init__()
     def _initialize(self):
-        PartyStatusView._initialized = True
+        PartyView._initialized = True
 
         self.add_property("SpriteProperty")
         self.add_property("BlitProperty")
@@ -29,12 +29,12 @@ class PartyStatusView(GameObject):
         pass
 
     def on_script(self):
-        if not PartyStatusView._initialized and CharacterModel._initialized and len(GameObject.get_object_pool().select_with_label('CharacterModel')) != 0:
+        if not PartyView._initialized and CharacterModel._initialized and len(GameObject.get_object_pool().select_with_label('CharacterModel')) != 0:
             self._initialize()
         else:
             pass
 
-        if PartyStatusView._initialized:
+        if PartyView._initialized:
             party = GameObject.get_object_pool().select_with_label('CharacterModel')[0]
             step = 0
             font = pygame.font.Font("assets/DisposableDroidBB.ttf", 22)

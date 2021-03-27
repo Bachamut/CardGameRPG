@@ -1,6 +1,6 @@
 import pygame
 
-from assets.lib.battle_logic import CHARACTER_CHANGED
+from assets.lib.battle_logic import CHARACTER_CHANGED_SIGNAL
 from assets.lib.character_model import CharacterModel
 from assets.lib.text_line import TextLine
 from game_object.game_object import GameObject
@@ -59,7 +59,7 @@ class QueueView(GameObject):
             pass
 
     def on_signal(self, signal):
-        if signal.type == CHARACTER_CHANGED:
+        if signal.type == CHARACTER_CHANGED_SIGNAL:
             character_model = GameObject.get_object_pool().select_with_label('CharacterModel')[0]
             battle_logic = GameObject.get_object_pool().select_with_label('BattleLogic')[0]
             line = ''

@@ -44,10 +44,10 @@
               "file": "card_model"
             },
             {
-              "key": "PartyStatusView",
+              "key": "PartyView",
               "type": "script",
               "path": "assets/lib",
-              "file": "party_status_view"
+              "file": "party_view"
             },
             {
               "key": "QueueView",

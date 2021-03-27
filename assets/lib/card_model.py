@@ -2,7 +2,7 @@ from random import sample
 
 import pygame
 
-from assets.lib.battle_logic import BattleLogic, CHARACTER_CHANGED
+from assets.lib.battle_logic import BattleLogic, CHARACTER_CHANGED_SIGNAL
 from assets.lib.card_manager import CardManager
 from assets.lib.character_model import CharacterModel
 from assets.lib.game_logic import GameLogic
@@ -88,7 +88,7 @@ class CardModel(GameObject):
 
     def on_signal(self, signal):
         if BattleLogic.card_model_active and CardModel._initialized:
-            if signal.type == CHARACTER_CHANGED:
+            if signal.type == CHARACTER_CHANGED_SIGNAL:
                 CardModel.selected_card = 0
 
                 for card in CardModel.previous_character.hand:
