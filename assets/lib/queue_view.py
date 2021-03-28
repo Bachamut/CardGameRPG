@@ -20,7 +20,7 @@ class QueueView(GameObject):
         self.add_property("BlitProperty")
         self.property("SpriteProperty").visible = True
         self.font = pygame.font.Font("assets/DisposableDroidBB.ttf", 16)
-        self.property("SpriteProperty").surface = self.font.render("Turn Queue", True, [0,0,0])
+        self.property("SpriteProperty").surface = self.font.render("Turn Queue", True, [0, 0, 0])
 
         self.add_property('TransformProperty')
         self.position = self.property('TransformProperty').position

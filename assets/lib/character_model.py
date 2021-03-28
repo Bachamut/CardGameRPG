@@ -11,29 +11,28 @@ class CharacterModel(GameObject):
 
     def __init__(self):
         super(CharacterModel, self).__init__()
-        self.character = BattleLogic.current_character
-        self.target = BattleLogic.current_target
+        self.current_character = BattleLogic.current_character
+        self.current_target = BattleLogic.current_target
+
+        self.ally = BattleLogic.ally
+        self.enemies = BattleLogic.enemies
 
         self._party_list = GameLogic.party
         self._enemies_list = GameLogic.enemies
 
-        self.party = []
-        self.enemies = []
-
-
     def _initialize(self):
         CharacterModel._initialized = True
 
-    def create_party(self):
+    def create_ally(self):
         for character in self._party_list:
-            self.party.append(character)
+            self.ally.append(character)
 
     def create_enemies(self):
         for enemy in self._enemies_list:
             self.enemies.append(enemy)
 
     def on_script(self):
-        if not self._initialized and GameLogic._initialized and BattleLogic._initialized:
+        if not self._initialized and BattleLogic._initialized:
             self._initialize()
         else:
             pass

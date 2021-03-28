@@ -5,15 +5,20 @@ from game_object.game_object import GameObject
 from lib.queue_model import QueueModel
 
 CHARACTER_CHANGED_SIGNAL = pygame.event.custom_type()
+STATUS_UPDATE_SIGNAL = pygame.event.custom_type()
+STATUS_RESET_SIGNAL = pygame.event.custom_type()
 
 class BattleLogic(GameObject):
 
-
     _initialized = False
     started = False
+
     current_character = None
     current_target = None
     selected_card = None
+
+    ally = list()
+    enemies = list()
 
     character_model_active = False
     card_model_active = False
@@ -41,11 +46,11 @@ class BattleLogic(GameObject):
             BattleLogic.started = True
             # Generating party and initial character order
             character_model = GameObject.get_object_pool().select_with_label('CharacterModel')[0]
-            character_model.create_party()
+            character_model.create_ally()
             character_model.create_enemies()
 
             self.queue_model = QueueModel()
-            self.queue_model.setup_queue(character_model.party + character_model.enemies)
+            self.queue_model.setup_queue(character_model.ally + character_model.enemies)
 
             queue = self.queue_model.get_queue(
                 self.queue_model.party,
@@ -75,7 +80,7 @@ class BattleLogic(GameObject):
             # BattleLogic.current_character = character_model.queue_model.update_queue()
 
             card_model = GameObject.get_object_pool().select_with_label('CardModel')[0]
-            for character in character_model.party + character_model.enemies:
+            for character in character_model.ally + character_model.enemies:
                 card_model.create_battledeck(character)
                 card_model.draw_hand(character)
 
@@ -83,6 +88,9 @@ class BattleLogic(GameObject):
             BattleLogic.card_model_active = True
 
             signal = pygame.event.Event(CHARACTER_CHANGED_SIGNAL)
+            pygame.event.post(signal)
+
+            signal = pygame.event.Event(STATUS_RESET_SIGNAL)
             pygame.event.post(signal)
 
         elif BattleLogic.started == True:
@@ -120,6 +128,11 @@ class BattleLogic(GameObject):
                     print(f'{key.name}: {value} | {self.queue_model.characters_speed[key]} +{self.queue_model.modifiers[key]}')
 
                 signal = pygame.event.Event(CHARACTER_CHANGED_SIGNAL)
+                pygame.event.post(signal)
+
+                BattleLogic.ally[0].attributes.health += -20
+
+                signal = pygame.event.Event(STATUS_UPDATE_SIGNAL)
                 pygame.event.post(signal)
 
         if event.type == pygame.KEYDOWN:
