@@ -1,5 +1,4 @@
 from assets.lib.battle_logic import BattleLogic
-from assets.lib.character_manager import CharacterManager
 from assets.lib.game_logic import GameLogic
 from game_object.game_object import GameObject
 

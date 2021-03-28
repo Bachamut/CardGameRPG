@@ -2,8 +2,8 @@ import pygame
 
 from assets.lib.character_model import CharacterModel
 from assets.lib.text_line import TextLine
+from assets.lib.battle_logic import BattleLogic
 from game_object.game_object import GameObject
-from lib.battle_logic import STATUS_UPDATE_SIGNAL, STATUS_RESET_SIGNAL
 
 
 class PartyView(GameObject):
@@ -13,7 +13,7 @@ class PartyView(GameObject):
     def __init__(self):
         super(PartyView, self).__init__()
         self.ally = None
-        self.characters_status = None
+        self.characters_status = list()
 
     def _initialize(self):
         PartyView._initialized = True
@@ -33,10 +33,9 @@ class PartyView(GameObject):
         # Configure section description and TextLine for each character in ally
         self.font_22 = pygame.font.Font("assets/DisposableDroidBB.ttf", 22)
 
-        self.setup_party()
+        # self.setup_party()
 
     def setup_party(self):
-        self.characters_status = list()
         step = 0
         for character in self.ally:
             line = TextLine.get_instance()
@@ -61,16 +60,20 @@ class PartyView(GameObject):
         pass
 
     def on_script(self):
-        if not PartyView._initialized and CharacterModel._initialized:
+        if not PartyView._initialized and CharacterModel._initialized  and len(GameObject.get_object_pool().select_with_label('CharacterModel')) != 0:
             self._initialize()
         else:
             pass
 
-    def on_signal(self, signal):
         if PartyView._initialized:
-            if signal.type == STATUS_RESET_SIGNAL:
-                self.setup_party()
-            if signal.type == STATUS_UPDATE_SIGNAL:
-                for line in self.characters_status:
-                    index = self.characters_status.index(line)
-                    line.update(f'{self.ally[index].name} - HP:{self.ally[index].attributes.health} EP:{self.ally[index].attributes.energy}')
+            pass
+
+    def on_signal(self, signal):
+        # if PartyView._initialized:
+        if signal.type == BattleLogic.STATUS_RESET_SIGNAL:
+            self.setup_party()
+        if signal.type == BattleLogic.STATUS_UPDATE_SIGNAL:
+            for line in self.characters_status:
+                index = self.characters_status.index(line)
+                line.property('TransformProperty').position.x += 5
+                line.update(f'{self.ally[index].name} - HP:{self.ally[index].attributes.health} EP:{self.ally[index].attributes.energy}')

@@ -1,6 +1,5 @@
-from assets.lib.battle_logic import BattleLogic, CHARACTER_CHANGED_SIGNAL
+from assets.lib.battle_logic import BattleLogic
 from assets.lib.game_logic import GameLogic
-from assets.lib.queue_model import QueueModel
 from game_object.game_object import GameObject
 
 
