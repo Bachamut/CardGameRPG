@@ -75,5 +75,4 @@ class PartyView(GameObject):
         if signal.type == BattleLogic.STATUS_UPDATE_SIGNAL:
             for line in self.characters_status:
                 index = self.characters_status.index(line)
-                line.property('TransformProperty').position.x += 5
                 line.update(f'{self.ally[index].name} - HP:{self.ally[index].attributes.health} EP:{self.ally[index].attributes.energy}')

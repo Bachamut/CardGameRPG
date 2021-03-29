@@ -2,7 +2,7 @@ import pygame
 
 from assets.lib.game_logic import GameLogic
 from game_object.game_object import GameObject
-from lib.queue_model import QueueModel
+from assets.lib.queue_model import QueueModel
 
 class BattleLogic(GameObject):
 
