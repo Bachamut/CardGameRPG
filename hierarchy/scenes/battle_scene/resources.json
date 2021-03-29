@@ -10,61 +10,61 @@
             {
               "key": "BattleLogic",
               "type": "script",
-              "path": "assets/lib",
+              "path": "assets/lib/battle_system",
               "file": "battle_logic"
             },
             {
               "key": "Character",
               "type": "script",
-              "path": "assets/lib",
+              "path": "assets/lib/character_utilities",
               "file": "character"
             },
             {
               "key": "Card",
               "type": "script",
-              "path": "assets/lib",
+              "path": "assets/lib/card_utilities",
               "file": "card"
             },
             {
               "key": "Item",
               "type": "script",
-              "path": "assets/lib",
+              "path": "assets/lib/item_utilities",
               "file": "item"
             },
             {
               "key": "CharacterModel",
               "type": "script",
-              "path": "assets/lib",
+              "path": "assets/lib/battle_system",
               "file": "character_model"
             },
             {
               "key": "CardModel",
               "type": "script",
-              "path": "assets/lib",
+              "path": "assets/lib/battle_system",
               "file": "card_model"
             },
             {
               "key": "PartyView",
               "type": "script",
-              "path": "assets/lib",
+              "path": "assets/lib/battle_system",
               "file": "party_view"
             },
             {
               "key": "QueueView",
               "type": "script",
-              "path": "assets/lib",
+              "path": "assets/lib/battle_system",
               "file": "queue_view"
             },
             {
               "key": "CharacterView",
               "type": "script",
-              "path": "assets/lib",
+              "path": "assets/lib/battle_system",
               "file": "character_view"
             },
             {
               "key": "CardView",
               "type": "script",
-              "path": "assets/lib",
+              "path": "assets/lib/battle_system",
               "file": "card_view"
             },
             {

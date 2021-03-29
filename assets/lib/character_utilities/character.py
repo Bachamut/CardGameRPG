@@ -1,10 +1,10 @@
-from assets.lib.attributes import Attributes
-from assets.lib.deck import Deck
-from assets.lib.equipment import Equipment
-from assets.lib.inventory import Inventory
-from assets.lib.item import NoCardInItemException
-from assets.lib.item_manager import ItemManager
 from game_object.game_object import GameObject
+from assets.lib.character_utilities.attributes import Attributes
+from assets.lib.card_utilities.deck import Deck
+from assets.lib.item_utilities.equipment import Equipment
+from assets.lib.item_utilities.inventory import Inventory
+from assets.lib.item_utilities.item import NoCardInItemException
+from assets.lib.item_utilities.item_manager import ItemManager
 
 
 class InvalidSlotException(Exception):
@@ -35,7 +35,6 @@ class Character(GameObject):
         self.draw_pile = []
         self.discard_pile = []
         self.hand = []
-
 
     def add_equip(self, slot, item):
         # add item to equipment slot

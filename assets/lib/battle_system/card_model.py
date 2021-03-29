@@ -1,15 +1,15 @@
-from random import sample
-
 import pygame
 
-from assets.lib.battle_logic import BattleLogic
-from assets.lib.card_manager import CardManager
-from assets.lib.character_model import CharacterModel
-from assets.lib.game_logic import GameLogic
+from random import sample
 from game_object.game_object import GameObject
+from assets.lib.battle_system.battle_logic import BattleLogic
+from assets.lib.card_utilities.card_manager import CardManager
+from assets.lib.battle_system.character_model import CharacterModel
+from assets.lib.game_logic import GameLogic
 
 CARD_VIEW_ON_RISE = pygame.event.custom_type()
 CARD_VIEW_ON_FALL = pygame.event.custom_type()
+
 
 class CardModel(GameObject):
 

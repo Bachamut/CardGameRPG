@@ -3,10 +3,8 @@ from game_object.game_object import GameObject
 
 class TextLine(GameObject):
 
-
     def __init__(self):
         super(TextLine, self).__init__()
-
 
     @staticmethod
     def get_instance():

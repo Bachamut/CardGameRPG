@@ -1,9 +1,9 @@
 import json
 
-from assets.lib.item import Item
+from assets.lib.item_utilities.item import Item
 
 
-class ItemManager():
+class ItemManager:
 
     item_config = {}
 

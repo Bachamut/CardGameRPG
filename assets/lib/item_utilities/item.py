@@ -1,5 +1,5 @@
-from assets.lib.attributes import Attributes
 from game_object.game_object import GameObject
+from assets.lib.character_utilities.attributes import Attributes
 
 
 class NoCardInItemException(Exception):
@@ -20,7 +20,6 @@ class Item(GameObject):
         self.required_attributes = Attributes()
         self.modifiers = Attributes()
         self.add_card = {}
-
 
     def get_card(self):
         if self.add_card:

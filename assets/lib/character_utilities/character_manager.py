@@ -1,9 +1,9 @@
 import json
 
-from assets.lib.character import Character
+from assets.lib.character_utilities.character import Character
 
 
-class CharacterManager():
+class CharacterManager:
 
     character_config = {}
 

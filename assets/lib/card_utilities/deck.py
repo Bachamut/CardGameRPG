@@ -1,3 +1,4 @@
+
 class InvalidDeckSizeException(Exception):
     pass
 

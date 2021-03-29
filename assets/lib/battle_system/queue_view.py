@@ -1,9 +1,10 @@
 import pygame
 
-from assets.lib.character_model import CharacterModel
-from assets.lib.text_line import TextLine
-from assets.lib.battle_logic import BattleLogic
 from game_object.game_object import GameObject
+from assets.lib.battle_system.character_model import CharacterModel
+from assets.lib.text_line import TextLine
+from assets.lib.battle_system.battle_logic import BattleLogic
+
 
 class QueueView(GameObject):
 

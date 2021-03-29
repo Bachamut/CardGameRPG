@@ -1,4 +1,5 @@
-class ActionType():
+
+class ActionType:
 
     @staticmethod
     def set_status(card):

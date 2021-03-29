@@ -1,4 +1,5 @@
-class Status():
+
+class Status:
 
     @staticmethod
     def add_status(caster, target, card):

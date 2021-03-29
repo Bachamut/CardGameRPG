@@ -1,4 +1,4 @@
-from action_types import ActionType
+from assets.lib.battle_system.action_types import ActionType
 from status import Status
 
 

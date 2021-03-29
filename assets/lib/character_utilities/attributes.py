@@ -1,4 +1,5 @@
-class Attributes():
+
+class Attributes:
 
     def __init__(self):
 

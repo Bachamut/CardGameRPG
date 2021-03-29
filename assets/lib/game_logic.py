@@ -1,8 +1,8 @@
 from game_object.game_object import GameObject
 
-from assets.lib.card_manager import CardManager
-from assets.lib.character_manager import CharacterManager
-from assets.lib.item_manager import ItemManager
+from assets.lib.card_utilities.card_manager import CardManager
+from assets.lib.character_utilities.character_manager import CharacterManager
+from assets.lib.item_utilities.item_manager import ItemManager
 
 
 class GameLogic(GameObject):
@@ -19,9 +19,9 @@ class GameLogic(GameObject):
     def _initialize(self):
         GameLogic._initialized = True
 
-        CardManager.load_config('assets/lib/card_types.json')
-        CharacterManager.load_config('assets/lib/character_types.json')
-        ItemManager.load_config('assets/lib/item_types.json')
+        CardManager.load_config('assets/lib/templates/card_types.json')
+        CharacterManager.load_config('assets/lib/templates/character_types.json')
+        ItemManager.load_config('assets/lib/templates/item_types.json')
 
         self._create_party()
         self._create_enemy()
