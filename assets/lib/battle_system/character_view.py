@@ -12,9 +12,6 @@ class CharacterView(GameObject):
         self._initialized = False
         self.position = None
 
-        self.players = None
-        self.enemies = None
-
     def on_create(self):
         self.position = self.property('TransformProperty').position
         self.position.y = 300
@@ -23,21 +20,18 @@ class CharacterView(GameObject):
     def _initialize(self):
         self._initialized = True
 
-        self.players = GameLogic.get_sprite_pool().select_with_label('Players')[0]
-        self.enemies = GameLogic.get_sprite_pool().select_with_label('Enemies')[0]
+        self.players = GameObject.get_object_pool().select_with_label('Players')[0]
+        self.enemies = GameObject.get_object_pool().select_with_label('Enemies')[0]
 
         self.enemies.property('TransformProperty').position.x = 512
-
         self.attach_child(self.players)
         self.attach_child(self.enemies)
-
         self.position = self.property('TransformProperty').position
-
         self.position.x = 256
         self.position.y = 232
 
     def on_script(self):
-        if not self._initialized and BattleLogic._initialized:
+        if not self._initialized and GameLogic._initialized and BattleLogic._initialized:
             self._initialize()
         else:
             pass

@@ -88,7 +88,7 @@ class CardModel(GameObject):
 
     def on_signal(self, signal):
         if BattleLogic.card_model_active and CardModel._initialized:
-            if signal.type == BattleLogic.CHARACTER_CHANGED_SIGNAL:
+            if signal.type == BattleLogic.CURRENT_CHARACTER_SIGNAL:
                 CardModel.selected_card = 0
 
                 for card in CardModel.previous_character.hand:

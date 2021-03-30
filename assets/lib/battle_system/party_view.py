@@ -12,11 +12,12 @@ class PartyView(GameObject):
 
     def __init__(self):
         super(PartyView, self).__init__()
-        self.ally = None
+
         self.characters_status = list()
 
     def _initialize(self):
         PartyView._initialized = True
+
         self.ally = GameObject.get_object_pool().select_with_label('CharacterModel')[0].ally
 
         self.add_property("SpriteProperty")
@@ -60,7 +61,7 @@ class PartyView(GameObject):
         pass
 
     def on_script(self):
-        if not PartyView._initialized and CharacterModel._initialized  and len(GameObject.get_object_pool().select_with_label('CharacterModel')) != 0:
+        if not PartyView._initialized and CharacterModel._initialized:
             self._initialize()
         else:
             pass
@@ -69,10 +70,10 @@ class PartyView(GameObject):
             pass
 
     def on_signal(self, signal):
-        # if PartyView._initialized:
-        if signal.type == BattleLogic.STATUS_RESET_SIGNAL:
-            self.setup_party()
-        if signal.type == BattleLogic.STATUS_UPDATE_SIGNAL:
-            for line in self.characters_status:
-                index = self.characters_status.index(line)
-                line.update(f'{self.ally[index].name} - HP:{self.ally[index].attributes.health} EP:{self.ally[index].attributes.energy}')
+        if PartyView._initialized:
+            if signal.type == BattleLogic.STATUS_RESET_SIGNAL:
+                self.setup_party()
+            if signal.type == BattleLogic.STATUS_UPDATE_SIGNAL:
+                for line in self.characters_status:
+                    index = self.characters_status.index(line)
+                    line.update(f'{self.ally[index].name} - HP:{self.ally[index].attributes.health} EP:{self.ally[index].attributes.energy}')

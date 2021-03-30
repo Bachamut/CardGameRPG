@@ -10,14 +10,16 @@ class CharacterModel(GameObject):
 
     def __init__(self):
         super(CharacterModel, self).__init__()
-        self.current_character = BattleLogic.current_character
-        self.current_target = BattleLogic.current_target
 
-        self.ally = BattleLogic.ally
-        self.enemies = BattleLogic.enemies
+        _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
+        self.current_character = _battle_logic.current_character
+        self.current_target = _battle_logic.current_target
+        self.ally = _battle_logic.ally
+        self.enemies = _battle_logic.enemies
 
-        self._party_list = GameLogic.party
-        self._enemies_list = GameLogic.enemies
+        _game_logic = GameObject.get_object_pool().select_with_label("GameLogic")[0]
+        self._party_list = _game_logic.party
+        self._enemies_list = _game_logic.enemies
 
     def _initialize(self):
         CharacterModel._initialized = True

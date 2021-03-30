@@ -2,12 +2,11 @@ import pygame
 
 from game_object.game_object import GameObject
 from assets.lib.game_logic import GameLogic
-from assets.lib.battle_system.queue_model import QueueModel
 
 
 class BattleLogic(GameObject):
 
-    CHARACTER_CHANGED_SIGNAL = pygame.event.custom_type()
+    CURRENT_CHARACTER_SIGNAL = pygame.event.custom_type()
     STATUS_UPDATE_SIGNAL = pygame.event.custom_type()
     STATUS_RESET_SIGNAL = pygame.event.custom_type()
 
@@ -16,6 +15,8 @@ class BattleLogic(GameObject):
 
     current_character = None
     current_target = None
+    selected_target = None
+    current_card = None
     selected_card = None
 
     ally = list()
@@ -28,7 +29,6 @@ class BattleLogic(GameObject):
         super(BattleLogic, self).__init__()
 
         self.queue_model = None
-        self.queue_view = None
 
     def _initialize(self):
         BattleLogic._initialized = True
@@ -42,6 +42,7 @@ class BattleLogic(GameObject):
         if BattleLogic.started == False \
             and len(GameObject.get_object_pool().select_with_label('CharacterModel')) != 0 \
             and len(GameObject.get_object_pool().select_with_label('CardModel')) != 0 \
+            and len(GameObject.get_object_pool().select_with_label('QueueModel')) != 0 \
             and len(GameObject.get_object_pool().select_with_label('CardView')) != 0:
 
             BattleLogic.started = True
@@ -50,27 +51,20 @@ class BattleLogic(GameObject):
             character_model.create_ally()
             character_model.create_enemies()
 
-            self.queue_model = QueueModel()
-            self.queue_model.setup_queue(character_model.ally + character_model.enemies)
+            self.queue_model = GameObject.get_object_pool().select_with_label('QueueModel')[0]
+            GameObject.add_new_object(self.queue_model)
+            self.queue_model.setup_queue()
 
-            queue = self.queue_model.get_queue(
-                self.queue_model.party,
-                self.queue_model.characters_speed,
-                self.queue_model.modifiers
-            )
-
+            queue = self.queue_model.get_queue()
             BattleLogic.current_character = queue[0]
 
-            next_seed = QueueModel.get_next_seed(
-                self.queue_model.party,
-                self.queue_model.characters_speed,
-                self.queue_model.modifiers
-            )
+            next_seed = self.queue_model.get_next_seed()
 
+            # can be moved to get_next_seed()
             for key, values in self.queue_model.party.items():
                 self.queue_model.party[key] = next_seed[key]
 
-            self.queue_view = queue
+            self.queue_model.queue = queue
 
             print('')
             for key, value in self.queue_model.party.items():
@@ -88,7 +82,7 @@ class BattleLogic(GameObject):
             BattleLogic.character_model_active = False
             BattleLogic.card_model_active = True
 
-            signal = pygame.event.Event(BattleLogic.CHARACTER_CHANGED_SIGNAL, {"event": "CHARACTER_CHANGED_SIGNAL"})
+            signal = pygame.event.Event(BattleLogic.CURRENT_CHARACTER_SIGNAL, {"event": "CHARACTER_CHANGED_SIGNAL"})
             pygame.event.post(signal)
 
             signal = pygame.event.Event(BattleLogic.STATUS_RESET_SIGNAL, {"event": "STATUS_RESET_SIGNAL"})
@@ -106,30 +100,23 @@ class BattleLogic(GameObject):
                 character_model = GameObject.get_object_pool().select_with_label('CharacterModel')[0]
                 # WIP
 
-                queue = self.queue_model.get_queue(
-                    self.queue_model.party,
-                    self.queue_model.characters_speed,
-                    self.queue_model.modifiers
-                )
+                queue = self.queue_model.get_queue()
 
                 BattleLogic.current_character = queue[0]
 
-                next_seed = QueueModel.get_next_seed(
-                    self.queue_model.party,
-                    self.queue_model.characters_speed,
-                    self.queue_model.modifiers
-                )
+                next_seed = self.queue_model.get_next_seed()
 
                 for key, values in self.queue_model.party.items():
                     self.queue_model.party[key] = next_seed[key]
 
-                self.queue_view = queue
+                self.queue_model.queue.clear()
+                self.queue_model.queue += queue
 
                 print('')
                 for key, value in self.queue_model.party.items():
                     print(f'{key.name}: {value} | {self.queue_model.characters_speed[key]} +{self.queue_model.modifiers[key]}')
 
-                signal = pygame.event.Event(BattleLogic.CHARACTER_CHANGED_SIGNAL, {"event": "CHARACTER_CHANGED_SIGNAL"})
+                signal = pygame.event.Event(BattleLogic.CURRENT_CHARACTER_SIGNAL, {"event": "CHARACTER_CHANGED_SIGNAL"})
                 pygame.event.post(signal)
 
                 BattleLogic.ally[0].attributes.health += -20

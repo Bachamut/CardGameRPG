@@ -65,6 +65,21 @@
               }
             },
             {
+              "entity": "QueueModel",
+              "object":
+              {
+                "object_class": "QueueModel",
+                "object_type": null,
+                "object_label": "QueueModel",
+                "create": true,
+                "properties": ["ScriptProperty"],
+                "configure_properties":
+                {
+                  "ScriptProperty": {"set_script": "QueueModel"}
+                }
+              }
+            },
+            {
               "entity": "CardModel",
               "object":
               {

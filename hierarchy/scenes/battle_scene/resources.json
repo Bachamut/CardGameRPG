@@ -38,6 +38,12 @@
               "file": "character_model"
             },
             {
+              "key": "QueueModel",
+              "type": "script",
+              "path": "assets/lib/battle_system",
+              "file": "queue_model"
+            },
+            {
               "key": "CardModel",
               "type": "script",
               "path": "assets/lib/battle_system",
