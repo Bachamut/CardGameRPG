@@ -70,10 +70,6 @@ class BattleLogic(GameObject):
             for key, value in self.queue_model.party.items():
                 print(f'{key.name}: {value} | {self.queue_model.characters_speed[key]} +{self.queue_model.modifiers[key]}')
 
-            # WIP
-            # character_model.queue_model.create_queue()
-            # BattleLogic.current_character = character_model.queue_model.update_queue()
-
             card_model = GameObject.get_object_pool().select_with_label('CardModel')[0]
             for character in character_model.ally + character_model.enemies:
                 card_model.create_battledeck(character)
@@ -96,9 +92,6 @@ class BattleLogic(GameObject):
     def on_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-
-                character_model = GameObject.get_object_pool().select_with_label('CharacterModel')[0]
-                # WIP
 
                 queue = self.queue_model.get_queue()
 
@@ -123,6 +116,12 @@ class BattleLogic(GameObject):
 
                 signal = pygame.event.Event(BattleLogic.STATUS_UPDATE_SIGNAL, {"event": "STATUS_UPDATE_SIGNAL"})
                 pygame.event.post(signal)
+
+                print(f'battle_logic current_character: {BattleLogic.current_character.name}')
+                # _character_model = GameObject.get_object_pool().select_with_label("CharacterModel")[0]
+                # print(f'character_model current_character: {_character_model.current_character.name}')
+                _card_model = GameObject.get_object_pool().select_with_label("CardModel")[0]
+                print(f'card_model current_character: {_card_model.current_character.name}')
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:

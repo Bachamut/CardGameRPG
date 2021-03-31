@@ -9,20 +9,22 @@ class CardView(GameObject):
 
     def __init__(self):
         super(CardView, self).__init__()
-        self.onboard_cards = None
-        self.selected_card = None
 
     def on_create(self):
         pass
 
     def _initialize(self):
         CardView._initialized = True
+
+        self.selected_card = GameObject.get_object_pool().select_with_label('CardModel')[0].selected_card
+        self.onboard_cards = GameObject.get_object_pool().select_with_label('CardModel')[0].onboard_cards
+        self.current_character = GameObject.get_object_pool().select_with_label('CardModel')[0].current_character
+        self.previous_character = GameObject.get_object_pool().select_with_label('CardModel')[0].previous_character
         # self.character = BattleLogic.current_character
+
         self.position = self.property('TransformProperty').position
         self.position.y = 576
         self.position.x = 24
-        self.onboard_cards = CardModel.onboard_cards
-        self.selected_card = CardModel.selected_card
 
     def on_signal(self, signal):
         if signal.type == CARD_VIEW_ON_RISE:
@@ -37,7 +39,7 @@ class CardView(GameObject):
         #     print(card.card_name)
 
         step = 0
-        for card in BattleLogic.current_character.hand:
+        for card in self.current_character.hand:
             self.attach_child(card)
             card.property('SpriteProperty').visible = True
 
@@ -48,14 +50,14 @@ class CardView(GameObject):
             position.y = 576
 
         # print(f'\nPrevious Character: {CardModel.previous_character.name}')
-        previous = BattleLogic.current_character
-        CardModel.previous_character = previous
+        previous = self.current_character
+        self.previous_character = previous
 
     def _on_fall(self):
         # print(f'On_Fall')
         # print(f'Previous Character: {CardModel.previous_character.name}')
 
-        for card in CardModel.previous_character.hand:
+        for card in self.previous_character.hand:
             # self.detach_child(card)
             card.property('SpriteProperty').visible = False
 
@@ -67,7 +69,7 @@ class CardView(GameObject):
             self._initialize()
         elif CardView._initialized:
 
-            for card in BattleLogic.current_character.hand:
+            for card in self.current_character.hand:
                 if card.selected == True:
                     position = card.property('TransformProperty').position
                     position.y = 0
