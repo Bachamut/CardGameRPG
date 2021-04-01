@@ -24,6 +24,7 @@ class CharacterModel(GameObject):
 
     def _initialize(self):
         CharacterModel._initialized = True
+        print("CharacterModel initialized")
 
     def create_ally(self):
         for character in self._party_list:

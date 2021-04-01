@@ -15,6 +15,7 @@ class CardView(GameObject):
 
     def _initialize(self):
         CardView._initialized = True
+        print("CardView initialized")
 
         self.selected_card = GameObject.get_object_pool().select_with_label('CardModel')[0].selected_card
         self.onboard_cards = GameObject.get_object_pool().select_with_label('CardModel')[0].onboard_cards
@@ -34,7 +35,10 @@ class CardView(GameObject):
 
     def _on_rise(self):
 
-        # print(f'\nCurrent Character: {BattleLogic.current_character.name}')
+        _card_model = GameObject.get_object_pool().select_with_label("CardModel")[0]
+        self.current_character = _card_model.current_character
+
+        print(f'\nCurrent Character: {self.current_character.name}')
         # for card in BattleLogic.current_character.hand:
         #     print(card.card_name)
 
@@ -54,8 +58,12 @@ class CardView(GameObject):
         self.previous_character = previous
 
     def _on_fall(self):
+        #
+        # _card_model = GameObject.get_object_pool().select_with_label("CardModel")[0]
+        # self.previous_character = _card_model.previous_character
+
         # print(f'On_Fall')
-        # print(f'Previous Character: {CardModel.previous_character.name}')
+        print(f'Previous Character: {self.previous_character.name}')
 
         for card in self.previous_character.hand:
             # self.detach_child(card)
@@ -68,6 +76,9 @@ class CardView(GameObject):
         if not CardView._initialized and CardModel._initialized and CharacterModel._initialized and BattleLogic._initialized and BattleLogic.started:
             self._initialize()
         elif CardView._initialized:
+
+            _card_model = GameObject.get_object_pool().select_with_label("CardModel")[0]
+            self.current_character = _card_model.current_character
 
             for card in self.current_character.hand:
                 if card.selected == True:

@@ -19,6 +19,7 @@ class CharacterView(GameObject):
 
     def _initialize(self):
         self._initialized = True
+        print("CharacterView initialized")
 
         self.players = GameObject.get_object_pool().select_with_label('Players')[0]
         self.enemies = GameObject.get_object_pool().select_with_label('Enemies')[0]

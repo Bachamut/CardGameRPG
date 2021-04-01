@@ -17,6 +17,7 @@ class PartyView(GameObject):
 
     def _initialize(self):
         PartyView._initialized = True
+        print("PartyVIew initialized")
 
         self.ally = GameObject.get_object_pool().select_with_label('CharacterModel')[0].ally
 

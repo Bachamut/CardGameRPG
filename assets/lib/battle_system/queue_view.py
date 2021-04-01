@@ -17,6 +17,7 @@ class QueueView(GameObject):
 
     def _initialize(self):
         QueueView._initialized = True
+        print("QueueView initialized")
 
         self.queue = GameObject.get_object_pool().select_with_label('QueueModel')[0].queue
 
@@ -61,7 +62,7 @@ class QueueView(GameObject):
         if not QueueView._initialized and QueueModel._initialized:
             self._initialize()
         else:
-            var = self.queue
+            # var = self.queue
             pass
 
     def on_signal(self, signal):

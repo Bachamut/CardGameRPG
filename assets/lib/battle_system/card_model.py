@@ -24,6 +24,7 @@ class CardModel(GameObject):
 
     def _initialize(self):
         CardModel._initialized = True
+        print("CardModel initialized")
 
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
         self.current_character = _battle_logic.current_character
@@ -73,7 +74,11 @@ class CardModel(GameObject):
             CardModel.draw_card(character)
 
     def on_script(self):
-        if not self._initialized and GameLogic._initialized and BattleLogic._initialized and CharacterModel._initialized and BattleLogic.started:
+        if not self._initialized and \
+            GameLogic._initialized and \
+            BattleLogic._initialized and \
+            CharacterModel._initialized and \
+            BattleLogic.started:
             self._initialize()
         else:
             pass
@@ -92,6 +97,15 @@ class CardModel(GameObject):
     def on_signal(self, signal):
         if BattleLogic.card_model_active and CardModel._initialized:
             if signal.type == BattleLogic.CURRENT_CHARACTER_SIGNAL:
+
+                _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
+                self.current_character = _battle_logic.current_character
+
+                _card_view = GameObject.get_object_pool().select_with_label("CardView")[0]
+                self.previous_character = _card_view.previous_character
+
+                print(f'card_model current_character: {self.current_character.name}')
+
                 self.selected_card = 0
 
                 for card in self.previous_character.hand:

@@ -25,6 +25,7 @@ class QueueModel(GameObject):
 
     def _initialize(self):
         QueueModel._initialized = True
+        print("QueueModel initialized")
 
     def setup_queue(self, units=None):
         if units is None:

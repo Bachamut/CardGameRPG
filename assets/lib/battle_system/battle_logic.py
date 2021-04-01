@@ -2,6 +2,7 @@ import pygame
 
 from game_object.game_object import GameObject
 from assets.lib.game_logic import GameLogic
+from lib.character_utilities.character import Character
 
 
 class BattleLogic(GameObject):
@@ -32,6 +33,7 @@ class BattleLogic(GameObject):
 
     def _initialize(self):
         BattleLogic._initialized = True
+        print("BattleLogic initialized")
 
     def on_script(self):
         if not self._initialized and GameLogic._initialized:
