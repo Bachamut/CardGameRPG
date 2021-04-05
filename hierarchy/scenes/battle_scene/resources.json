@@ -50,10 +50,22 @@
               "file": "card_model"
             },
             {
+              "key": "TurnModel",
+              "type": "script",
+              "path": "assets/lib/battle_system",
+              "file": "turn_model"
+            },
+            {
               "key": "PartyView",
               "type": "script",
               "path": "assets/lib/battle_system",
               "file": "party_view"
+            },
+            {
+              "key": "EnemyView",
+              "type": "script",
+              "path": "assets/lib/battle_system",
+              "file": "enemy_view"
             },
             {
               "key": "QueueView",

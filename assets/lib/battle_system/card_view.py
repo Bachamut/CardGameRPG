@@ -21,7 +21,6 @@ class CardView(GameObject):
         self.onboard_cards = GameObject.get_object_pool().select_with_label('CardModel')[0].onboard_cards
         self.current_character = GameObject.get_object_pool().select_with_label('CardModel')[0].current_character
         self.previous_character = GameObject.get_object_pool().select_with_label('CardModel')[0].previous_character
-        # self.character = BattleLogic.current_character
 
         self.position = self.property('TransformProperty').position
         self.position.y = 576

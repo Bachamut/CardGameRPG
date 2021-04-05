@@ -6,30 +6,30 @@ from assets.lib.text_line import TextLine
 from assets.lib.battle_system.battle_logic import BattleLogic
 
 
-class PartyView(GameObject):
+class EnemyView(GameObject):
 
     _initialized = False
 
     def __init__(self):
-        super(PartyView, self).__init__()
+        super(EnemyView, self).__init__()
 
-        self.characters_status = list()
+        self.enemies_status = list()
 
     def _initialize(self):
-        PartyView._initialized = True
+        EnemyView._initialized = True
         print("PartyVIew initialized")
 
-        self.ally = GameObject.get_object_pool().select_with_label('CharacterModel')[0].ally
+        self.enemies = GameObject.get_object_pool().select_with_label('CharacterModel')[0].enemies
 
         self.add_property("SpriteProperty")
         self.add_property("BlitProperty")
         self.property("SpriteProperty").visible = True
         self.font_24 = pygame.font.Font("assets/DisposableDroidBB.ttf", 24)
-        self.property("SpriteProperty").surface = self.font_24.render("Party", True, [0, 0, 0])
+        self.property("SpriteProperty").surface = self.font_24.render("Enemies", True, [0, 0, 0])
 
         self.add_property('TransformProperty')
         self.position = self.property('TransformProperty').position
-        self.position.x = 10
+        self.position.x = 1040
         self.position.y = 380
 
         # Configure section description and TextLine for each character in ally
@@ -39,7 +39,7 @@ class PartyView(GameObject):
 
     def setup_party(self):
         step = 0
-        for character in self.ally:
+        for character in self.enemies:
             line = TextLine.get_instance()
             line.set_font(self.font_18)
             line.property('SpriteProperty').visible = True
@@ -51,30 +51,30 @@ class PartyView(GameObject):
             position.x = 0
 
             self.attach_child(line)
-            self.characters_status.append(line)
+            self.enemies_status.append(line)
 
-        for line in self.characters_status:
-            index = self.characters_status.index(line)
+        for line in self.enemies_status:
+            index = self.enemies_status.index(line)
             line.update(
-                f'{self.ally[index].name} - HP:{self.ally[index].attributes.health} AP:{self.ally[index].attributes.action_points}')
+                f'{self.enemies[index].name} - HP:{self.enemies[index].attributes.health} AP:{self.enemies[index].attributes.action_points}')
 
     def on_create(self):
         pass
 
     def on_script(self):
-        if not PartyView._initialized and CharacterModel._initialized:
+        if not EnemyView._initialized and CharacterModel._initialized:
             self._initialize()
         else:
             pass
 
-        if PartyView._initialized:
+        if EnemyView._initialized:
             pass
 
     def on_signal(self, signal):
-        if PartyView._initialized:
+        if EnemyView._initialized:
             if signal.type == BattleLogic.STATUS_RESET_SIGNAL:
                 self.setup_party()
             if signal.type == BattleLogic.STATUS_UPDATE_SIGNAL:
-                for line in self.characters_status:
-                    index = self.characters_status.index(line)
-                    line.update(f'{self.ally[index].name} - HP:{self.ally[index].attributes.health} AP:{self.ally[index].attributes.action_points}')
+                for line in self.enemies_status:
+                    index = self.enemies_status.index(line)
+                    line.update(f'{self.enemies[index].name} - HP:{self.enemies[index].attributes.health} AP:{self.enemies[index].attributes.action_points}')

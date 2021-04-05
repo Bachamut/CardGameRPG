@@ -107,5 +107,4 @@ class QueueModel(GameObject):
         if not QueueModel._initialized and BattleLogic._initialized:
             self._initialize()
         else:
-            var = self.queue
             pass

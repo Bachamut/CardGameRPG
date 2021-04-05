@@ -2,14 +2,21 @@ import pygame
 
 from game_object.game_object import GameObject
 from assets.lib.game_logic import GameLogic
-from lib.character_utilities.character import Character
 
 
 class BattleLogic(GameObject):
 
     CURRENT_CHARACTER_SIGNAL = pygame.event.custom_type()
+    CURRENT_CARD_SIGNAL = pygame.event.custom_type()
     STATUS_UPDATE_SIGNAL = pygame.event.custom_type()
     STATUS_RESET_SIGNAL = pygame.event.custom_type()
+    CHARACTER_ACTIVE_SIGNAL = pygame.event.custom_type()
+    TURN_ACTIVE_SIGNAL = pygame.event.custom_type()
+    TARGET_SELECTED_SIGNAL = pygame.event.custom_type()
+
+    character_model_active = False
+    card_model_active = False
+    turn_model_active = False
 
     _initialized = False
     started = False
@@ -23,8 +30,6 @@ class BattleLogic(GameObject):
     ally = list()
     enemies = list()
 
-    character_model_active = False
-    card_model_active = False
 
     def __init__(self):
         super(BattleLogic, self).__init__()
@@ -79,6 +84,7 @@ class BattleLogic(GameObject):
 
             BattleLogic.character_model_active = False
             BattleLogic.card_model_active = True
+            BattleLogic.turn_model_active = False
 
             signal = pygame.event.Event(BattleLogic.CURRENT_CHARACTER_SIGNAL, {"event": "CHARACTER_CHANGED_SIGNAL"})
             pygame.event.post(signal)
@@ -115,20 +121,39 @@ class BattleLogic(GameObject):
                 pygame.event.post(signal)
 
                 BattleLogic.ally[0].attributes.health += -20
+                BattleLogic.enemies[0].attributes.health += -10
 
                 signal = pygame.event.Event(BattleLogic.STATUS_UPDATE_SIGNAL, {"event": "STATUS_UPDATE_SIGNAL"})
                 pygame.event.post(signal)
 
                 print(f'battle_logic current_character: {BattleLogic.current_character.name}')
-                # _character_model = GameObject.get_object_pool().select_with_label("CharacterModel")[0]
-                # print(f'character_model current_character: {_character_model.current_character.name}')
-                _card_model = GameObject.get_object_pool().select_with_label("CardModel")[0]
-                print(f'card_model current_character: {_card_model.current_character.name}')
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:
-                self.queue_model.modifiers[BattleLogic.current_character] += 50
+                self.queue_model.modifiers[BattleLogic.current_character] += 10
 
                 print('')
                 for key, value in self.queue_model.party.items():
                     print(f'{key.name}: {value} | {self.queue_model.characters_speed[key]} +{self.queue_model.modifiers[key]}')
+
+    def on_signal(self, signal):
+        if BattleLogic._initialized:
+            if signal.type == BattleLogic.CURRENT_CARD_SIGNAL:
+                print(f'odebrano sygnał "CURRENT_CARD_SIGNAL"')
+
+                BattleLogic.character_model_active = False
+                BattleLogic.card_model_active = False
+                BattleLogic.turn_model_active = False
+
+                signal = pygame.event.Event(BattleLogic.CHARACTER_ACTIVE_SIGNAL, {"event": "CHARACTER_ACTIVE_SIGNAL"})
+                pygame.event.post(signal)
+
+            if signal.type == BattleLogic.TARGET_SELECTED_SIGNAL:
+                print(f'odebrano sygnał "TARGET_SELECTED_SIGNAL"')
+
+                BattleLogic.character_model_active = False
+                BattleLogic.card_model_active = False
+                BattleLogic.turn_model_active = False
+
+                signal = pygame.event.Event(BattleLogic.TURN_ACTIVE_SIGNAL)
+                pygame.event.post(signal)

@@ -27,7 +27,7 @@
                 "object_type": null,
                 "object_label": "BattleLogic",
                 "create": true,
-                "properties": ["ScriptProperty", "EventProperty"],
+                "properties": ["ScriptProperty", "EventProperty", "SignalProperty"],
                 "configure_properties":
                 {
                   "ScriptProperty": {"set_script": "BattleLogic"}
@@ -57,7 +57,7 @@
                 "object_type": null,
                 "object_label": "CharacterModel",
                 "create": true,
-                "properties": ["ScriptProperty", "EventProperty"],
+                "properties": ["ScriptProperty", "EventProperty", "SignalProperty"],
                 "configure_properties":
                 {
                   "ScriptProperty": {"set_script": "CharacterModel"}
@@ -95,6 +95,21 @@
               }
             },
             {
+              "entity": "TurnModel",
+              "object":
+              {
+                "object_class": "TurnModel",
+                "object_type": null,
+                "object_label": "TurnModel",
+                "create": true,
+                "properties": ["ScriptProperty", "EventProperty", "TransformProperty", "TranslateProperty", "SignalProperty"],
+                "configure_properties":
+                {
+                  "ScriptProperty": {"set_script": "TurnModel"}
+                }
+              }
+            },
+            {
               "entity": "CharacterView",
               "object":
               {
@@ -121,6 +136,21 @@
                 "configure_properties":
                 {
                   "ScriptProperty": {"set_script": "PartyView"}
+                }
+              }
+            },
+            {
+              "entity": "EnemyView",
+              "object":
+              {
+                "object_class": "EnemyView",
+                "object_type": null,
+                "object_label": "EnemyView",
+                "create": true,
+                "properties": ["ScriptProperty", "TransformProperty", "SignalProperty"],
+                "configure_properties":
+                {
+                  "ScriptProperty": {"set_script": "EnemyView"}
                 }
               }
             },

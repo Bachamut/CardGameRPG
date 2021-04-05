@@ -1,20 +1,22 @@
+import pygame
+
 from game_object.game_object import GameObject
 from assets.lib.battle_system.battle_logic import BattleLogic
-from assets.lib.game_logic import GameLogic
 
 
 class CharacterModel(GameObject):
 
     _initialized = False
-    active = BattleLogic.character_model_active
 
     def __init__(self):
         super(CharacterModel, self).__init__()
 
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
         self.current_character = _battle_logic.current_character
-        # self.current_character = BattleLogic.current_character
         self.current_target = _battle_logic.current_target
+        self.selected_target = _battle_logic.selected_target
+        self.selected_target_index = 0
+
         self.ally = _battle_logic.ally
         self.enemies = _battle_logic.enemies
 
@@ -41,4 +43,51 @@ class CharacterModel(GameObject):
             pass
 
     def on_event(self, event):
-        pass
+        if BattleLogic.character_model_active and CharacterModel._initialized:
+            if event.type == pygame.KEYDOWN:
+                self._on_arrow_right(event)
+                self._on_arrow_left(event)
+                self._card_selection(event)
+
+    def on_signal(self, signal):
+        if signal.type == BattleLogic.CHARACTER_ACTIVE_SIGNAL:
+            BattleLogic.character_model_active = True
+            self.selected_target_index = 0
+
+    def _on_arrow_right(self, event):
+        if event.key == pygame.K_RIGHT:
+            if self.selected_target_index < len(self.enemies) - 1:
+                self.selected_target_index += 1
+                print(f'selected_target_index {self.selected_target_index}')
+
+                self.selected_target = GameObject.get_object_pool().select_with_label("BattleLogic")[0].selected_target
+                self.enemies = GameObject.get_object_pool().select_with_label("BattleLogic")[0].enemies
+                BattleLogic.selected_target = self.enemies[self.selected_target_index]
+
+    def _on_arrow_left(self, event):
+        if event.key == pygame.K_LEFT:
+            if self.selected_target_index > 0:
+                self.selected_target_index -= 1
+                print(f'selected_target_index {self.selected_target_index}')
+
+                self.selected_target = GameObject.get_object_pool().select_with_label("BattleLogic")[0].selected_target
+                self.enemies = GameObject.get_object_pool().select_with_label("BattleLogic")[0].enemies
+                BattleLogic.selected_target = self.enemies[self.selected_target_index]
+
+    def _card_selection(self, event):
+        if event.key == pygame.K_RETURN:
+
+            _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
+            self.current_character = _battle_logic.current_character
+            self.current_target = _battle_logic.current_target
+            self.selected_target = _battle_logic.selected_target
+
+            BattleLogic.current_target = self.enemies[self.selected_target_index]
+
+            print(f'selected_target_index {self.selected_target_index}')
+            print(f'current_target {BattleLogic.current_target.name}')
+
+            BattleLogic.character_model_active = False
+
+            signal = pygame.event.Event(BattleLogic.TARGET_SELECTED_SIGNAL, {"event": "TARGET_SELECTED_SIGNAL"})
+            pygame.event.post(signal)

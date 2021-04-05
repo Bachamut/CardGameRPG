@@ -14,7 +14,6 @@ CARD_VIEW_ON_FALL = pygame.event.custom_type()
 class CardModel(GameObject):
 
     _initialized = False
-    active = BattleLogic.card_model_active
 
     def __init__(self):
         super(CardModel, self).__init__()
@@ -28,9 +27,9 @@ class CardModel(GameObject):
 
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
         self.current_character = _battle_logic.current_character
-        # self.current_character = BattleLogic.current_character
         self.current_card = _battle_logic.current_card
         self.selected_card = _battle_logic.selected_card
+        self.selected_card_index = 0
 
         self.previous_character = self.current_character
 
@@ -92,6 +91,7 @@ class CardModel(GameObject):
             if event.type == pygame.KEYDOWN:
                 self._on_arrow_right(event)
                 self._on_arrow_left(event)
+                self._card_selection(event)
         pass
 
     def on_signal(self, signal):
@@ -106,7 +106,7 @@ class CardModel(GameObject):
 
                 print(f'card_model current_character: {self.current_character.name}')
 
-                self.selected_card = 0
+                self.selected_card_index = 0
 
                 for card in self.previous_character.hand:
                     card.selected = False
@@ -123,17 +123,48 @@ class CardModel(GameObject):
 
     def _on_arrow_right(self, event):
         if event.key == pygame.K_RIGHT:
-            # CharacterView.current_character -> BattleLogic.current_character
-            if self.selected_card < len(self.current_character.hand) - 1:
-                self.current_character.hand[self.selected_card].selected = False
-                self.selected_card += 1
-                print(f'{self.selected_card}')
-                self.current_character.hand[self.selected_card].selected = True
+
+            _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
+            self.current_character = _battle_logic.current_character
+            self.current_card = _battle_logic.current_card
+            self.selected_card = _battle_logic.selected_card
+
+            if self.selected_card_index < len(self.current_character.hand) - 1:
+                self.current_character.hand[self.selected_card_index].selected = False
+                self.selected_card_index += 1
+                print(f'{self.selected_card_index}')
+                self.current_character.hand[self.selected_card_index].selected = True
+
+                # Current Card to Info View
 
     def _on_arrow_left(self, event):
         if event.key == pygame.K_LEFT:
-            if self.selected_card > 0:
-                self.current_character.hand[self.selected_card].selected = False
-                self.selected_card -= 1
-                print(f'{self.selected_card}')
-                self.current_character.hand[self.selected_card].selected = True
+            if self.selected_card_index > 0:
+
+                _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
+                self.current_character = _battle_logic.current_character
+                self.current_card = _battle_logic.current_card
+                self.selected_card = _battle_logic.selected_card
+
+                self.current_character.hand[self.selected_card_index].selected = False
+                self.selected_card_index -= 1
+                print(f'{self.selected_card_index}')
+                self.current_character.hand[self.selected_card_index].selected = True
+
+                # Current Card to Info View
+
+    def _card_selection(self, event):
+        if event.key == pygame.K_RETURN:
+
+            _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
+            self.current_character = _battle_logic.current_character
+            self.current_card = _battle_logic.current_card
+            self.selected_card = _battle_logic.selected_card
+
+            BattleLogic.current_card = self.current_character.hand[self.selected_card_index]
+            print(f'wybrana karta: {BattleLogic.current_card.card_name}')
+
+            BattleLogic.card_model_active = False
+
+            signal = pygame.event.Event(BattleLogic.CURRENT_CARD_SIGNAL, {"event": "CURRENT_CARD_SIGNAL"})
+            pygame.event.post(signal)
