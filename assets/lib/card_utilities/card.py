@@ -20,6 +20,7 @@ class Card(GameObject):
         self.target_status = {}
 
         self.selected = False
+        self.current = False
 
     def on_create(self):
         pass

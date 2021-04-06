@@ -95,7 +95,7 @@ class CardModel(GameObject):
         pass
 
     def on_signal(self, signal):
-        if BattleLogic.card_model_active and CardModel._initialized:
+        if CardModel._initialized:
             if signal.type == BattleLogic.CURRENT_CHARACTER_SIGNAL:
 
                 _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
@@ -110,13 +110,14 @@ class CardModel(GameObject):
 
                 for card in self.previous_character.hand:
                     card.selected = False
+                    card.current = False
 
                 self.current_character.hand[0].selected = True
                 
-                signal = pygame.event.Event(CARD_VIEW_ON_FALL)
+                signal = pygame.event.Event(CARD_VIEW_ON_FALL, {'event': 'CARD_VIEW_ON_FALL'})
                 pygame.event.post(signal)
 
-                signal = pygame.event.Event(CARD_VIEW_ON_RISE)
+                signal = pygame.event.Event(CARD_VIEW_ON_RISE, {'event': 'CARD_VIEW_ON_RISE'})
                 pygame.event.post(signal)
 
         pass
@@ -162,6 +163,7 @@ class CardModel(GameObject):
             self.selected_card = _battle_logic.selected_card
 
             BattleLogic.current_card = self.current_character.hand[self.selected_card_index]
+            BattleLogic.current_card.current = True
             print(f'wybrana karta: {BattleLogic.current_card.card_name}')
 
             BattleLogic.card_model_active = False

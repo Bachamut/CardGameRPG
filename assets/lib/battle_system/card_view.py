@@ -83,9 +83,12 @@ class CardView(GameObject):
                 if card.selected == True:
                     position = card.property('TransformProperty').position
                     position.y = 0
-                elif card.selected == False:
+                if card.selected == False:
                     position = card.property('TransformProperty').position
                     position.y = 16
+                if card.current == True:
+                    position = card.property('TransformProperty').position
+                    position.y = -32
 
     def on_event(self, event):
         pass

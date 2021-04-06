@@ -102,14 +102,14 @@ class BattleLogic(GameObject):
             if event.key == pygame.K_SPACE:
 
                 queue = self.queue_model.get_queue()
-
                 BattleLogic.current_character = queue[0]
-
                 next_seed = self.queue_model.get_next_seed()
 
+                # After one Turn update AP seeds for each Character i battle
                 for key, values in self.queue_model.party.items():
                     self.queue_model.party[key] = next_seed[key]
 
+                # Re-write Queue sequence to generated one
                 self.queue_model.queue.clear()
                 self.queue_model.queue += queue
 
@@ -117,11 +117,12 @@ class BattleLogic(GameObject):
                 for key, value in self.queue_model.party.items():
                     print(f'{key.name}: {value} | {self.queue_model.characters_speed[key]} +{self.queue_model.modifiers[key]}')
 
+                BattleLogic.character_model_active = False
+                BattleLogic.card_model_active = True
+                BattleLogic.turn_model_active = False
+
                 signal = pygame.event.Event(BattleLogic.CURRENT_CHARACTER_SIGNAL, {"event": "CHARACTER_CHANGED_SIGNAL"})
                 pygame.event.post(signal)
-
-                BattleLogic.ally[0].attributes.health += -20
-                BattleLogic.enemies[0].attributes.health += -10
 
                 signal = pygame.event.Event(BattleLogic.STATUS_UPDATE_SIGNAL, {"event": "STATUS_UPDATE_SIGNAL"})
                 pygame.event.post(signal)
