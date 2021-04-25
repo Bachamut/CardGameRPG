@@ -44,6 +44,12 @@
               "file": "queue_model"
             },
             {
+              "key": "CharacterIcon",
+              "type": "image",
+              "path": "assets/battle_system",
+              "file": "character_icon.png"
+            },
+            {
               "key": "CardModel",
               "type": "script",
               "path": "assets/lib/battle_system",
