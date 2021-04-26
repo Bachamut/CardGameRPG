@@ -24,6 +24,6 @@ class TextLine(GameObject):
     def set_font(self, font):
         self.font = font
 
-    def update(self, text):
-        self.text = text
-        self.property('SpriteProperty').surface = self.font.render(self.text, True, [0, 0, 0])
+    def update(self, text, color=(0, 0, 0)):
+        self.text = str(text)
+        self.property('SpriteProperty').surface = self.font.render(self.text, True, color)
