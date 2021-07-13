@@ -3,7 +3,7 @@ import pygame
 from game_object.game_object import GameObject
 from assets.lib.battle_system.character_model import CharacterModel
 from assets.lib.battle_system.battle_logic import BattleLogic
-from lib.battle_system.party_character_view import PartyCharacterView, CharacterIcon, CharacterName, AttributeLine
+from assets.lib.battle_system.party_character_view import PartyCharacterView, CharacterIcon, CharacterName, AttributeLine
 
 
 class CurrentPartyCharacterView(GameObject):

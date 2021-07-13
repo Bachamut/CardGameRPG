@@ -130,7 +130,7 @@ class BattleLogic(GameObject):
                 signal = pygame.event.Event(BattleLogic.STATUS_UPDATE_SIGNAL, {"event": "STATUS_UPDATE_SIGNAL"})
                 pygame.event.post(signal)
 
-                print(f'battle_logic current_character: {BattleLogic.current_character.name}')
+                print(f'battle_logic current_character: {BattleLogic.current_character.take().name}')
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:

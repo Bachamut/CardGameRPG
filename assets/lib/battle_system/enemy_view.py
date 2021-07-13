@@ -77,4 +77,4 @@ class EnemyView(GameObject):
             if signal.type == BattleLogic.STATUS_UPDATE_SIGNAL:
                 for line in self.enemies_status:
                     index = self.enemies_status.index(line)
-                    line.update(f'{self.enemies[index].name} - HP:{self.enemies[index].attributes.health} AP:{self.enemies[index].attributes.action_points}')
+                    line.update(f'{self.enemies.take()[index].name} - HP:{self.enemies.take()[index].attributes.health} AP:{self.enemies.take()[index].attributes.action_points}')

@@ -1,7 +1,7 @@
 import pygame
 
 from game_object.game_object import GameObject
-from lib.text_line import TextLine
+from assets.lib.text_line import TextLine
 
 
 class PartyCharacterView(GameObject):
