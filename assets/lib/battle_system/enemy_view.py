@@ -39,7 +39,7 @@ class EnemyView(GameObject):
 
     def setup_party(self):
         step = 0
-        for character in self.enemies:
+        for character in self.enemies.take():
             line = TextLine.get_instance()
             line.set_font(self.font_18)
             line.property('SpriteProperty').visible = True
@@ -56,7 +56,7 @@ class EnemyView(GameObject):
         for line in self.enemies_status:
             index = self.enemies_status.index(line)
             line.update(
-                f'{self.enemies[index].name} - HP:{self.enemies[index].attributes.health} AP:{self.enemies[index].attributes.action_points}')
+                f'{self.enemies.take()[index].name} - HP:{self.enemies.take()[index].attributes.health} AP:{self.enemies.take()[index].attributes.action_points}')
 
     def on_create(self):
         pass

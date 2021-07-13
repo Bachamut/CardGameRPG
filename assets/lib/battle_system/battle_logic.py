@@ -29,7 +29,9 @@ class BattleLogic(GameObject):
     selected_card = SharedResource()
 
     ally = SharedResource()
+    ally.set(list())
     enemies = SharedResource()
+    enemies.set(list())
 
 
     def __init__(self):
@@ -79,7 +81,7 @@ class BattleLogic(GameObject):
                 print(f'{key.name}: {value} | {self.queue_model.characters_speed[key]} +{self.queue_model.modifiers[key]}')
 
             card_model = GameObject.get_object_pool().select_with_label('CardModel')[0]
-            for character in character_model.ally + character_model.enemies:
+            for character in character_model.ally.take() + character_model.enemies.take():
                 card_model.create_battledeck(character)
                 card_model.draw_hand(character)
 

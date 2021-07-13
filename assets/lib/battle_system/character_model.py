@@ -29,11 +29,11 @@ class CharacterModel(GameObject):
 
     def create_ally(self):
         for character in self._party_list:
-            self.ally.append(character)
+            self.ally.take().append(character)
 
     def create_enemies(self):
         for enemy in self._enemies_list:
-            self.enemies.append(enemy)
+            self.enemies.take().append(enemy)
 
     def on_script(self):
         if not self._initialized and BattleLogic._initialized:
@@ -55,13 +55,13 @@ class CharacterModel(GameObject):
 
     def _on_arrow_right(self, event):
         if event.key == pygame.K_RIGHT:
-            if self.selected_target_index < len(self.enemies) - 1:
+            if self.selected_target_index < len(self.enemies.take()) - 1:
                 self.selected_target_index += 1
                 print(f'selected_target_index {self.selected_target_index}')
 
                 self.selected_target.update(GameObject.get_object_pool().select_with_label("BattleLogic")[0].selected_target)
                 self.enemies = GameObject.get_object_pool().select_with_label("BattleLogic")[0].enemies
-                BattleLogic.selected_target.update(self.enemies[self.selected_target_index])
+                BattleLogic.selected_target.update(self.enemies.take()[self.selected_target_index])
 
     def _on_arrow_left(self, event):
         if event.key == pygame.K_LEFT:
@@ -71,14 +71,14 @@ class CharacterModel(GameObject):
 
                 self.selected_target.update(GameObject.get_object_pool().select_with_label("BattleLogic")[0].selected_target)
                 self.enemies = GameObject.get_object_pool().select_with_label("BattleLogic")[0].enemies
-                BattleLogic.selected_target.update(self.enemies[self.selected_target_index])
+                BattleLogic.selected_target.update(self.enemies.take()[self.selected_target_index])
 
     def _card_selection(self, event):
         if event.key == pygame.K_RETURN:
 
             _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
 
-            BattleLogic.current_target.update(self.enemies[self.selected_target_index])
+            BattleLogic.current_target.update(self.enemies.take()[self.selected_target_index])
 
             print(f'selected_target_index {self.selected_target_index}')
             print(f'current_target {BattleLogic.current_target.take().name}')

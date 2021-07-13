@@ -28,7 +28,7 @@ class QueueModel(GameObject):
 
     def setup_queue(self, units=None):
         if units is None:
-            units = self.ally + self.enemies
+            units = self.ally.take() + self.enemies.take()
 
         for character in units:
             self.add_character(character)
