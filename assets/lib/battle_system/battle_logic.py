@@ -2,6 +2,7 @@ import pygame
 
 from game_object.game_object import GameObject
 from assets.lib.game_logic import GameLogic
+from resource_manager.shared_resource import SharedResource
 
 
 class BattleLogic(GameObject):
@@ -21,14 +22,14 @@ class BattleLogic(GameObject):
     _initialized = False
     started = False
 
-    current_character = None
-    current_target = None
-    selected_target = None
-    current_card = None
-    selected_card = None
+    current_character = SharedResource()
+    current_target = SharedResource()
+    selected_target = SharedResource()
+    current_card = SharedResource()
+    selected_card = SharedResource()
 
-    ally = list()
-    enemies = list()
+    ally = SharedResource()
+    enemies = SharedResource()
 
 
     def __init__(self):
@@ -63,7 +64,7 @@ class BattleLogic(GameObject):
             self.queue_model.setup_queue()
 
             queue = self.queue_model.get_queue()
-            BattleLogic.current_character = queue[0]
+            BattleLogic.current_character.set(queue[0])
 
             next_seed = self.queue_model.get_next_seed()
 
@@ -102,7 +103,7 @@ class BattleLogic(GameObject):
             if event.key == pygame.K_SPACE:
 
                 queue = self.queue_model.get_queue()
-                BattleLogic.current_character = queue[0]
+                BattleLogic.current_character.update(queue[0])
                 next_seed = self.queue_model.get_next_seed()
 
                 # After one Turn update AP seeds for each Character i battle

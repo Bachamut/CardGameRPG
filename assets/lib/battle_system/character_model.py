@@ -12,7 +12,6 @@ class CharacterModel(GameObject):
         super(CharacterModel, self).__init__()
 
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self.current_character = _battle_logic.current_character
         self.current_target = _battle_logic.current_target
         self.selected_target = _battle_logic.selected_target
         self.selected_target_index = 0
@@ -60,9 +59,9 @@ class CharacterModel(GameObject):
                 self.selected_target_index += 1
                 print(f'selected_target_index {self.selected_target_index}')
 
-                self.selected_target = GameObject.get_object_pool().select_with_label("BattleLogic")[0].selected_target
+                self.selected_target.update(GameObject.get_object_pool().select_with_label("BattleLogic")[0].selected_target)
                 self.enemies = GameObject.get_object_pool().select_with_label("BattleLogic")[0].enemies
-                BattleLogic.selected_target = self.enemies[self.selected_target_index]
+                BattleLogic.selected_target.update(self.enemies[self.selected_target_index])
 
     def _on_arrow_left(self, event):
         if event.key == pygame.K_LEFT:
@@ -70,22 +69,19 @@ class CharacterModel(GameObject):
                 self.selected_target_index -= 1
                 print(f'selected_target_index {self.selected_target_index}')
 
-                self.selected_target = GameObject.get_object_pool().select_with_label("BattleLogic")[0].selected_target
+                self.selected_target.update(GameObject.get_object_pool().select_with_label("BattleLogic")[0].selected_target)
                 self.enemies = GameObject.get_object_pool().select_with_label("BattleLogic")[0].enemies
-                BattleLogic.selected_target = self.enemies[self.selected_target_index]
+                BattleLogic.selected_target.update(self.enemies[self.selected_target_index])
 
     def _card_selection(self, event):
         if event.key == pygame.K_RETURN:
 
             _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-            self.current_character = _battle_logic.current_character
-            self.current_target = _battle_logic.current_target
-            self.selected_target = _battle_logic.selected_target
 
-            BattleLogic.current_target = self.enemies[self.selected_target_index]
+            BattleLogic.current_target.update(self.enemies[self.selected_target_index])
 
             print(f'selected_target_index {self.selected_target_index}')
-            print(f'current_target {BattleLogic.current_target.name}')
+            print(f'current_target {BattleLogic.current_target.take().name}')
 
             BattleLogic.character_model_active = False
 

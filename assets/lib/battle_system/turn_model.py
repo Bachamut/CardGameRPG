@@ -47,9 +47,6 @@ class TurnModel(GameObject):
                 BattleLogic.turn_model_active = True
 
                 _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-                self.current_character = _battle_logic.current_character
-                self.current_target = _battle_logic.current_target
-                self.current_card = _battle_logic.current_card
 
                 TurnModel.action_process(self.current_character, self.current_target, self.current_card)
 
@@ -57,8 +54,6 @@ class TurnModel(GameObject):
 
     def current_action(self):
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self.current_character = _battle_logic.current_character
-        self.selected_card = _battle_logic.selected_card
 
         if self.current_card.ap_cost <= self.current_character.action_points:
             print(f'Możesz użyć karty')
@@ -71,17 +66,17 @@ class TurnModel(GameObject):
     @staticmethod
     def action_process(caster, target, card):
 
-        if card.action_type == 'magic_attack':
+        if card.take().action_type == 'magic_attack':
             ActionType.magic_attack(caster, target, card)
-        elif card.action_type == 'basic_attack':
+        elif card.take().action_type == 'basic_attack':
             ActionType.basic_attack(caster, target, card)
-        elif card.action_type == 'piercing_attack':
+        elif card.take().action_type == 'piercing_attack':
             ActionType.piercing_attack(caster, target, card)
-        elif card.action_type == 'agile_attack':
+        elif card.take().action_type == 'agile_attack':
             ActionType.agile_attack(caster, target, card)
-        elif card.action_type == 'magic_spell':
+        elif card.take().action_type == 'magic_spell':
             ActionType.magic_spell(caster, target, card)
-        elif card.action_type == 'bow_attack':
+        elif card.take().action_type == 'bow_attack':
             ActionType.bow_attack(caster, target, card)
 
         Status.add_status(caster, target, card)

@@ -15,7 +15,6 @@ class QueueModel(GameObject):
         self.queue = list()
 
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self.current_character = _battle_logic.current_character
         self.ally = _battle_logic.ally
         self.enemies = _battle_logic.enemies
 

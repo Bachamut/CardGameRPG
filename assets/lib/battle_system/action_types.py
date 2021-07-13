@@ -37,10 +37,10 @@ class ActionType:
     @staticmethod
     def agile_attack(caster, target, card):
 
-        ActionType.dmg = card.base_value + (caster.attributes.dexterity + caster.modifiers.dexterity) * \
-                         card.multiplier * (100 - target.attributes.physical_resist) / 100
-        target.attributes.health -= ActionType.dmg
-        caster.attributes.action_points -= card.ap_cost
+        ActionType.dmg = card.take().base_value + (caster.take().attributes.dexterity + caster.take().modifiers.dexterity) * \
+                         card.take().multiplier * (100 - target.take().attributes.physical_resist) / 100
+        target.take().attributes.health -= ActionType.dmg
+        caster.take().attributes.action_points -= card.take().ap_cost
 
     @staticmethod
     def magic_spell(caster, target, card):
