@@ -67,7 +67,6 @@ class PartyView(GameObject):
         self.object_class = 'PartyView'
 
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self.current_character = _battle_logic.current_character
 
         self.characters_status = list()
         self.current_character_status = None
@@ -89,10 +88,9 @@ class PartyView(GameObject):
 
     def setup_party(self):
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self.current_character = _battle_logic.current_character
 
         step = 0
-        for character in self.ally.take():
+        for character in self.ally:
             if character == self.current_character:
                 print(f'Current Character in PartyView: {character.name}')
 
@@ -128,7 +126,6 @@ class PartyView(GameObject):
 
     def _on_status_update(self):
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self.current_character = _battle_logic.current_character
         for line in self.characters_status:
             if line.equal(self.current_character):
                 print(f'Current Character in PartyView: {self.current_character.name}')

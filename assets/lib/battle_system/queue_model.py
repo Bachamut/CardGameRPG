@@ -15,9 +15,9 @@ class QueueModel(GameObject):
         self.queue = list()
 
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self.current_character = _battle_logic.current_character
-        self.ally = _battle_logic.ally
-        self.enemies = _battle_logic.enemies
+        self.current_character = _battle_logic._current_character
+        self.ally = _battle_logic._ally
+        self.enemies = _battle_logic._enemies
 
         _game_logic = GameObject.get_object_pool().select_with_label("GameLogic")[0]
         self._party_list = _game_logic.party
@@ -29,7 +29,7 @@ class QueueModel(GameObject):
 
     def setup_queue(self, units=None):
         if units is None:
-            units = self.ally.take() + self.enemies.take()
+            units = self.ally + self.enemies
 
         for character in units:
             self.add_character(character)

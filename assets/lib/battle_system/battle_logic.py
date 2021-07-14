@@ -22,16 +22,74 @@ class BattleLogic(GameObject):
     _initialized = False
     started = False
 
-    current_character = SharedResource()
-    current_target = SharedResource()
-    selected_target = SharedResource()
-    current_card = SharedResource()
-    selected_card = SharedResource()
+    # SharedResources definitions
 
-    ally = SharedResource()
-    ally.set(list())
-    enemies = SharedResource()
-    enemies.set(list())
+    _current_character = SharedResource()
+    @property
+    def current_character(self):
+        return BattleLogic._current_character.take()
+
+    @current_character.setter
+    def current_character(self, character):
+        BattleLogic._current_character.set(character)
+
+    _current_target = SharedResource()
+    @property
+    def current_target(self):
+        return BattleLogic._current_target.take()
+
+    @current_target.setter
+    def current_target(self, character):
+        BattleLogic._current_target.set(character)
+
+    _selected_target = SharedResource()
+    @property
+    def selected_target(self):
+        return BattleLogic._selected_target.take()
+
+    @selected_target.setter
+    def selected_target(self, character):
+        BattleLogic._selected_target.set(character)
+
+    _current_card = SharedResource()
+    @property
+    def current_card(self):
+        return BattleLogic._current_card.take()
+
+    @current_card.setter
+    def current_card(self, character):
+        BattleLogic._current_card.set(character)
+
+    _selected_card = SharedResource()
+    @property
+    def selected_card(self):
+        return BattleLogic._selected_card.take()
+
+    @selected_card.setter
+    def selected_card(self, character):
+        BattleLogic._selected_card.set(character)
+
+    _ally = SharedResource()
+    _ally.set(list())
+    @property
+    def ally(self):
+        return BattleLogic._ally.take()
+
+    @ally.setter
+    def ally(self, character):
+        BattleLogic._ally.set(character)
+
+    _enemies = SharedResource()
+    _enemies.set(list())
+    @property
+    def enemies(self):
+        return BattleLogic._enemies.take()
+
+    @enemies.setter
+    def enemies(self, character):
+        BattleLogic._enemies.set(character)
+
+    # end SharedResources
 
 
     def __init__(self):
@@ -66,7 +124,7 @@ class BattleLogic(GameObject):
             self.queue_model.setup_queue()
 
             queue = self.queue_model.get_queue()
-            BattleLogic.current_character.set(queue[0])
+            self.current_character = queue[0]
 
             next_seed = self.queue_model.get_next_seed()
 
@@ -81,7 +139,7 @@ class BattleLogic(GameObject):
                 print(f'{key.name}: {value} | {self.queue_model.characters_speed[key]} +{self.queue_model.modifiers[key]}')
 
             card_model = GameObject.get_object_pool().select_with_label('CardModel')[0]
-            for character in character_model.ally.take() + character_model.enemies.take():
+            for character in character_model.ally + character_model.enemies:
                 card_model.create_battledeck(character)
                 card_model.draw_hand(character)
 
@@ -105,7 +163,7 @@ class BattleLogic(GameObject):
             if event.key == pygame.K_SPACE:
 
                 queue = self.queue_model.get_queue()
-                BattleLogic.current_character.update(queue[0])
+                BattleLogic.current_character = queue[0]
                 next_seed = self.queue_model.get_next_seed()
 
                 # After one Turn update AP seeds for each Character i battle
@@ -130,7 +188,7 @@ class BattleLogic(GameObject):
                 signal = pygame.event.Event(BattleLogic.STATUS_UPDATE_SIGNAL, {"event": "STATUS_UPDATE_SIGNAL"})
                 pygame.event.post(signal)
 
-                print(f'battle_logic current_character: {BattleLogic.current_character.take().name}')
+                print(f'battle_logic current_character: {BattleLogic.current_character.name}')
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:
