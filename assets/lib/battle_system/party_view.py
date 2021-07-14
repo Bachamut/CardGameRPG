@@ -17,10 +17,10 @@ class CurrentPartyCharacterView(GameObject):
         self.position = self.property('TransformProperty').position
 
         self.character_icon = CharacterIcon()
-        self.character_name = CharacterName(self.character.take().name)
-        self.character_hp = AttributeLine("HP", self.character.take().attributes.health, (0, 204, 10))
-        self.character_ep = AttributeLine("EP", self.character.take().attributes.energy, (0, 92, 204))
-        self.character_ap = AttributeLine("AP", self.character.take().attributes.action_points, (204, 112, 0))
+        self.character_name = CharacterName(self.character.name)
+        self.character_hp = AttributeLine("HP", self.character.attributes.health, (0, 204, 10))
+        self.character_ep = AttributeLine("EP", self.character.attributes.energy, (0, 92, 204))
+        self.character_ap = AttributeLine("AP", self.character.attributes.action_points, (204, 112, 0))
 
         self.attach_child(self.character_icon)
         self.attach_child(self.character_name)
@@ -67,6 +67,7 @@ class PartyView(GameObject):
         self.object_class = 'PartyView'
 
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
+        self.current_character = _battle_logic.current_character
 
         self.characters_status = list()
         self.current_character_status = None
@@ -88,6 +89,7 @@ class PartyView(GameObject):
 
     def setup_party(self):
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
+        self.current_character = _battle_logic.current_character
 
         step = 0
         for character in self.ally.take():
@@ -126,6 +128,7 @@ class PartyView(GameObject):
 
     def _on_status_update(self):
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
+        self.current_character = _battle_logic.current_character
         for line in self.characters_status:
             if line.equal(self.current_character):
                 print(f'Current Character in PartyView: {self.current_character.name}')

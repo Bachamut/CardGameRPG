@@ -3,13 +3,13 @@ class Status:
 
     @staticmethod
     def add_status(caster, target, card):
-        if card.take().caster_status:
+        if card.caster_status:
             for key, value in card.caster_status.items():
                 if key in caster.status:
                     caster.status[key] += value
                 else:
                     caster.status[key] = value
-        if card.take().target_status:
+        if card.target_status:
             for key, value in card.target_status.items():
                 if key in target.status:
                     target.status[key] += value
