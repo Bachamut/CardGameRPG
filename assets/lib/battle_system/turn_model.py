@@ -21,10 +21,10 @@ class TurnModel(GameObject):
         print("TurnModel initialized")
 
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self.current_character = _battle_logic.current_character
-        self.current_target = _battle_logic.current_target
-        self.current_card = _battle_logic.current_card
-        self.selected_card = _battle_logic.selected_card
+        self.current_character = _battle_logic._current_character
+        self.current_target = _battle_logic._current_target
+        self.current_card = _battle_logic._current_card
+        self.selected_card = _battle_logic._selected_card
 
     def on_script(self):
         if not self._initialized and \
@@ -46,12 +46,7 @@ class TurnModel(GameObject):
 
                 BattleLogic.turn_model_active = True
 
-                _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-                self.current_character = _battle_logic.current_character
-                self.current_target = _battle_logic.current_target
-                self.current_card = _battle_logic.current_card
-
-                TurnModel.action_process(self.current_character, self.current_target, self.current_card)
+                TurnModel.action_process(self.current_character(), self.current_target(), self.current_card())
 
                 BattleLogic.turn_model_active = False
 

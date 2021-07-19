@@ -12,13 +12,13 @@ class CharacterModel(GameObject):
         super(CharacterModel, self).__init__()
 
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self.current_character = _battle_logic.current_character
-        self.current_target = _battle_logic.current_target
-        self.selected_target = _battle_logic.selected_target
+        self.current_character = _battle_logic._current_character
+        self.current_target = _battle_logic._current_target
+        self.selected_target = _battle_logic._selected_target
         self.selected_target_index = 0
 
-        self.ally = _battle_logic.ally
-        self.enemies = _battle_logic.enemies
+        self.ally = _battle_logic._ally
+        self.enemies = _battle_logic._enemies
 
         _game_logic = GameObject.get_object_pool().select_with_label("GameLogic")[0]
         self._party_list = _game_logic.party
@@ -30,11 +30,11 @@ class CharacterModel(GameObject):
 
     def create_ally(self):
         for character in self._party_list:
-            self.ally.append(character)
+            self.ally().append(character)
 
     def create_enemies(self):
         for enemy in self._enemies_list:
-            self.enemies.append(enemy)
+            self.enemies().append(enemy)
 
     def on_script(self):
         if not self._initialized and BattleLogic._initialized:
@@ -50,6 +50,7 @@ class CharacterModel(GameObject):
                 self._card_selection(event)
 
     def on_signal(self, signal):
+        # If CHARACTER_ACTIVE_SIGNAL is received control is passed to CharacterModel to choose target
         if signal.type == BattleLogic.CHARACTER_ACTIVE_SIGNAL:
             BattleLogic.character_model_active = True
             self.selected_target_index = 0
@@ -60,8 +61,6 @@ class CharacterModel(GameObject):
                 self.selected_target_index += 1
                 print(f'selected_target_index {self.selected_target_index}')
 
-                self.selected_target = GameObject.get_object_pool().select_with_label("BattleLogic")[0].selected_target
-                self.enemies = GameObject.get_object_pool().select_with_label("BattleLogic")[0].enemies
                 BattleLogic.selected_target = self.enemies[self.selected_target_index]
 
     def _on_arrow_left(self, event):
@@ -77,12 +76,8 @@ class CharacterModel(GameObject):
     def _card_selection(self, event):
         if event.key == pygame.K_RETURN:
 
-            _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-            self.current_character = _battle_logic.current_character
-            self.current_target = _battle_logic.current_target
-            self.selected_target = _battle_logic.selected_target
-
-            BattleLogic.current_target = self.enemies[self.selected_target_index]
+            # TODO: It should be refactored to keep selected target object in variable not represent as a index in array
+            BattleLogic.current_target = self.enemies()[self.selected_target_index]
 
             print(f'selected_target_index {self.selected_target_index}')
             print(f'current_target {BattleLogic.current_target.name}')

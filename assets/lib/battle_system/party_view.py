@@ -90,7 +90,7 @@ class PartyView(GameObject):
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
 
         step = 0
-        for character in self.ally:
+        for character in self.ally():
             if character == self.current_character:
                 print(f'Current Character in PartyView: {character.name}')
 

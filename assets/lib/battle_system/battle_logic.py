@@ -24,70 +24,61 @@ class BattleLogic(GameObject):
 
     # SharedResources definitions
 
-    _current_character = SharedResource()
     @property
     def current_character(self):
-        return BattleLogic._current_character.take()
+        return self._current_character.take()
 
     @current_character.setter
     def current_character(self, character):
-        BattleLogic._current_character.set(character)
+        self._current_character.set(character)
 
-    _current_target = SharedResource()
     @property
     def current_target(self):
-        return BattleLogic._current_target.take()
+        return self._current_target.take()
 
     @current_target.setter
     def current_target(self, character):
-        BattleLogic._current_target.set(character)
+        self._current_target.set(character)
 
-    _selected_target = SharedResource()
     @property
     def selected_target(self):
-        return BattleLogic._selected_target.take()
+        return self._selected_target.take()
 
     @selected_target.setter
-    def selected_target(self, character):
-        BattleLogic._selected_target.set(character)
+    def selected_target(self, target):
+        self._selected_target.set(target)
 
-    _current_card = SharedResource()
     @property
     def current_card(self):
-        return BattleLogic._current_card.take()
+        return self._current_card.take()
 
     @current_card.setter
-    def current_card(self, character):
-        BattleLogic._current_card.set(character)
+    def current_card(self, card):
+        self._current_card.set(card)
 
-    _selected_card = SharedResource()
     @property
     def selected_card(self):
-        return BattleLogic._selected_card.take()
+        return self._selected_card.take()
 
     @selected_card.setter
-    def selected_card(self, character):
-        BattleLogic._selected_card.set(character)
+    def selected_card(self, card):
+        self._selected_card.set(card)
 
-    _ally = SharedResource()
-    _ally.set(list())
     @property
     def ally(self):
-        return BattleLogic._ally.take()
+        return self._ally.take()
 
     @ally.setter
-    def ally(self, character):
-        BattleLogic._ally.set(character)
+    def ally(self, ally):
+        self._ally.set(ally)
 
-    _enemies = SharedResource()
-    _enemies.set(list())
     @property
     def enemies(self):
-        return BattleLogic._enemies.take()
+        return self._enemies.take()
 
     @enemies.setter
-    def enemies(self, character):
-        BattleLogic._enemies.set(character)
+    def enemies(self, enemies):
+        self._enemies.set(enemies)
 
     # end SharedResources
 
@@ -96,6 +87,21 @@ class BattleLogic(GameObject):
         super(BattleLogic, self).__init__()
 
         self.queue_model = None
+
+        ###
+        self._current_character = SharedResource()
+        self._current_target = SharedResource()
+        self._selected_target = SharedResource()
+        self._current_card = SharedResource()
+        self._selected_card = SharedResource()
+
+        self._ally = SharedResource()
+        self._ally.set(list())
+
+        self._enemies = SharedResource()
+        self._enemies.set(list())
+
+        ###
 
     def _initialize(self):
         BattleLogic._initialized = True
@@ -188,7 +194,7 @@ class BattleLogic(GameObject):
                 signal = pygame.event.Event(BattleLogic.STATUS_UPDATE_SIGNAL, {"event": "STATUS_UPDATE_SIGNAL"})
                 pygame.event.post(signal)
 
-                print(f'battle_logic current_character: {BattleLogic.current_character.name}')
+                print(f'battle_logic current_character: {self.current_character.name}')
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:
@@ -207,6 +213,7 @@ class BattleLogic(GameObject):
                 BattleLogic.card_model_active = False
                 BattleLogic.turn_model_active = False
 
+                # Call CHARACTER_ACTIVE_SIGNAL to the CharacterModel to choose target
                 signal = pygame.event.Event(BattleLogic.CHARACTER_ACTIVE_SIGNAL, {"event": "CHARACTER_ACTIVE_SIGNAL"})
                 pygame.event.post(signal)
 

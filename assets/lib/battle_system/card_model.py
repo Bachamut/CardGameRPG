@@ -13,6 +13,66 @@ CARD_VIEW_ON_FALL = pygame.event.custom_type()
 
 class CardModel(GameObject):
 
+    # SharedResources definitions
+
+    @property
+    def current_character(self):
+        return self._current_character.take()
+
+    @current_character.setter
+    def current_character(self, character):
+        self._current_character.set(character)
+
+    @property
+    def current_target(self):
+        return self._current_target.take()
+
+    @current_target.setter
+    def current_target(self, character):
+        self._current_target.set(character)
+
+    @property
+    def selected_target(self):
+        return self._selected_target.take()
+
+    @selected_target.setter
+    def selected_target(self, target):
+        self._selected_target.set(target)
+
+    @property
+    def current_card(self):
+        return self._current_card.take()
+
+    @current_card.setter
+    def current_card(self, card):
+        self._current_card.set(card)
+
+    @property
+    def selected_card(self):
+        return self._selected_card.take()
+
+    @selected_card.setter
+    def selected_card(self, card):
+        self._selected_card.set(card)
+
+    @property
+    def ally(self):
+        return self._ally.take()
+
+    @ally.setter
+    def ally(self, ally):
+        self._ally.set(ally)
+
+    @property
+    def enemies(self):
+        return self._enemies.take()
+
+    @enemies.setter
+    def enemies(self, enemies):
+        self._enemies.set(enemies)
+
+    # end SharedResources
+
     _initialized = False
 
     def __init__(self):
@@ -25,10 +85,10 @@ class CardModel(GameObject):
         CardModel._initialized = True
         print("CardModel initialized")
 
-        _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self.current_character = _battle_logic._current_character
-        self.current_card = _battle_logic._current_card
-        self.selected_card = _battle_logic._selected_card
+        self._battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
+        self._current_character = self._battle_logic._current_character
+        self._current_card = self._battle_logic._current_card
+        self._selected_card = self._battle_logic._selected_card
         self.selected_card_index = 0
 
         self.previous_character = self.current_character
@@ -85,6 +145,7 @@ class CardModel(GameObject):
         if BattleLogic.card_model_active:
             pass
 
+
     def on_event(self, event):
         if BattleLogic.card_model_active and CardModel._initialized:
 
@@ -98,21 +159,18 @@ class CardModel(GameObject):
         if CardModel._initialized:
             if signal.type == BattleLogic.CURRENT_CHARACTER_SIGNAL:
 
-                _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-                self.current_character = _battle_logic._current_character
-
                 _card_view = GameObject.get_object_pool().select_with_label("CardView")[0]
                 self.previous_character = _card_view.previous_character
 
-                print(f'card_model current_character: {self.current_character().name}')
+                print(f'card_model current_character: {self.current_character.name}')
 
                 self.selected_card_index = 0
 
-                for card in self.previous_character().hand:
+                for card in self.previous_character.hand:
                     card.selected = False
                     card.current = False
 
-                self.current_character().hand[0].selected = True
+                self.current_character.hand[0].selected = True
                 
                 signal = pygame.event.Event(CARD_VIEW_ON_FALL, {'event': 'CARD_VIEW_ON_FALL'})
                 pygame.event.post(signal)
@@ -124,11 +182,6 @@ class CardModel(GameObject):
 
     def _on_arrow_right(self, event):
         if event.key == pygame.K_RIGHT:
-
-            _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-            self.current_character = _battle_logic._current_character
-            self.current_card = _battle_logic._current_card
-            self.selected_card = _battle_logic._selected_card
 
             if self.selected_card_index < len(self.current_character().hand) - 1:
                 self.current_character().hand[self.selected_card_index].selected = False
@@ -142,11 +195,6 @@ class CardModel(GameObject):
         if event.key == pygame.K_LEFT:
             if self.selected_card_index > 0:
 
-                _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-                self.current_character = _battle_logic._current_character
-                self.current_card = _battle_logic._current_card
-                self.selected_card = _battle_logic._selected_card
-
                 self.current_character().hand[self.selected_card_index].selected = False
                 self.selected_card_index -= 1
                 print(f'{self.selected_card_index}')
@@ -157,16 +205,12 @@ class CardModel(GameObject):
     def _card_selection(self, event):
         if event.key == pygame.K_RETURN:
 
-            _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-            self.current_character = _battle_logic._current_character
-            self.current_card = _battle_logic._current_card
-            self.selected_card = _battle_logic._selected_card
-
-            BattleLogic.current_card = self.current_character().hand[self.selected_card_index]
-            BattleLogic.current_card.current = True
-            print(f'wybrana karta: {BattleLogic.current_card.card_name}')
+            self.current_card = self.current_character.hand[self.selected_card_index]
+            self.current_card.current = True
+            print(f'wybrana karta: {self._battle_logic.current_card.card_name}')
 
             BattleLogic.card_model_active = False
 
+            # Call CURRENT_CARD_SIGNAL back to the BattleLogic
             signal = pygame.event.Event(BattleLogic.CURRENT_CARD_SIGNAL, {"event": "CURRENT_CARD_SIGNAL"})
             pygame.event.post(signal)
