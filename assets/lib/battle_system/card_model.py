@@ -183,11 +183,11 @@ class CardModel(GameObject):
     def _on_arrow_right(self, event):
         if event.key == pygame.K_RIGHT:
 
-            if self.selected_card_index < len(self.current_character().hand) - 1:
-                self.current_character().hand[self.selected_card_index].selected = False
+            if self.selected_card_index < len(self.current_character.hand) - 1:
+                self.current_character.hand[self.selected_card_index].selected = False
                 self.selected_card_index += 1
                 print(f'{self.selected_card_index}')
-                self.current_character().hand[self.selected_card_index].selected = True
+                self.current_character.hand[self.selected_card_index].selected = True
 
                 # Current Card to Info View
 
@@ -195,10 +195,10 @@ class CardModel(GameObject):
         if event.key == pygame.K_LEFT:
             if self.selected_card_index > 0:
 
-                self.current_character().hand[self.selected_card_index].selected = False
+                self.current_character.hand[self.selected_card_index].selected = False
                 self.selected_card_index -= 1
                 print(f'{self.selected_card_index}')
-                self.current_character().hand[self.selected_card_index].selected = True
+                self.current_character.hand[self.selected_card_index].selected = True
 
                 # Current Card to Info View
 

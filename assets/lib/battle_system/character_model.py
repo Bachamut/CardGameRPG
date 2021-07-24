@@ -6,19 +6,79 @@ from assets.lib.battle_system.battle_logic import BattleLogic
 
 class CharacterModel(GameObject):
 
+    # SharedResources definitions
+
+    @property
+    def current_character(self):
+        return self._current_character.take()
+
+    @current_character.setter
+    def current_character(self, character):
+        self._current_character.set(character)
+
+    @property
+    def current_target(self):
+        return self._current_target.take()
+
+    @current_target.setter
+    def current_target(self, character):
+        self._current_target.set(character)
+
+    @property
+    def selected_target(self):
+        return self._selected_target.take()
+
+    @selected_target.setter
+    def selected_target(self, target):
+        self._selected_target.set(target)
+
+    @property
+    def current_card(self):
+        return self._current_card.take()
+
+    @current_card.setter
+    def current_card(self, card):
+        self._current_card.set(card)
+
+    @property
+    def selected_card(self):
+        return self._selected_card.take()
+
+    @selected_card.setter
+    def selected_card(self, card):
+        self._selected_card.set(card)
+
+    @property
+    def ally(self):
+        return self._ally.take()
+
+    @ally.setter
+    def ally(self, ally):
+        self._ally.set(ally)
+
+    @property
+    def enemies(self):
+        return self._enemies.take()
+
+    @enemies.setter
+    def enemies(self, enemies):
+        self._enemies.set(enemies)
+
+    # end SharedResources
+
     _initialized = False
 
     def __init__(self):
         super(CharacterModel, self).__init__()
 
-        _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self.current_character = _battle_logic._current_character
-        self.current_target = _battle_logic._current_target
-        self.selected_target = _battle_logic._selected_target
-        self.selected_target_index = 0
+        self._battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
+        self._current_character = self._battle_logic._current_character
+        self._current_target = self._battle_logic._current_target
+        self._selected_target = self._battle_logic._selected_target
+        self._selected_target_index = 0
 
-        self.ally = _battle_logic._ally
-        self.enemies = _battle_logic._enemies
+        self._ally = self._battle_logic._ally
+        self._enemies = self._battle_logic._enemies
 
         _game_logic = GameObject.get_object_pool().select_with_label("GameLogic")[0]
         self._party_list = _game_logic.party
@@ -30,11 +90,11 @@ class CharacterModel(GameObject):
 
     def create_ally(self):
         for character in self._party_list:
-            self.ally().append(character)
+            self.ally.append(character)
 
     def create_enemies(self):
         for enemy in self._enemies_list:
-            self.enemies().append(enemy)
+            self.enemies.append(enemy)
 
     def on_script(self):
         if not self._initialized and BattleLogic._initialized:
@@ -77,10 +137,10 @@ class CharacterModel(GameObject):
         if event.key == pygame.K_RETURN:
 
             # TODO: It should be refactored to keep selected target object in variable not represent as a index in array
-            BattleLogic.current_target = self.enemies()[self.selected_target_index]
+            self.current_target = self.enemies[self.selected_target_index]
 
             print(f'selected_target_index {self.selected_target_index}')
-            print(f'current_target {BattleLogic.current_target.name}')
+            print(f'current_target {self._battle_logic.current_target.name}')
 
             BattleLogic.character_model_active = False
 
