@@ -8,6 +8,18 @@ from assets.lib.battle_system.battle_logic import BattleLogic
 
 class EnemyView(GameObject):
 
+    # EnamyView SharedResources definitions
+
+    @property
+    def enemies(self):
+        return self._enemies.take()
+
+    @enemies.setter
+    def enemies(self, enemies):
+        self._enemies.set(enemies)
+
+    # end SharedResources
+
     _initialized = False
 
     def __init__(self):
@@ -19,7 +31,7 @@ class EnemyView(GameObject):
         EnemyView._initialized = True
         print("PartyVIew initialized")
 
-        self.enemies = GameObject.get_object_pool().select_with_label('CharacterModel')[0].enemies
+        self._enemies = GameObject.get_object_pool().select_with_label('CharacterModel')[0]._enemies
 
         self.add_property("SpriteProperty")
         self.add_property("BlitProperty")

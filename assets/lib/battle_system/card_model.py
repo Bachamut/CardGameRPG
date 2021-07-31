@@ -6,6 +6,7 @@ from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.card_utilities.card_manager import CardManager
 from assets.lib.battle_system.character_model import CharacterModel
 from assets.lib.game_logic import GameLogic
+from resource_manager.shared_resource import SharedResource
 
 CARD_VIEW_ON_RISE = pygame.event.custom_type()
 CARD_VIEW_ON_FALL = pygame.event.custom_type()
@@ -73,13 +74,35 @@ class CardModel(GameObject):
 
     # end SharedResources
 
+    # CardModel SharedResources definitions
+
+    @property
+    def onboard_cards(self):
+        return self._onboard_cards.take()
+
+    @onboard_cards.setter
+    def onboard_cards(self, enemies):
+        self._onboard_cards.set(enemies)
+
+    @property
+    def previous_character(self):
+        return self._previous_character.take()
+
+    @previous_character.setter
+    def previous_character(self, enemies):
+        self._previous_character.set(enemies)
+
+    # end SharedResources
+
     _initialized = False
 
     def __init__(self):
         super(CardModel, self).__init__()
 
+        self._onboard_cards = SharedResource()
+        self._onboard_cards = list()
 
-        self.onboard_cards = list()
+        self._previous_character = SharedResource()
 
     def _initialize(self):
         CardModel._initialized = True
@@ -91,6 +114,7 @@ class CardModel(GameObject):
         self._selected_card = self._battle_logic._selected_card
         self.selected_card_index = 0
 
+        # Must to create copy and store as previous
         self.previous_character = self.current_character
 
     def on_create(self):
@@ -158,10 +182,6 @@ class CardModel(GameObject):
     def on_signal(self, signal):
         if CardModel._initialized:
             if signal.type == BattleLogic.CURRENT_CHARACTER_SIGNAL:
-
-                _card_view = GameObject.get_object_pool().select_with_label("CardView")[0]
-                self.previous_character = _card_view.previous_character
-
                 print(f'card_model current_character: {self.current_character.name}')
 
                 self.selected_card_index = 0

@@ -1,23 +1,125 @@
 from game_object.game_object import GameObject
 from assets.lib.battle_system.battle_logic import BattleLogic
+from resource_manager.shared_resource import SharedResource
 
 
 class QueueModel(GameObject):
+
+    # SharedResources definitions
+
+    @property
+    def current_character(self):
+        return self._current_character.take()
+
+    @current_character.setter
+    def current_character(self, character):
+        self._current_character.set(character)
+
+    @property
+    def current_target(self):
+        return self._current_target.take()
+
+    @current_target.setter
+    def current_target(self, character):
+        self._current_target.set(character)
+
+    @property
+    def selected_target(self):
+        return self._selected_target.take()
+
+    @selected_target.setter
+    def selected_target(self, target):
+        self._selected_target.set(target)
+
+    @property
+    def current_card(self):
+        return self._current_card.take()
+
+    @current_card.setter
+    def current_card(self, card):
+        self._current_card.set(card)
+
+    @property
+    def selected_card(self):
+        return self._selected_card.take()
+
+    @selected_card.setter
+    def selected_card(self, card):
+        self._selected_card.set(card)
+
+    @property
+    def ally(self):
+        return self._ally.take()
+
+    @ally.setter
+    def ally(self, ally):
+        self._ally.set(ally)
+
+    @property
+    def enemies(self):
+        return self._enemies.take()
+
+    @enemies.setter
+    def enemies(self, enemies):
+        self._enemies.set(enemies)
+
+    # end SharedResources
+
+    # QueueModel SharedResources definitions
+
+    @property
+    def characters_speed(self):
+        return self._characters_speed.take()
+
+    @characters_speed.setter
+    def characters_speed(self, enemies):
+        self._characters_speed.set(enemies)
+
+    @property
+    def modifiers(self):
+        return self._modifiers.take()
+
+    @modifiers.setter
+    def modifiers(self, enemies):
+        self._modifiers.set(enemies)
+
+    @property
+    def party(self):
+        return self._party.take()
+
+    @party.setter
+    def party(self, enemies):
+        self._party.set(enemies)
+
+    @property
+    def queue(self):
+        return self._queue.take()
+
+    @queue.setter
+    def queue(self, enemies):
+        self._queue.set(enemies)
+
+    # end SharedResources
 
     _initialized = False
 
     def __init__(self):
         super(QueueModel, self).__init__()
 
-        self.characters_speed = dict()
-        self.modifiers = dict()
-        self.party = dict()
-        self.queue = list()
+        self._characters_speed = SharedResource()
+        self._modifiers = SharedResource()
+        self._party = SharedResource()
+        self._queue = SharedResource()
+
+        self._characters_speed.set(dict())
+        self._modifiers.set(dict())
+        self._party.set(dict())
+        self._queue.set(list())
 
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self.current_character = _battle_logic._current_character
-        self.ally = _battle_logic._ally
-        self.enemies = _battle_logic._enemies
+        self._current_character = _battle_logic._current_character
+        self._ally = _battle_logic._ally
+        self._enemies = _battle_logic._enemies
 
         _game_logic = GameObject.get_object_pool().select_with_label("GameLogic")[0]
         self._party_list = _game_logic.party

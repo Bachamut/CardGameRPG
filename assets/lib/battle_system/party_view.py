@@ -7,11 +7,24 @@ from assets.lib.battle_system.party_character_view import PartyCharacterView, Ch
 
 
 class CurrentPartyCharacterView(GameObject):
+
+    # SharedResources definitions
+
+    @property
+    def character(self):
+        return self._character.take()
+
+    @character.setter
+    def character(self, character):
+        self._character.set(character)
+
+    # end SharedResources
+
     def __init__(self, character):
         super(CurrentPartyCharacterView, self).__init__()
         self.object_class = 'PartyCharacterView'
 
-        self.character = character
+        self._character = character
 
         self.add_property('TransformProperty')
         self.position = self.property('TransformProperty').position
@@ -45,7 +58,7 @@ class CurrentPartyCharacterView(GameObject):
         position.y = 4
 
     def update(self, character):
-        self.character = character
+        self._character = character
 
         self.character_name.update(self.character.name)
         self.character_hp.update(self.character.attributes.health)
@@ -60,6 +73,66 @@ class CurrentPartyCharacterView(GameObject):
 
 class PartyView(GameObject):
 
+    # SharedResources definitions
+
+    @property
+    def current_character(self):
+        return self._current_character.take()
+
+    @current_character.setter
+    def current_character(self, character):
+        self._current_character.set(character)
+
+    @property
+    def current_target(self):
+        return self._current_target.take()
+
+    @current_target.setter
+    def current_target(self, character):
+        self._current_target.set(character)
+
+    @property
+    def selected_target(self):
+        return self._selected_target.take()
+
+    @selected_target.setter
+    def selected_target(self, target):
+        self._selected_target.set(target)
+
+    @property
+    def current_card(self):
+        return self._current_card.take()
+
+    @current_card.setter
+    def current_card(self, card):
+        self._current_card.set(card)
+
+    @property
+    def selected_card(self):
+        return self._selected_card.take()
+
+    @selected_card.setter
+    def selected_card(self, card):
+        self._selected_card.set(card)
+
+    @property
+    def ally(self):
+        return self._ally.take()
+
+    @ally.setter
+    def ally(self, ally):
+        self._ally.set(ally)
+
+    @property
+    def enemies(self):
+        return self._enemies.take()
+
+    @enemies.setter
+    def enemies(self, enemies):
+        self._enemies.set(enemies)
+
+    # end SharedResources
+
     _initialized = False
 
     def __init__(self):
@@ -67,6 +140,7 @@ class PartyView(GameObject):
         self.object_class = 'PartyView'
 
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
+        self._current_character = _battle_logic._current_character
 
         self.characters_status = list()
         self.current_character_status = None
@@ -75,20 +149,15 @@ class PartyView(GameObject):
         PartyView._initialized = True
         print("PartyView initialized")
 
-        _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self.current_character = _battle_logic.current_character
-
-        self.ally = GameObject.get_object_pool().select_with_label('CharacterModel')[0].ally
+        self._ally = GameObject.get_object_pool().select_with_label('CharacterModel')[0]._ally
         self.add_property('TransformProperty')
         self.position = self.property('TransformProperty').position
         self.position.x = 16
         self.position.y = 200
 
-        self.current_character_status = CurrentPartyCharacterView(self.current_character)
+        self.current_character_status = CurrentPartyCharacterView(self._current_character)
 
     def setup_party(self):
-        _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-
         step = 0
         for character in self.ally:
             if character == self.current_character:
@@ -125,11 +194,10 @@ class PartyView(GameObject):
                 self._on_status_update()
 
     def _on_status_update(self):
-        _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
         for line in self.characters_status:
             if line.equal(self.current_character):
                 print(f'Current Character in PartyView: {self.current_character.name}')
-                self.current_character_status.update(self.current_character)
+                self.current_character_status.update(self._current_character)
 
             line.update()
 

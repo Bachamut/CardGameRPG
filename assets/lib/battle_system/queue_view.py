@@ -8,6 +8,18 @@ from assets.lib.battle_system.queue_model import QueueModel
 
 class QueueView(GameObject):
 
+    # QueueView SharedResources definitions
+
+    @property
+    def queue(self):
+        return self._queue.take()
+
+    @queue.setter
+    def queue(self, enemies):
+        self._queue.set(enemies)
+
+    # end SharedResources
+
     _initialized = False
 
     def __init__(self):
@@ -19,7 +31,7 @@ class QueueView(GameObject):
         QueueView._initialized = True
         print("QueueView initialized")
 
-        self.queue = GameObject.get_object_pool().select_with_label('QueueModel')[0].queue
+        self._queue = GameObject.get_object_pool().select_with_label('QueueModel')[0]._queue
 
         self.add_property("SpriteProperty")
         self.add_property("BlitProperty")
