@@ -21,6 +21,7 @@ class CharacterView(GameObject):
         self._initialized = True
         print("CharacterView initialized")
 
+        # TODO: These objects should be stored in CharacterModel (?)
         self.players = GameObject.get_object_pool().select_with_label('Players')[0]
         self.enemies = GameObject.get_object_pool().select_with_label('Enemies')[0]
 

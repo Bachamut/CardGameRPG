@@ -33,6 +33,8 @@ class EnemyView(GameObject):
 
         self._enemies = GameObject.get_object_pool().select_with_label('CharacterModel')[0]._enemies
 
+        # TODO: Do przygotowania Properties/Components ręcznie tworzonych dla klas powinna być jakaś metoda prepare,
+        #  on_create albo construct
         self.add_property("SpriteProperty")
         self.add_property("BlitProperty")
         self.property("SpriteProperty").visible = True

@@ -152,10 +152,6 @@ class CardView(GameObject):
         if not CardView._initialized and CardModel._initialized and CharacterModel._initialized and BattleLogic._initialized and BattleLogic.started:
             self._initialize()
         elif CardView._initialized:
-
-            _card_model = GameObject.get_object_pool().select_with_label("CardModel")[0]
-            self.current_character = _card_model.current_character
-
             for card in self.current_character.hand:
                 if card.selected == True:
                     position = card.property('TransformProperty').position

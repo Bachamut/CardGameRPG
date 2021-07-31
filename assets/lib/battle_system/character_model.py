@@ -129,9 +129,7 @@ class CharacterModel(GameObject):
                 self.selected_target_index -= 1
                 print(f'selected_target_index {self.selected_target_index}')
 
-                self.selected_target = GameObject.get_object_pool().select_with_label("BattleLogic")[0].selected_target
-                self.enemies = GameObject.get_object_pool().select_with_label("BattleLogic")[0].enemies
-                BattleLogic.selected_target = self.enemies[self.selected_target_index]
+                self.selected_target = self.enemies[self.selected_target_index]
 
     def _card_selection(self, event):
         if event.key == pygame.K_RETURN:

@@ -114,7 +114,7 @@ class CardModel(GameObject):
         self._selected_card = self._battle_logic._selected_card
         self.selected_card_index = 0
 
-        # Must to create copy and store as previous
+        # Before first usage need to create copy and store as previous to initialize
         self.previous_character = self.current_character
 
     def on_create(self):
@@ -168,7 +168,6 @@ class CardModel(GameObject):
 
         if BattleLogic.card_model_active:
             pass
-
 
     def on_event(self, event):
         if BattleLogic.card_model_active and CardModel._initialized:

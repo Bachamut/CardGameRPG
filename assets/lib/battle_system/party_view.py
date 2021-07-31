@@ -139,8 +139,9 @@ class PartyView(GameObject):
         super(PartyView, self).__init__()
         self.object_class = 'PartyView'
 
-        _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self._current_character = _battle_logic._current_character
+        # TODO: Modele powinny mieć unikatową nazwę _model (?)
+        _character_model = GameObject.get_object_pool().select_with_label("CharacterModel")[0]
+        self._current_character = _character_model._current_character
 
         self.characters_status = list()
         self.current_character_status = None

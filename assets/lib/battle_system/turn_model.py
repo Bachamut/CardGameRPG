@@ -111,10 +111,6 @@ class TurnModel(GameObject):
                 BattleLogic.turn_model_active = False
 
     def current_action(self):
-        _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self.current_character = _battle_logic.current_character
-        self.selected_card = _battle_logic.selected_card
-
         if self.current_card.ap_cost <= self.current_character.action_points:
             print(f'Możesz użyć karty')
 
