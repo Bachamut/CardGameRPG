@@ -156,7 +156,7 @@ class PartyView(GameObject):
         self.position.x = 16
         self.position.y = 200
 
-        self.current_character_status = CurrentPartyCharacterView(self._current_character)
+        #self.current_character_status = CurrentPartyCharacterView(self._current_character)
 
     def setup_party(self):
         step = 0
@@ -189,10 +189,7 @@ class PartyView(GameObject):
 
     def on_signal(self, signal):
         if PartyView._initialized:
-            if signal.type == BattleLogic.STATUS_RESET_SIGNAL:
-                self.setup_party()
-            if signal.type == BattleLogic.STATUS_UPDATE_SIGNAL:
-                self._on_status_update()
+            pass
 
     def _on_status_update(self):
         for line in self.characters_status:

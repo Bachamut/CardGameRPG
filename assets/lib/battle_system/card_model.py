@@ -189,22 +189,15 @@ class CardModel(GameObject):
 
     def on_signal(self, signal):
         if CardModel._initialized:
-            if signal.type == BattleLogic.CURRENT_CHARACTER_SIGNAL:
-                print(f'card_model current_character: {self.current_character.name}')
 
-                self.selected_card_index = 0
+            if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "INITIAL":
+                print(f'CARD_MODEL:RECEIVED: "event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"')
 
-                for card in self.previous_character.hand:
-                    card.selected = False
-                    card.current = False
-
-                self.current_character.hand[0].selected = True
-                
-                signal = pygame.event.Event(CARD_VIEW_ON_FALL, {'event': 'CARD_VIEW_ON_FALL'})
+                print(f'CARD_MODEL:EMIT_SIGNAL: "event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"')
+                signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"})
                 pygame.event.post(signal)
 
-                signal = pygame.event.Event(CARD_VIEW_ON_RISE, {'event': 'CARD_VIEW_ON_RISE'})
-                pygame.event.post(signal)
+                pass
 
         pass
 

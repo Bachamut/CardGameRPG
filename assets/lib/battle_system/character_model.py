@@ -112,10 +112,7 @@ class CharacterModel(GameObject):
                 self._card_selection(event)
 
     def on_signal(self, signal):
-        # If CHARACTER_ACTIVE_SIGNAL is received control is passed to CharacterModel to choose target
-        if signal.type == BattleLogic.CHARACTER_ACTIVE_SIGNAL:
-            BattleLogic.character_model_active = True
-            self.selected_target_index = 0
+        pass
 
     def _on_arrow_right(self, event):
         if event.key == pygame.K_RIGHT:

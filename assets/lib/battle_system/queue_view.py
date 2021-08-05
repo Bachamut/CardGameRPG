@@ -79,8 +79,4 @@ class QueueView(GameObject):
 
     def on_signal(self, signal):
         if QueueView._initialized:
-            if signal.type == BattleLogic.CURRENT_CHARACTER_SIGNAL:
-                for line in self.queue_bar:
-                    index = self.queue_bar.index(line)
-                    line.update(
-                        f'{self.queue[index].name}')
+            pass

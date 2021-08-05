@@ -102,13 +102,7 @@ class TurnModel(GameObject):
 
 
     def on_signal(self, signal):
-            if signal.type == BattleLogic.TURN_ACTIVE_SIGNAL:
-
-                BattleLogic.turn_model_active = True
-
-                TurnModel.action_process(self.current_character, self.current_target, self.current_card)
-
-                BattleLogic.turn_model_active = False
+        pass
 
     def current_action(self):
         if self.current_card.ap_cost <= self.current_character.action_points:

@@ -86,9 +86,4 @@ class EnemyView(GameObject):
 
     def on_signal(self, signal):
         if EnemyView._initialized:
-            if signal.type == BattleLogic.STATUS_RESET_SIGNAL:
-                self.setup_party()
-            if signal.type == BattleLogic.STATUS_UPDATE_SIGNAL:
-                for line in self.enemies_status:
-                    index = self.enemies_status.index(line)
-                    line.update(f'{self.enemies[index].name} - HP:{self.enemies[index].attributes.health} AP:{self.enemies[index].attributes.action_points}')
+            pass

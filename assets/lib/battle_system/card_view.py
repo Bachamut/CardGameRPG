@@ -109,10 +109,7 @@ class CardView(GameObject):
         self.position.x = 24
 
     def on_signal(self, signal):
-        if signal.type == CARD_VIEW_ON_RISE:
-            self._on_rise()
-        if signal.type == CARD_VIEW_ON_FALL:
-            self._on_fall()
+        pass
 
     def _on_rise(self):
         print(f'\nCurrent Character: {self.current_character.name}')
@@ -153,16 +150,17 @@ class CardView(GameObject):
         if not CardView._initialized and CardModel._initialized and CharacterModel._initialized and BattleLogic._initialized and BattleLogic.started:
             self._initialize()
         elif CardView._initialized:
-            for card in self.current_character.hand:
-                if card.selected == True:
-                    position = card.property('TransformProperty').position
-                    position.y = 0
-                if card.selected == False:
-                    position = card.property('TransformProperty').position
-                    position.y = 16
-                if card.current == True:
-                    position = card.property('TransformProperty').position
-                    position.y = -32
+            pass
+            # for card in self.current_character.hand:
+            #     if card.selected == True:
+            #         position = card.property('TransformProperty').position
+            #         position.y = 0
+            #     if card.selected == False:
+            #         position = card.property('TransformProperty').position
+            #         position.y = 16
+            #     if card.current == True:
+            #         position = card.property('TransformProperty').position
+            #         position.y = -32
 
     def on_event(self, event):
         pass
