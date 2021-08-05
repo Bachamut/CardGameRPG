@@ -1,6 +1,7 @@
 
 class Status:
 
+    # metoda dodaje status z użytej CARD(ACTION) do słownika statusów danego CHARACTER
     @staticmethod
     def add_status(caster, target, card):
         if card.caster_status:

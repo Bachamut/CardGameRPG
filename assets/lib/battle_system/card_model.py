@@ -122,6 +122,7 @@ class CardModel(GameObject):
         self.position.y = 576
         self.position.x = 24
 
+    # generuje BATTLEDECK dla danego CHARACTER
     @staticmethod
     def create_battledeck(character):
 
@@ -145,12 +146,20 @@ class CardModel(GameObject):
         # creating draw_pile that is used in battle mode
         character.draw_pile = sample(character.battledeck, len(character.battledeck))
 
+    # tasowanie talii
+    @staticmethod
+    def deck_shuffle(character):
+        pass
+
+    # dobieranie karty do HAND z DRAWPILE
     @staticmethod
     def draw_card(character):
+        # dodać sprawdzanie czy można dobrać kartę z DRAWPILE
         card = character.draw_pile.pop(0)
         character.hand.append(card)
         character.hand[0].selected = True
 
+    # dobieranie nowego HAND
     @staticmethod
     def draw_hand(character):
         for it in range(0, character.card_draw):

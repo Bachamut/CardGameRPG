@@ -1,6 +1,8 @@
 
+# zawiera metody które określają wynik zastosowania danej AKCJI
 class ActionType:
 
+    # placeholder?
     @staticmethod
     def set_status(card):
 

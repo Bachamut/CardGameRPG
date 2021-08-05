@@ -3,6 +3,7 @@ from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.battle_system.card_model import CardModel, CARD_VIEW_ON_RISE, CARD_VIEW_ON_FALL
 from assets.lib.battle_system.character_model import CharacterModel
 
+
 class CardView(GameObject):
 
     # SharedResources definitions

@@ -172,7 +172,7 @@ class BattleLogic(GameObject):
                 self.current_character = queue[0]
                 next_seed = self.queue_model.get_next_seed()
 
-                # After one Turn update AP seeds for each Character i battle
+                # After one Turn update AP seeds for each Character in battle
                 for key, values in self.queue_model.party.items():
                     self.queue_model.party[key] = next_seed[key]
 
@@ -228,4 +228,8 @@ class BattleLogic(GameObject):
                 BattleLogic.turn_model_active = False
 
                 signal = pygame.event.Event(BattleLogic.TURN_ACTIVE_SIGNAL)
+                pygame.event.post(signal)
+                
+                # status update after action
+                signal = pygame.event.Event(BattleLogic.STATUS_UPDATE_SIGNAL, {"event": "STATUS_UPDATE_SIGNAL"})
                 pygame.event.post(signal)

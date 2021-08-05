@@ -88,10 +88,12 @@ class CharacterModel(GameObject):
         CharacterModel._initialized = True
         print("CharacterModel initialized")
 
+    # dodaje bohaterów(CHARACTER) do puli sojuszników(ALLY)
     def create_ally(self):
         for character in self._party_list:
             self.ally.append(character)
 
+    # dodaje wrogów(ENEMY) do puli przeciwników(ENEMIES)
     def create_enemies(self):
         for enemy in self._enemies_list:
             self.enemies.append(enemy)
