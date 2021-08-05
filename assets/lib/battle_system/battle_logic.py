@@ -3,6 +3,7 @@ import pygame
 from game_object.game_object import GameObject
 from assets.lib.game_logic import GameLogic
 from resource_manager.shared_resource import SharedResource
+from assets.lib.battle_system.log import Logs
 
 
 class BattleLogic(GameObject):
@@ -158,14 +159,13 @@ class BattleLogic(GameObject):
             # BATTLE_LOGIC INITIAL
             if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "INITIAL":
                 # LogMessage DebugMessage InfoMessage
-                print(f'BATTLE_LOGIC:RECEIVED: "event": "BATTLE_LOGIC_SIGNAL", "subtype": "INITIAL"')
-                # Logs.DebugMessage.SignalReceived(self, signal)
+                # print(f'Stare! BATTLE_LOGIC:RECEIVED: "event": "BATTLE_LOGIC_SIGNAL", "subtype": "INITIAL"')
+                Logs.DebugMessage.SignalReceived(self, signal)
 
-                # Logs.DebugMessage.SignalEmit()
-                print(f'BATTLE_LOGIC:EMIT_SIGNAL: "event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"')
+                # print(f'Stare! BATTLE_LOGIC:EMIT: "event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"')
                 signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_SIGNAL, {"event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"})
                 pygame.event.post(signal)
-
+                Logs.DebugMessage.SignalEmit(self, signal)
                 pass
 
             # BATTLE_LOGIC SIGNALS
@@ -174,11 +174,14 @@ class BattleLogic(GameObject):
             # BATTLE_LOGIC RESPONSES
 
             if signal.type == BattleLogic.SHUFFLE_DECK_RESPONSE and signal.subtype == "INITIAL":
-                print(f'BATTLE_LOGIC:RECEIVED "event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"')
 
-                print(f'BATTLE_LOGIC:EMIT_SIGNAL: "event": "QUEUE_MODEL_SIGNAL", "subtype": "STANDARD"')
+                # print(f'Stare! BATTLE_LOGIC:RECEIVED "event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"')
+                Logs.DebugMessage.SignalReceived(self, signal)
+
+                # print(f'Stare! BATTLE_LOGIC:EMIT: "event": "QUEUE_MODEL_SIGNAL", "subtype": "STANDARD"')
                 signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_SIGNAL, {"event": "QUEUE_MODEL_SIGNAL", "subtype": "STANDARD"})
                 pygame.event.post(signal)
+                Logs.DebugMessage.SignalEmit(self, signal)
 
                 pass
 

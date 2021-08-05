@@ -7,6 +7,7 @@ from assets.lib.card_utilities.card_manager import CardManager
 from assets.lib.battle_system.character_model import CharacterModel
 from assets.lib.game_logic import GameLogic
 from resource_manager.shared_resource import SharedResource
+from assets.lib.battle_system.log import Logs
 
 CARD_VIEW_ON_RISE = pygame.event.custom_type()
 CARD_VIEW_ON_FALL = pygame.event.custom_type()
@@ -191,11 +192,13 @@ class CardModel(GameObject):
         if CardModel._initialized:
 
             if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "INITIAL":
-                print(f'CARD_MODEL:RECEIVED: "event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"')
+                # print(f'Stare! CARD_MODEL:RECEIVED: "event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"')
+                Logs.DebugMessage.SignalReceived(self, signal)
 
-                print(f'CARD_MODEL:EMIT_SIGNAL: "event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"')
+                # print(f'Stare! CARD_MODEL:EMIT: "event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"')
                 signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"})
                 pygame.event.post(signal)
+                Logs.DebugMessage.SignalEmit(self, signal)
 
                 pass
 
