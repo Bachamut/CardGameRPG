@@ -1,3 +1,6 @@
+import pygame
+
+from assets.lib.battle_system.log import Logs
 from game_object.game_object import GameObject
 from assets.lib.battle_system.battle_logic import BattleLogic
 from resource_manager.shared_resource import SharedResource
@@ -210,3 +213,13 @@ class QueueModel(GameObject):
             self._initialize()
         else:
             pass
+
+    def on_signal(self, signal):
+        if QueueModel._initialized:
+
+            if signal.type == BattleLogic.QUEUE_MODEL_SIGNAL and signal.subtype == "STANDARD":
+                Logs.DebugMessage.SignalReceived(self, signal)
+
+                signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_RESPONSE, {"event": "QUEUE_MODEL_RESPONSE", "subtype": "STANDARD"})
+                pygame.event.post(signal)
+                Logs.DebugMessage.SignalEmit(self, signal)

@@ -3,6 +3,7 @@ import pygame
 from assets.lib.battle_system.action_types import ActionType
 from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.battle_system.character_model import CharacterModel
+from assets.lib.battle_system.log import Logs
 from assets.lib.battle_system.status import Status
 from assets.lib.game_logic import GameLogic
 from game_object.game_object import GameObject
@@ -102,6 +103,22 @@ class TurnModel(GameObject):
 
 
     def on_signal(self, signal):
+
+        if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "PRE_TURN":
+            Logs.DebugMessage.SignalReceived(self, signal)
+
+            signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "PRE_TURN"})
+            pygame.event.post(signal)
+            Logs.DebugMessage.SignalEmit(self, signal)
+            pass
+
+        if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "PRE_DRAW":
+            Logs.DebugMessage.SignalReceived(self, signal)
+
+            signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "PRE_DRAW"})
+            pygame.event.post(signal)
+            Logs.DebugMessage.SignalEmit(self, signal)
+            pass
         pass
 
     def current_action(self):

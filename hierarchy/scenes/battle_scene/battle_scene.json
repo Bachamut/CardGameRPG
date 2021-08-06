@@ -72,7 +72,7 @@
                 "object_type": null,
                 "object_label": "QueueModel",
                 "create": true,
-                "properties": ["ScriptProperty"],
+                "properties": ["ScriptProperty", "SignalProperty"],
                 "configure_properties":
                 {
                   "ScriptProperty": {"set_script": "QueueModel"}

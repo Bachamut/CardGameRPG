@@ -168,10 +168,7 @@ class BattleLogic(GameObject):
                 Logs.DebugMessage.SignalEmit(self, signal)
                 pass
 
-            # BATTLE_LOGIC SIGNALS
-
-
-            # BATTLE_LOGIC RESPONSES
+            # BATTLE_LOGIC FLOW
 
             if signal.type == BattleLogic.SHUFFLE_DECK_RESPONSE and signal.subtype == "INITIAL":
 
@@ -182,7 +179,25 @@ class BattleLogic(GameObject):
                 signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_SIGNAL, {"event": "QUEUE_MODEL_SIGNAL", "subtype": "STANDARD"})
                 pygame.event.post(signal)
                 Logs.DebugMessage.SignalEmit(self, signal)
-
                 pass
+
+            if signal.type == BattleLogic.QUEUE_MODEL_RESPONSE and signal.subtype == "STANDARD":
+
+                Logs.DebugMessage.SignalReceived(self, signal)
+
+                signal = pygame.event.Event(BattleLogic.ACTION_MODEL_SIGNAL, {"event": "ACTION_MODEL_SIGNAL", "subtype": "PRE_TURN"})
+                pygame.event.post(signal)
+                Logs.DebugMessage.SignalEmit(self, signal)
+                pass
+
+            if signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "PRE_TURN":
+
+                Logs.DebugMessage.SignalReceived(self, signal)
+
+                signal = pygame.event.Event(BattleLogic.ACTION_MODEL_SIGNAL, {"event": "ACTION_MODEL_SIGNAL", "subtype": "PRE_DRAW"})
+                pygame.event.post(signal)
+                Logs.DebugMessage.SignalEmit(self, signal)
+                pass
+
 
             pass
