@@ -1,3 +1,9 @@
+import colorama
+from colorama import Back, Fore, Style
+from datetime import datetime
+
+colorama.init(autoreset=True)
+
 class Logs:
     # LogMessage DebugMessage InfoMessage
 
@@ -6,7 +12,8 @@ class Logs:
         @staticmethod
         def TargetPoint(self, tag):
 
-            message = print(f'{self.__class__.__name__.upper()}:CALL_TARGET_POINT "{tag}"')
+            time_stamp = datetime.now().time()
+            message = print(f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} {self.__class__.__name__.upper()}:{Fore.RED}CALL_TARGET_POINT {Style.BRIGHT}"{tag}"')
             return message
 
     class DebugMessage:
@@ -14,11 +21,13 @@ class Logs:
         @staticmethod
         def SignalEmit(self, signal):
 
-            message = print(f'{self.__class__.__name__.upper()}:EMIT: "event": {signal.event}, "subtype": {signal.subtype}, "type": {signal.type}')
+            time_stamp = datetime.now().time()
+            message = print(f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} {self.__class__.__name__.upper()}:{Fore.YELLOW}EMIT: "event": {Style.BRIGHT}{signal.event}{Style.NORMAL}, "subtype": {Style.BRIGHT}{signal.subtype}{Style.NORMAL},{Fore.RESET} "type": {signal.type}')
             return message
 
         @staticmethod
         def SignalReceived(self, signal):
 
-            message = print(f'{self.__class__.__name__.upper()}:RECEIVED: "event": {signal.event}, "subtype": {signal.subtype}, "type": {signal.type}')
+            time_stamp = datetime.now().time()
+            message = print(f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} {self.__class__.__name__.upper()}:{Fore.CYAN}RECEIVED: "event": {Style.BRIGHT}{signal.event}{Style.NORMAL}, "subtype": {Style.BRIGHT}{signal.subtype}{Style.NORMAL},{Fore.RESET} "type": {signal.type}')
             return message
