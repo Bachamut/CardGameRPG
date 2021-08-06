@@ -119,6 +119,14 @@ class TurnModel(GameObject):
             pygame.event.post(signal)
             Logs.DebugMessage.SignalEmit(self, signal)
             pass
+
+        if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "POST_DRAW":
+            Logs.DebugMessage.SignalReceived(self, signal)
+
+            signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "POST_DRAW"})
+            pygame.event.post(signal)
+            Logs.DebugMessage.SignalEmit(self, signal)
+            pass
         pass
 
     def current_action(self):

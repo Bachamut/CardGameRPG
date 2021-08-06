@@ -1,4 +1,5 @@
 class Logs():
+    # LogMessage DebugMessage InfoMessage
 
     class DebugMessage():
 

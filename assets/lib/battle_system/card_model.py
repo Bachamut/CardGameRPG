@@ -192,16 +192,20 @@ class CardModel(GameObject):
         if CardModel._initialized:
 
             if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "INITIAL":
-                # print(f'Stare! CARD_MODEL:RECEIVED: "event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"')
                 Logs.DebugMessage.SignalReceived(self, signal)
 
-                # print(f'Stare! CARD_MODEL:EMIT: "event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"')
                 signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"})
                 pygame.event.post(signal)
                 Logs.DebugMessage.SignalEmit(self, signal)
-
                 pass
 
+            if signal.type == BattleLogic.DRAW_CARD_SIGNAL and signal.subtype == "STANDARD":
+                Logs.DebugMessage.SignalReceived(self, signal)
+
+                signal = pygame.event.Event(BattleLogic.DRAW_CARD_RESPONSE, {"event": "DRAW_CARD_RESPONSE", "subtype": "STANDARD"})
+                pygame.event.post(signal)
+                Logs.DebugMessage.SignalEmit(self, signal)
+                pass
         pass
 
     def _on_arrow_right(self, event):
