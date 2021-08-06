@@ -189,7 +189,7 @@ class BattleLogic(GameObject):
                 Logs.DebugMessage.SignalReceived(self, signal)
 
                 # IF Czy postać ma karty w DrawPile?:
-                alt = True
+                alt = False
                 if alt:
                     signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_SIGNAL, {"event": "SHUFFLE_DECK_SIGNAL", "subtype": "STANDARD"})
                     pygame.event.post(signal)
@@ -224,7 +224,7 @@ class BattleLogic(GameObject):
                 signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "DRAW_LOOP"})
                 pygame.event.post(signal)
                 Logs.DebugMessage.SignalEmit(self, signal)
-                #Logs.InfoMessage.Goto(self, "BL_013")
+                Logs.InfoMessage.TargetPoint(self, "BL_013")
 
                 # signal = pygame.event.Event(BattleLogic.CARD_MODEL_SIGNAL, {"event": "CARD_MODEL_SIGNAL", "subtype": "STANDARD"})
                 # pygame.event.post(signal)
