@@ -182,12 +182,22 @@ class BattleLogic(GameObject):
                 Logs.DebugMessage.SignalEmit(self, signal)
                 pass
 
-            if signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "PRE_TURN":
+            # BL_013_000
+            if signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "PRE_TURN" or \
+                    signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "DRAW_LOOP" or \
+                    signal.type == BattleLogic.SHUFFLE_DECK_RESPONSE and signal.subtype == "STANDARD":
                 Logs.DebugMessage.SignalReceived(self, signal)
 
-                signal = pygame.event.Event(BattleLogic.ACTION_MODEL_SIGNAL, {"event": "ACTION_MODEL_SIGNAL", "subtype": "PRE_DRAW"})
-                pygame.event.post(signal)
-                Logs.DebugMessage.SignalEmit(self, signal)
+                # IF Czy postać ma karty w DrawPile?:
+                alt = True
+                if alt:
+                    signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_SIGNAL, {"event": "SHUFFLE_DECK_SIGNAL", "subtype": "STANDARD"})
+                    pygame.event.post(signal)
+                    Logs.DebugMessage.SignalEmit(self, signal)
+                else:
+                    signal = pygame.event.Event(BattleLogic.ACTION_MODEL_SIGNAL, {"event": "ACTION_MODEL_SIGNAL", "subtype": "PRE_DRAW"})
+                    pygame.event.post(signal)
+                    Logs.DebugMessage.SignalEmit(self, signal)
                 pass
 
             # LOOP (DRAW)
@@ -199,23 +209,32 @@ class BattleLogic(GameObject):
                 Logs.DebugMessage.SignalEmit(self, signal)
                 pass
 
-            if signal.type == BattleLogic.CARD_MODEL_RESPONSE and signal.subtype == "STANDARD":
+            if signal.type == BattleLogic.DRAW_CARD_RESPONSE and signal.subtype == "STANDARD":
                 Logs.DebugMessage.SignalReceived(self, signal)
 
                 signal = pygame.event.Event(BattleLogic.ACTION_MODEL_SIGNAL, {"event": "ACTION_MODEL_SIGNAL", "subtype": "POST_DRAW"})
                 pygame.event.post(signal)
                 Logs.DebugMessage.SignalEmit(self, signal)
                 pass
+
+            if signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "POST_DRAW":
+                Logs.DebugMessage.SignalReceived(self, signal)
+
+                # IF Czy dobiera kartę?:
+                signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "DRAW_LOOP"})
+                pygame.event.post(signal)
+                Logs.DebugMessage.SignalEmit(self, signal)
+                #Logs.InfoMessage.Goto(self, "BL_013")
+
+                # signal = pygame.event.Event(BattleLogic.CARD_MODEL_SIGNAL, {"event": "CARD_MODEL_SIGNAL", "subtype": "STANDARD"})
+                # pygame.event.post(signal)
+                # Logs.DebugMessage.SignalEmit(self, signal)
+                pass
             # LOOP END
 
             # PLAYER TURN
 
             #OR
-            if signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "POST_DRAW":
-                Logs.DebugMessage.SignalReceived(self, signal)
 
-                signal = pygame.event.Event(BattleLogic.CARD_MODEL_SIGNAL, {"event": "CARD_MODEL_SIGNAL", "subtype": "STANDARD"})
-                pygame.event.post(signal)
-                Logs.DebugMessage.SignalEmit(self, signal)
-                pass
+
             pass

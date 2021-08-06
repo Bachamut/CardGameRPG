@@ -199,6 +199,14 @@ class CardModel(GameObject):
                 Logs.DebugMessage.SignalEmit(self, signal)
                 pass
 
+            if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "STANDARD":
+                Logs.DebugMessage.SignalReceived(self, signal)
+
+                signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "STANDARD"})
+                pygame.event.post(signal)
+                Logs.DebugMessage.SignalEmit(self, signal)
+                pass
+
             if signal.type == BattleLogic.DRAW_CARD_SIGNAL and signal.subtype == "STANDARD":
                 Logs.DebugMessage.SignalReceived(self, signal)
 
