@@ -129,7 +129,6 @@ class TurnModel(GameObject):
             pygame.event.post(signal)
             Logs.DebugMessage.SignalEmit(self, signal, "AM3->BL3")
             pass
-        pass
 
     def current_action(self):
         if self.current_card.ap_cost <= self.current_character.action_points:

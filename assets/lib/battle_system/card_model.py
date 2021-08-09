@@ -217,7 +217,7 @@ class CardModel(GameObject):
                 pygame.event.post(signal)
                 Logs.DebugMessage.SignalEmit(self, signal, "CM3->BL6")
                 pass
-        pass
+
 
     def _on_arrow_right(self, event):
         if event.key == pygame.K_RIGHT:
