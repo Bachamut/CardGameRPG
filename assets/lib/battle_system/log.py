@@ -16,6 +16,13 @@ class Logs:
             message = print(f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} {self.__class__.__name__.upper()}:{Fore.RED}CALL_TARGET_POINT {Style.BRIGHT}"{tag}"')
             return message
 
+        @staticmethod
+        def SimpleInfo(self, tag):
+
+            time_stamp = datetime.now().time()
+            message = print(f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET}{Fore.RED} {tag}{Fore.RESET}')
+            return message
+
     class DebugMessage:
 
         @staticmethod
