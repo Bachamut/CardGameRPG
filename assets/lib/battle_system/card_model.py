@@ -195,28 +195,28 @@ class CardModel(GameObject):
             if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "INITIAL":
                 Logs.DebugMessage.SignalReceived(self, signal, "CM1<-BL0")
 
-                signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"})
-                pygame.event.post(signal)
-                Logs.DebugMessage.SignalEmit(self, signal, "CM1->BL1")
-                pass
+                emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"})
+                pygame.event.post(emit_signal)
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "CM1->BL1")
+                return
 
             # CM2
             if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "STANDARD":
                 Logs.DebugMessage.SignalReceived(self, signal, "CM2<-BL3A")
 
-                signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "STANDARD"})
-                pygame.event.post(signal)
-                Logs.DebugMessage.SignalEmit(self, signal, "CM2->BL4")
-                pass
+                emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "STANDARD"})
+                pygame.event.post(emit_signal)
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "CM2->BL4")
+                return
 
             # CM3
             if signal.type == BattleLogic.DRAW_CARD_SIGNAL and signal.subtype == "STANDARD":
                 Logs.DebugMessage.SignalReceived(self, signal, "CM3<-BL5")
 
-                signal = pygame.event.Event(BattleLogic.DRAW_CARD_RESPONSE, {"event": "DRAW_CARD_RESPONSE", "subtype": "STANDARD"})
-                pygame.event.post(signal)
-                Logs.DebugMessage.SignalEmit(self, signal, "CM3->BL6")
-                pass
+                emit_signal = pygame.event.Event(BattleLogic.DRAW_CARD_RESPONSE, {"event": "DRAW_CARD_RESPONSE", "subtype": "STANDARD"})
+                pygame.event.post(emit_signal)
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "CM3->BL6")
+                return
 
 
     def _on_arrow_right(self, event):
