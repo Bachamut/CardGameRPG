@@ -104,28 +104,30 @@ class TurnModel(GameObject):
 
     def on_signal(self, signal):
 
+        # AM1
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "PRE_TURN":
-            Logs.DebugMessage.SignalReceived(self, signal)
+            Logs.DebugMessage.SignalReceived(self, signal, "AM1<-BL2")
 
             signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "PRE_TURN"})
             pygame.event.post(signal)
-            Logs.DebugMessage.SignalEmit(self, signal)
+            Logs.DebugMessage.SignalEmit(self, signal, "AM1->BL3")
             pass
-
+        # AM2
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "PRE_DRAW":
-            Logs.DebugMessage.SignalReceived(self, signal)
+            Logs.DebugMessage.SignalReceived(self, signal, "AM2<-BL4")
 
             signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "PRE_DRAW"})
             pygame.event.post(signal)
-            Logs.DebugMessage.SignalEmit(self, signal)
+            Logs.DebugMessage.SignalEmit(self, signal, "AM2->BL5")
             pass
 
+        # AM3
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "POST_DRAW":
-            Logs.DebugMessage.SignalReceived(self, signal)
+            Logs.DebugMessage.SignalReceived(self, signal, "AM3<-BL6")
 
             signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "POST_DRAW"})
             pygame.event.post(signal)
-            Logs.DebugMessage.SignalEmit(self, signal)
+            Logs.DebugMessage.SignalEmit(self, signal, "AM3->BL3")
             pass
         pass
 

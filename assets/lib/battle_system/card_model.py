@@ -191,28 +191,31 @@ class CardModel(GameObject):
     def on_signal(self, signal):
         if CardModel._initialized:
 
+            # CM1
             if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "INITIAL":
-                Logs.DebugMessage.SignalReceived(self, signal)
+                Logs.DebugMessage.SignalReceived(self, signal, "CM1<-BL0")
 
                 signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"})
                 pygame.event.post(signal)
-                Logs.DebugMessage.SignalEmit(self, signal)
+                Logs.DebugMessage.SignalEmit(self, signal, "CM1->BL1")
                 pass
 
+            # CM2
             if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "STANDARD":
-                Logs.DebugMessage.SignalReceived(self, signal)
+                Logs.DebugMessage.SignalReceived(self, signal, "CM2<-BL3A")
 
                 signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "STANDARD"})
                 pygame.event.post(signal)
-                Logs.DebugMessage.SignalEmit(self, signal)
+                Logs.DebugMessage.SignalEmit(self, signal, "CM2->BL4")
                 pass
 
+            # CM3
             if signal.type == BattleLogic.DRAW_CARD_SIGNAL and signal.subtype == "STANDARD":
-                Logs.DebugMessage.SignalReceived(self, signal)
+                Logs.DebugMessage.SignalReceived(self, signal, "CM3<-BL5")
 
                 signal = pygame.event.Event(BattleLogic.DRAW_CARD_RESPONSE, {"event": "DRAW_CARD_RESPONSE", "subtype": "STANDARD"})
                 pygame.event.post(signal)
-                Logs.DebugMessage.SignalEmit(self, signal)
+                Logs.DebugMessage.SignalEmit(self, signal, "CM3->BL6")
                 pass
         pass
 
