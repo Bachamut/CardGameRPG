@@ -218,6 +218,15 @@ class CardModel(GameObject):
                 Logs.DebugMessage.SignalEmit(self, emit_signal, "CM3->BL6")
                 return
 
+            # CM4
+            if signal.type == BattleLogic.CARD_MODEL_SIGNAL and signal.subtype == "STANDARD":
+                Logs.DebugMessage.SignalReceived(self, signal, "CM4<-BL10")
+
+                emit_signal = pygame.event.Event(BattleLogic.CARD_MODEL_RESPONSE, {"event": "CARD_MODEL_RESPONSE", "subtype": "STANDARD"})
+                pygame.event.post(emit_signal)
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "CM4->BL12")
+                return
+
 
     def _on_arrow_right(self, event):
         if event.key == pygame.K_RIGHT:

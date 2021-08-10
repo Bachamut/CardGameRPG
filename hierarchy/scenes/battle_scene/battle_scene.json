@@ -95,6 +95,21 @@
               }
             },
             {
+              "entity": "ItemModel",
+              "object":
+              {
+                "object_class": "ItemModel",
+                "object_type": null,
+                "object_label": "ItemModel",
+                "create": true,
+                "properties": ["ScriptProperty", "EventProperty", "TransformProperty", "TranslateProperty", "SignalProperty"],
+                "configure_properties":
+                {
+                  "ScriptProperty": {"set_script": "ItemModel"}
+                }
+              }
+            },
+            {
               "entity": "TurnModel",
               "object":
               {

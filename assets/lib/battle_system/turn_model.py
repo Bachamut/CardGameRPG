@@ -131,6 +131,24 @@ class TurnModel(GameObject):
             Logs.DebugMessage.SignalEmit(self, emit_signal, "AM3->BL3")
             return
 
+        # AM4
+        if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "STANDARD":
+            Logs.DebugMessage.SignalReceived(self, signal, "AM4<-BL13")
+
+            emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "STANDARD"})
+            pygame.event.post(emit_signal)
+            Logs.DebugMessage.SignalEmit(self, emit_signal, "AM4->BL14")
+            return
+
+        # AM5
+        if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "POST_ACTION":
+            Logs.DebugMessage.SignalReceived(self, signal, "AM5<-BL14")
+
+            emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "POST_ACTION"})
+            pygame.event.post(emit_signal)
+            Logs.DebugMessage.SignalEmit(self, emit_signal, "AM5->BL8")
+            return
+
         # ?AM100
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "POST_TURN":
             Logs.DebugMessage.SignalReceived(self, signal, "?AM100<-?BL100")

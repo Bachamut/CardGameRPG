@@ -2,6 +2,7 @@ import pygame
 
 from game_object.game_object import GameObject
 from assets.lib.battle_system.battle_logic import BattleLogic
+from assets.lib.battle_system.log import Logs
 
 
 class CharacterModel(GameObject):
@@ -112,7 +113,15 @@ class CharacterModel(GameObject):
                 self._card_selection(event)
 
     def on_signal(self, signal):
-        pass
+
+        # ChM1
+        if signal.type == BattleLogic.CHARACTER_MODEL_SIGNAL and signal.subtype == "STANDARD":
+            Logs.DebugMessage.SignalReceived(self, signal, "ChM1<-BL12")
+
+            emit_signal = pygame.event.Event(BattleLogic.CHARACTER_MODEL_RESPONSE, {"event": "CHARACTER_MODEL_RESPONSE", "subtype": "STANDARD"})
+            pygame.event.post(emit_signal)
+            Logs.DebugMessage.SignalEmit(self, emit_signal, "ChM1->BL13")
+            return
 
     def _on_arrow_right(self, event):
         if event.key == pygame.K_RIGHT:

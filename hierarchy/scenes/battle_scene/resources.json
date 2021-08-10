@@ -56,6 +56,12 @@
               "file": "card_model"
             },
             {
+              "key": "ItemModel",
+              "type": "script",
+              "path": "assets/lib/battle_system",
+              "file": "item_model"
+            },
+            {
               "key": "TurnModel",
               "type": "script",
               "path": "assets/lib/battle_system",
