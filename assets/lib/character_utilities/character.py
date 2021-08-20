@@ -14,6 +14,18 @@ class InvalidSlotException(Exception):
 class EmptySlotException(Exception):
     pass
 
+class BaseCharacter(GameObject):
+
+    def __init__(self):
+        self.name = None
+        self.character_class = None
+        self.base_attributes = None
+        self.base_modifiers = None
+        self.inventory = None
+        self.equipment = None
+        self.card_collection = None
+        self.deck = None
+        self.status_list = None
 
 class Character(GameObject):
 

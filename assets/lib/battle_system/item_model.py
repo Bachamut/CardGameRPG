@@ -71,7 +71,7 @@ class ItemModel(GameObject):
 
     # end SharedResources
 
-    # CardModel SharedResources definitions
+    # ItemModel SharedResources definitions
 
     # end SharedResources
 

@@ -1,6 +1,10 @@
 import pygame
 
 from game_object.game_object import GameObject
+
+from assets.lib.battle_system.battle_character_model import BattleCharacter
+from assets.lib.battle_system.character_view_init import CharacterView
+from assets.lib.character_utilities.character import BaseCharacter
 from assets.lib.game_logic import GameLogic
 from resource_manager.shared_resource import SharedResource
 from assets.lib.battle_system.log import Logs
@@ -158,6 +162,20 @@ class BattleLogic(GameObject):
             # BL0
             if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "INITIAL":
                 Logs.DebugMessage.SignalReceived(self, signal, "BL0<-INIT")
+
+                # battlecharacters creation
+                self.base_ally = list()
+                for i in range(0,2):
+                    character = BaseCharacter()
+                    self.base_ally.append(character)
+                self.ally = BattleCharacter.create_character_models(self.base_ally)
+                print(f'storzono battlecharacters, {self.ally}')
+                for character in self.ally:
+                    print(f'{character.name}')
+
+                # characterviews creation
+                view_list = CharacterView.create_character_view(self.ally)
+                print(f'stworzono CharacterView {view_list}')
 
                 emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_SIGNAL, {"event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)
