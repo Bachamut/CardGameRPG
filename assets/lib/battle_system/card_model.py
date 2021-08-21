@@ -143,9 +143,9 @@ class CardModel(GameObject):
                 card_instance.on_create()
 
                 GameObject.add_new_object(card_instance)
-                character.battledeck.append(card_instance)
+                character.battle_deck.append(card_instance)
         # creating draw_pile that is used in battle mode
-        character.draw_pile = sample(character.battledeck, len(character.battledeck))
+        character.draw_pile = sample(character.battle_deck, len(character.battle_deck))
 
     # tasowanie talii
     @staticmethod

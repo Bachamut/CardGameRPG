@@ -31,9 +31,9 @@ class CurrentPartyCharacterView(GameObject):
 
         self.character_icon = CharacterIcon()
         self.character_name = CharacterName(self.character.name)
-        self.character_hp = AttributeLine("HP", self.character.attributes.health, (0, 204, 10))
-        self.character_ep = AttributeLine("EP", self.character.attributes.energy, (0, 92, 204))
-        self.character_ap = AttributeLine("AP", self.character.attributes.action_points, (204, 112, 0))
+        self.character_hp = AttributeLine("HP", self.character.base_attributes.health, (0, 204, 10))
+        self.character_ep = AttributeLine("EP", self.character.base_attributes.energy, (0, 92, 204))
+        self.character_ap = AttributeLine("AP", self.character.base_attributes.action_points, (204, 112, 0))
 
         self.attach_child(self.character_icon)
         self.attach_child(self.character_name)
@@ -61,8 +61,8 @@ class CurrentPartyCharacterView(GameObject):
         self._character = character
 
         self.character_name.update(self.character.name)
-        self.character_hp.update(self.character.attributes.health)
-        self.character_ep.update(self.character.attributes.energy)
+        self.character_hp.update(self.character.base_attributes.health)
+        self.character_ep.update(self.character.base_attributes.energy)
 
     def equal(self, character):
         if self.character == character:
@@ -116,12 +116,12 @@ class PartyView(GameObject):
         self._selected_card.set(card)
 
     @property
-    def ally(self):
-        return self._ally.take()
+    def battle_ally(self):
+        return self._battle_ally.take()
 
-    @ally.setter
-    def ally(self, ally):
-        self._ally.set(ally)
+    @battle_ally.setter
+    def battle_ally(self, ally):
+        self._battle_ally.set(ally)
 
     @property
     def enemies(self):
@@ -150,7 +150,7 @@ class PartyView(GameObject):
         PartyView._initialized = True
         print("PartyView initialized")
 
-        self._ally = GameObject.get_object_pool().select_with_label('CharacterModel')[0]._ally
+        self._battle_ally = GameObject.get_object_pool().select_with_label('CharacterModel')[0]._battle_ally
         self.add_property('TransformProperty')
         self.position = self.property('TransformProperty').position
         self.position.x = 16

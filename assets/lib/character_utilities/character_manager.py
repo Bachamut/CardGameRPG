@@ -1,6 +1,6 @@
 import json
 
-from assets.lib.character_utilities.character import Character
+from assets.lib.character_utilities.character import BaseCharacter
 
 
 class CharacterManager:
@@ -17,18 +17,18 @@ class CharacterManager:
     @staticmethod
     def create_character(key_name):
         config = CharacterManager.character_config[key_name]
-        character = Character()
+        character = BaseCharacter()
 
         character.name = config['name']
         character.character_class = config['character_class']
-        character.attributes.health = config['health']
-        character.attributes.energy = config['energy']
-        character.attributes.strength = config['strength']
-        character.attributes.dexterity = config['dexterity']
-        character.attributes.magic = config['magic']
-        character.attributes.speed = config['speed']
-        character.attributes.stamina = config['stamina']
-        character.attributes.physical_resist = config['physical_resist']
-        character.attributes.magic_resist = config['magic_resist']
+        character.base_attributes.health = config['health']
+        character.base_attributes.energy = config['energy']
+        character.base_attributes.strength = config['strength']
+        character.base_attributes.dexterity = config['dexterity']
+        character.base_attributes.magic = config['magic']
+        character.base_attributes.speed = config['speed']
+        character.base_attributes.stamina = config['stamina']
+        character.base_attributes.physical_resist = config['physical_resist']
+        character.base_attributes.magic_resist = config['magic_resist']
 
         return character

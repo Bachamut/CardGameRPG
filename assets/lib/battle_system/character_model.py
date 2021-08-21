@@ -50,12 +50,12 @@ class CharacterModel(GameObject):
         self._selected_card.set(card)
 
     @property
-    def ally(self):
-        return self._ally.take()
+    def battle_ally(self):
+        return self._battle_ally.take()
 
-    @ally.setter
-    def ally(self, ally):
-        self._ally.set(ally)
+    @battle_ally.setter
+    def battle_ally(self, ally):
+        self._battle_ally.set(ally)
 
     @property
     def enemies(self):
@@ -78,7 +78,7 @@ class CharacterModel(GameObject):
         self._selected_target = self._battle_logic._selected_target
         self._selected_target_index = 0
 
-        self._ally = self._battle_logic._ally
+        self._battle_ally = self._battle_logic._battle_ally
         self._enemies = self._battle_logic._enemies
 
         _game_logic = GameObject.get_object_pool().select_with_label("GameLogic")[0]

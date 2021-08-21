@@ -25,13 +25,13 @@ class Process():
     @staticmethod
     def kill_character(target):
 
-        if target.attributes.health <= 0:
+        if target.base_attributes.health <= 0:
             print(target.name.title() + " zostaje zabity!")
 
     @staticmethod
     def apply_status(character):
-        if character.status:
-            for key, value in character.status.items():
+        if character.status_list:
+            for key, value in character.status_list.items():
                 if key == 'stun':
                     Status.status_stun(character)
                 if key == 'bleed':

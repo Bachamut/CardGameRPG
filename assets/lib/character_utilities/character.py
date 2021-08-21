@@ -19,34 +19,35 @@ class BaseCharacter(GameObject):
     def __init__(self):
         self.name = None
         self.character_class = None
-        self.base_attributes = None
-        self.base_modifiers = None
-        self.inventory = None
-        self.equipment = None
-        self.card_collection = None
-        self.deck = None
-        self.status_list = None
-
-class Character(GameObject):
-
-    def __init__(self):
-
-        self.name = ''
-        self.character_class = ''
-        self.attributes = Attributes()
-        self.modifiers = Attributes()
+        self.base_attributes = Attributes()
+        self.base_modifiers = Attributes()
         self.inventory = Inventory(20)
         self.equipment = Equipment()
+        self.card_collection = Deck()
         self.deck = Deck(8, 20)
-        self.card_pool = Deck()
-        # self.battle = BattleLogic()
-        self.status = {}
+        self.status_list = dict()
         self.card_draw = 3
-        # used only for BattleMode
-        self.battledeck = []
-        self.draw_pile = []
-        self.discard_pile = []
-        self.hand = []
+
+# class Character(GameObject):
+#
+#     def __init__(self):
+#
+#         self.name = ''
+#         self.character_class = ''
+#         self.attributes = Attributes()
+#         self.modifiers = Attributes()
+#         self.inventory = Inventory(20)
+#         self.equipment = Equipment()
+#         self.deck = Deck(8, 20)
+#         self.card_pool = Deck()
+#         # self.battle = BattleLogic()
+#         self.status = {}
+#         self.card_draw = 3
+#         # used only for BattleMode
+#         self.battledeck = []
+#         self.draw_pile = []
+#         self.discard_pile = []
+#         self.hand = []
 
     def add_equip(self, slot, item):
         # add item to equipment slot
@@ -106,29 +107,29 @@ class Character(GameObject):
             self.deck[card] += 1
         else:
             self.deck[card] = 1
-        self.card_pool[card] -=1
-        if self.card_pool[card] <= 0:
-            del self.card_pool[card]
+        self.card_collection[card] -=1
+        if self.card_collection[card] <= 0:
+            del self.card_collection[card]
 
     def remove_deck_card(self, card):
-        if card in self.card_pool:
-            self.card_pool[card] += 1
+        if card in self.card_collection:
+            self.card_collection[card] += 1
         else:
-            self.card_pool[card] = 1
+            self.card_collection[card] = 1
         self.deck[card] -= 1
         if self.deck[card] <= 0:
             del self.deck[card]
 
     def add_pool_card(self, card):
-        if card in self.card_pool:
-            self.card_pool[card] += 1
+        if card in self.card_collection:
+            self.card_collection[card] += 1
         else:
-            self.card_pool[card] = 1
+            self.card_collection[card] = 1
 
     def remove_pool_card(self, card):
-        self.card_pool[card] -= 1
-        if self.card_pool[card] <= 0:
-            del self.card_pool[card]
+        self.card_collection[card] -= 1
+        if self.card_collection[card] <= 0:
+            del self.card_collection[card]
 
 
 

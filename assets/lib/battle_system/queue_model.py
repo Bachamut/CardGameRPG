@@ -51,12 +51,12 @@ class QueueModel(GameObject):
         self._selected_card.set(card)
 
     @property
-    def ally(self):
-        return self._ally.take()
+    def battle_ally(self):
+        return self._battle_ally.take()
 
-    @ally.setter
-    def ally(self, ally):
-        self._ally.set(ally)
+    @battle_ally.setter
+    def battle_ally(self, ally):
+        self._battle_ally.set(ally)
 
     @property
     def enemies(self):
@@ -121,7 +121,7 @@ class QueueModel(GameObject):
 
         _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
         self._current_character = _battle_logic._current_character
-        self._ally = _battle_logic._ally
+        self._battle_ally = _battle_logic._battle_ally
         self._enemies = _battle_logic._enemies
 
         _game_logic = GameObject.get_object_pool().select_with_label("GameLogic")[0]
@@ -140,7 +140,7 @@ class QueueModel(GameObject):
             self.add_character(character)
 
     def add_character(self, character):
-        self.characters_speed[character] = character.attributes.speed
+        self.characters_speed[character] = character.base_attributes.speed
         self.party[character] = 0
         self.modifiers[character] = 0
 

@@ -17,8 +17,8 @@ class PartyCharacterView(GameObject):
 
         self.character_icon = CharacterIcon()
         self.character_name = CharacterName(self.character.name)
-        self.character_hp = AttributeLine("HP", self.character.attributes.health)
-        self.character_ep = AttributeLine("EP", self.character.attributes.energy)
+        self.character_hp = AttributeLine("HP", self.character.base_attributes.health)
+        self.character_ep = AttributeLine("EP", self.character.base_attributes.energy)
 
         self.attach_child(self.character_icon)
         self.attach_child(self.character_name)
@@ -38,8 +38,8 @@ class PartyCharacterView(GameObject):
         position.y = 4
 
     def update(self):
-        self.character_hp.update(self.character.attributes.health)
-        self.character_ep.update(self.character.attributes.energy)
+        self.character_hp.update(self.character.base_attributes.health)
+        self.character_ep.update(self.character.base_attributes.energy)
 
     def equal(self, character):
         if self.character == character:

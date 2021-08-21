@@ -70,7 +70,7 @@ class EnemyView(GameObject):
         for line in self.enemies_status:
             index = self.enemies_status.index(line)
             line.update(
-                f'{self.enemies[index].name} - HP:{self.enemies[index].attributes.health} AP:{self.enemies[index].attributes.action_points}')
+                f'{self.enemies[index].name} - HP:{self.enemies[index].base_attributes.health} AP:{self.enemies[index].base_attributes.action_points}')
 
     def on_create(self):
         pass

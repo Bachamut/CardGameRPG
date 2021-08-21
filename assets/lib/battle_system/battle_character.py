@@ -1,7 +1,12 @@
+import pygame
+
 from assets.lib.character_utilities.character import BaseCharacter
 
 
+
 class BattleCharacter(BaseCharacter):
+
+    BATTLE_CHARACTER_SIGNAL = pygame.event.custom_type()
 
     def __init__(self, base_character):
         super(BaseCharacter, self, ).__init__()
@@ -15,15 +20,16 @@ class BattleCharacter(BaseCharacter):
         self.card_collection = base_character.card_collection
         self.deck = base_character.deck
         self.status_list = base_character.status_list
+        self.card_draw = base_character.card_draw
 
         self.character_view = None
         self.character_type = None
         self.battle_modifiers = None
         self.battle_deck = None
-        self.hand = None
         self.draw_pile = None
         self.discard_pile = None
         self.exile_pile = None
+        self.hand = None
 
     @staticmethod
     def create_character_models(base_models):

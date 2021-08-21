@@ -14,7 +14,7 @@
               "file": "battle_logic"
             },
             {
-              "key": "Character",
+              "key": "BaseCharacter",
               "type": "script",
               "path": "assets/lib/character_utilities",
               "file": "character"

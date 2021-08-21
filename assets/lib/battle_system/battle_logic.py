@@ -2,7 +2,7 @@ import pygame
 
 from game_object.game_object import GameObject
 
-from assets.lib.battle_system.battle_character_model import BattleCharacter
+from assets.lib.battle_system.battle_character import BattleCharacter
 from assets.lib.battle_system.character_view_init import CharacterView
 from assets.lib.character_utilities.character import BaseCharacter
 from assets.lib.game_logic import GameLogic
@@ -80,12 +80,12 @@ class BattleLogic(GameObject):
         self._selected_card.set(card)
 
     @property
-    def ally(self):
-        return self._ally.take()
+    def battle_ally(self):
+        return self._battle_ally.take()
 
-    @ally.setter
-    def ally(self, ally):
-        self._ally.set(ally)
+    @battle_ally.setter
+    def battle_ally(self, ally):
+        self._battle_ally.set(ally)
 
     @property
     def enemies(self):
@@ -110,11 +110,16 @@ class BattleLogic(GameObject):
         self._current_card = SharedResource()
         self._selected_card = SharedResource()
 
-        self._ally = SharedResource()
-        self._ally.set(list())
+        self._battle_ally = SharedResource()
+        self._battle_ally.set(list())
 
         self._enemies = SharedResource()
         self._enemies.set(list())
+
+
+        _game_logic = GameObject.get_object_pool().select_with_label("GameLogic")[0]
+        self._base_ally= _game_logic.party
+        self._base_enemies = _game_logic.enemies
 
         ###
 
@@ -163,18 +168,16 @@ class BattleLogic(GameObject):
             if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "INITIAL":
                 Logs.DebugMessage.SignalReceived(self, signal, "BL0<-INIT")
 
-                # battlecharacters creation
-                self.base_ally = list()
-                for i in range(0,2):
-                    character = BaseCharacter()
-                    self.base_ally.append(character)
-                self.ally = BattleCharacter.create_character_models(self.base_ally)
-                print(f'storzono battlecharacters, {self.ally}')
-                for character in self.ally:
-                    print(f'{character.name}')
+                # # battlecharacters creation
+
+                self.battle_ally = BattleCharacter.create_character_models(self._base_ally)
+                print(f'Utworzono BattleCharacters:')
+                for character in self.battle_ally:
+                    print(f'- {character.name}')
+
 
                 # characterviews creation
-                view_list = CharacterView.create_character_view(self.ally)
+                view_list = CharacterView.create_character_view(self.battle_ally)
                 print(f'stworzono CharacterView {view_list}')
 
                 emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_SIGNAL, {"event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"})
