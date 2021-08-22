@@ -3,89 +3,19 @@ import pygame
 from game_object.game_object import GameObject
 from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.battle_system.log import Logs
+from assets.lib.game_object_battle_shared import GameObjectBattleShared
 
 
-class CharacterModel(GameObject):
-
-    # SharedResources definitions
-
-    @property
-    def current_character(self):
-        return self._current_character.take()
-
-    @current_character.setter
-    def current_character(self, character):
-        self._current_character.set(character)
-
-    @property
-    def current_target(self):
-        return self._current_target.take()
-
-    @current_target.setter
-    def current_target(self, character):
-        self._current_target.set(character)
-
-    @property
-    def selected_target(self):
-        return self._selected_target.take()
-
-    @selected_target.setter
-    def selected_target(self, target):
-        self._selected_target.set(target)
-
-    @property
-    def current_card(self):
-        return self._current_card.take()
-
-    @current_card.setter
-    def current_card(self, card):
-        self._current_card.set(card)
-
-    @property
-    def selected_card(self):
-        return self._selected_card.take()
-
-    @selected_card.setter
-    def selected_card(self, card):
-        self._selected_card.set(card)
-
-    @property
-    def battle_ally(self):
-        return self._battle_ally.take()
-
-    @battle_ally.setter
-    def battle_ally(self, ally):
-        self._battle_ally.set(ally)
-
-    @property
-    def enemies(self):
-        return self._enemies.take()
-
-    @enemies.setter
-    def enemies(self, enemies):
-        self._enemies.set(enemies)
-
-    # end SharedResources
+class CharacterModel(GameObjectBattleShared):
 
     _initialized = False
 
     def __init__(self):
         super(CharacterModel, self).__init__()
 
-        self._battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self._current_character = self._battle_logic._current_character
-        self._current_target = self._battle_logic._current_target
-        self._selected_target = self._battle_logic._selected_target
-        self._selected_target_index = 0
-
-        self._battle_ally = self._battle_logic._battle_ally
-        self._enemies = self._battle_logic._enemies
-
-        _game_logic = GameObject.get_object_pool().select_with_label("GameLogic")[0]
-        self._party_list = _game_logic.party
-        self._enemies_list = _game_logic.enemies
-
     def _initialize(self):
+        super(CharacterModel, self)._initialize()
+
         CharacterModel._initialized = True
         print("CharacterModel initialized")
 

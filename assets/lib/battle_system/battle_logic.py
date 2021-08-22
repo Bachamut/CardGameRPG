@@ -8,9 +8,10 @@ from assets.lib.character_utilities.character import BaseCharacter
 from assets.lib.game_logic import GameLogic
 from resource_manager.shared_resource import SharedResource
 from assets.lib.battle_system.log import Logs
+from assets.lib.game_object_battle_shared import GameObjectBattleShared
 
 
-class BattleLogic(GameObject):
+class BattleLogic(GameObjectBattleShared):
 
     BATTLE_LOGIC_SIGNAL = pygame.event.custom_type()
 
@@ -37,91 +38,11 @@ class BattleLogic(GameObject):
     _initialized = False
     started = False
 
-    # SharedResources definitions
-
-    @property
-    def current_character(self):
-        return self._current_character.take()
-
-    @current_character.setter
-    def current_character(self, character):
-        self._current_character.set(character)
-
-    @property
-    def current_target(self):
-        return self._current_target.take()
-
-    @current_target.setter
-    def current_target(self, character):
-        self._current_target.set(character)
-
-    @property
-    def selected_target(self):
-        return self._selected_target.take()
-
-    @selected_target.setter
-    def selected_target(self, target):
-        self._selected_target.set(target)
-
-    @property
-    def current_card(self):
-        return self._current_card.take()
-
-    @current_card.setter
-    def current_card(self, card):
-        self._current_card.set(card)
-
-    @property
-    def selected_card(self):
-        return self._selected_card.take()
-
-    @selected_card.setter
-    def selected_card(self, card):
-        self._selected_card.set(card)
-
-    @property
-    def battle_ally(self):
-        return self._battle_ally.take()
-
-    @battle_ally.setter
-    def battle_ally(self, ally):
-        self._battle_ally.set(ally)
-
-    @property
-    def enemies(self):
-        return self._enemies.take()
-
-    @enemies.setter
-    def enemies(self, enemies):
-        self._enemies.set(enemies)
-
-    # end SharedResources
-
 
     def __init__(self):
         super(BattleLogic, self).__init__()
 
         self.queue_model = None
-
-        ###
-        self._current_character = SharedResource()
-        self._current_target = SharedResource()
-        self._selected_target = SharedResource()
-        self._current_card = SharedResource()
-        self._selected_card = SharedResource()
-
-        self._battle_ally = SharedResource()
-        self._battle_ally.set(list())
-
-        self._enemies = SharedResource()
-        self._enemies.set(list())
-
-
-        _game_logic = GameObject.get_object_pool().select_with_label("GameLogic")[0]
-        self._base_ally= _game_logic.party
-        self._base_enemies = _game_logic.enemies
-
-        ###
 
     def _initialize(self):
         BattleLogic._initialized = True
@@ -133,23 +54,23 @@ class BattleLogic(GameObject):
         else:
             pass
 
-        if BattleLogic.started == False \
-            and len(GameObject.get_object_pool().select_with_label('CharacterModel')) != 0 \
-            and len(GameObject.get_object_pool().select_with_label('CardModel')) != 0 \
-            and len(GameObject.get_object_pool().select_with_label('QueueModel')) != 0 \
-            and len(GameObject.get_object_pool().select_with_label('CardView')) != 0:
+        # if BattleLogic.started == False \
+        #     and len(GameObject.get_object_pool().select_with_label('CharacterModel')) != 0 \
+        #     and len(GameObject.get_object_pool().select_with_label('CardModel')) != 0 \
+        #     and len(GameObject.get_object_pool().select_with_label('QueueModel')) != 0 \
+        #     and len(GameObject.get_object_pool().select_with_label('CardView')) != 0:
 
-            BattleLogic.started = True
+        BattleLogic.started = True
 
-            print(f'BATTLE_LOGIC:EMIT_SIGNAL: "event": "BATTLE_LOGIC_SIGNAL", "subtype": "INITIAL"')
-            signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "INITIAL"})
-            pygame.event.post(signal)
+        print(f'BATTLE_LOGIC:EMIT_SIGNAL: "event": "BATTLE_LOGIC_SIGNAL", "subtype": "INITIAL"')
+        signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "INITIAL"})
+        pygame.event.post(signal)
 
 
-        elif BattleLogic.started == True:
-            # signal = pygame.event.Event(CHARACTER_CHANGED)
-            # pygame.event.post(signal)
-            pass
+        # elif BattleLogic.started == True:
+        #     # signal = pygame.event.Event(CHARACTER_CHANGED)
+        #     # pygame.event.post(signal)
+        #     pass
 
     def on_event(self, event):
         if event.type == pygame.KEYDOWN:

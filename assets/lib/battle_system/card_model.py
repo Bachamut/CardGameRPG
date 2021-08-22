@@ -8,72 +8,14 @@ from assets.lib.battle_system.character_model import CharacterModel
 from assets.lib.game_logic import GameLogic
 from resource_manager.shared_resource import SharedResource
 from assets.lib.battle_system.log import Logs
+from assets.lib.game_object_battle_shared import GameObjectBattleShared
 
 CARD_VIEW_ON_RISE = pygame.event.custom_type()
 CARD_VIEW_ON_FALL = pygame.event.custom_type()
 
 
-class CardModel(GameObject):
+class CardModel(GameObjectBattleShared):
 
-    # SharedResources definitions
-
-    @property
-    def current_character(self):
-        return self._current_character.take()
-
-    @current_character.setter
-    def current_character(self, character):
-        self._current_character.set(character)
-
-    @property
-    def current_target(self):
-        return self._current_target.take()
-
-    @current_target.setter
-    def current_target(self, character):
-        self._current_target.set(character)
-
-    @property
-    def selected_target(self):
-        return self._selected_target.take()
-
-    @selected_target.setter
-    def selected_target(self, target):
-        self._selected_target.set(target)
-
-    @property
-    def current_card(self):
-        return self._current_card.take()
-
-    @current_card.setter
-    def current_card(self, card):
-        self._current_card.set(card)
-
-    @property
-    def selected_card(self):
-        return self._selected_card.take()
-
-    @selected_card.setter
-    def selected_card(self, card):
-        self._selected_card.set(card)
-
-    @property
-    def ally(self):
-        return self._ally.take()
-
-    @ally.setter
-    def ally(self, ally):
-        self._ally.set(ally)
-
-    @property
-    def enemies(self):
-        return self._enemies.take()
-
-    @enemies.setter
-    def enemies(self, enemies):
-        self._enemies.set(enemies)
-
-    # end SharedResources
 
     # CardModel SharedResources definitions
 
@@ -106,13 +48,10 @@ class CardModel(GameObject):
         self._previous_character = SharedResource()
 
     def _initialize(self):
+        super(CardModel, self)._initialize()
         CardModel._initialized = True
         print("CardModel initialized")
 
-        self._battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self._current_character = self._battle_logic._current_character
-        self._current_card = self._battle_logic._current_card
-        self._selected_card = self._battle_logic._selected_card
         self.selected_card_index = 0
 
         # Before first usage need to create copy and store as previous to initialize

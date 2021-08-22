@@ -31,7 +31,7 @@ class EnemyView(GameObject):
         EnemyView._initialized = True
         print("PartyVIew initialized")
 
-        self._enemies = GameObject.get_object_pool().select_with_label('CharacterModel')[0]._enemies
+        self._enemies = GameObject.get_object_pool().select_with_label('CharacterModel')[0]._battle_enemies
 
         # TODO: Do przygotowania Properties/Components ręcznie tworzonych dla klas powinna być jakaś metoda prepare,
         #  on_create albo construct
