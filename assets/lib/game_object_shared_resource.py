@@ -2,10 +2,10 @@ from game_object.game_object import GameObject
 from resource_manager.shared_resource import SharedResource
 
 
-class GameObjectBattleShared(GameObject):
+class GameObjectSharedResource(GameObject):
 
     def __init__(self):
-        super(GameObjectBattleShared, self).__init__()
+        super(GameObjectSharedResource, self).__init__()
 
         self._current_character = SharedResource()
         self._current_target = SharedResource()

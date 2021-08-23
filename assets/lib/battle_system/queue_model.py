@@ -1,72 +1,15 @@
 import pygame
+from property.initialize_property import InitializeProperty, InitializeState
 
 from assets.lib.battle_system.log import Logs
 from game_object.game_object import GameObject
 from assets.lib.battle_system.battle_logic import BattleLogic
 from resource_manager.shared_resource import SharedResource
 
+from assets.lib.game_object_shared_resource import GameObjectSharedResource
 
-class QueueModel(GameObject):
 
-    # SharedResources definitions
-
-    @property
-    def current_character(self):
-        return self._current_character.take()
-
-    @current_character.setter
-    def current_character(self, character):
-        self._current_character.set(character)
-
-    @property
-    def current_target(self):
-        return self._current_target.take()
-
-    @current_target.setter
-    def current_target(self, character):
-        self._current_target.set(character)
-
-    @property
-    def selected_target(self):
-        return self._selected_target.take()
-
-    @selected_target.setter
-    def selected_target(self, target):
-        self._selected_target.set(target)
-
-    @property
-    def current_card(self):
-        return self._current_card.take()
-
-    @current_card.setter
-    def current_card(self, card):
-        self._current_card.set(card)
-
-    @property
-    def selected_card(self):
-        return self._selected_card.take()
-
-    @selected_card.setter
-    def selected_card(self, card):
-        self._selected_card.set(card)
-
-    @property
-    def battle_ally(self):
-        return self._battle_ally.take()
-
-    @battle_ally.setter
-    def battle_ally(self, ally):
-        self._battle_ally.set(ally)
-
-    @property
-    def enemies(self):
-        return self._enemies.take()
-
-    @enemies.setter
-    def enemies(self, enemies):
-        self._enemies.set(enemies)
-
-    # end SharedResources
+class QueueModel(GameObjectSharedResource):
 
     # QueueModel SharedResources definitions
 
@@ -119,18 +62,21 @@ class QueueModel(GameObject):
         self._party.set(dict())
         self._queue.set(list())
 
-        _battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
-        self._current_character = _battle_logic._current_character
-        self._battle_ally = _battle_logic._battle_ally
-        self._enemies = _battle_logic._enemies
-
-        _game_logic = GameObject.get_object_pool().select_with_label("GameLogic")[0]
-        self._party_list = _game_logic.party
-        self._enemies_list = _game_logic.enemies
-
     def _initialize(self):
-        QueueModel._initialized = True
-        print("QueueModel initialized")
+
+        if InitializeProperty.check_status(self, InitializeState.INITIALIZED):
+            super(QueueModel, self)._initialize()
+            InitializeProperty.initialize_enable(self)
+            Logs.InfoMessage.SimpleInfo(self, "QueueModel Initialized [ OK ]")
+
+            return
+
+        if InitializeProperty.check_status(self, InitializeState.STARTED):
+            InitializeProperty.started(self)
+            self.property('SignalProperty').property_enable()
+            Logs.InfoMessage.SimpleInfo(self, "QueueModel Started [ OK ]")
+
+            return
 
     def setup_queue(self, units=None):
         if units is None:
@@ -209,13 +155,9 @@ class QueueModel(GameObject):
         return queue
 
     def on_script(self):
-        if not QueueModel._initialized and BattleLogic._initialized:
-            self._initialize()
-        else:
-            pass
+        pass
 
     def on_signal(self, signal):
-        if QueueModel._initialized:
 
             # QM1
             if signal.type == BattleLogic.QUEUE_MODEL_SIGNAL and signal.subtype == "STANDARD":

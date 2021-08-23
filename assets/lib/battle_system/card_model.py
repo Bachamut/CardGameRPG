@@ -2,19 +2,21 @@ import pygame
 
 from random import sample
 from game_object.game_object import GameObject
+from property.initialize_property import InitializeState, InitializeProperty
+
 from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.card_utilities.card_manager import CardManager
 from assets.lib.battle_system.character_model import CharacterModel
 from assets.lib.game_logic import GameLogic
 from resource_manager.shared_resource import SharedResource
 from assets.lib.battle_system.log import Logs
-from assets.lib.game_object_battle_shared import GameObjectBattleShared
+from assets.lib.game_object_shared_resource import GameObjectSharedResource
 
 CARD_VIEW_ON_RISE = pygame.event.custom_type()
 CARD_VIEW_ON_FALL = pygame.event.custom_type()
 
 
-class CardModel(GameObjectBattleShared):
+class CardModel(GameObjectSharedResource):
 
 
     # CardModel SharedResources definitions
@@ -48,9 +50,20 @@ class CardModel(GameObjectBattleShared):
         self._previous_character = SharedResource()
 
     def _initialize(self):
-        super(CardModel, self)._initialize()
-        CardModel._initialized = True
-        print("CardModel initialized")
+
+        if InitializeProperty.check_status(self, InitializeState.INITIALIZED):
+            super(CardModel, self)._initialize()
+            InitializeProperty.initialize_enable(self)
+            Logs.InfoMessage.SimpleInfo(self, "CardModel Initialized [ OK ]")
+
+            return
+
+        if InitializeProperty.check_status(self, InitializeState.STARTED):
+            InitializeProperty.started(self)
+            self.property('SignalProperty').property_enable()
+            Logs.InfoMessage.SimpleInfo(self, "CharacterModel Started [ OK ]")
+
+            return
 
         self.selected_card_index = 0
 
@@ -106,17 +119,7 @@ class CardModel(GameObjectBattleShared):
             CardModel.draw_card(character)
 
     def on_script(self):
-        if not self._initialized and \
-            GameLogic._initialized and \
-            BattleLogic._initialized and \
-            CharacterModel._initialized and \
-            BattleLogic.started:
-            self._initialize()
-        else:
-            pass
-
-        if BattleLogic.card_model_active:
-            pass
+        pass
 
     def on_event(self, event):
         if BattleLogic.card_model_active and CardModel._initialized:
@@ -128,7 +131,6 @@ class CardModel(GameObjectBattleShared):
         pass
 
     def on_signal(self, signal):
-        if CardModel._initialized:
 
             # CM1
             if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "INITIAL":

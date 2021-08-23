@@ -1,12 +1,14 @@
 import pygame
 
 from game_object.game_object import GameObject
+from property.initialize_property import InitializeState, InitializeProperty
+
 from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.battle_system.log import Logs
-from assets.lib.game_object_battle_shared import GameObjectBattleShared
+from assets.lib.game_object_shared_resource import GameObjectSharedResource
 
 
-class CharacterModel(GameObjectBattleShared):
+class CharacterModel(GameObjectSharedResource):
 
     _initialized = False
 
@@ -14,10 +16,20 @@ class CharacterModel(GameObjectBattleShared):
         super(CharacterModel, self).__init__()
 
     def _initialize(self):
-        super(CharacterModel, self)._initialize()
 
-        CharacterModel._initialized = True
-        print("CharacterModel initialized")
+        if InitializeProperty.check_status(self, InitializeState.INITIALIZED):
+            super(CharacterModel, self)._initialize()
+            InitializeProperty.initialize_enable(self)
+            Logs.InfoMessage.SimpleInfo(self, "CharacterModel Initialized [ OK ]")
+
+            return
+
+        if InitializeProperty.check_status(self, InitializeState.STARTED):
+            InitializeProperty.started(self)
+            self.property('SignalProperty').property_enable()
+            Logs.InfoMessage.SimpleInfo(self, "CharacterModel Started [ OK ]")
+
+            return
 
     # dodaje bohaterów(CHARACTER) do puli sojuszników(ALLY)
     def create_ally(self):
@@ -30,10 +42,7 @@ class CharacterModel(GameObjectBattleShared):
             self.enemies.append(enemy)
 
     def on_script(self):
-        if not self._initialized and BattleLogic._initialized:
-            self._initialize()
-        else:
-            pass
+        pass
 
     def on_event(self, event):
         if BattleLogic.character_model_active and CharacterModel._initialized:

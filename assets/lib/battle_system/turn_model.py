@@ -1,4 +1,5 @@
 import pygame
+from property.initialize_property import InitializeProperty, InitializeState
 
 from assets.lib.battle_system.action_types import ActionType
 from assets.lib.battle_system.battle_character import BattleCharacter
@@ -11,10 +12,10 @@ from assets.lib.card_utilities.card import Card
 from assets.lib.game_logic import GameLogic
 from game_object.game_object import GameObject
 
-from assets.lib.game_object_battle_shared import GameObjectBattleShared
+from assets.lib.game_object_shared_resource import GameObjectSharedResource
 
 
-class TurnModel(GameObjectBattleShared):
+class TurnModel(GameObjectSharedResource):
 
 
     _initialized = False
@@ -24,23 +25,26 @@ class TurnModel(GameObjectBattleShared):
         super(TurnModel, self).__init__()
 
     def _initialize(self):
-        super(TurnModel, self)._initialize()
-        TurnModel._initialized = True
-        print("TurnModel initialized")
+
+        if InitializeProperty.check_status(self, InitializeState.INITIALIZED):
+            super(TurnModel, self)._initialize()
+            InitializeProperty.initialize_enable(self)
+            Logs.InfoMessage.SimpleInfo(self, "TurnModel Initialized [ OK ]")
+
+            return
+
+        if InitializeProperty.check_status(self, InitializeState.STARTED):
+            InitializeProperty.started(self)
+            self.property('SignalProperty').property_enable()
+            Logs.InfoMessage.SimpleInfo(self, "TurnModel Started [ OK ]")
+
+            return
 
     def on_script(self):
-        if not self._initialized and \
-                GameLogic._initialized and \
-                BattleLogic._initialized and \
-                CharacterModel._initialized and \
-                BattleLogic.started:
-            self._initialize()
-        else:
-            pass
+        pass
 
     def on_event(self, event):
-        if BattleLogic.card_model_active and TurnModel._initialized:
-            pass
+        pass
 
 
     def on_signal(self, signal):
