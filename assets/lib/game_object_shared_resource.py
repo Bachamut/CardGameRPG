@@ -97,20 +97,4 @@ class GameObjectSharedResource(GameObject):
     def battle_enemies(self, enemies):
         self._battle_enemies.set(enemies)
 
-    @property
-    def base_ally(self):
-        return self._base_ally.take()
-
-    @base_ally.setter
-    def base_ally(self, ally):
-        self._base_ally.set(ally)
-
-    @property
-    def base_enemies(self):
-        return self._base_enemies.take()
-
-    @battle_enemies.setter
-    def base_enemies(self, enemies):
-        self._base_enemies.set(enemies)
-
     # end SharedResources

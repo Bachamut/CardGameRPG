@@ -107,7 +107,6 @@ class BattleLogic(GameObjectSharedResource):
                 for character in self.battle_ally:
                     print(f'- {character.name}')
 
-
                 # characterviews creation
                 view_list = CharacterView.create_character_view(self.battle_ally)
                 print(f'stworzono CharacterView {view_list}')
