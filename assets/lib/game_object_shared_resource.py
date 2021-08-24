@@ -35,8 +35,8 @@ class GameObjectSharedResource(GameObject):
         self._battle_enemies = self._battle_logic._battle_enemies
 
         _game_logic = GameObject.get_object_pool().select_with_label("GameLogic")[0]
-        self._base_ally = _game_logic.party
-        self._base_enemies = _game_logic.enemies
+        self._base_ally.set(_game_logic.party)
+        self._base_enemies.set(_game_logic.enemies)
 
 
     # SharedResources definitions
@@ -86,7 +86,7 @@ class GameObjectSharedResource(GameObject):
         return self._battle_ally.take()
 
     @battle_ally.setter
-    def ally(self, ally):
+    def battle_ally(self, ally):
         self._battle_ally.set(ally)
 
     @property
@@ -96,5 +96,21 @@ class GameObjectSharedResource(GameObject):
     @battle_enemies.setter
     def battle_enemies(self, enemies):
         self._battle_enemies.set(enemies)
+
+    @property
+    def base_ally(self):
+        return self._base_ally.take()
+
+    @base_ally.setter
+    def base_ally(self, ally):
+        self._base_ally.set(ally)
+
+    @property
+    def base_enemies(self):
+        return self._base_enemies.take()
+
+    @battle_enemies.setter
+    def base_enemies(self, enemies):
+        self._base_enemies.set(enemies)
 
     # end SharedResources

@@ -48,6 +48,7 @@ class BattleLogic(GameObjectSharedResource):
     def _initialize(self):
 
         if InitializeProperty.check_status(self, InitializeState.NOT_INITIALIZED):
+            super(BattleLogic, self)._initialize()
             InitializeProperty.initialize_enable(self)
             Logs.InfoMessage.SimpleInfo(self, "BattleLogic Initialized [ OK ]")
 
