@@ -22,12 +22,12 @@ class ItemModel(GameObject):
         self._current_character.set(character)
 
     @property
-    def current_target(self):
-        return self._current_target.take()
+    def confirmed_target(self):
+        return self._confirmed_target.take()
 
-    @current_target.setter
-    def current_target(self, character):
-        self._current_target.set(character)
+    @confirmed_target.setter
+    def confirmed_target(self, character):
+        self._confirmed_target.set(character)
 
     @property
     def selected_target(self):
@@ -38,12 +38,12 @@ class ItemModel(GameObject):
         self._selected_target.set(target)
 
     @property
-    def current_card(self):
-        return self._current_card.take()
+    def confirmed_card(self):
+        return self._confirmed_card.take()
 
-    @current_card.setter
-    def current_card(self, card):
-        self._current_card.set(card)
+    @confirmed_card.setter
+    def confirmed_card(self, card):
+        self._confirmed_card.set(card)
 
     @property
     def selected_card(self):

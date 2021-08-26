@@ -82,10 +82,10 @@ class CharacterModel(GameObjectSharedResource):
         if event.key == pygame.K_RETURN:
 
             # TODO: It should be refactored to keep selected target object in variable not represent as a index in array
-            self.current_target = self.enemies[self.selected_target_index]
+            self.confirmed_target = self.enemies[self.selected_target_index]
 
             print(f'selected_target_index {self.selected_target_index}')
-            print(f'current_target {self._battle_logic.current_target.name}')
+            print(f'confirmed_target {self._battle_logic.confirmed_target.name}')
 
             BattleLogic.character_model_active = False
 

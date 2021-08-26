@@ -194,12 +194,12 @@ class CardModel(GameObjectSharedResource):
     def _card_selection(self, event):
         if event.key == pygame.K_RETURN:
 
-            self.current_card = self.current_character.hand[self.selected_card_index]
-            self.current_card.current = True
-            print(f'wybrana karta: {self._battle_logic.current_card.card_name}')
+            self.confirmed_card = self.current_character.hand[self.selected_card_index]
+            self.confirmed_card.current = True
+            print(f'wybrana karta: {self._battle_logic.confirmed_card.card_name}')
 
             BattleLogic.card_model_active = False
 
-            # Call CURRENT_CARD_SIGNAL back to the BattleLogic
-            signal = pygame.event.Event(BattleLogic.CURRENT_CARD_SIGNAL, {"event": "CURRENT_CARD_SIGNAL"})
+            # Call confirmed_card_SIGNAL back to the BattleLogic
+            signal = pygame.event.Event(BattleLogic.confirmed_card_SIGNAL, {"event": "confirmed_card_SIGNAL"})
             pygame.event.post(signal)

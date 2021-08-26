@@ -83,13 +83,13 @@ class TurnModel(GameObjectSharedResource):
 
             self.current_character = self.battle_ally[0]
 
-            self.current_target = list()
+            self.confirmed_target = list()
             target = self.battle_ally[1]
-            self.current_target.append(target)
+            self.confirmed_target.append(target)
 
-            # self.current_card =
+            # self.confirmed_card =
 
-            TurnModel.action_model_signal(self.current_character, self.current_target, self.current_card)
+            TurnModel.action_model_signal(self.current_character, self.confirmed_target, self.confirmed_card)
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "STANDARD"})
             pygame.event.post(emit_signal)
@@ -115,12 +115,12 @@ class TurnModel(GameObjectSharedResource):
             return
 
     def current_action(self):
-        if self.current_card.ap_cost <= self.current_character.action_points:
+        if self.confirmed_card.ap_cost <= self.current_character.action_points:
             print(f'Możesz użyć karty')
 
-            TurnModel.action_process(self.current_character, self.current_target, self.current_card)
+            TurnModel.action_process(self.current_character, self.confirmed_target, self.confirmed_card)
 
-        if self.current_card.ap_cost > self.current_character.action_points:
+        if self.confirmed_card.ap_cost > self.current_character.action_points:
             print(f'Nie masz wystarczającej ilości AP')
 
     @staticmethod

@@ -8,9 +8,9 @@ class GameObjectSharedResource(GameObject):
         super(GameObjectSharedResource, self).__init__()
 
         self._current_character = SharedResource()
-        self._current_target = SharedResource()
+        self._confirmed_target = SharedResource()
         self._selected_target = SharedResource()
-        self._current_card = SharedResource()
+        self._confirmed_card = SharedResource()
         self._selected_card = SharedResource()
 
         self._battle_ally = SharedResource()
@@ -26,9 +26,9 @@ class GameObjectSharedResource(GameObject):
 
         self._battle_logic = GameObject.get_object_pool().select_with_label("BattleLogic")[0]
         self._current_character = self._battle_logic._current_character
-        self._current_target = self._battle_logic._current_target
+        self._confirmed_target = self._battle_logic._confirmed_target
         self._selected_target = self._battle_logic._selected_target
-        self._current_card = self._battle_logic._current_card
+        self._confirmed_card = self._battle_logic._confirmed_card
         self._selected_card = self._battle_logic._selected_card
 
         self._battle_ally = self._battle_logic._battle_ally
@@ -50,12 +50,12 @@ class GameObjectSharedResource(GameObject):
         self._current_character.set(character)
 
     @property
-    def current_target(self):
-        return self._current_target.take()
+    def confirmed_target(self):
+        return self._confirmed_target.take()
 
-    @current_target.setter
-    def current_target(self, character):
-        self._current_target.set(character)
+    @confirmed_target.setter
+    def confirmed_target(self, character):
+        self._confirmed_target.set(character)
 
     @property
     def selected_target(self):
@@ -66,12 +66,12 @@ class GameObjectSharedResource(GameObject):
         self._selected_target.set(target)
 
     @property
-    def current_card(self):
-        return self._current_card.take()
+    def confirmed_card(self):
+        return self._confirmed_card.take()
 
-    @current_card.setter
-    def current_card(self, card):
-        self._current_card.set(card)
+    @confirmed_card.setter
+    def confirmed_card(self, card):
+        self._confirmed_card.set(card)
 
     @property
     def selected_card(self):
