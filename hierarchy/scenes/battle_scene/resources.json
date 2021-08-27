@@ -20,7 +20,7 @@
               "file": "character"
             },
             {
-              "key": "Card",
+              "key": "BaseCard",
               "type": "script",
               "path": "assets/lib/card_utilities",
               "file": "card"

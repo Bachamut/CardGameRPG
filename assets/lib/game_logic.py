@@ -26,6 +26,14 @@ class GameLogic(GameObject):
         self._create_party()
         self._create_enemy()
 
+        # Card implementation Tests
+        card = CardManager.create_base_card('Heavy Strike')
+        desc_card = CardManager.create_descriptive_card(card)
+        battle_card = CardManager.create_battle_card(card)
+        full_card = CardManager.create_full_card(card)
+
+        print(card)
+
     def _create_party(self):
         player = CharacterManager.create_character("character_edward")
         player.inventory.add_item('Short sword')

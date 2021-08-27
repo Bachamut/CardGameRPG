@@ -8,7 +8,7 @@ from assets.lib.battle_system.card_model import CardModel
 from assets.lib.battle_system.character_model import CharacterModel
 from assets.lib.battle_system.log import Logs
 from assets.lib.battle_system.status import Status
-from assets.lib.card_utilities.card import Card
+from assets.lib.card_utilities.card import BaseCard
 from assets.lib.game_logic import GameLogic
 from game_object.game_object import GameObject
 
