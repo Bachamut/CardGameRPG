@@ -15,8 +15,8 @@ class CardManager:
                 CardManager.card_config.update({key: value})
 
     @staticmethod
-    def create_base_card(card_id):
-        config = CardManager.card_config[card_id]
+    def create_base_card(key):
+        config = CardManager.card_config[key]
         card = BaseCard()
 
         card.card_id = config['card_id']
@@ -26,7 +26,7 @@ class CardManager:
 
     @staticmethod
     def create_descriptive_card(base):
-        config = CardManager.card_config[base.card_name] # TODO: karty powinny być identyfikowanie na podstawie CARD_ID
+        config = CardManager.card_config[base.card_id] # TODO: karty powinny być identyfikowanie na podstawie CARD_ID
         card = DescriptiveCard(base)
 
         card.card_name = config['card_name']
@@ -36,7 +36,7 @@ class CardManager:
 
     @staticmethod
     def create_battle_card(base):
-        config = CardManager.card_config[base.card_name]
+        config = CardManager.card_config[base.card_id]
         card = BattleCard(base)
 
         card.character_class = config['character_class']
@@ -53,7 +53,7 @@ class CardManager:
 
     @staticmethod
     def create_full_card(base):
-        config = CardManager.card_config[base.card_name]
+        config = CardManager.card_config[base.card_id]
         card = FullCard(base,
                         CardManager.create_descriptive_card(base),
                         CardManager.create_battle_card(base))

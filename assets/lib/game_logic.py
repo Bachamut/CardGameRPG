@@ -27,12 +27,12 @@ class GameLogic(GameObject):
         self._create_enemy()
 
         # Card implementation Tests
-        card = CardManager.create_base_card('Heavy Strike')
-        desc_card = CardManager.create_descriptive_card(card)
-        battle_card = CardManager.create_battle_card(card)
-        full_card = CardManager.create_full_card(card)
-
-        print(card)
+        # basic_card = CardManager.create_base_card("heavy_strike_1")
+        # desc_card = CardManager.create_descriptive_card(basic_card)
+        # battle_card = CardManager.create_battle_card(basic_card)
+        # full_card = CardManager.create_full_card(basic_card)
+        #
+        # print(basic_card)
 
     def _create_party(self):
         player = CharacterManager.create_character("character_edward")
@@ -43,18 +43,19 @@ class GameLogic(GameObject):
         GameLogic.party.append(player)
 
         player = CharacterManager.create_character("character_lucius")
-        player.deck['Nimble Strike'] = 4
+        player.inventory.add_item('Short sword')
+        player.add_equip('hand_r', 'Short sword')
         GameLogic.party.append(player)
 
     def _create_enemy(self):
         enemy = CharacterManager.create_character("warrior_goblin")
-        enemy.deck['Fast Strike'] = 2
-        enemy.deck['Piercing Strike'] = 1
+        enemy.inventory.add_item('Short sword')
+        enemy.add_equip('hand_r', 'Short sword')
         GameLogic.enemies.append(enemy)
 
-        enemy = CharacterManager.create_character("archer_goblin")
-        enemy.deck['Bow Shot'] = 3
-        GameLogic.enemies.append(enemy)
+        # enemy = CharacterManager.create_character("archer_goblin")
+        # enemy.deck['Bow Shot'] = 3
+        # GameLogic.enemies.append(enemy)
 
     def on_create(self):
         pass

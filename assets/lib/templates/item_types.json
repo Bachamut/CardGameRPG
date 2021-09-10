@@ -26,8 +26,8 @@
     "m_magic_resist": 0,
     "add_card":
     {
-      "Fast Strike": 2,
-      "Heavy Strike": 1
+      "fast_strike_1": 2,
+      "heavy_strike_1": 1
     }
   },
 
@@ -58,7 +58,7 @@
     "m_magic_resist": 0,
     "add_card":
     {
-      "Shield Bash": 1
+      "shield_bash_1": 1
     }
   }
 }

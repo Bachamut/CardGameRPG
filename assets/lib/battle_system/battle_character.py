@@ -25,7 +25,7 @@ class BattleCharacter(BaseCharacter):
         self.character_view = None
         self.character_type = None
         self.battle_modifiers = None
-        self.battle_deck = None
+        self.battle_deck = list()
         self.draw_pile = None
         self.discard_pile = None
         self.exile_pile = None

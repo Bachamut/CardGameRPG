@@ -5,6 +5,7 @@ from property.initialize_property import InitializeProperty, InitializeState
 
 from assets.lib.battle_system.battle_character import BattleCharacter
 from assets.lib.battle_system.character_view_init import CharacterView
+from assets.lib.card_utilities.card_manager import CardManager
 from assets.lib.character_utilities.character import BaseCharacter
 from assets.lib.game_logic import GameLogic
 from resource_manager.shared_resource import SharedResource
@@ -100,16 +101,29 @@ class BattleLogic(GameObjectSharedResource):
             if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "INITIAL":
                 Logs.DebugMessage.SignalReceived(self, signal, "BL0<-INIT")
 
-                # # battlecharacters creation
+                # battlecharacters creation
 
                 self.battle_ally = BattleCharacter.create_character_models(self._base_ally)
                 print(f'Utworzono BattleCharacters:')
                 for character in self.battle_ally:
                     print(f'- {character.name}')
 
-                # characterviews creation
-                view_list = CharacterView.create_character_view(self.battle_ally)
+                self.battle_enemies = BattleCharacter.create_character_models(self._base_enemies)
+                print(f'Utworzono BattleCharacters:')
+                for character in self.battle_enemies:
+                    print(f'- {character.name}')
+
+                # CharacterViews creation
+                view_list = CharacterView.create_character_view(self.battle_ally + self.battle_enemies)
                 print(f'stworzono CharacterView {view_list}')
+
+                # populating battle_decks by BaseCards instances
+                for character in (self.battle_ally + self.battle_enemies):
+                    for key, value in character.deck.items():
+                        for i in range(0, value):
+                            basic_card = CardManager.create_base_card(key)
+                            character.battle_deck.append(basic_card)
+                    print(character.battle_deck)
 
                 emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_SIGNAL, {"event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)
