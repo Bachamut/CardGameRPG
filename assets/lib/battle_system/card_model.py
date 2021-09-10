@@ -1,3 +1,5 @@
+import random
+
 import pygame
 
 from random import sample
@@ -100,9 +102,13 @@ class CardModel(GameObjectSharedResource):
         character.draw_pile = sample(character.battle_deck, len(character.battle_deck))
 
     # tasowanie talii
+    # @staticmethod
+    # def shuffle_deck(character):
+    #     random.shuffle(character.battle_deck)
+
     @staticmethod
-    def deck_shuffle(character):
-        pass
+    def shuffle_deck(card_list):
+        random.shuffle(card_list)
 
     # dobieranie karty do HAND z DRAWPILE
     @staticmethod
@@ -135,6 +141,10 @@ class CardModel(GameObjectSharedResource):
             # CM1
             if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "INITIAL":
                 Logs.DebugMessage.SignalReceived(self, signal, "CM1<-BL0")
+
+                # Shuffling deck
+                for character in (self.battle_ally + self.battle_enemies):
+                    CardModel.shuffle_deck(character.draw_pile)
 
                 emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)

@@ -101,7 +101,7 @@ class BattleLogic(GameObjectSharedResource):
             if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "INITIAL":
                 Logs.DebugMessage.SignalReceived(self, signal, "BL0<-INIT")
 
-                # battlecharacters creation
+                # BattleCharacters creation
 
                 self.battle_ally = BattleCharacter.create_character_models(self._base_ally)
                 print(f'Utworzono BattleCharacters:')
@@ -117,13 +117,14 @@ class BattleLogic(GameObjectSharedResource):
                 view_list = CharacterView.create_character_view(self.battle_ally + self.battle_enemies)
                 print(f'stworzono CharacterView {view_list}')
 
-                # populating battle_decks by BaseCards instances
+                # Populating battle_decks by BaseCards instances
                 for character in (self.battle_ally + self.battle_enemies):
-                    for key, value in character.deck.items():
-                        for i in range(0, value):
-                            basic_card = CardManager.create_base_card(key)
+                    for card_id, amount in character.deck.items():
+                        for i in range(0, amount):
+                            basic_card = CardManager.create_base_card(card_id)
                             character.battle_deck.append(basic_card)
-                    print(character.battle_deck)
+                            # Populating draw_pile as a working copy of battle_deck
+                            character.draw_pile = character.battle_deck.copy
 
                 emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_SIGNAL, {"event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)
