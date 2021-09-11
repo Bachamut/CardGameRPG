@@ -124,7 +124,7 @@ class BattleLogic(GameObjectSharedResource):
                             basic_card = CardManager.create_base_card(card_id)
                             character.battle_deck.append(basic_card)
                             # Populating draw_pile as a working copy of battle_deck
-                            character.draw_pile = character.battle_deck.copy
+                            character.draw_pile = character.battle_deck.copy()
 
                 emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_SIGNAL, {"event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)

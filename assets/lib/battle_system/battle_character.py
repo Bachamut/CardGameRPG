@@ -26,10 +26,10 @@ class BattleCharacter(BaseCharacter):
         self.character_type = None
         self.battle_modifiers = None
         self.battle_deck = list()
-        self.draw_pile = None
-        self.discard_pile = None
-        self.exile_pile = None
-        self.hand = None
+        self.draw_pile = list()
+        self.discard_pile = list()
+        self.exile_pile = list()
+        self.hand = list()
 
     @staticmethod
     def create_character_models(base_models):

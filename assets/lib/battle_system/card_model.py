@@ -102,13 +102,26 @@ class CardModel(GameObjectSharedResource):
         character.draw_pile = sample(character.battle_deck, len(character.battle_deck))
 
     # tasowanie talii
-    # @staticmethod
-    # def shuffle_deck(character):
-    #     random.shuffle(character.battle_deck)
+    @staticmethod
+    def shuffle_deck(character):
+        for it in range(0, len(character.discard_pile)):
+            CardModel.revert_discard(character)
+        random.shuffle(character.draw_pile)
 
     @staticmethod
-    def shuffle_deck(card_list):
-        random.shuffle(card_list)
+    def revert_discard(character):
+        moved_card = character.discard_pile.pop(0)
+        character.draw_pile.append(moved_card)
+
+    @staticmethod
+    def discard_draw_pile(character):
+        for it in range(0, len(character.draw_pile)):
+            CardModel.discard_top_card(character)
+
+    @staticmethod
+    def discard_top_card(character):
+        discarded_card = character.draw_pile.pop(0)
+        character.discard_pile.append(discarded_card)
 
     # dobieranie karty do HAND z DRAWPILE
     @staticmethod
@@ -144,7 +157,7 @@ class CardModel(GameObjectSharedResource):
 
                 # Shuffling deck
                 for character in (self.battle_ally + self.battle_enemies):
-                    CardModel.shuffle_deck(character.draw_pile)
+                    CardModel.shuffle_deck(character)
 
                 emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)
