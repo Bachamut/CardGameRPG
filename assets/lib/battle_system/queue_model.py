@@ -14,28 +14,20 @@ class QueueModel(GameObjectSharedResource):
     # QueueModel SharedResources definitions
 
     @property
-    def characters_speed(self):
-        return self._characters_speed.take()
+    def temporary_speeds(self):
+        return self._temporary_speeds.take()
 
-    @characters_speed.setter
-    def characters_speed(self, enemies):
-        self._characters_speed.set(enemies)
-
-    @property
-    def modifiers(self):
-        return self._modifiers.take()
-
-    @modifiers.setter
-    def modifiers(self, enemies):
-        self._modifiers.set(enemies)
+    @temporary_speeds.setter
+    def temporary_speeds(self, enemies):
+        self._temporary_speeds.set(enemies)
 
     @property
-    def party(self):
-        return self._party.take()
+    def speeds_table(self):
+        return self._speeds_table.take()
 
-    @party.setter
-    def party(self, enemies):
-        self._party.set(enemies)
+    @speeds_table.setter
+    def speeds_table(self, enemies):
+        self._speeds_table.set(enemies)
 
     @property
     def queue(self):
@@ -52,14 +44,12 @@ class QueueModel(GameObjectSharedResource):
     def __init__(self):
         super(QueueModel, self).__init__()
 
-        self._characters_speed = SharedResource()
-        self._modifiers = SharedResource()
-        self._party = SharedResource()
+        self._temporary_speeds = SharedResource()
+        self._speeds_table = SharedResource()
         self._queue = SharedResource()
 
-        self._characters_speed.set(dict())
-        self._modifiers.set(dict())
-        self._party.set(dict())
+        self._speeds_table.set(dict())
+        self._temporary_speeds.set(dict())
         self._queue.set(list())
 
     def _initialize(self):
@@ -80,77 +70,76 @@ class QueueModel(GameObjectSharedResource):
 
     def setup_queue(self, units=None):
         if units is None:
-            units = self.ally + self.enemies
+            units = self.battle_ally + self.battle_enemies
 
         for character in units:
-            self.add_character(character)
-
-    def add_character(self, character):
-        self.characters_speed[character] = character.base_attributes.speed
-        self.party[character] = 0
-        self.modifiers[character] = 0
+            self.speeds_table[character] = 0
+            self.temporary_speeds[character] = 0
 
     def remove_character(self, character):
-        self.characters_speed.pop(character)
-        self.party.pop(character)
-        self.modifiers.pop(character)
+        self.speeds_table.pop(character)
+        self.temporary_speeds.pop(character)
 
     @staticmethod
-    def update_speed(party, characters_speed, modifiers):
-        for c in party:
-            party[c] += characters_speed[c] + modifiers[c]
+    def update_speed(speeds_table, characters_speed, temporary_speeds):
+        for c in speeds_table:
+            speeds_table[c] += characters_speed[c] + temporary_speeds[c]
 
     @staticmethod
-    def get_next(party):
-        fastest = max(party, key=party.get)
-        if party[fastest] >= 100:
+    def get_next(speeds_table):
+        fastest = max(speeds_table, key=speeds_table.get)
+        if speeds_table[fastest] >= 100:
             return fastest
-        elif party[fastest] < 100:
+        elif speeds_table[fastest] < 100:
             return None
 
     @staticmethod
-    def reduce_speed(party, character):
-        party[character] -= 100
+    def reduce_speed(speeds_table, character):
+        speeds_table[character] -= 100
 
     def get_next_seed(self):
-        return QueueModel._get_next_seed(self.party, self.characters_speed, self.modifiers )
+        return QueueModel._get_next_seed(self.speeds_table, QueueModel.get_speed_dict(self.battle_ally + self.battle_enemies), self.temporary_speeds)
 
     @staticmethod
-    def _get_next_seed(party, character_speeds, modifiers):
-        party_seed = dict()
+    def _get_next_seed(speeds_table, character_speeds, temporary_speeds):
 
-        for key, value in party.items():
-            party_seed[key] = value
+        simulation_table = speeds_table.copy()
 
         while True:
-            character = QueueModel.get_next(party_seed)
+            character = QueueModel.get_next(simulation_table)
             if character is not None:
-                QueueModel.reduce_speed(party_seed, character)
+                QueueModel.reduce_speed(simulation_table, character)
                 break
             elif character is None:
-                QueueModel.update_speed(party_seed, character_speeds, modifiers)
+                QueueModel.update_speed(simulation_table, character_speeds, temporary_speeds)
 
-        return party_seed
+        return simulation_table
 
     def get_queue(self):
-        return QueueModel._get_queue(self.party, self.characters_speed, self.modifiers)
+        return QueueModel._get_queue(self.speeds_table, QueueModel.get_speed_dict(self.battle_ally + self.battle_enemies), self.temporary_speeds)
 
     @staticmethod
-    def _get_queue(party, character_speeds, modifiers):
-        party_seed = dict()
-        queue = list()
+    def get_speed_dict(characters):
 
-        for key, value in party.items():
-            party_seed[key] = value
+        speeds = dict()
+
+        for character in characters:
+            speeds[character] = character.battle_attribute("speed")
+
+    @staticmethod
+    def _get_queue(speeds_table, character_speeds, temporary_speeds):
+
+        simulation_table = speeds_table.copy()
+        queue = list()
 
         quantity = 8
         while quantity - len(queue) != 0:
-            character = QueueModel.get_next(party_seed)
+            character = QueueModel.get_next(simulation_table)
             if character is not None:
                 queue.append(character)
-                QueueModel.reduce_speed(party_seed, character)
+                QueueModel.reduce_speed(simulation_table, character)
             elif character is None:
-                QueueModel.update_speed(party_seed, character_speeds, modifiers)
+                QueueModel.update_speed(simulation_table, character_speeds, temporary_speeds)
 
         return queue
 

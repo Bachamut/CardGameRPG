@@ -1,5 +1,6 @@
 import pygame
 
+from assets.lib.character_utilities.attributes import Attributes
 from assets.lib.character_utilities.character import BaseCharacter
 
 
@@ -7,6 +8,11 @@ from assets.lib.character_utilities.character import BaseCharacter
 class BattleCharacter(BaseCharacter):
 
     BATTLE_CHARACTER_SIGNAL = pygame.event.custom_type()
+
+    def battle_attribute(self, attribute):
+        return getattr(self.base_attributes, attribute)\
+               + getattr(self.base_modifiers, attribute)\
+               + getattr(self.battle_modifiers, attribute)
 
     def __init__(self, base_character):
         super(BaseCharacter, self, ).__init__()
@@ -24,7 +30,7 @@ class BattleCharacter(BaseCharacter):
 
         self.character_view = None
         self.character_type = None
-        self.battle_modifiers = None
+        self.battle_modifiers = Attributes()
         self.battle_deck = list()
         self.draw_pile = list()
         self.discard_pile = list()
