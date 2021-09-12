@@ -121,10 +121,11 @@ class QueueModel(GameObjectSharedResource):
     @staticmethod
     def get_speed_dict(characters):
 
-        speeds = dict()
+        character_speeds = dict()
 
         for character in characters:
-            speeds[character] = character.battle_attribute("speed")
+            character_speeds[character] = character.battle_attribute("speed")
+        return character_speeds
 
     @staticmethod
     def _get_queue(speeds_table, character_speeds, temporary_speeds):
@@ -152,6 +153,8 @@ class QueueModel(GameObjectSharedResource):
         if signal.type == BattleLogic.QUEUE_MODEL_SIGNAL and signal.subtype == "INITIAL":
             Logs.DebugMessage.SignalReceived(self, signal, "QMS1<-BLS1")
 
+            self.setup_queue()
+
             emit_signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_RESPONSE, {"event": "QUEUE_MODEL_RESPONSE", "subtype": "INITIAL"})
             pygame.event.post(emit_signal)
             Logs.DebugMessage.SignalEmit(self, emit_signal, "QMS1->BLS2")
@@ -163,7 +166,25 @@ class QueueModel(GameObjectSharedResource):
 
             # Taking next character from QueueModel
 
+            queue = self.get_queue()
+            self.current_character = queue[0]
 
+            next_seed = self.get_next_seed()
+
+            # can be moved to get_next_seed()
+            for key, values in self.speeds_table.items():
+                self.speeds_table[key] = next_seed[key]
+
+            self.queue = queue
+
+            print(f'')
+            for key, value in self.speeds_table.items():
+                print(
+                    f'{key.name}: {value} | {self.get_speed_dict(self.battle_ally + self.battle_enemies)[key]} +{self.temporary_speeds[key]}')
+            print(f'CURRENT_CHARACTER: {self.current_character.name}')
+            print(f'QUEUE:')
+            for character in self.queue:
+                print(f'- {character.name}')
             emit_signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_RESPONSE, {"event": "QUEUE_MODEL_RESPONSE", "subtype": "STANDARD"})
             pygame.event.post(emit_signal)
             Logs.DebugMessage.SignalEmit(self, emit_signal, "QM1->BL2")
