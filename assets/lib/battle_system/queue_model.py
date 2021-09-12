@@ -148,14 +148,23 @@ class QueueModel(GameObjectSharedResource):
 
     def on_signal(self, signal):
 
-            # QM1
-            if signal.type == BattleLogic.QUEUE_MODEL_SIGNAL and signal.subtype == "STANDARD":
-                Logs.DebugMessage.SignalReceived(self, signal, "QM1<-BL1")
+        # QMS1
+        if signal.type == BattleLogic.QUEUE_MODEL_SIGNAL and signal.subtype == "INITIAL":
+            Logs.DebugMessage.SignalReceived(self, signal, "QMS1<-BLS1")
 
-                # Taking next character from QueueModel
-                
+            emit_signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_RESPONSE, {"event": "QUEUE_MODEL_RESPONSE", "subtype": "INITIAL"})
+            pygame.event.post(emit_signal)
+            Logs.DebugMessage.SignalEmit(self, emit_signal, "QMS1->BLS2")
+            return
 
-                emit_signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_RESPONSE, {"event": "QUEUE_MODEL_RESPONSE", "subtype": "STANDARD"})
-                pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "QM1->BL2")
-                return
+        # QM1
+        if signal.type == BattleLogic.QUEUE_MODEL_SIGNAL and signal.subtype == "STANDARD":
+            Logs.DebugMessage.SignalReceived(self, signal, "QM1<-BL1")
+
+            # Taking next character from QueueModel
+
+
+            emit_signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_RESPONSE, {"event": "QUEUE_MODEL_RESPONSE", "subtype": "STANDARD"})
+            pygame.event.post(emit_signal)
+            Logs.DebugMessage.SignalEmit(self, emit_signal, "QM1->BL2")
+            return

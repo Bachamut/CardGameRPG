@@ -97,10 +97,11 @@ class BattleLogic(GameObjectSharedResource):
     def on_signal(self, signal):
 
             # BATTLE_LOGIC INITIAL
-            # BL0
+            # BLS1
             if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "INITIAL":
-                Logs.DebugMessage.SignalReceived(self, signal, "BL0<-INIT")
+                Logs.DebugMessage.SignalReceived(self, signal, "BLS1<-INIT")
 
+                Logs.InfoMessage.SimpleInfo(self, "<START SETUP>")
                 # BattleCharacters creation
 
                 self.battle_ally = BattleCharacter.create_character_models(self._base_ally)
@@ -126,18 +127,28 @@ class BattleLogic(GameObjectSharedResource):
                             # Populating draw_pile as a working copy of battle_deck
                             character.draw_pile = character.battle_deck.copy()
 
-                emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_SIGNAL, {"event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"})
+                emit_signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_SIGNAL, {"event": "QUEUE_MODEL_SIGNAL", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL0->CM1")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "BLS1->QMS1")
                 return
 
-            # BATTLE_LOGIC FLOW
+            # BLS2
+            if signal.type == BattleLogic.QUEUE_MODEL_RESPONSE and signal.subtype == "INITIAL":
+                Logs.DebugMessage.SignalReceived(self, signal, "BLS2<-QMS1")
+
+                emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_SIGNAL, {"event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"})
+                pygame.event.post(emit_signal)
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "BLS2->CMS1")
+                return
+
+            # BATTLE_LOGIC TURN FLOW
             # BL1
             if signal.type == BattleLogic.SHUFFLE_DECK_RESPONSE and signal.subtype == "INITIAL" or \
                     signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "END_TURN":
 
                 if signal.type == BattleLogic.SHUFFLE_DECK_RESPONSE and signal.subtype == "INITIAL":
-                    Logs.DebugMessage.SignalReceived(self, signal, "BL1<-CM1")
+                    Logs.DebugMessage.SignalReceived(self, signal, "BL1<-CMS1")
+                    Logs.InfoMessage.SimpleInfo(self, "<FINISH SETUP>")
                 if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "END_TURN":
                     Logs.DebugMessage.SignalReceived(self, signal, "BL1<-?BL101")
 

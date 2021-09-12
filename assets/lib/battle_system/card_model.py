@@ -151,9 +151,9 @@ class CardModel(GameObjectSharedResource):
 
     def on_signal(self, signal):
 
-            # CM1
+            # CMS1
             if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "INITIAL":
-                Logs.DebugMessage.SignalReceived(self, signal, "CM1<-BL0")
+                Logs.DebugMessage.SignalReceived(self, signal, "CMS1<-BLS2")
 
                 # Shuffling deck
                 for character in (self.battle_ally + self.battle_enemies):
@@ -161,7 +161,7 @@ class CardModel(GameObjectSharedResource):
 
                 emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "CM1->BL1")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "CMS1->BL1")
                 return
 
             # CM2
