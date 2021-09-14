@@ -126,7 +126,6 @@ class CardModel(GameObjectSharedResource):
     # dobieranie karty do HAND z DRAWPILE
     @staticmethod
     def draw_card(character):
-        # dodać sprawdzanie czy można dobrać kartę z DRAWPILE
         card = character.draw_pile.pop(0)
         character.hand.append(card)
         character.hand[0].selected = True
@@ -136,6 +135,16 @@ class CardModel(GameObjectSharedResource):
     def draw_hand(character):
         for it in range(0, character.card_draw):
             CardModel.draw_card(character)
+
+    @staticmethod
+    def discard_hand_card(character):
+        card = character.hand.pop(0)
+        character.discard_pile.append(card)
+
+    @staticmethod
+    def discard_hand(character):
+        for it in range(0, len(character.hand)):
+            CardModel.discard_hand_card(character)
 
     def on_script(self):
         pass
@@ -168,6 +177,9 @@ class CardModel(GameObjectSharedResource):
             if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "STANDARD":
                 Logs.DebugMessage.SignalReceived(self, signal, "CM2<-BL3A")
 
+                # Deck shuffle if there is no cards in draw_pile
+                CardModel.shuffle_deck(self.current_character)
+
                 emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "STANDARD"})
                 pygame.event.post(emit_signal)
                 Logs.DebugMessage.SignalEmit(self, emit_signal, "CM2->BL4")
@@ -176,6 +188,10 @@ class CardModel(GameObjectSharedResource):
             # CM3
             if signal.type == BattleLogic.DRAW_CARD_SIGNAL and signal.subtype == "STANDARD":
                 Logs.DebugMessage.SignalReceived(self, signal, "CM3<-BL5")
+
+                # Draw_hand
+                CardModel.draw_card(self.current_character)
+                print(f'{self.current_character.name} hand: {self.current_character.hand}')
 
                 emit_signal = pygame.event.Event(BattleLogic.DRAW_CARD_RESPONSE, {"event": "DRAW_CARD_RESPONSE", "subtype": "STANDARD"})
                 pygame.event.post(emit_signal)

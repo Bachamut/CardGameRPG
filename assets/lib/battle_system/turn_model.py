@@ -109,6 +109,11 @@ class TurnModel(GameObjectSharedResource):
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "POST_TURN":
             Logs.DebugMessage.SignalReceived(self, signal, "?AM100<-?BL100")
 
+            # Discarding current character hand at turn finish
+            CardModel.discard_hand(self.current_character)
+            print(f'Zdiscardowano hand {self.current_character.name}')
+            print(f'ilość kart:\n hand: {len(self.current_character.hand)}\n draw_pile: {len(self.current_character.draw_pile)}\n discard_pile: {len(self.current_character.discard_pile)}')
+
             emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "POST_TURN"})
             pygame.event.post(emit_signal)
             Logs.DebugMessage.SignalEmit(self, emit_signal, "?AM100->?BL101")

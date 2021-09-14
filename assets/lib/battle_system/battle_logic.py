@@ -179,8 +179,7 @@ class BattleLogic(GameObjectSharedResource):
 
                 # IF Czy dobiera kartę?
                 Logs.InfoMessage.SimpleInfo(self, "CZY DOBIERA KARTĘ?")
-                draw = False
-                if draw:
+                if len(self.current_character.hand) < self.current_character.card_draw:
                     # TAK
                     Logs.InfoMessage.SimpleInfo(self, "TAK")
                     Logs.InfoMessage.SimpleInfo(self, "[START LOOP DRAW]")
@@ -205,15 +204,14 @@ class BattleLogic(GameObjectSharedResource):
 
                 # IF Czy postać ma karty w DrawPile?:
                 Logs.InfoMessage.SimpleInfo(self, "CZY POSTAĆ MA KARTY W DRAW PILE?")
-                answer = False
-                if answer:
+                if len(self.current_character.draw_pile) < 1:
                     Logs.InfoMessage.SimpleInfo(self, "NIE")
 
                     emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_SIGNAL, {"event": "SHUFFLE_DECK_SIGNAL", "subtype": "STANDARD"})
                     pygame.event.post(emit_signal)
                     Logs.DebugMessage.SignalEmit(self, emit_signal, "BL3A->CM2")
                     return
-                else:
+                if len(self.current_character.draw_pile) >= 1:
                     Logs.InfoMessage.SimpleInfo(self, "TAK")
 
                     emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "NO_SHUFFLE"})
@@ -283,7 +281,7 @@ class BattleLogic(GameObjectSharedResource):
 
                 # IF Czy postać może wykonać akcję?:
                 Logs.InfoMessage.SimpleInfo(self, "CZY POSTAĆ MOŻE WYKONAĆ AKCJĘ?")
-                answer = True
+                answer = False
                 if answer:
                     Logs.InfoMessage.SimpleInfo(self, "TAK")
 
