@@ -257,8 +257,8 @@ class BattleLogic(GameObjectSharedResource):
 
                 # IF Czy jest tura AI?:
                 Logs.InfoMessage.SimpleInfo(self, "CZY JEST TURA AI?")
-                answer=True
-                if answer:
+                answer = False
+                if not answer:
                     Logs.InfoMessage.SimpleInfo(self, "NIE")
 
                     emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "PLAYER_TURN"})
@@ -281,7 +281,7 @@ class BattleLogic(GameObjectSharedResource):
 
                 # IF Czy postać może wykonać akcję?:
                 Logs.InfoMessage.SimpleInfo(self, "CZY POSTAĆ MOŻE WYKONAĆ AKCJĘ?")
-                answer = False
+                answer = True
                 if answer:
                     Logs.InfoMessage.SimpleInfo(self, "TAK")
 

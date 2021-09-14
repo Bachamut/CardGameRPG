@@ -99,7 +99,8 @@
                 "configure_properties":
                 {
                   "ScriptProperty": {"set_script": "CardModel", "property_state": "Disabled"},
-                  "InitializeProperty": {"init_req": ["BattleLogic.Initialized"], "start_req": ["BattleLogic.Started"]}
+                  "InitializeProperty": {"init_req": ["BattleLogic.Initialized"], "start_req": ["BattleLogic.Started"]},
+                  "EventProperty": {"property_state": "Disabled"}
                 }
               }
             },
