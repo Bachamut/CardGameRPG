@@ -50,9 +50,12 @@ class CardModel(GameObjectSharedResource):
         self._onboard_cards = list()
 
         self._previous_character = SharedResource()
+        # self._previous_character = self.current_character
 
         # For Arrow event
-        self._card_selected = False
+        self._card_confirmed = False
+        self.selected_card_index = 0
+
 
     def _initialize(self):
 
@@ -69,11 +72,6 @@ class CardModel(GameObjectSharedResource):
             Logs.InfoMessage.SimpleInfo(self, "CharacterModel Started [ OK ]")
 
             return
-
-        self.selected_card_index = 0
-
-        # Before first usage need to create copy and store as previous to initialize
-        self.previous_character = self.current_character
 
     def on_create(self):
         self.position = self.property('TransformProperty').position
@@ -203,26 +201,33 @@ class CardModel(GameObjectSharedResource):
             # CM4
             if signal.type == BattleLogic.CARD_MODEL_SIGNAL and signal.subtype == "STANDARD" or \
                     signal.type == BattleLogic.CARD_MODEL_SIGNAL and signal.subtype == "CARD_SELECTION":
-                Logs.DebugMessage.SignalReceived(self, signal, "CM4<-BL9")
 
-                # Arrows event block
+                if signal.type == BattleLogic.CARD_MODEL_SIGNAL and signal.subtype == "STANDARD":
+                    Logs.DebugMessage.SignalReceived(self, signal, "CM4<-BL9")
+                if signal.type == BattleLogic.CARD_MODEL_SIGNAL and signal.subtype == "CARD_SELECTION":
+                    Logs.DebugMessage.SignalReceived(self, signal, "CM4<-CM4")
+
+                # Arrows event block for card choose
                 if signal.type == BattleLogic.CARD_MODEL_SIGNAL and signal.subtype == "STANDARD":
                     Logs.InfoMessage.SimpleInfo(self, "ARROW EVENT LOOP STARTED")
-                    self._card_selected = False
+                    self._card_confirmed = False
                     self.property('EventProperty').property_enable()
                     emit_signal = pygame.event.Event(BattleLogic.CARD_MODEL_SIGNAL, {"event": "CARD_MODEL_SIGNAL", "subtype": "CARD_SELECTION"})
                     pygame.event.post(emit_signal)
                     return
 
-                if self._card_selected == False:
+                if self._card_confirmed == False:
                     Logs.InfoMessage.SimpleInfo(self, "PRESS ARROW")
                     emit_signal = pygame.event.Event(BattleLogic.CARD_MODEL_SIGNAL, {"event": "CARD_MODEL_SIGNAL", "subtype": "CARD_SELECTION"})
                     pygame.event.post(emit_signal)
+                    Logs.DebugMessage.SignalEmit(self, emit_signal, "CM4->CM4")
                     return
 
-                if self._card_selected == True:
+                if self._card_confirmed == True:
                     Logs.InfoMessage.SimpleInfo(self, "ARROW EVENT LOOP FINISHED")
                     self.property('EventProperty').property_disable()
+                    # Set previous_character
+                    self.previous_character = self.current_character
                     emit_signal = pygame.event.Event(BattleLogic.CARD_MODEL_RESPONSE, {"event": "CARD_MODEL_RESPONSE", "subtype": "STANDARD"})
                     pygame.event.post(emit_signal)
                     Logs.DebugMessage.SignalEmit(self, emit_signal, "CM4->BL12")
@@ -242,12 +247,13 @@ class CardModel(GameObjectSharedResource):
                 # Current Card to Info View
 
     def _on_arrow_left(self, event):
+
         if event.key == pygame.K_LEFT:
             Logs.DebugMessage.EventKeyPress(self, event, "K_LEFT")
             if self.selected_card_index > 0:
                 self.current_character.hand[self.selected_card_index].selected = False
                 self.selected_card_index -= 1
-                print(f'{self.selected_card_index}')
+                print(f'{self.selected_card_index}: {self.current_character.hand[self.selected_card_index].card_name}')
                 self.current_character.hand[self.selected_card_index].selected = True
 
                 # Current Card to Info View
@@ -255,15 +261,11 @@ class CardModel(GameObjectSharedResource):
     def _card_selection(self, event):
 
         if event.key == pygame.K_RETURN:
-            self._card_selected = True
+            self._card_confirmed = True
             Logs.InfoMessage.SimpleInfo(self, "CARD SELECTED")
 
-            # self.confirmed_card = self.current_character.hand[self.selected_card_index]
-            # self.confirmed_card.current = True
-            # print(f'wybrana karta: {self._battle_logic.confirmed_card.card_name}')
-            #
+            self.confirmed_card = self.current_character.hand[self.selected_card_index]
+            self.confirmed_card.current = True
+            print(f'wybrana karta: {self.selected_card_index}: {self._battle_logic.confirmed_card.card_name}')
+
             # BattleLogic.card_model_active = False
-            #
-            # # Call confirmed_card_SIGNAL back to the BattleLogic
-            # signal = pygame.event.Event(BattleLogic.confirmed_card_SIGNAL, {"event": "confirmed_card_SIGNAL"})
-            # pygame.event.post(signal)

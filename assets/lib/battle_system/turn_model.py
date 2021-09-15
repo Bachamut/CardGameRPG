@@ -8,7 +8,8 @@ from assets.lib.battle_system.card_model import CardModel
 from assets.lib.battle_system.character_model import CharacterModel
 from assets.lib.battle_system.log import Logs
 from assets.lib.battle_system.status import Status
-from assets.lib.card_utilities.card import BaseCard
+from assets.lib.card_utilities.card import BaseCard, BattleCard
+from assets.lib.card_utilities.card_manager import CardManager
 from assets.lib.game_logic import GameLogic
 from game_object.game_object import GameObject
 
@@ -80,12 +81,9 @@ class TurnModel(GameObjectSharedResource):
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "STANDARD":
             Logs.DebugMessage.SignalReceived(self, signal, "AM4<-BL13")
 
-
-            self.current_character = self.battle_ally[0]
-
-            self.confirmed_target = list()
-            target = self.battle_ally[1]
-            self.confirmed_target.append(target)
+            # self.confirmed_target = list()
+            # target = self.battle_ally[1]
+            # self.confirmed_target.append(target)
 
             # self.confirmed_card =
 
@@ -136,35 +134,39 @@ class TurnModel(GameObjectSharedResource):
         caster_status = None
         caster_dmg = None
 
-        for target in targets:
-            target_status, target_dmg, \
-            caster_status, caster_dmg \
-                = TurnModel.action_process(caster, target, card)
-
-            # target_signal: TARGET_SIGNAL(target, caster, card, target_status, target_dmg)
-            # caster_signal: CASTER_SIGNAL(caster, target, card, caster_status, caster_dmg)
-
-            target_signal = pygame.event.Event(BattleCharacter.BATTLE_CHARACTER,
-                                               {"event": "BATTLE_CHARACTER",
-                                                "subtype": "TARGET_SIGNAL",
-                                                "target": target,
-                                                "caster": caster,
-                                                "card": card,
-                                                "target_status": target_status,
-                                                "target_dmg": target_dmg,
-                                                })
-            pygame.event.post(target_signal)
-
-        caster_signal = pygame.event.Event(BattleCharacter.BATTLE_CHARACTER,
-                                           {"event": "BATTLE_CHARACTER",
-                                            "subtype": "CASTER_SIGNAL",
-                                            "caster": caster,
-                                            "target": targets,
-                                            "card": card,
-                                            "caster_status": caster_status,
-                                            "caster_dmg": caster_dmg,
-                                            })
-        pygame.event.post(caster_signal)
+        # Temp solution
+        TurnModel.action_process(caster, targets, CardManager.create_battle_card(card))
+        print(f'{targets.name}: \nhp:{targets.base_attributes.health}')
+        # End temp
+        # for target in targets:
+        #     target_status, target_dmg, \
+        #     caster_status, caster_dmg \
+        #         = TurnModel.action_process(caster, target, card)
+        #
+        #     # target_signal: TARGET_SIGNAL(target, caster, card, target_status, target_dmg)
+        #     # caster_signal: CASTER_SIGNAL(caster, target, card, caster_status, caster_dmg)
+        #
+        #     target_signal = pygame.event.Event(BattleCharacter.BATTLE_CHARACTER,
+        #                                        {"event": "BATTLE_CHARACTER",
+        #                                         "subtype": "TARGET_SIGNAL",
+        #                                         "target": target,
+        #                                         "caster": caster,
+        #                                         "card": card,
+        #                                         "target_status": target_status,
+        #                                         "target_dmg": target_dmg,
+        #                                         })
+        #     pygame.event.post(target_signal)
+        #
+        # caster_signal = pygame.event.Event(BattleCharacter.BATTLE_CHARACTER,
+        #                                    {"event": "BATTLE_CHARACTER",
+        #                                     "subtype": "CASTER_SIGNAL",
+        #                                     "caster": caster,
+        #                                     "target": targets,
+        #                                     "card": card,
+        #                                     "caster_status": caster_status,
+        #                                     "caster_dmg": caster_dmg,
+        #                                     })
+        # pygame.event.post(caster_signal)
 
     @staticmethod
     def action_process(caster, target, card):
