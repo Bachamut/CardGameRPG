@@ -54,6 +54,11 @@ class TurnModel(GameObjectSharedResource):
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "PRE_TURN":
             Logs.DebugMessage.SignalReceived(self, signal, "AM1<-BL2")
 
+            status_list = ActionType.get_status_activation(signal.subtype)
+            status_matched = ActionType.get_status_matched(self.current_character, status_list)
+            ActionType.status_activation(self.current_character, status_matched)
+            ActionType.status_expire(self.current_character, status_matched)
+
             emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "PRE_TURN"})
             pygame.event.post(emit_signal)
             Logs.DebugMessage.SignalEmit(self, emit_signal, "AM1->BL3")
@@ -62,6 +67,11 @@ class TurnModel(GameObjectSharedResource):
         # AM2
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "PRE_DRAW":
             Logs.DebugMessage.SignalReceived(self, signal, "AM2<-BL4")
+
+            status_list = ActionType.get_status_activation(signal.subtype)
+            status_matched = ActionType.get_status_matched(self.current_character, status_list)
+            ActionType.status_activation(self.current_character, status_matched)
+            ActionType.status_expire(self.current_character, status_matched)
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "PRE_DRAW"})
             pygame.event.post(emit_signal)
@@ -72,6 +82,11 @@ class TurnModel(GameObjectSharedResource):
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "POST_DRAW":
             Logs.DebugMessage.SignalReceived(self, signal, "AM3<-BL6")
 
+            status_list = ActionType.get_status_activation(signal.subtype)
+            status_matched = ActionType.get_status_matched(self.current_character, status_list)
+            ActionType.status_activation(self.current_character, status_matched)
+            ActionType.status_expire(self.current_character, status_matched)
+
             emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "POST_DRAW"})
             pygame.event.post(emit_signal)
             Logs.DebugMessage.SignalEmit(self, emit_signal, "AM3->BL3")
@@ -81,22 +96,21 @@ class TurnModel(GameObjectSharedResource):
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "STANDARD":
             Logs.DebugMessage.SignalReceived(self, signal, "AM4<-BL13")
 
-            # self.confirmed_target = list()
-            # target = self.battle_ally[1]
-            # self.confirmed_target.append(target)
-
-            # self.confirmed_card =
-
-            TurnModel.action_model_signal(self.current_character, self.confirmed_target, self.confirmed_card)
+            TurnModel.action_model_signal(self.current_character, self.confirmed_target, CardManager.create_battle_card(self.confirmed_card))
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "STANDARD"})
             pygame.event.post(emit_signal)
             Logs.DebugMessage.SignalEmit(self, emit_signal, "AM4->BL14")
             return
 
-    # AM5
+        # AM5
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "POST_ACTION":
             Logs.DebugMessage.SignalReceived(self, signal, "AM5<-BL14")
+
+            status_list = ActionType.get_status_activation(signal.subtype)
+            status_matched = ActionType.get_status_matched(self.current_character, status_list)
+            ActionType.status_activation(self.current_character, status_matched)
+            ActionType.status_expire(self.current_character, status_matched)
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "POST_ACTION"})
             pygame.event.post(emit_signal)
@@ -106,6 +120,11 @@ class TurnModel(GameObjectSharedResource):
         # ?AM100
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "POST_TURN":
             Logs.DebugMessage.SignalReceived(self, signal, "?AM100<-?BL100")
+
+            status_types = ActionType.get_status_activation(signal.subtype)
+            status_matched = ActionType.get_status_matched(self.current_character, status_types)
+            ActionType.status_activation(self.current_character, status_matched)
+            ActionType.status_expire(self.current_character, status_matched)
 
             # Discarding current character hand at turn finish
             CardModel.discard_hand(self.current_character)
@@ -117,15 +136,6 @@ class TurnModel(GameObjectSharedResource):
             Logs.DebugMessage.SignalEmit(self, emit_signal, "?AM100->?BL101")
             return
 
-    def current_action(self):
-        if self.confirmed_card.ap_cost <= self.current_character.action_points:
-            print(f'Możesz użyć karty')
-
-            TurnModel.action_process(self.current_character, self.confirmed_target, self.confirmed_card)
-
-        if self.confirmed_card.ap_cost > self.current_character.action_points:
-            print(f'Nie masz wystarczającej ilości AP')
-
     @staticmethod
     def action_model_signal(caster, targets, card):
 
@@ -135,14 +145,21 @@ class TurnModel(GameObjectSharedResource):
         caster_dmg = None
 
         # Temp solution
-        TurnModel.action_process(caster, targets, CardManager.create_battle_card(card))
-        print(f'{targets.name}: \nhp:{targets.base_attributes.health}')
+        caster.base_attributes.action_points -= card.ap_cost
+        print(f'{caster.name}: \nAP:{caster.base_attributes.action_points}')
+
+        for target in targets:
+            ActionType.action_process(caster, target, card)
+            print(f'{caster.name}: \nAP:{caster.base_attributes.action_points}')
+            print(f'{target.name}: \nhp:{target.base_attributes.health}')
         # End temp
+
         # for target in targets:
         #     target_status, target_dmg, \
         #     caster_status, caster_dmg \
-        #         = TurnModel.action_process(caster, target, card)
+        #         = ActionType.action_process(caster, target, card)
         #
+        #     # Pseudo code
         #     # target_signal: TARGET_SIGNAL(target, caster, card, target_status, target_dmg)
         #     # caster_signal: CASTER_SIGNAL(caster, target, card, caster_status, caster_dmg)
         #
@@ -168,22 +185,5 @@ class TurnModel(GameObjectSharedResource):
         #                                     })
         # pygame.event.post(caster_signal)
 
-    @staticmethod
-    def action_process(caster, target, card):
-
-        if card.action_type == 'magic_attack':
-            ActionType.magic_attack(caster, target, card)
-        elif card.action_type == 'basic_attack':
-            ActionType.basic_attack(caster, target, card)
-        elif card.action_type == 'piercing_attack':
-            ActionType.piercing_attack(caster, target, card)
-        elif card.action_type == 'agile_attack':
-            ActionType.agile_attack(caster, target, card)
-        elif card.action_type == 'magic_spell':
-            ActionType.magic_spell(caster, target, card)
-        elif card.action_type == 'bow_attack':
-            ActionType.bow_attack(caster, target, card)
-
-        Status.add_status(caster, target, card)
 
 

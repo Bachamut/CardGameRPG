@@ -11,8 +11,15 @@
     "multiplier": 1.2,
     "ap_cost": 2,
     "energy_cost": 0,
-    "caster_status": {},
-    "target_status": {}
+    "target": "single",
+    "caster_status":
+    {
+      "bleed_1": {"value": 3, "duration": 1}
+    },
+    "target_status":
+    {
+
+    }
   },
 
   "fast_strike_1":
@@ -27,8 +34,15 @@
     "multiplier": 0.5,
     "ap_cost": 1,
     "energy_cost": 0,
-    "caster_status": {},
-    "target_status": {}
+    "target": "single",
+    "caster_status":
+    {
+      "bleed_1": {"value": 3, "duration": 1}
+    },
+    "target_status":
+    {
+
+    }
   },
 
     "piercing_strike_1":
@@ -43,8 +57,9 @@
     "multiplier": 0.5,
     "ap_cost": 2,
     "energy_cost": 0,
+    "target": "single",
     "caster_status": {},
-    "target_status": {"bleed": 5}
+    "target_status": {}
   },
 
     "nimble_strike_1":
@@ -59,6 +74,7 @@
     "multiplier": 0.8,
     "ap_cost": 1,
     "energy_cost": 0,
+    "target": "single",
     "caster_status": {},
     "target_status": {}
   },
@@ -75,6 +91,7 @@
     "multiplier": 1.6,
     "ap_cost": 2,
     "energy_cost": 2,
+    "target": "single",
     "caster_status": {},
     "target_status": {}
   },
@@ -91,6 +108,7 @@
     "multiplier": 1.4,
     "ap_cost": 1,
     "energy_cost": 4,
+    "target": "single",
     "caster_status": {},
     "target_status": {}
   },
@@ -107,6 +125,7 @@
     "multiplier": 1.8,
     "ap_cost": 2,
     "energy_cost": 0,
+    "target": "single",
     "caster_status": {},
     "target_status": {}
   },
@@ -123,6 +142,7 @@
     "multiplier": 1.4,
     "ap_cost": 2,
     "energy_cost": 5,
+    "target": "single",
     "caster_status": {},
     "target_status": {}
   },
@@ -139,6 +159,7 @@
     "multiplier": 0.4,
     "ap_cost": 2,
     "energy_cost": 0,
+    "target": "single",
     "caster_status": {},
     "target_status": {"stun": 2, "bleed": 5}
   }

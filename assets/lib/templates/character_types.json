@@ -25,7 +25,7 @@
     "magic": 0,
     "speed": 23,
     "stamina": 9,
-    "physical_resist": 10,
+    "physical_resist": 0,
     "magic_resist": 5
   },
 
@@ -40,7 +40,7 @@
     "magic": 0,
     "speed": 18,
     "stamina": 4,
-    "physical_resist": 10,
+    "physical_resist": 50,
     "magic_resist": 0
   },
 

@@ -25,7 +25,7 @@ class BaseCharacter(GameObject):
         self.equipment = Equipment()
         self.card_collection = Deck()
         self.deck = Deck(8, 20)
-        self.status_list = dict()
+        self.status_list = list()
         self.card_draw = 3
 
 # class Character(GameObject):
@@ -48,6 +48,12 @@ class BaseCharacter(GameObject):
 #         self.draw_pile = []
 #         self.discard_pile = []
 #         self.hand = []
+
+    def add_status(self, status):
+        self.status_list.append(status)
+
+    def remove_status(self, status):
+        self.status_list.remove(status)
 
     def add_equip(self, slot, item):
         # add item to equipment slot

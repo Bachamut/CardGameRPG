@@ -2,6 +2,7 @@ import pygame
 
 from property.initialize_property import InitializeState, InitializeProperty
 
+from assets.lib.battle_system.action_types import ActionType
 from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.battle_system.log import Logs
 from assets.lib.game_object_shared_resource import GameObjectSharedResource
@@ -33,16 +34,6 @@ class CharacterModel(GameObjectSharedResource):
             Logs.InfoMessage.SimpleInfo(self, "CharacterModel Started [ OK ]")
 
             return
-
-    # # dodaje bohaterów(CHARACTER) do puli sojuszników(ALLY)
-    # def create_ally(self):
-    #     for character in self._party_list:
-    #         self.ally.append(character)
-    #
-    # # dodaje wrogów(ENEMY) do puli przeciwników(ENEMIES)
-    # def create_enemies(self):
-    #     for enemy in self._enemies_list:
-    #         self.enemies.append(enemy)
 
     def on_script(self):
         pass
@@ -97,6 +88,10 @@ class CharacterModel(GameObjectSharedResource):
                 self.selected_target = (self.battle_ally + self.battle_enemies)[self.selected_target_index]
                 print(f'selected_target_index: {self.selected_target_index}, target: {self.selected_target.name}')
 
+                # Prediction of action
+                value = ActionType.value_calculation(self.current_character, self.selected_target, self.confirmed_card)
+                print(f'{self.selected_target.name} otrzyma {value} obrażeń')
+
     def _on_arrow_left(self, event):
 
         if event.key == pygame.K_LEFT:
@@ -106,14 +101,21 @@ class CharacterModel(GameObjectSharedResource):
                 self.selected_target = (self.battle_ally + self.battle_enemies)[self.selected_target_index]
                 print(f'selected_target_index: {self.selected_target_index}, target: {self.selected_target.name}')
 
+                # Prediction of action
+                value = ActionType.value_calculation(self.current_character, self.selected_target, self.confirmed_card)
+                print(f'{self.selected_target.name} otrzyma {value} obrażeń')
+
     def _card_selection(self, event):
+
         if event.key == pygame.K_RETURN:
+            self.confirmed_target.clear()
             self._target_confirmed = True
             Logs.InfoMessage.SimpleInfo(self, "TARGET SELECTED")
             # TODO: It should be refactored to keep selected target object in variable not represent as a index in array
-            self.confirmed_target = (self.battle_ally + self.battle_enemies)[self.selected_target_index]
+            self.confirmed_target.append((self.battle_ally + self.battle_enemies)[self.selected_target_index])
 
             print(f'selected_target_index: {self.selected_target_index}')
-            print(f'confirmed_target: {self._battle_logic.confirmed_target.name}')
+            for target in self.confirmed_target:
+                print(f'confirmed_target: {target.name}')
 
             # BattleLogic.character_model_active = False

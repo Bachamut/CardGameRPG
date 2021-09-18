@@ -1,0 +1,19 @@
+{
+  "bleed_1":
+  {
+    "status_id": "bleed_1",
+    "name": "bleed",
+    "description": "typical bleeding",
+    "persistance": "BATTLE_ONLY",
+    "activation": "POST_TURN"
+  },
+
+  "poison_1":
+  {
+    "status_id": "poison_1",
+    "name": "poison",
+    "description": "serious poison",
+    "persistance": "BATTLE_ONLY",
+    "activation": "PRE_TURN"
+  }
+}

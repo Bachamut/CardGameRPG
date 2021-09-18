@@ -8,7 +8,10 @@ class GameObjectSharedResource(GameObject):
         super(GameObjectSharedResource, self).__init__()
 
         self._current_character = SharedResource()
+
         self._confirmed_target = SharedResource()
+        self._confirmed_target.set(list())
+
         self._selected_target = SharedResource()
         self._confirmed_card = SharedResource()
         self._selected_card = SharedResource()

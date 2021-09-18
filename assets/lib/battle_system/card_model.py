@@ -102,7 +102,6 @@ class CardModel(GameObjectSharedResource):
         # creating draw_pile that is used in battle mode
         character.draw_pile = sample(character.battle_deck, len(character.battle_deck))
 
-    # tasowanie talii
     @staticmethod
     def shuffle_deck(character):
         for it in range(0, len(character.discard_pile)):
@@ -124,14 +123,12 @@ class CardModel(GameObjectSharedResource):
         discarded_card = character.draw_pile.pop(0)
         character.discard_pile.append(discarded_card)
 
-    # dobieranie karty do HAND z DRAWPILE
     @staticmethod
     def draw_card(character):
         card = character.draw_pile.pop(0)
         character.hand.append(card)
         character.hand[0].selected = True
 
-    # dobieranie nowego HAND
     @staticmethod
     def draw_hand(character):
         for it in range(0, character.card_draw):
@@ -151,7 +148,7 @@ class CardModel(GameObjectSharedResource):
         pass
 
     def on_event(self, event):
-        # self._card_selected = False
+
         if event.type == pygame.KEYDOWN:
             self._on_arrow_right(event)
             self._on_arrow_left(event)
@@ -191,7 +188,7 @@ class CardModel(GameObjectSharedResource):
 
                 # Card_draw
                 CardModel.draw_card(self.current_character)
-                print(f'{self.current_character.name} hand: {self.current_character.hand}')
+                # print(f'{self.current_character.name} hand: {self.current_character.hand}')
 
                 emit_signal = pygame.event.Event(BattleLogic.DRAW_CARD_RESPONSE, {"event": "DRAW_CARD_RESPONSE", "subtype": "STANDARD"})
                 pygame.event.post(emit_signal)
@@ -243,9 +240,6 @@ class CardModel(GameObjectSharedResource):
                 print(f'{self.selected_card_index}: {self.current_character.hand[self.selected_card_index].card_name}')
                 self.current_character.hand[self.selected_card_index].selected = True
 
-
-                # Current Card to Info View
-
     def _on_arrow_left(self, event):
 
         if event.key == pygame.K_LEFT:
@@ -255,8 +249,6 @@ class CardModel(GameObjectSharedResource):
                 self.selected_card_index -= 1
                 print(f'{self.selected_card_index}: {self.current_character.hand[self.selected_card_index].card_name}')
                 self.current_character.hand[self.selected_card_index].selected = True
-
-                # Current Card to Info View
 
     def _card_selection(self, event):
 
@@ -268,4 +260,3 @@ class CardModel(GameObjectSharedResource):
             self.confirmed_card.current = True
             print(f'wybrana karta: {self.selected_card_index}: {self._battle_logic.confirmed_card.card_name}')
 
-            # BattleLogic.card_model_active = False

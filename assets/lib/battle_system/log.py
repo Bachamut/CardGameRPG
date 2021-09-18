@@ -9,8 +9,8 @@ class Logs:
 
     target_point_enable = False
     simple_info_enable = False
-    signal_emit_enable = False
-    signal_received_enable = False
+    signal_emit_enable = True
+    signal_received_enable = True
     event_key_press_enable = True
 
     class InfoMessage:

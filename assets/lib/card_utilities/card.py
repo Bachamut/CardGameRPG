@@ -51,6 +51,7 @@ class BattleCard(BaseCard):
         self.multiplier = None
         self.ap_cost = None
         self.energy_cost = None
+        self.target = None
         self.caster_status = list()
         self.target_status = list()
 
@@ -65,6 +66,7 @@ class BattleCard(BaseCard):
         self.multiplier = obj.multiplier
         self.ap_cost = obj.ap_cost
         self.energy_cost = obj.energy_cost
+        self.target = obj.target
         self.caster_status = obj.caster_status
         self.target_status = obj.target_status
 

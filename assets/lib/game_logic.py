@@ -3,6 +3,7 @@ from game_object.game_object import GameObject
 from assets.lib.card_utilities.card_manager import CardManager
 from assets.lib.character_utilities.character_manager import CharacterManager
 from assets.lib.item_utilities.item_manager import ItemManager
+from assets.lib.status_utilities.status_manager import StatusManager
 
 
 class GameLogic(GameObject):
@@ -22,17 +23,11 @@ class GameLogic(GameObject):
         CardManager.load_config('assets/lib/templates/card_types.json')
         CharacterManager.load_config('assets/lib/templates/character_types.json')
         ItemManager.load_config('assets/lib/templates/item_types.json')
+        StatusManager.load_config('assets/lib/templates/status_types.json')
 
         self._create_party()
         self._create_enemy()
-
-        # Card implementation Tests
-        # basic_card = CardManager.create_base_card("heavy_strike_1")
-        # desc_card = CardManager.create_descriptive_card(basic_card)
-        # battle_card = CardManager.create_battle_card(basic_card)
-        # full_card = CardManager.create_full_card(basic_card)
-        #
-        # print(basic_card)
+        self._create_status_types()
 
     def _create_party(self):
         player = CharacterManager.create_character("character_edward")
@@ -53,10 +48,12 @@ class GameLogic(GameObject):
         enemy.add_equip('hand_r', 'Short sword')
         GameLogic.enemies.append(enemy)
 
-        # enemy = CharacterManager.create_character("archer_goblin")
-        # enemy.deck['Bow Shot'] = 3
-        # GameLogic.enemies.append(enemy)
-
+    def _create_status_types(self):
+        StatusManager.create_status_types()
+        print(f'status_types:')
+        for status_type in StatusManager.status_type_list:
+            print(f'{status_type.status_id}')
+        
     def on_create(self):
         pass
 

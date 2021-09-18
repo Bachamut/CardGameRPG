@@ -46,6 +46,7 @@ class CardManager:
         card.multiplier = config['multiplier']
         card.ap_cost = config['ap_cost']
         card.energy_cost = config['energy_cost']
+        card.target = config['target']
         card.caster_status = config['caster_status']
         card.target_status = config['target_status']
 
