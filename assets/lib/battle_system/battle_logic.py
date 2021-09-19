@@ -1,14 +1,8 @@
 import pygame
 
-from game_object.game_object import GameObject
 from property.initialize_property import InitializeProperty, InitializeState
-
 from assets.lib.battle_system.battle_character import BattleCharacter
-from assets.lib.battle_system.character_view_init import CharacterView
 from assets.lib.card_utilities.card_manager import CardManager
-from assets.lib.character_utilities.character import BaseCharacter
-from assets.lib.game_logic import GameLogic
-from resource_manager.shared_resource import SharedResource
 from assets.lib.battle_system.log import Logs
 from assets.lib.game_object_shared_resource import GameObjectSharedResource
 
@@ -24,6 +18,7 @@ class BattleLogic(GameObjectSharedResource):
     CARD_MODEL_SIGNAL = pygame.event.custom_type()
     ITEM_MODEL_SIGNAL = pygame.event.custom_type()
     CHARACTER_MODEL_SIGNAL = pygame.event.custom_type()
+    CHARACTER_VIEW_MANAGER_SIGNAL = pygame.event.custom_type()
 
     QUEUE_MODEL_RESPONSE = pygame.event.custom_type()
     ACTION_MODEL_RESPONSE = pygame.event.custom_type()
@@ -32,6 +27,10 @@ class BattleLogic(GameObjectSharedResource):
     CARD_MODEL_RESPONSE = pygame.event.custom_type()
     ITEM_MODEL_RESPONSE = pygame.event.custom_type()
     CHARACTER_MODEL_RESPONSE = pygame.event.custom_type()
+    CHARACTER_VIEW_MANAGER_RESPONSE = pygame.event.custom_type()
+
+    CHARACTER_VIEW_SIGNAL = pygame.event.custom_type()
+    CHARACTER_VIEW_RESPONSE = pygame.event.custom_type()
 
     character_model_active = False
     card_model_active = False
@@ -114,9 +113,10 @@ class BattleLogic(GameObjectSharedResource):
                 for character in self.battle_enemies:
                     print(f'- {character.name}')
 
-                # CharacterViews creation
-                view_list = CharacterView.create_character_view(self.battle_ally + self.battle_enemies)
-                print(f'stworzono CharacterView {view_list}')
+                # # Create CharacterViews and register in BattleCharacterViewManager
+                # for battle_character in self.battle_ally + self.battle_enemies:
+                #     battle_character_view = BattleCharacterView(battle_character)
+                #     BattleCharacterViewManager.register(battle_character_view)
 
                 # Populating battle_decks by BaseCards instances
                 for character in (self.battle_ally + self.battle_enemies):
@@ -127,18 +127,27 @@ class BattleLogic(GameObjectSharedResource):
                             # Populating draw_pile as a working copy of battle_deck
                             character.draw_pile = character.battle_deck.copy()
 
-                emit_signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_SIGNAL, {"event": "QUEUE_MODEL_SIGNAL", "subtype": "INITIAL"})
+                emit_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_MANAGER_SIGNAL, {"event": "CHARACTER_VIEW_MANAGER_SIGNAL", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "BLS1->QMS1")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "BLS1->BChVMS1")
                 return
 
             # BLS2
+            if signal.type == BattleLogic.CHARACTER_VIEW_MANAGER_RESPONSE and signal.subtype == "INITIAL":
+                Logs.DebugMessage.SignalReceived(self, signal, "BLS2<-BChVMS1")
+
+                emit_signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_SIGNAL, {"event": "QUEUE_MODEL_SIGNAL", "subtype": "INITIAL"})
+                pygame.event.post(emit_signal)
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "BLS2->QMS1")
+                return
+
+            # BLS3
             if signal.type == BattleLogic.QUEUE_MODEL_RESPONSE and signal.subtype == "INITIAL":
-                Logs.DebugMessage.SignalReceived(self, signal, "BLS2<-QMS1")
+                Logs.DebugMessage.SignalReceived(self, signal, "BLS3<-QMS1")
 
                 emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_SIGNAL, {"event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "BLS2->CMS1")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "BLS3->CMS1")
                 return
 
             # BATTLE_LOGIC TURN FLOW

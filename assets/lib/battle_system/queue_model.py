@@ -151,13 +151,13 @@ class QueueModel(GameObjectSharedResource):
 
         # QMS1
         if signal.type == BattleLogic.QUEUE_MODEL_SIGNAL and signal.subtype == "INITIAL":
-            Logs.DebugMessage.SignalReceived(self, signal, "QMS1<-BLS1")
+            Logs.DebugMessage.SignalReceived(self, signal, "QMS1<-BLS2")
 
             self.setup_queue()
 
             emit_signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_RESPONSE, {"event": "QUEUE_MODEL_RESPONSE", "subtype": "INITIAL"})
             pygame.event.post(emit_signal)
-            Logs.DebugMessage.SignalEmit(self, emit_signal, "QMS1->BLS2")
+            Logs.DebugMessage.SignalEmit(self, emit_signal, "QMS1->BLS3")
             return
 
         # QM1

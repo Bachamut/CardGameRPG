@@ -1,39 +1,58 @@
-from game_object.game_object import GameObject
+import pygame
+from property.initialize_property import InitializeProperty, InitializeState
+
+from assets.lib.battle_system.battle_character_view import BattleCharacterView
 from assets.lib.battle_system.battle_logic import BattleLogic
-from assets.lib.game_logic import GameLogic
+from assets.lib.battle_system.log import Logs
+from assets.lib.game_object_shared_resource import GameObjectSharedResource
 
 
-class BattleCharacterViewManager(GameObject):
-    current_player = None
-    players_list = []
+class BattleCharacterViewManager(GameObjectSharedResource):
+
+    battle_character_view_list = list()
 
     def __init__(self):
-        super(CharacterView, self).__init__()
-        self._initialized = False
-        self.position = None
-
-    def on_create(self):
-        self.position = self.property('TransformProperty').position
-        self.position.y = 300
-        self.position.x = 200
+        super(BattleCharacterViewManager, self).__init__()
 
     def _initialize(self):
-        self._initialized = True
-        print("CharacterView initialized")
 
-        # TODO: These objects should be stored in CharacterModel (?)
-        self.players = GameObject.get_object_pool().select_with_label('Players')[0]
-        self.enemies = GameObject.get_object_pool().select_with_label('Enemies')[0]
+        if InitializeProperty.check_status(self, InitializeState.INITIALIZED):
+            super(BattleCharacterViewManager, self)._initialize()
+            InitializeProperty.initialize_enable(self)
+            Logs.InfoMessage.SimpleInfo(self, "BattleCharacterViewManager Initialized [ OK ]")
 
-        self.enemies.property('TransformProperty').position.x = 512
-        self.attach_child(self.players)
-        self.attach_child(self.enemies)
-        self.position = self.property('TransformProperty').position
-        self.position.x = 256
-        self.position.y = 232
+            return
+
+        if InitializeProperty.check_status(self, InitializeState.STARTED):
+            InitializeProperty.started(self)
+            self.property('SignalProperty').property_enable()
+            Logs.InfoMessage.SimpleInfo(self, "BattleCharacterViewManager Started [ OK ]")
+
+            return
+
+    @staticmethod
+    def register(battle_character_view):
+        BattleCharacterViewManager.battle_character_view_list.append(battle_character_view)
 
     def on_script(self):
-        if not self._initialized and GameLogic._initialized and BattleLogic._initialized:
-            self._initialize()
-        else:
-            pass
+        pass
+
+    def on_signal(self, signal):
+
+        print(f'Waiting for Signal')
+
+        # BChVMS1
+        if signal.type == BattleLogic.CHARACTER_VIEW_MANAGER_SIGNAL and signal.subtype == "INITIAL":
+            Logs.DebugMessage.SignalReceived(self, signal, "BChVMS1<-BLS1")
+
+            # Create CharacterViews and register in BattleCharacterViewManager
+            for battle_character in self.battle_ally + self.battle_enemies:
+                battle_character_view = BattleCharacterView(battle_character)
+                BattleCharacterViewManager.register(battle_character_view)
+
+            self.property('SignalProperty').property_disable()
+
+            emit_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_MANAGER_RESPONSE, {"event": "CHARACTER_VIEW_MANAGER_RESPONSE", "subtype": "INITIAL"})
+            pygame.event.post(emit_signal)
+            Logs.DebugMessage.SignalEmit(self, emit_signal, "BChVMS1->BLS2")
+            return

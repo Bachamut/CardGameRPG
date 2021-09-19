@@ -108,6 +108,12 @@ class ActionType:
 
             caster.add_status(status)
 
+        # create action for caster and target
+        caster_action = {card.action_type: value}
+        target_action = {card.action_type: value}
+
+        return caster_action, target_action
+
     @staticmethod
     def magic_attack(caster, target, card):
 

@@ -3,6 +3,7 @@ from property.initialize_property import InitializeProperty, InitializeState
 
 from assets.lib.battle_system.action_types import ActionType
 from assets.lib.battle_system.battle_character import BattleCharacter
+from assets.lib.battle_system.battle_character_view_manager import BattleCharacterViewManager
 from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.battle_system.card_model import CardModel
 from assets.lib.battle_system.character_model import CharacterModel
@@ -139,51 +140,30 @@ class TurnModel(GameObjectSharedResource):
     @staticmethod
     def action_model_signal(caster, targets, card):
 
-        target_status = None
-        target_dmg = None
-        caster_status = None
-        caster_dmg = None
-
-        # Temp solution
         caster.base_attributes.action_points -= card.ap_cost
         print(f'{caster.name}: \nAP:{caster.base_attributes.action_points}')
 
         for target in targets:
-            ActionType.action_process(caster, target, card)
-            print(f'{caster.name}: \nAP:{caster.base_attributes.action_points}')
-            print(f'{target.name}: \nhp:{target.base_attributes.health}')
-        # End temp
 
-        # for target in targets:
-        #     target_status, target_dmg, \
-        #     caster_status, caster_dmg \
-        #         = ActionType.action_process(caster, target, card)
-        #
-        #     # Pseudo code
-        #     # target_signal: TARGET_SIGNAL(target, caster, card, target_status, target_dmg)
-        #     # caster_signal: CASTER_SIGNAL(caster, target, card, caster_status, caster_dmg)
-        #
-        #     target_signal = pygame.event.Event(BattleCharacter.BATTLE_CHARACTER,
-        #                                        {"event": "BATTLE_CHARACTER",
-        #                                         "subtype": "TARGET_SIGNAL",
-        #                                         "target": target,
-        #                                         "caster": caster,
-        #                                         "card": card,
-        #                                         "target_status": target_status,
-        #                                         "target_dmg": target_dmg,
-        #                                         })
-        #     pygame.event.post(target_signal)
-        #
-        # caster_signal = pygame.event.Event(BattleCharacter.BATTLE_CHARACTER,
-        #                                    {"event": "BATTLE_CHARACTER",
-        #                                     "subtype": "CASTER_SIGNAL",
-        #                                     "caster": caster,
-        #                                     "target": targets,
-        #                                     "card": card,
-        #                                     "caster_status": caster_status,
-        #                                     "caster_dmg": caster_dmg,
-        #                                     })
-        # pygame.event.post(caster_signal)
+            target_action, caster_action = ActionType.action_process(caster, target, card)
 
+            target_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_SIGNAL,
+                                               {"event": "CHARACTER_VIEW_SIGNAL",
+                                                "subtype": "TARGET",
+                                                "receiver": target,
+                                                "second_character": caster,
+                                                "actions": target_action
+                                                })
+            pygame.event.post(target_signal)
 
+        caster_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_SIGNAL,
+                                           {"event": "CHARACTER_VIEW_SIGNAL",
+                                            "subtype": "CASTER",
+                                            "receiver": caster,
+                                            "second_character": target,
+                                            "actions": caster_action
+                                            })
+        pygame.event.post(caster_signal)
 
+        list = BattleCharacterViewManager.battle_character_view_list
+        print(f'')

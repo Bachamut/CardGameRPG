@@ -86,10 +86,10 @@
               "file": "queue_view"
             },
             {
-              "key": "CharacterView",
+              "key": "BattleCharacterViewManager",
               "type": "script",
               "path": "assets/lib/battle_system",
-              "file": "character_view"
+              "file": "battle_character_view_manager"
             },
             {
               "key": "CardView",

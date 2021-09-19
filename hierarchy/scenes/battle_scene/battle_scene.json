@@ -138,17 +138,19 @@
               }
             },
             {
-              "entity": "CharacterView",
+              "entity": "BattleCharacterViewManager",
               "object":
               {
-                "object_class": "CharacterView",
+                "object_class": "BattleCharacterViewManager",
                 "object_type": null,
-                "object_label": "CharacterView",
+                "object_label": "BattleCharacterViewManager",
                 "create": true,
-                "properties": ["ScriptProperty", "TransformProperty"],
+                "properties": ["InitializeProperty", "ScriptProperty", "SignalProperty"],
                 "configure_properties":
                 {
-                  "ScriptProperty": {"set_script": "CharacterView"}
+                  "ScriptProperty": {"set_script": "BattleCharacterViewManager", "property_state": "Disabled"},
+                  "SignalProperty": {"property_state": "Disabled"},
+                  "InitializeProperty": {"init_req": ["BattleLogic.Initialized"], "start_req": ["BattleLogic.Started"]}
                 }
               }
             },
