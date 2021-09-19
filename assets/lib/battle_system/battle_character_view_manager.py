@@ -3,7 +3,7 @@ from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.game_logic import GameLogic
 
 
-class CharacterView(GameObject):
+class BattleCharacterViewManager(GameObject):
     current_player = None
     players_list = []
 
