@@ -28,26 +28,6 @@ class BaseCharacter(GameObject):
         self.status_list = list()
         self.card_draw = 3
 
-# class Character(GameObject):
-#
-#     def __init__(self):
-#
-#         self.name = ''
-#         self.character_class = ''
-#         self.attributes = Attributes()
-#         self.modifiers = Attributes()
-#         self.inventory = Inventory(20)
-#         self.equipment = Equipment()
-#         self.deck = Deck(8, 20)
-#         self.card_pool = Deck()
-#         # self.battle = BattleLogic()
-#         self.status = {}
-#         self.card_draw = 3
-#         # used only for BattleMode
-#         self.battledeck = []
-#         self.draw_pile = []
-#         self.discard_pile = []
-#         self.hand = []
 
     def add_status(self, status):
         self.status_list.append(status)
@@ -136,6 +116,23 @@ class BaseCharacter(GameObject):
         self.card_collection[card] -= 1
         if self.card_collection[card] <= 0:
             del self.card_collection[card]
+
+    def take_damage(self, value):
+        self.base_attributes.health -= value
+
+        if self.base_attributes.health <= 0:
+            print(f'{self.name} nie żyje')
+
+    def modify_action_points(self, value):
+        self.base_attributes.action_points += value
+
+    def modify_base_attribute(self, attribute, value):
+        base_attribute_value = getattr(self.base_attributes, attribute)
+        setattr(self.base_attributes, attribute, base_attribute_value + value)
+
+    def modify_base_modifiers(self, attribute, value):
+        base_modifiers_value = getattr(self.base_modifiers, attribute)
+        setattr(self.base_modifiers, attribute, base_modifiers_value + value)
 
 
 

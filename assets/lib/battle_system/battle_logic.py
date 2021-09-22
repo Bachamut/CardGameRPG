@@ -291,7 +291,7 @@ class BattleLogic(GameObjectSharedResource):
                 # IF Czy postać może wykonać akcję?:
                 Logs.InfoMessage.SimpleInfo(self, "CZY POSTAĆ MOŻE WYKONAĆ AKCJĘ?")
 
-                if self.current_character.base_attributes.action_points > 0:
+                if self.current_character.battle_attribute("action_points") > 0:
                     Logs.InfoMessage.SimpleInfo(self, "TAK")
 
                     emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "PLAYER_ACTION"})

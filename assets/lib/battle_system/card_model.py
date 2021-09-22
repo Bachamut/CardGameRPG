@@ -201,8 +201,8 @@ class CardModel(GameObjectSharedResource):
 
                 if signal.type == BattleLogic.CARD_MODEL_SIGNAL and signal.subtype == "STANDARD":
                     Logs.DebugMessage.SignalReceived(self, signal, "CM4<-BL9")
-                if signal.type == BattleLogic.CARD_MODEL_SIGNAL and signal.subtype == "CARD_SELECTION":
-                    Logs.DebugMessage.SignalReceived(self, signal, "CM4<-CM4")
+                # if signal.type == BattleLogic.CARD_MODEL_SIGNAL and signal.subtype == "CARD_SELECTION":
+                #     Logs.DebugMessage.SignalReceived(self, signal, "CM4<-CM4")
 
                 # Arrows event block for card choose
                 if signal.type == BattleLogic.CARD_MODEL_SIGNAL and signal.subtype == "STANDARD":
@@ -214,10 +214,10 @@ class CardModel(GameObjectSharedResource):
                     return
 
                 if self._card_confirmed == False:
-                    Logs.InfoMessage.SimpleInfo(self, "PRESS ARROW")
+                    # Logs.InfoMessage.SimpleInfo(self, "PRESS ARROW")
                     emit_signal = pygame.event.Event(BattleLogic.CARD_MODEL_SIGNAL, {"event": "CARD_MODEL_SIGNAL", "subtype": "CARD_SELECTION"})
                     pygame.event.post(emit_signal)
-                    Logs.DebugMessage.SignalEmit(self, emit_signal, "CM4->CM4")
+                    # Logs.DebugMessage.SignalEmit(self, emit_signal, "CM4->CM4")
                     return
 
                 if self._card_confirmed == True:
@@ -253,10 +253,14 @@ class CardModel(GameObjectSharedResource):
     def _card_selection(self, event):
 
         if event.key == pygame.K_RETURN:
-            self._card_confirmed = True
-            Logs.InfoMessage.SimpleInfo(self, "CARD SELECTED")
+            selected_card = CardManager.create_battle_card(self.current_character.hand[self.selected_card_index])
+            if selected_card.ap_cost <= self.current_character.battle_attribute("action_points"):
+                self._card_confirmed = True
+                Logs.InfoMessage.SimpleInfo(self, "CARD SELECTED")
 
-            self.confirmed_card = self.current_character.hand[self.selected_card_index]
-            self.confirmed_card.current = True
-            print(f'wybrana karta: {self.selected_card_index}: {self._battle_logic.confirmed_card.card_name}')
+                self.confirmed_card = self.current_character.hand[self.selected_card_index]
+                self.confirmed_card.current = True
+                print(f'wybrana karta: {self.selected_card_index}: {self._battle_logic.confirmed_card.card_name}')
+            else:
+                print(f'Nie masz wystarczającej ilość AP')
 

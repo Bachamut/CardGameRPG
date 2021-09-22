@@ -62,10 +62,10 @@
               "file": "item_model"
             },
             {
-              "key": "TurnModel",
+              "key": "ActionModel",
               "type": "script",
               "path": "assets/lib/battle_system",
-              "file": "turn_model"
+              "file": "action_model"
             },
             {
               "key": "PartyView",

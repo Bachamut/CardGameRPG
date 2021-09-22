@@ -27,7 +27,7 @@ class GameLogic(GameObject):
 
         self._create_party()
         self._create_enemy()
-        self._create_status_types()
+        # self._create_status_types()
 
     def _create_party(self):
         player = CharacterManager.create_character("character_edward")
@@ -48,11 +48,11 @@ class GameLogic(GameObject):
         enemy.add_equip('hand_r', 'Short sword')
         GameLogic.enemies.append(enemy)
 
-    def _create_status_types(self):
-        StatusManager.create_status_types()
-        print(f'status_types:')
-        for status_type in StatusManager.status_type_list:
-            print(f'{status_type.status_id}')
+    # def _create_status_types(self):
+    #     StatusManager.create_status_types()
+    #     print(f'status_types:')
+    #     for status_type in StatusManager.status_type_list:
+    #         print(f'{status_type.status_id}')
         
     def on_create(self):
         pass

@@ -52,8 +52,8 @@ class CharacterModel(GameObjectSharedResource):
 
             if signal.type == BattleLogic.CHARACTER_MODEL_SIGNAL and signal.subtype == "STANDARD":
                 Logs.DebugMessage.SignalReceived(self, signal, "ChM1<-BL12")
-            if signal.type == BattleLogic.CHARACTER_MODEL_SIGNAL and signal.subtype == "TARGET_SELECTION":
-                Logs.DebugMessage.SignalReceived(self, signal, "ChM1<-ChM1")
+            # if signal.type == BattleLogic.CHARACTER_MODEL_SIGNAL and signal.subtype == "TARGET_SELECTION":
+            #     Logs.DebugMessage.SignalReceived(self, signal, "ChM1<-ChM1")
 
             # Arrows event block for target choose
             if signal.type == BattleLogic.CHARACTER_MODEL_SIGNAL and signal.subtype == "STANDARD":
@@ -65,10 +65,10 @@ class CharacterModel(GameObjectSharedResource):
                 return
 
             if self._target_confirmed == False:
-                Logs.InfoMessage.SimpleInfo(self, "PRESS ARROW")
+                # Logs.InfoMessage.SimpleInfo(self, "PRESS ARROW")
                 emit_signal = pygame.event.Event(BattleLogic.CHARACTER_MODEL_SIGNAL, {"event": "CHARACTER_MODEL_SIGNAL", "subtype": "TARGET_SELECTION"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "ChM1->ChM1")
+                # Logs.DebugMessage.SignalEmit(self, emit_signal, "ChM1->ChM1")
                 return
 
             if self._target_confirmed == True:

@@ -37,6 +37,12 @@ class BattleCharacter(BaseCharacter):
         self.exile_pile = list()
         self.hand = list()
 
+    def modify_battle_modifiers(self, attribute, value):
+        print(f'{self.name}: battle_modifiers.{attribute}:{getattr(self.battle_modifiers, attribute)}')
+        battle_modifiers_value = getattr(self.battle_modifiers, attribute)
+        setattr(self.battle_modifiers, attribute, battle_modifiers_value + value)
+        print(f'{self.name}: battle_modifiers.{attribute}:{getattr(self.battle_modifiers, attribute)}')
+
     @staticmethod
     def create_character_models(base_models):
         characters_list = list()

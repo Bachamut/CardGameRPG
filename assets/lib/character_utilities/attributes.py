@@ -5,7 +5,7 @@ class Attributes:
 
         self.health = 0
         self.energy = 0
-        self.action_points = 3
+        self.action_points = 0
         self.strength = 0
         self.dexterity = 0
         self.stamina = 0

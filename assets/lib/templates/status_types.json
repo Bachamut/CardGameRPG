@@ -1,19 +1,45 @@
 {
   "bleed_1":
   {
-    "status_id": "bleed_1",
+    "status_type": "bleed_1",
     "name": "bleed",
     "description": "typical bleeding",
     "persistance": "BATTLE_ONLY",
-    "activation": "POST_TURN"
+    "status_role": "action",
+    "activation": "PRE_TURN",
+    "deactivation": "POST_TURN"
   },
 
   "poison_1":
   {
-    "status_id": "poison_1",
+    "status_type": "poison_1",
     "name": "poison",
     "description": "serious poison",
     "persistance": "BATTLE_ONLY",
-    "activation": "PRE_TURN"
+    "status_role": "action",
+    "activation": "PRE_TURN",
+    "deactivation": "POST_TURN"
+  },
+
+  "stun_1":
+  {
+    "status_type": "stun_1",
+    "name": "stun",
+    "description": "Stun lowers character action points",
+    "persistance": "BATTLE_ONLY",
+    "status_role": "permanent_modifier",
+    "activation": "POST_ACTION",
+    "deactivation": "POST_TURN"
+  },
+
+  "harden_1":
+  {
+    "status_type": "harden_1",
+    "name": "harden",
+    "description": "Harden your physical resistance",
+    "persistance": "BATTLE_ONLY",
+    "status_role": "temporary_modifier",
+    "activation": "POST_ACTION",
+    "deactivation": "PRE_TURN"
   }
 }

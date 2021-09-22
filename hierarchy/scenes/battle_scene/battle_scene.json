@@ -33,7 +33,7 @@
                   "ScriptProperty": {"set_script": "BattleLogic", "property_state": "Disabled"},
                   "EventProperty": {"property_state": "Disabled"},
                   "SignalProperty": {"property_state": "Disabled"},
-                  "InitializeProperty": {"start_req": ["CharacterModel.Initialized", "QueueModel.Initialized", "CardModel.Initialized", "TurnModel.Initialized"]}
+                  "InitializeProperty": {"start_req": ["CharacterModel.Initialized", "QueueModel.Initialized", "CardModel.Initialized", "ActionModel.Initialized"]}
                 }
               }
             },
@@ -120,17 +120,17 @@
               }
             },
             {
-              "entity": "TurnModel",
+              "entity": "ActionModel",
               "object":
               {
-                "object_class": "TurnModel",
+                "object_class": "ActionModel",
                 "object_type": null,
-                "object_label": "TurnModel",
+                "object_label": "ActionModel",
                 "create": true,
                 "properties": ["InitializeProperty", "ScriptProperty", "EventProperty", "TransformProperty", "TranslateProperty", "SignalProperty"],
                 "configure_properties":
                 {
-                  "ScriptProperty": {"set_script": "TurnModel", "property_state": "Disabled"},
+                  "ScriptProperty": {"set_script": "ActionModel", "property_state": "Disabled"},
                   "EventProperty": {"property_state": "Disabled"},
                   "SignalProperty": {"property_state": "Disabled"},
                   "InitializeProperty": {"init_req": ["BattleLogic.Initialized"], "start_req": ["BattleLogic.Started"]}
