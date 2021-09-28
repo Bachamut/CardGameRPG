@@ -10,8 +10,7 @@ class BattleCharacter(BaseCharacter):
     BATTLE_CHARACTER_SIGNAL = pygame.event.custom_type()
 
     def battle_attribute(self, attribute):
-        return getattr(self.base_attributes, attribute)\
-               + getattr(self.base_modifiers, attribute)\
+        return getattr(self.battle_attributes, attribute)\
                + getattr(self.battle_modifiers, attribute)
 
     def __init__(self, base_character):
@@ -30,12 +29,39 @@ class BattleCharacter(BaseCharacter):
 
         self.character_view = None
         self.character_type = None
+        self.battle_attributes = Attributes()
         self.battle_modifiers = Attributes()
         self.battle_deck = list()
         self.draw_pile = list()
         self.discard_pile = list()
         self.exile_pile = list()
         self.hand = list()
+
+    # def make_battle_attributes(self):
+
+        attributes = [
+            "health",
+            "energy",
+            "action_points",
+            "strength",
+            "dexterity",
+            "stamina",
+            "magic",
+            "speed",
+            "physical_resist",
+            "magic_resist",
+        ]
+
+        for attribute in attributes:
+            base_attrbiute = getattr(self.base_attributes, attribute)
+            base_modifier = getattr(self.base_modifiers, attribute)
+            setattr(self.battle_attributes, attribute, base_attrbiute + base_modifier)
+
+    def modify_battle_attributes(self, attribute, value):
+        print(f'{self.name}: battle_attributes.{attribute}:{getattr(self.battle_attributes, attribute)}')
+        battle_attributes_value = getattr(self.battle_attributes, attribute)
+        setattr(self.battle_attributes, attribute, battle_attributes_value + value)
+        print(f'{self.name}: battle_attributes.{attribute}:{getattr(self.battle_attributes, attribute)}')
 
     def modify_battle_modifiers(self, attribute, value):
         print(f'{self.name}: battle_modifiers.{attribute}:{getattr(self.battle_modifiers, attribute)}')
@@ -51,3 +77,4 @@ class BattleCharacter(BaseCharacter):
             characters_list.append(battle_character)
 
         return characters_list
+

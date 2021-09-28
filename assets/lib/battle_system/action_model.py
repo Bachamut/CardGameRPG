@@ -1,7 +1,7 @@
 import pygame
 from property.initialize_property import InitializeProperty, InitializeState
 
-from assets.lib.battle_system.action_types import ActionType
+from assets.lib.battle_system.action_process import ActionProcess
 from assets.lib.battle_system.battle_character_view_manager import BattleCharacterViewManager
 from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.battle_system.card_model import CardModel
@@ -49,8 +49,11 @@ class ActionModel(GameObjectSharedResource):
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "PRE_TURN":
             Logs.DebugMessage.SignalReceived(self, signal, "AM1<-BL2")
 
-            ActionType.status_for_activation(self.current_character, signal.subtype)
-            ActionType.status_for_deactivation(self.current_character, signal.subtype)
+            ActionProcess.status_for_activation(self.current_character, signal.subtype)
+            ActionProcess.status_for_deactivation(self.current_character, signal.subtype)
+
+            # Restocking current_character action_points
+            ActionProcess.restock_action_points(self.current_character)
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "PRE_TURN"})
             pygame.event.post(emit_signal)
@@ -61,8 +64,8 @@ class ActionModel(GameObjectSharedResource):
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "PRE_DRAW":
             Logs.DebugMessage.SignalReceived(self, signal, "AM2<-BL4")
 
-            ActionType.status_for_activation(self.current_character, signal.subtype)
-            ActionType.status_for_deactivation(self.current_character, signal.subtype)
+            ActionProcess.status_for_activation(self.current_character, signal.subtype)
+            ActionProcess.status_for_deactivation(self.current_character, signal.subtype)
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "PRE_DRAW"})
             pygame.event.post(emit_signal)
@@ -73,8 +76,8 @@ class ActionModel(GameObjectSharedResource):
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "POST_DRAW":
             Logs.DebugMessage.SignalReceived(self, signal, "AM3<-BL6")
 
-            ActionType.status_for_activation(self.current_character, signal.subtype)
-            ActionType.status_for_deactivation(self.current_character, signal.subtype)
+            ActionProcess.status_for_activation(self.current_character, signal.subtype)
+            ActionProcess.status_for_deactivation(self.current_character, signal.subtype)
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "POST_DRAW"})
             pygame.event.post(emit_signal)
@@ -96,8 +99,8 @@ class ActionModel(GameObjectSharedResource):
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "POST_ACTION":
             Logs.DebugMessage.SignalReceived(self, signal, "AM5<-BL14")
 
-            ActionType.status_for_activation(self.current_character, signal.subtype)
-            ActionType.status_for_deactivation(self.current_character, signal.subtype)
+            ActionProcess.status_for_activation(self.current_character, signal.subtype)
+            ActionProcess.status_for_deactivation(self.current_character, signal.subtype)
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_RESPONSE, {"event": "ACTION_MODEL_RESPONSE", "subtype": "POST_ACTION"})
             pygame.event.post(emit_signal)
@@ -108,8 +111,8 @@ class ActionModel(GameObjectSharedResource):
         if signal.type == BattleLogic.ACTION_MODEL_SIGNAL and signal.subtype == "POST_TURN":
             Logs.DebugMessage.SignalReceived(self, signal, "?AM100<-?BL100")
 
-            ActionType.status_for_activation(self.current_character, signal.subtype)
-            ActionType.status_for_deactivation(self.current_character, signal.subtype)
+            ActionProcess.status_for_activation(self.current_character, signal.subtype)
+            ActionProcess.status_for_deactivation(self.current_character, signal.subtype)
 
             # Discarding current character hand at turn finish
             print(f'\n{self.current_character.name}:\n AP: {self.current_character.battle_attribute("action_points")}\n HP: {self.current_character.battle_attribute("health")}')
@@ -125,13 +128,13 @@ class ActionModel(GameObjectSharedResource):
     @staticmethod
     def action_model_signal(caster, targets, card):
 
-        caster.modify_battle_modifiers("action_points", -card.ap_cost)
+        caster.modify_battle_attributes("action_points", -card.ap_cost)
         # caster.base_attributes.action_points -= card.ap_cost
         print(f'{caster.name}: AP:{caster.battle_attribute("action_points")}')
 
         for target in targets:
 
-            target_action, caster_action = ActionType.action_process(caster, target, card)
+            target_action, caster_action = ActionProcess.action_process(caster, target, card)
 
             target_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_SIGNAL,
                                                {"event": "CHARACTER_VIEW_SIGNAL",
