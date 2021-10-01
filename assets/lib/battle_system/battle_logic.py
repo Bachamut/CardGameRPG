@@ -1,6 +1,7 @@
 import pygame
 
 from property.initialize_property import InitializeProperty, InitializeState
+
 from assets.lib.battle_system.battle_character import BattleCharacter
 from assets.lib.card_utilities.card_manager import CardManager
 from assets.lib.battle_system.log import Logs
@@ -19,6 +20,7 @@ class BattleLogic(GameObjectSharedResource):
     ITEM_MODEL_SIGNAL = pygame.event.custom_type()
     CHARACTER_MODEL_SIGNAL = pygame.event.custom_type()
     CHARACTER_VIEW_MANAGER_SIGNAL = pygame.event.custom_type()
+    AI_CONTROLLER_SIGNAL = pygame.event.custom_type()
 
     QUEUE_MODEL_RESPONSE = pygame.event.custom_type()
     ACTION_MODEL_RESPONSE = pygame.event.custom_type()
@@ -28,6 +30,7 @@ class BattleLogic(GameObjectSharedResource):
     ITEM_MODEL_RESPONSE = pygame.event.custom_type()
     CHARACTER_MODEL_RESPONSE = pygame.event.custom_type()
     CHARACTER_VIEW_MANAGER_RESPONSE = pygame.event.custom_type()
+    AI_CONTROLLER_RESPONSE = pygame.event.custom_type()
 
     CHARACTER_VIEW_SIGNAL = pygame.event.custom_type()
     CHARACTER_VIEW_RESPONSE = pygame.event.custom_type()
@@ -261,38 +264,85 @@ class BattleLogic(GameObjectSharedResource):
                 return
 
             # BL7
-            if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "END_DRAW":
-                Logs.DebugMessage.SignalReceived(self, signal, "BL7<-BL3")
+            # if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "END_DRAW":
+            #     Logs.DebugMessage.SignalReceived(self, signal, "BL7<-BL3")
+            #
+            #     # IF Czy jest tura AI?:
+            #     Logs.InfoMessage.SimpleInfo(self, "CZY JEST TURA AI?")
+            #     # answer = True
+            #     if not self.current_character.affiliation == "enemy":
+            #     # if not answer:
+            #         Logs.InfoMessage.SimpleInfo(self, "NIE")
+            #
+            #         emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "PLAYER_TURN"})
+            #         pygame.event.post(emit_signal)
+            #         Logs.DebugMessage.SignalEmit(self, emit_signal, "BL7->BL8")
+            #         return
+            #
+            #     else:
+            #         AIController.choose_action(self.current_character, self.battle_ally, self.battle_enemies)
+            #         return
 
-                # IF Czy jest tura AI?:
-                Logs.InfoMessage.SimpleInfo(self, "CZY JEST TURA AI?")
-                answer = False
-                if not answer:
-                    Logs.InfoMessage.SimpleInfo(self, "NIE")
-
-                    emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "PLAYER_TURN"})
-                    pygame.event.post(emit_signal)
-                    Logs.DebugMessage.SignalEmit(self, emit_signal, "BL7->BL8")
-                    return
-
-                else:
-                    return
-
-            # PLAYER TURN
-            # BL8
-            if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "PLAYER_TURN" or \
+            if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "END_DRAW" or \
                     signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "POST_ACTION":
-
-                if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "PLAYER_TURN":
-                    Logs.DebugMessage.SignalReceived(self, signal, "BL8<-BL7")
-                if signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "POST_ACTION":
-                    Logs.DebugMessage.SignalReceived(self, signal, "BL8<-AM5")
-
+                Logs.DebugMessage.SignalReceived(self, signal, "BL7<-BL3")
                 # IF Czy postać może wykonać akcję?:
                 Logs.InfoMessage.SimpleInfo(self, "CZY POSTAĆ MOŻE WYKONAĆ AKCJĘ?")
 
                 if self.current_character.battle_attribute("action_points") > 0:
                     Logs.InfoMessage.SimpleInfo(self, "TAK")
+
+                    emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "ACTION_EXECUTION"})
+                    pygame.event.post(emit_signal)
+                    Logs.DebugMessage.SignalEmit(self, emit_signal, "BL7->BL8")
+                    return
+
+                else:
+                    Logs.InfoMessage.SimpleInfo(self, "NIE")
+
+                    emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "NO_ACTION"})
+                    pygame.event.post(emit_signal)
+                    Logs.DebugMessage.SignalEmit(self, emit_signal, "BL8->?BL100")
+                    return
+
+            # PLAYER TURN
+            # BL8
+            # if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "PLAYER_TURN" or \
+            #         signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "POST_ACTION":
+            #
+            #     if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "PLAYER_TURN":
+            #         Logs.DebugMessage.SignalReceived(self, signal, "BL8<-BL7")
+            #     if signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "POST_ACTION":
+            #         Logs.DebugMessage.SignalReceived(self, signal, "BL8<-AM5")
+            #
+            #     # IF Czy postać może wykonać akcję?:
+            #     Logs.InfoMessage.SimpleInfo(self, "CZY POSTAĆ MOŻE WYKONAĆ AKCJĘ?")
+            #
+            #     if self.current_character.battle_attribute("action_points") > 0:
+            #         Logs.InfoMessage.SimpleInfo(self, "TAK")
+            #
+            #         emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "PLAYER_ACTION"})
+            #         pygame.event.post(emit_signal)
+            #         Logs.DebugMessage.SignalEmit(self, emit_signal, "BL8->BL9")
+            #         return
+            #
+            #     else:
+            #         Logs.InfoMessage.SimpleInfo(self, "NIE")
+            #
+            #         emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "PLAYER_NO_ACTION"})
+            #         pygame.event.post(emit_signal)
+            #         Logs.DebugMessage.SignalEmit(self, emit_signal, "BL8->?BL100")
+            #         return
+
+            if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "ACTION_EXECUTION":
+                Logs.DebugMessage.SignalReceived(self, signal, "BL8<-BL7")
+
+                # IF Czy jest tura AI?:
+                Logs.InfoMessage.SimpleInfo(self, "CZY JEST TURA AI?")
+                # answer = True
+                if not self.current_character.character_type == "npc":
+                # if not answer:
+                    Logs.InfoMessage.SimpleInfo(self, "NIE")
 
                     emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "PLAYER_ACTION"})
                     pygame.event.post(emit_signal)
@@ -300,11 +350,12 @@ class BattleLogic(GameObjectSharedResource):
                     return
 
                 else:
-                    Logs.InfoMessage.SimpleInfo(self, "NIE")
+                    Logs.InfoMessage.SimpleInfo(self, "TAK")
 
-                    emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "PLAYER_NO_ACTION"})
+                    emit_signal = pygame.event.Event(BattleLogic.AI_CONTROLLER_SIGNAL, {"event": "AI_CONTROLLER_SIGNAL", "subtype": "STANDARD"})
                     pygame.event.post(emit_signal)
-                    Logs.DebugMessage.SignalEmit(self, emit_signal, "BL8->?BL100")
+                    Logs.DebugMessage.SignalEmit(self, emit_signal, "BL8->AIC1")
+
                     return
 
             # PLAYER ACTION
@@ -346,8 +397,14 @@ class BattleLogic(GameObjectSharedResource):
                 return
 
             # BL13
-            if signal.type == BattleLogic.CHARACTER_MODEL_RESPONSE and signal.subtype == "STANDARD":
-                Logs.DebugMessage.SignalReceived(self, signal, "BL13<-ChM1")
+            if signal.type == BattleLogic.CHARACTER_MODEL_RESPONSE and signal.subtype == "STANDARD" or \
+                    signal.type == BattleLogic.AI_CONTROLLER_RESPONSE and signal.subtype == "STANDARD":
+
+                if signal.type == BattleLogic.CHARACTER_MODEL_RESPONSE and signal.subtype == "STANDARD":
+                    Logs.DebugMessage.SignalReceived(self, signal, "BL13<-ChM1")
+                if signal.type == BattleLogic.AI_CONTROLLER_RESPONSE and signal.subtype == "STANDARD":
+                    Logs.DebugMessage.SignalReceived(self, signal, "BL13<-AIC1")
+
 
                 emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_SIGNAL, {"event": "ACTION_MODEL_SIGNAL", "subtype": "STANDARD"})
                 pygame.event.post(emit_signal)
@@ -364,7 +421,7 @@ class BattleLogic(GameObjectSharedResource):
                 return
 
             # ?BL100
-            if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "PLAYER_NO_ACTION":
+            if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "NO_ACTION":
                 Logs.DebugMessage.SignalReceived(self, signal, "?BL100<-BL8")
 
                 emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_SIGNAL, {"event": "ACTION_MODEL_SIGNAL", "subtype": "POST_TURN"})

@@ -7,11 +7,13 @@ class BaseCard(GameObject):
         super(BaseCard, self).__init__()
 
         self.card_id = None
+        self.card_type = None
 
     @staticmethod
     def copy(self, obj):
         self.card_id = obj.card_id
-        self.card_name = obj.card_name  # TODO: Karta powinna być identyfikowana za pomocą CARD_ID
+        self.card_name = obj.card_name
+        self.card_type = obj.card_type
 
 
 class DescriptiveCard(BaseCard):
@@ -74,7 +76,7 @@ class BattleCard(BaseCard):
 class FullCard(BaseCard):
 
     def __init__(self, base, desc=None, battle=None):
-        # super(FullCard, self).__init__(base)
+        super(FullCard, self).__init__()
 
         # Copy from base
         # super(FullCard, self).copy(base)

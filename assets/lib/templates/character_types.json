@@ -3,6 +3,8 @@
   {
     "name": "Edward",
     "character_class": "warrior",
+    "character_type": "npc",
+    "affiliation": "ally",
     "health": 75,
     "energy": 40,
     "action_points": 3,
@@ -12,13 +14,21 @@
     "speed": 24,
     "stamina": 9,
     "physical_resist": 10,
-    "magic_resist": 5
+    "magic_resist": 5,
+    "do_dmg": 0.5,
+    "do_heal": 0.5,
+    "do_effect": 0.5,
+    "factor_alpha": 1,
+    "factor_beta": 1,
+    "factor_gamma": 1
   },
 
   "character_lucius":
   {
     "name": "Lucius",
     "character_class": "rogue",
+    "character_type": "npc",
+    "affiliation": "ally",
     "health": 60,
     "energy": 50,
     "action_points": 3,
@@ -28,29 +38,45 @@
     "speed": 23,
     "stamina": 9,
     "physical_resist": 0,
-    "magic_resist": 5
+    "magic_resist": 5,
+    "do_dmg": 0.5,
+    "do_heal": 0.5,
+    "do_effect": 0.5,
+    "factor_alpha": 1,
+    "factor_beta": 1,
+    "factor_gamma": 1
   },
 
   "warrior_goblin":
   {
     "name": "Goblin warrior",
     "character_class": "warrior",
+    "character_type": "npc",
+    "affiliation": "enemy",
     "health": 40,
     "energy": 25,
     "action_points": 2,
     "strength": 5,
     "dexterity": 3,
     "magic": 0,
-    "speed": 18,
+    "speed": 25,
     "stamina": 4,
     "physical_resist": 50,
-    "magic_resist": 0
+    "magic_resist": 0,
+    "do_dmg": 0.5,
+    "do_heal": 0.5,
+    "do_effect": 0.5,
+    "factor_alpha": 1,
+    "factor_beta": 1,
+    "factor_gamma": 1
   },
 
   "archer_goblin":
   {
     "name": "Goblin archer",
     "character_class": "archer",
+    "character_type": "npc",
+    "affiliation": "enemy",
     "health": 30,
     "energy": 20,
     "action_points": 2,
@@ -60,6 +86,12 @@
     "speed": 16,
     "stamina": 4,
     "physical_resist": 0,
-    "magic_resist": 0
+    "magic_resist": 0,
+    "do_dmg": 0.5,
+    "do_heal": 0.5,
+    "do_effect": 0.5,
+    "factor_alpha": 1,
+    "factor_beta": 1,
+    "factor_gamma": 1
   }
 }

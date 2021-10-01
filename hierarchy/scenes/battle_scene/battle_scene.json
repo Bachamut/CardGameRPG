@@ -71,6 +71,24 @@
               }
             },
             {
+              "entity": "AIController",
+              "object":
+              {
+                "object_class": "AIController",
+                "object_type": null,
+                "object_label": "AIController",
+                "create": true,
+                "properties": ["InitializeProperty", "ScriptProperty", "EventProperty", "SignalProperty"],
+                "configure_properties":
+                {
+                  "ScriptProperty": {"set_script": "AIController", "property_state": "Disabled"},
+                  "EventProperty": {"property_state": "Disabled"},
+                  "SignalProperty": {"property_state": "Disabled"},
+                  "InitializeProperty": {"init_req": ["BattleLogic.Initialized"], "start_req": ["BattleLogic.Started"]}
+                }
+              }
+            },
+            {
               "entity": "QueueModel",
               "object":
               {

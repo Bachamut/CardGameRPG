@@ -14,7 +14,6 @@ class ActionProcess():
         # health processing
         value = ActionProcess.value_calculation(caster, target, card)
         target.take_damage(value)
-        # target.base_attributes.health -= value
 
         # status processing for target
         for status_type, parameters in card.target_status.items():
@@ -36,6 +35,7 @@ class ActionProcess():
         caster_action = {card.action_type: value}
         target_action = {card.action_type: value}
 
+        print(f'{target.name} - baseHP:{target.base_attributes.health}')
         return caster_action, target_action
 
     @staticmethod

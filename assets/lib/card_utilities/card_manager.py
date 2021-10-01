@@ -20,13 +20,14 @@ class CardManager:
         card = BaseCard()
 
         card.card_id = config['card_id']
-        card.card_name = config['card_name'] # TODO: karty powinny być identyfikowanie na podstawie CARD_ID
+        card.card_name = config['card_name']
+        card.card_type = config['card_type']
 
         return card
 
     @staticmethod
     def create_descriptive_card(base):
-        config = CardManager.card_config[base.card_id] # TODO: karty powinny być identyfikowanie na podstawie CARD_ID
+        config = CardManager.card_config[base.card_id]
         card = DescriptiveCard(base)
 
         card.card_name = config['card_name']

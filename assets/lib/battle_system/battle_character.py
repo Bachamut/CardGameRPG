@@ -18,6 +18,9 @@ class BattleCharacter(BaseCharacter):
 
         self.name = base_character.name
         self.character_class = base_character.character_class
+        self.character_type = base_character.character_type
+        self.affiliation = base_character.affiliation
+
         self.base_attributes = base_character.base_attributes
         self.base_modifiers = base_character.base_modifiers
         self.inventory = base_character.inventory
@@ -27,8 +30,9 @@ class BattleCharacter(BaseCharacter):
         self.status_list = base_character.status_list
         self.card_draw = base_character.card_draw
 
+        self.preferences = base_character.preferences
+
         self.character_view = None
-        self.character_type = None
         self.battle_attributes = Attributes()
         self.battle_modifiers = Attributes()
         self.battle_deck = list()
@@ -41,7 +45,9 @@ class BattleCharacter(BaseCharacter):
 
         attributes = [
             "health",
+            "max_health",
             "energy",
+            "max_energy",
             "action_points",
             "strength",
             "dexterity",

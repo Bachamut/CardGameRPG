@@ -38,6 +38,12 @@
               "file": "character_model"
             },
             {
+              "key": "AIController",
+              "type": "script",
+              "path": "assets/lib/battle_system",
+              "file": "ai_controller"
+            },
+            {
               "key": "QueueModel",
               "type": "script",
               "path": "assets/lib/battle_system",

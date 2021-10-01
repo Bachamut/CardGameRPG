@@ -15,7 +15,6 @@ class ActionModel(GameObjectSharedResource):
 
 
     _initialized = False
-    # active = BattleLogic.turn_model_active
 
     def __init__(self):
         super(ActionModel, self).__init__()

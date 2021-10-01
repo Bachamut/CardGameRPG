@@ -42,7 +42,7 @@ class CharacterModel(GameObjectSharedResource):
             if event.type == pygame.KEYDOWN:
                 self._on_arrow_right(event)
                 self._on_arrow_left(event)
-                self._card_selection(event)
+                self._character_selection(event)
 
     def on_signal(self, signal):
 
@@ -105,7 +105,7 @@ class CharacterModel(GameObjectSharedResource):
                 value = ActionProcess.value_calculation(self.current_character, self.selected_target, self.confirmed_card)
                 print(f'{self.selected_target.name} otrzyma {value} obrażeń')
 
-    def _card_selection(self, event):
+    def _character_selection(self, event):
 
         if event.key == pygame.K_RETURN:
             self.confirmed_target.clear()

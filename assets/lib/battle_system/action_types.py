@@ -33,13 +33,6 @@ class ActionType:
 
     # Action types definition
     @staticmethod
-    def magic_attack(caster, target, card):
-
-        value = (card.base_value + caster.battle_attribute("magic") * \
-                         card.multiplier) * (100 - target.battle_attribute("magic_resist")) / 100
-        return value
-
-    @staticmethod
     def basic_attack(caster, target, card):
 
         value = (card.base_value + (caster.battle_attribute("strength") * \
@@ -58,6 +51,13 @@ class ActionType:
 
         value = (card.base_value + (caster.battle_attribute("dexterity") * \
                          card.multiplier)) * (100 - target.battle_attribute("physical_resist")) / 100
+        return value
+
+    @staticmethod
+    def magic_attack(caster, target, card):
+
+        value = (card.base_value + caster.battle_attribute("magic") * \
+                         card.multiplier) * (100 - target.battle_attribute("magic_resist")) / 100
         return value
 
     @staticmethod

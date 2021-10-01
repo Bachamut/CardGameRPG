@@ -4,7 +4,9 @@ class Attributes:
     def __init__(self):
 
         self.health = 0
+        self.max_health = 0
         self.energy = 0
+        self.max_energy = 0
         self.action_points = 0
         self.strength = 0
         self.dexterity = 0

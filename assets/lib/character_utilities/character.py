@@ -1,4 +1,6 @@
 from game_object.game_object import GameObject
+
+from assets.lib.battle_system.ai_preferences import Preferences
 from assets.lib.character_utilities.attributes import Attributes
 from assets.lib.card_utilities.deck import Deck
 from assets.lib.item_utilities.equipment import Equipment
@@ -19,6 +21,8 @@ class BaseCharacter(GameObject):
     def __init__(self):
         self.name = None
         self.character_class = None
+        self.character_type = None
+        self.affiliation = None
         self.base_attributes = Attributes()
         self.base_modifiers = Attributes()
         self.inventory = Inventory(20)
@@ -27,6 +31,8 @@ class BaseCharacter(GameObject):
         self.deck = Deck(8, 20)
         self.status_list = list()
         self.card_draw = 3
+
+        self.preferences = Preferences()
 
 
     def add_status(self, status):
