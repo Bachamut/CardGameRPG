@@ -4,7 +4,6 @@ from assets.lib.character_utilities.attributes import Attributes
 from assets.lib.character_utilities.character_model import BaseCharacter
 
 
-
 class BattleCharacter(BaseCharacter):
 
     BATTLE_CHARACTER_SIGNAL = pygame.event.custom_type()
@@ -33,35 +32,13 @@ class BattleCharacter(BaseCharacter):
         self.preferences = base_character.preferences
 
         self.character_view = None
-        self.battle_attributes = Attributes()
+        self.battle_attributes = self.base_attributes + self.base_modifiers
         self.battle_modifiers = Attributes()
         self.battle_deck = list()
         self.draw_pile = list()
         self.discard_pile = list()
         self.exile_pile = list()
         self.hand = list()
-
-    # def make_battle_attributes(self):
-
-        attributes = [
-            "health",
-            "max_health",
-            "energy",
-            "max_energy",
-            "action_points",
-            "strength",
-            "dexterity",
-            "stamina",
-            "magic",
-            "speed",
-            "physical_resist",
-            "magic_resist",
-        ]
-
-        for attribute in attributes:
-            base_attrbiute = getattr(self.base_attributes, attribute)
-            base_modifier = getattr(self.base_modifiers, attribute)
-            setattr(self.battle_attributes, attribute, base_attrbiute + base_modifier)
 
     def modify_battle_attributes(self, attribute, value):
         print(f'{self.name}: battle_attributes.{attribute}:{getattr(self.battle_attributes, attribute)}')
@@ -83,4 +60,3 @@ class BattleCharacter(BaseCharacter):
             characters_list.append(battle_character)
 
         return characters_list
-
