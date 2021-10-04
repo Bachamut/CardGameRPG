@@ -9,9 +9,9 @@ from resource_manager.shared_resource import SharedResource
 from assets.lib.game_object_shared_resource import GameObjectSharedResource
 
 
-class QueueModel(GameObjectSharedResource):
+class QueueController(GameObjectSharedResource):
 
-    # QueueModel SharedResources definitions
+    # QueueController SharedResources definitions
 
     @property
     def temporary_speeds(self):
@@ -42,7 +42,7 @@ class QueueModel(GameObjectSharedResource):
     _initialized = False
 
     def __init__(self):
-        super(QueueModel, self).__init__()
+        super(QueueController, self).__init__()
 
         self._temporary_speeds = SharedResource()
         self._speeds_table = SharedResource()
@@ -55,16 +55,16 @@ class QueueModel(GameObjectSharedResource):
     def _initialize(self):
 
         if InitializeProperty.check_status(self, InitializeState.INITIALIZED):
-            super(QueueModel, self)._initialize()
+            super(QueueController, self)._initialize()
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.SimpleInfo(self, "QueueModel Initialized [ OK ]")
+            Logs.InfoMessage.SimpleInfo(self, "QueueController Initialized [ OK ]")
 
             return
 
         if InitializeProperty.check_status(self, InitializeState.STARTED):
             InitializeProperty.started(self)
             self.property('SignalProperty').property_enable()
-            Logs.InfoMessage.SimpleInfo(self, "QueueModel Started [ OK ]")
+            Logs.InfoMessage.SimpleInfo(self, "QueueController Started [ OK ]")
 
             return
 
@@ -98,7 +98,7 @@ class QueueModel(GameObjectSharedResource):
         speeds_table[character] -= 100
 
     def get_next_seed(self):
-        return QueueModel._get_next_seed(self.speeds_table, QueueModel.get_speed_dict(self.battle_ally + self.battle_enemies), self.temporary_speeds)
+        return QueueController._get_next_seed(self.speeds_table, QueueController.get_speed_dict(self.battle_ally + self.battle_enemies), self.temporary_speeds)
 
     @staticmethod
     def _get_next_seed(speeds_table, character_speeds, temporary_speeds):
@@ -106,17 +106,17 @@ class QueueModel(GameObjectSharedResource):
         simulation_table = speeds_table.copy()
 
         while True:
-            character = QueueModel.get_next(simulation_table)
+            character = QueueController.get_next(simulation_table)
             if character is not None:
-                QueueModel.reduce_speed(simulation_table, character)
+                QueueController.reduce_speed(simulation_table, character)
                 break
             elif character is None:
-                QueueModel.update_speed(simulation_table, character_speeds, temporary_speeds)
+                QueueController.update_speed(simulation_table, character_speeds, temporary_speeds)
 
         return simulation_table
 
     def get_queue(self):
-        return QueueModel._get_queue(self.speeds_table, QueueModel.get_speed_dict(self.battle_ally + self.battle_enemies), self.temporary_speeds)
+        return QueueController._get_queue(self.speeds_table, QueueController.get_speed_dict(self.battle_ally + self.battle_enemies), self.temporary_speeds)
 
     @staticmethod
     def get_speed_dict(characters):
@@ -135,12 +135,12 @@ class QueueModel(GameObjectSharedResource):
 
         quantity = 8
         while quantity - len(queue) != 0:
-            character = QueueModel.get_next(simulation_table)
+            character = QueueController.get_next(simulation_table)
             if character is not None:
                 queue.append(character)
-                QueueModel.reduce_speed(simulation_table, character)
+                QueueController.reduce_speed(simulation_table, character)
             elif character is None:
-                QueueModel.update_speed(simulation_table, character_speeds, temporary_speeds)
+                QueueController.update_speed(simulation_table, character_speeds, temporary_speeds)
 
         return queue
 
@@ -149,22 +149,22 @@ class QueueModel(GameObjectSharedResource):
 
     def on_signal(self, signal):
 
-        # QMS1
-        if signal.type == BattleLogic.QUEUE_MODEL_SIGNAL and signal.subtype == "INITIAL":
-            Logs.DebugMessage.SignalReceived(self, signal, "QMS1<-BLS2")
+        # QCS1
+        if signal.type == BattleLogic.QUEUE_CONTROLLER_SIGNAL and signal.subtype == "INITIAL":
+            Logs.DebugMessage.SignalReceived(self, signal, "QCS1<-BLS2")
 
             self.setup_queue()
 
-            emit_signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_RESPONSE, {"event": "QUEUE_MODEL_RESPONSE", "subtype": "INITIAL"})
+            emit_signal = pygame.event.Event(BattleLogic.QUEUE_CONTROLLER_RESPONSE, {"event": "QUEUE_CONTROLLER_RESPONSE", "subtype": "INITIAL"})
             pygame.event.post(emit_signal)
-            Logs.DebugMessage.SignalEmit(self, emit_signal, "QMS1->BLS3")
+            Logs.DebugMessage.SignalEmit(self, emit_signal, "QCS1->BLS3")
             return
 
-        # QM1
-        if signal.type == BattleLogic.QUEUE_MODEL_SIGNAL and signal.subtype == "STANDARD":
-            Logs.DebugMessage.SignalReceived(self, signal, "QM1<-BL1")
+        # QC1
+        if signal.type == BattleLogic.QUEUE_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
+            Logs.DebugMessage.SignalReceived(self, signal, "QC1<-BL1")
 
-            # Taking next character from QueueModel
+            # Taking next character from QueueController
 
             queue = self.get_queue()
             self.current_character = queue[0]
@@ -185,7 +185,7 @@ class QueueModel(GameObjectSharedResource):
             print(f'QUEUE:')
             for character in self.queue:
                 print(f'- {character.name}')
-            emit_signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_RESPONSE, {"event": "QUEUE_MODEL_RESPONSE", "subtype": "STANDARD"})
+            emit_signal = pygame.event.Event(BattleLogic.QUEUE_CONTROLLER_RESPONSE, {"event": "QUEUE_CONTROLLER_RESPONSE", "subtype": "STANDARD"})
             pygame.event.post(emit_signal)
-            Logs.DebugMessage.SignalEmit(self, emit_signal, "QM1->BL2")
+            Logs.DebugMessage.SignalEmit(self, emit_signal, "QC1->BL2")
             return

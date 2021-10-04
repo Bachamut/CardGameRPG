@@ -1,6 +1,6 @@
 import json
 
-from assets.lib.card_utilities.card import BaseCard, DescriptiveCard, BattleCard, FullCard
+from assets.lib.card_utilities.card_model import BaseCard, DescriptiveCard, BattleCard, FullCard
 
 
 class CardManager:

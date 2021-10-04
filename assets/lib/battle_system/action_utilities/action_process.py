@@ -1,10 +1,10 @@
-from assets.lib.battle_system.action_types import ActionType
-from assets.lib.card_utilities.card import BaseCard
+from assets.lib.battle_system.action_utilities.action_types import ActionType
+from assets.lib.card_utilities.card_model import BaseCard
 from assets.lib.card_utilities.card_manager import CardManager
-from assets.lib.status_utilities.status import Status
+from assets.lib.status_utilities.status_model import Status
 
 
-class ActionProcess():
+class ActionProcess:
 
     @staticmethod
     def action_process(caster, target, base_card):
@@ -92,11 +92,11 @@ class ActionProcess():
 
         if status.duration == 0:
             if status.status_role == "temporary_modifier":
-                print(f'{status.name} przy deaktywacji przywraca poprzednie wartości')
+                print(f'{status.name} przy dezaktywacji przywraca poprzednie wartości')
             if status.status_role == "permanent_modifier":
-                print(f'{status.name} przy deaktywaci nie zmieni nic')
+                print(f'{status.name} przy dezaktywaci nie zmieni nic')
             if status.status_role == "action":
-                print(f'{status.name} nie ma deaktywacji')
+                print(f'{status.name} nie ma dezaktywacji')
         else:
             print(f'Nie ma statusu do deaktywacji')
 

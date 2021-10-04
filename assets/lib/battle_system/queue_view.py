@@ -2,8 +2,7 @@ import pygame
 
 from game_object.game_object import GameObject
 from assets.lib.text_line import TextLine
-from assets.lib.battle_system.battle_logic import BattleLogic
-from assets.lib.battle_system.queue_model import QueueModel
+from assets.lib.battle_system.controllers.queue_controller import QueueController
 
 
 class QueueView(GameObject):
@@ -31,7 +30,7 @@ class QueueView(GameObject):
         QueueView._initialized = True
         print("QueueView initialized")
 
-        self._queue = GameObject.get_object_pool().select_with_label('QueueModel')[0]._queue
+        self._queue = GameObject.get_object_pool().select_with_label('QueueController')[0]._queue
 
         self.add_property("SpriteProperty")
         self.add_property("BlitProperty")
@@ -71,7 +70,7 @@ class QueueView(GameObject):
         pass
 
     def on_script(self):
-        if not QueueView._initialized and QueueModel._initialized:
+        if not QueueView._initialized and QueueController._initialized:
             self._initialize()
         else:
             # var = self.queue

@@ -1,9 +1,8 @@
 import pygame
 
 from game_object.game_object import GameObject
-from assets.lib.battle_system.character_model import CharacterModel
+from assets.lib.battle_system.controllers.character_controller import CharacterController
 from assets.lib.text_line import TextLine
-from assets.lib.battle_system.battle_logic import BattleLogic
 
 
 class EnemyView(GameObject):
@@ -31,7 +30,7 @@ class EnemyView(GameObject):
         EnemyView._initialized = True
         print("PartyVIew initialized")
 
-        self._enemies = GameObject.get_object_pool().select_with_label('CharacterModel')[0]._battle_enemies
+        self._enemies = GameObject.get_object_pool().select_with_label('CharacterController')[0]._battle_enemies
 
         # TODO: Do przygotowania Properties/Components ręcznie tworzonych dla klas powinna być jakaś metoda prepare,
         #  on_create albo construct
@@ -76,7 +75,7 @@ class EnemyView(GameObject):
         pass
 
     def on_script(self):
-        if not EnemyView._initialized and CharacterModel._initialized:
+        if not EnemyView._initialized and CharacterController._initialized:
             self._initialize()
         else:
             pass

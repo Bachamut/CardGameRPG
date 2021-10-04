@@ -17,37 +17,37 @@
               "key": "BaseCharacter",
               "type": "script",
               "path": "assets/lib/character_utilities",
-              "file": "character"
+              "file": "character_model"
             },
             {
               "key": "BaseCard",
               "type": "script",
               "path": "assets/lib/card_utilities",
-              "file": "card"
+              "file": "card_model"
             },
             {
               "key": "Item",
               "type": "script",
               "path": "assets/lib/item_utilities",
-              "file": "item"
+              "file": "item_model"
             },
             {
-              "key": "CharacterModel",
+              "key": "CharacterController",
               "type": "script",
-              "path": "assets/lib/battle_system",
-              "file": "character_model"
+              "path": "assets/lib/battle_system/controllers",
+              "file": "character_controller"
             },
             {
               "key": "AIController",
               "type": "script",
-              "path": "assets/lib/battle_system",
+              "path": "assets/lib/battle_system/controllers",
               "file": "ai_controller"
             },
             {
-              "key": "QueueModel",
+              "key": "QueueController",
               "type": "script",
-              "path": "assets/lib/battle_system",
-              "file": "queue_model"
+              "path": "assets/lib/battle_system/controllers",
+              "file": "queue_controller"
             },
             {
               "key": "CharacterIcon",
@@ -56,22 +56,22 @@
               "file": "character_icon.png"
             },
             {
-              "key": "CardModel",
+              "key": "CardController",
               "type": "script",
-              "path": "assets/lib/battle_system",
-              "file": "card_model"
+              "path": "assets/lib/battle_system/controllers",
+              "file": "card_controller"
             },
             {
-              "key": "ItemModel",
+              "key": "ItemController",
               "type": "script",
-              "path": "assets/lib/battle_system",
-              "file": "item_model"
+              "path": "assets/lib/battle_system/controllers",
+              "file": "item_controller"
             },
             {
-              "key": "ActionModel",
+              "key": "ActionController",
               "type": "script",
-              "path": "assets/lib/battle_system",
-              "file": "action_model"
+              "path": "assets/lib/battle_system/controllers",
+              "file": "action_controller"
             },
             {
               "key": "PartyView",

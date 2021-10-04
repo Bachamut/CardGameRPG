@@ -2,18 +2,18 @@ import pygame
 
 from property.initialize_property import InitializeState, InitializeProperty
 
-from assets.lib.battle_system.action_process import ActionProcess
+from assets.lib.battle_system.action_utilities.action_process import ActionProcess
 from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.battle_system.log import Logs
 from assets.lib.game_object_shared_resource import GameObjectSharedResource
 
 
-class CharacterModel(GameObjectSharedResource):
+class CharacterController(GameObjectSharedResource):
 
     _initialized = False
 
     def __init__(self):
-        super(CharacterModel, self).__init__()
+        super(CharacterController, self).__init__()
 
         # For Arrow event
         self._target_confirmed = False
@@ -22,16 +22,16 @@ class CharacterModel(GameObjectSharedResource):
     def _initialize(self):
 
         if InitializeProperty.check_status(self, InitializeState.INITIALIZED):
-            super(CharacterModel, self)._initialize()
+            super(CharacterController, self)._initialize()
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.SimpleInfo(self, "CharacterModel Initialized [ OK ]")
+            Logs.InfoMessage.SimpleInfo(self, "CharacterController Initialized [ OK ]")
 
             return
 
         if InitializeProperty.check_status(self, InitializeState.STARTED):
             InitializeProperty.started(self)
             self.property('SignalProperty').property_enable()
-            Logs.InfoMessage.SimpleInfo(self, "CharacterModel Started [ OK ]")
+            Logs.InfoMessage.SimpleInfo(self, "CharacterController Started [ OK ]")
 
             return
 
@@ -46,37 +46,37 @@ class CharacterModel(GameObjectSharedResource):
 
     def on_signal(self, signal):
 
-        # ChM1
-        if signal.type == BattleLogic.CHARACTER_MODEL_SIGNAL and signal.subtype == "STANDARD" or \
-                signal.type == BattleLogic.CHARACTER_MODEL_SIGNAL and signal.subtype == "TARGET_SELECTION":
+        # ChC1
+        if signal.type == BattleLogic.CHARACTER_CONTROLLER_SIGNAL and signal.subtype == "STANDARD" or \
+                signal.type == BattleLogic.CHARACTER_CONTROLLER_SIGNAL and signal.subtype == "TARGET_SELECTION":
 
-            if signal.type == BattleLogic.CHARACTER_MODEL_SIGNAL and signal.subtype == "STANDARD":
-                Logs.DebugMessage.SignalReceived(self, signal, "ChM1<-BL12")
-            # if signal.type == BattleLogic.CHARACTER_MODEL_SIGNAL and signal.subtype == "TARGET_SELECTION":
-            #     Logs.DebugMessage.SignalReceived(self, signal, "ChM1<-ChM1")
+            if signal.type == BattleLogic.CHARACTER_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
+                Logs.DebugMessage.SignalReceived(self, signal, "ChC1<-BL12")
+            # if signal.type == BattleLogic.CHARACTER_CONTROLLER_SIGNAL and signal.subtype == "TARGET_SELECTION":
+            #     Logs.DebugMessage.SignalReceived(self, signal, "ChC1<-ChC1")
 
             # Arrows event block for target choose
-            if signal.type == BattleLogic.CHARACTER_MODEL_SIGNAL and signal.subtype == "STANDARD":
+            if signal.type == BattleLogic.CHARACTER_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
                 Logs.InfoMessage.SimpleInfo(self, "CHOOSE TARGET: ARROW EVENT LOOP STARTED")
                 self._target_confirmed = False
                 self.property('EventProperty').property_enable()
-                emit_signal = pygame.event.Event(BattleLogic.CHARACTER_MODEL_SIGNAL, {"event": "CHARACTER_MODEL_SIGNAL", "subtype": "TARGET_SELECTION"})
+                emit_signal = pygame.event.Event(BattleLogic.CHARACTER_CONTROLLER_SIGNAL, {"event": "CHARACTER_CONTROLLER_SIGNAL", "subtype": "TARGET_SELECTION"})
                 pygame.event.post(emit_signal)
                 return
 
             if self._target_confirmed == False:
                 # Logs.InfoMessage.SimpleInfo(self, "PRESS ARROW")
-                emit_signal = pygame.event.Event(BattleLogic.CHARACTER_MODEL_SIGNAL, {"event": "CHARACTER_MODEL_SIGNAL", "subtype": "TARGET_SELECTION"})
+                emit_signal = pygame.event.Event(BattleLogic.CHARACTER_CONTROLLER_SIGNAL, {"event": "CHARACTER_CONTROLLER_SIGNAL", "subtype": "TARGET_SELECTION"})
                 pygame.event.post(emit_signal)
-                # Logs.DebugMessage.SignalEmit(self, emit_signal, "ChM1->ChM1")
+                # Logs.DebugMessage.SignalEmit(self, emit_signal, "ChC1->ChC1")
                 return
 
             if self._target_confirmed == True:
                 Logs.InfoMessage.SimpleInfo(self, "TARGET SELECTED: ARROW EVENT LOOP FINISHED")
                 self.property('EventProperty').property_disable()
-                emit_signal = pygame.event.Event(BattleLogic.CHARACTER_MODEL_RESPONSE, {"event": "CHARACTER_MODEL_RESPONSE", "subtype": "STANDARD"})
+                emit_signal = pygame.event.Event(BattleLogic.CHARACTER_CONTROLLER_RESPONSE, {"event": "CHARACTER_CONTROLLER_RESPONSE", "subtype": "STANDARD"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "ChM1->BL13")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "ChC1->BL13")
                 return
 
     def _on_arrow_right(self, event):

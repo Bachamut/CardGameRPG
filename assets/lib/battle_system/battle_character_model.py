@@ -1,7 +1,7 @@
 import pygame
 
 from assets.lib.character_utilities.attributes import Attributes
-from assets.lib.character_utilities.character import BaseCharacter
+from assets.lib.character_utilities.character_model import BaseCharacter
 
 
 

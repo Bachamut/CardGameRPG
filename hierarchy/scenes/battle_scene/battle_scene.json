@@ -33,7 +33,7 @@
                   "ScriptProperty": {"set_script": "BattleLogic", "property_state": "Disabled"},
                   "EventProperty": {"property_state": "Disabled"},
                   "SignalProperty": {"property_state": "Disabled"},
-                  "InitializeProperty": {"start_req": ["CharacterModel.Initialized", "QueueModel.Initialized", "CardModel.Initialized", "ActionModel.Initialized"]}
+                  "InitializeProperty": {"start_req": ["CharacterController.Initialized", "QueueController.Initialized", "CardController.Initialized", "ActionController.Initialized"]}
                 }
               }
             },
@@ -53,17 +53,17 @@
               }
             },
             {
-              "entity": "CharacterModel",
+              "entity": "CharacterController",
               "object":
               {
-                "object_class": "CharacterModel",
+                "object_class": "CharacterController",
                 "object_type": null,
-                "object_label": "CharacterModel",
+                "object_label": "CharacterController",
                 "create": true,
                 "properties": ["InitializeProperty", "ScriptProperty", "EventProperty", "SignalProperty"],
                 "configure_properties":
                 {
-                  "ScriptProperty": {"set_script": "CharacterModel", "property_state": "Disabled"},
+                  "ScriptProperty": {"set_script": "CharacterController", "property_state": "Disabled"},
                   "EventProperty": {"property_state": "Disabled"},
                   "SignalProperty": {"property_state": "Disabled"},
                   "InitializeProperty": {"init_req": ["BattleLogic.Initialized"], "start_req": ["BattleLogic.Started"]}
@@ -89,66 +89,66 @@
               }
             },
             {
-              "entity": "QueueModel",
+              "entity": "QueueController",
               "object":
               {
-                "object_class": "QueueModel",
+                "object_class": "QueueController",
                 "object_type": null,
-                "object_label": "QueueModel",
+                "object_label": "QueueController",
                 "create": true,
                 "properties": ["InitializeProperty", "ScriptProperty", "SignalProperty"],
                 "configure_properties":
                 {
-                  "ScriptProperty": {"set_script": "QueueModel", "property_state": "Disabled"},
+                  "ScriptProperty": {"set_script": "QueueController", "property_state": "Disabled"},
                   "SignalProperty": {"property_state": "Disabled"},
                   "InitializeProperty": {"init_req": ["BattleLogic.Initialized"], "start_req": ["BattleLogic.Started"]}
                 }
               }
             },
             {
-              "entity": "CardModel",
+              "entity": "CardController",
               "object":
               {
-                "object_class": "CardModel",
+                "object_class": "CardController",
                 "object_type": null,
-                "object_label": "CardModel",
+                "object_label": "CardController",
                 "create": true,
                 "properties": ["InitializeProperty", "ScriptProperty", "EventProperty", "TransformProperty", "TranslateProperty", "SignalProperty"],
                 "configure_properties":
                 {
-                  "ScriptProperty": {"set_script": "CardModel", "property_state": "Disabled"},
+                  "ScriptProperty": {"set_script": "CardController", "property_state": "Disabled"},
                   "InitializeProperty": {"init_req": ["BattleLogic.Initialized"], "start_req": ["BattleLogic.Started"]},
                   "EventProperty": {"property_state": "Disabled"}
                 }
               }
             },
             {
-              "entity": "ItemModel",
+              "entity": "ItemController",
               "object":
               {
-                "object_class": "ItemModel",
+                "object_class": "ItemController",
                 "object_type": null,
-                "object_label": "ItemModel",
+                "object_label": "ItemController",
                 "create": true,
                 "properties": ["ScriptProperty", "EventProperty", "TransformProperty", "TranslateProperty", "SignalProperty"],
                 "configure_properties":
                 {
-                  "ScriptProperty": {"set_script": "ItemModel"}
+                  "ScriptProperty": {"set_script": "ItemController"}
                 }
               }
             },
             {
-              "entity": "ActionModel",
+              "entity": "ActionController",
               "object":
               {
-                "object_class": "ActionModel",
+                "object_class": "ActionController",
                 "object_type": null,
-                "object_label": "ActionModel",
+                "object_label": "ActionController",
                 "create": true,
                 "properties": ["InitializeProperty", "ScriptProperty", "EventProperty", "TransformProperty", "TranslateProperty", "SignalProperty"],
                 "configure_properties":
                 {
-                  "ScriptProperty": {"set_script": "ActionModel", "property_state": "Disabled"},
+                  "ScriptProperty": {"set_script": "ActionController", "property_state": "Disabled"},
                   "EventProperty": {"property_state": "Disabled"},
                   "SignalProperty": {"property_state": "Disabled"},
                   "InitializeProperty": {"init_req": ["BattleLogic.Initialized"], "start_req": ["BattleLogic.Started"]}

@@ -15,14 +15,11 @@
     "target": "single",
     "caster_status":
     {
-      "bleed_1":
-      {
-        "value": 3, "duration": 1
-      }
+
     },
     "target_status":
     {
-
+            "bleed_1": {"value": 5, "duration": 3}
     }
   },
 
@@ -42,10 +39,6 @@
     "target": "single",
     "caster_status":
     {
-      "bleed_1":
-      {
-        "value": 3, "duration": 1
-      }
 
     },
     "target_status":

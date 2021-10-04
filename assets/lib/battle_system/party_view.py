@@ -1,8 +1,5 @@
-import pygame
-
 from game_object.game_object import GameObject
-from assets.lib.battle_system.character_model import CharacterModel
-from assets.lib.battle_system.battle_logic import BattleLogic
+from assets.lib.battle_system.controllers.character_controller import CharacterController
 from assets.lib.battle_system.party_character_view import PartyCharacterView, CharacterIcon, CharacterName, AttributeLine
 
 
@@ -140,7 +137,7 @@ class PartyView(GameObject):
         self.object_class = 'PartyView'
         #
         # # TODO: Modele powinny mieć unikatową nazwę _model (?)
-        # _character_model = GameObject.get_object_pool().select_with_label("CharacterModel")[0]
+        # _character_model = GameObject.get_object_pool().select_with_label("CharacterController")[0]
         # self._current_character = _character_model._current_character
         #
         # self.characters_status = list()
@@ -150,7 +147,7 @@ class PartyView(GameObject):
         PartyView._initialized = True
         print("PartyView initialized")
 
-        self._battle_ally = GameObject.get_object_pool().select_with_label('CharacterModel')[0]._battle_ally
+        self._battle_ally = GameObject.get_object_pool().select_with_label('CharacterController')[0]._battle_ally
         self.add_property('TransformProperty')
         self.position = self.property('TransformProperty').position
         self.position.x = 16
@@ -179,7 +176,7 @@ class PartyView(GameObject):
         pass
 
     def on_script(self):
-        if not PartyView._initialized and CharacterModel._initialized:
+        if not PartyView._initialized and CharacterController._initialized:
             self._initialize()
         else:
             pass

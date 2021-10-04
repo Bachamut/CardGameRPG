@@ -1,6 +1,6 @@
 import json
 
-from assets.lib.item_utilities.item import Item
+from assets.lib.item_utilities.item_model import Item
 
 
 class ItemManager:

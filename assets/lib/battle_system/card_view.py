@@ -1,7 +1,7 @@
 from game_object.game_object import GameObject
 from assets.lib.battle_system.battle_logic import BattleLogic
-from assets.lib.battle_system.card_model import CardModel, CARD_VIEW_ON_RISE, CARD_VIEW_ON_FALL
-from assets.lib.battle_system.character_model import CharacterModel
+from assets.lib.battle_system.controllers.card_controller import CardController
+from assets.lib.battle_system.controllers.character_controller import CharacterController
 
 
 class CardView(GameObject):
@@ -98,7 +98,7 @@ class CardView(GameObject):
         CardView._initialized = True
         print("CardView initialized")
 
-        self._card_model = GameObject.get_object_pool().select_with_label('CardModel')[0]
+        self._card_model = GameObject.get_object_pool().select_with_label('CardController')[0]
         self._selected_card = self._card_model._selected_card
         self._onboard_cards = self._card_model._onboard_cards
         self._current_character = self._card_model._current_character
@@ -127,13 +127,13 @@ class CardView(GameObject):
             step += 128
             position.y = 576
 
-        # print(f'\nPrevious Character: {CardModel.previous_character.name}')
+        # print(f'\nPrevious Character: {CardController.previous_character.name}')
         previous = self.current_character
         self.previous_character = previous
 
     def _on_fall(self):
         #
-        # _card_model = GameObject.get_object_pool().select_with_label("CardModel")[0]
+        # _card_model = GameObject.get_object_pool().select_with_label("CardController")[0]
         # self.previous_character = _card_model.previous_character
 
         # print(f'On_Fall')
@@ -147,7 +147,7 @@ class CardView(GameObject):
             position.x = 0
 
     def on_script(self):
-        if not CardView._initialized and CardModel._initialized and CharacterModel._initialized and BattleLogic._initialized and BattleLogic.started:
+        if not CardView._initialized and CardController._initialized and CharacterController._initialized and BattleLogic._initialized and BattleLogic.started:
             self._initialize()
         elif CardView._initialized:
             pass

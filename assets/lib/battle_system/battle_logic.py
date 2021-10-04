@@ -2,7 +2,7 @@ import pygame
 
 from property.initialize_property import InitializeProperty, InitializeState
 
-from assets.lib.battle_system.battle_character import BattleCharacter
+from assets.lib.battle_system.battle_character_model import BattleCharacter
 from assets.lib.card_utilities.card_manager import CardManager
 from assets.lib.battle_system.log import Logs
 from assets.lib.game_object_shared_resource import GameObjectSharedResource
@@ -12,23 +12,23 @@ class BattleLogic(GameObjectSharedResource):
 
     BATTLE_LOGIC_SIGNAL = pygame.event.custom_type()
 
-    QUEUE_MODEL_SIGNAL = pygame.event.custom_type()
-    ACTION_MODEL_SIGNAL = pygame.event.custom_type()
+    QUEUE_CONTROLLER_SIGNAL = pygame.event.custom_type()
+    ACTION_CONTROLLER_SIGNAL = pygame.event.custom_type()
     SHUFFLE_DECK_SIGNAL = pygame.event.custom_type()
     DRAW_CARD_SIGNAL = pygame.event.custom_type()
-    CARD_MODEL_SIGNAL = pygame.event.custom_type()
-    ITEM_MODEL_SIGNAL = pygame.event.custom_type()
-    CHARACTER_MODEL_SIGNAL = pygame.event.custom_type()
+    CARD_CONTROLLER_SIGNAL = pygame.event.custom_type()
+    ITEM_CONTROLLER_SIGNAL = pygame.event.custom_type()
+    CHARACTER_CONTROLLER_SIGNAL = pygame.event.custom_type()
     CHARACTER_VIEW_MANAGER_SIGNAL = pygame.event.custom_type()
     AI_CONTROLLER_SIGNAL = pygame.event.custom_type()
 
-    QUEUE_MODEL_RESPONSE = pygame.event.custom_type()
-    ACTION_MODEL_RESPONSE = pygame.event.custom_type()
+    QUEUE_CONTROLLER_RESPONSE = pygame.event.custom_type()
+    ACTION_CONTROLLER_RESPONSE = pygame.event.custom_type()
     SHUFFLE_DECK_RESPONSE = pygame.event.custom_type()
     DRAW_CARD_RESPONSE = pygame.event.custom_type()
-    CARD_MODEL_RESPONSE = pygame.event.custom_type()
-    ITEM_MODEL_RESPONSE = pygame.event.custom_type()
-    CHARACTER_MODEL_RESPONSE = pygame.event.custom_type()
+    CARD_CONTROLLER_RESPONSE = pygame.event.custom_type()
+    ITEM_CONTROLLER_RESPONSE = pygame.event.custom_type()
+    CHARACTER_CONTROLLER_RESPONSE = pygame.event.custom_type()
     CHARACTER_VIEW_MANAGER_RESPONSE = pygame.event.custom_type()
     AI_CONTROLLER_RESPONSE = pygame.event.custom_type()
 
@@ -69,9 +69,9 @@ class BattleLogic(GameObjectSharedResource):
 
 
         # if BattleLogic.started == False \
-        #     and len(GameObject.get_object_pool().select_with_label('CharacterModel')) != 0 \
-        #     and len(GameObject.get_object_pool().select_with_label('CardModel')) != 0 \
-        #     and len(GameObject.get_object_pool().select_with_label('QueueModel')) != 0 \
+        #     and len(GameObject.get_object_pool().select_with_label('CharacterController')) != 0 \
+        #     and len(GameObject.get_object_pool().select_with_label('CardController')) != 0 \
+        #     and len(GameObject.get_object_pool().select_with_label('QueueController')) != 0 \
         #     and len(GameObject.get_object_pool().select_with_label('CardView')) != 0:
 
         # BattleLogic.started = True
@@ -139,18 +139,18 @@ class BattleLogic(GameObjectSharedResource):
             if signal.type == BattleLogic.CHARACTER_VIEW_MANAGER_RESPONSE and signal.subtype == "INITIAL":
                 Logs.DebugMessage.SignalReceived(self, signal, "BLS2<-BChVMS1")
 
-                emit_signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_SIGNAL, {"event": "QUEUE_MODEL_SIGNAL", "subtype": "INITIAL"})
+                emit_signal = pygame.event.Event(BattleLogic.QUEUE_CONTROLLER_SIGNAL, {"event": "QUEUE_CONTROLLER_SIGNAL", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "BLS2->QMS1")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "BLS2->QCS1")
                 return
 
             # BLS3
-            if signal.type == BattleLogic.QUEUE_MODEL_RESPONSE and signal.subtype == "INITIAL":
-                Logs.DebugMessage.SignalReceived(self, signal, "BLS3<-QMS1")
+            if signal.type == BattleLogic.QUEUE_CONTROLLER_RESPONSE and signal.subtype == "INITIAL":
+                Logs.DebugMessage.SignalReceived(self, signal, "BLS3<-QCS1")
 
                 emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_SIGNAL, {"event": "SHUFFLE_DECK_SIGNAL", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "BLS3->CMS1")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "BLS3->CCS1")
                 return
 
             # BATTLE_LOGIC TURN FLOW
@@ -159,35 +159,35 @@ class BattleLogic(GameObjectSharedResource):
                     signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "END_TURN":
 
                 if signal.type == BattleLogic.SHUFFLE_DECK_RESPONSE and signal.subtype == "INITIAL":
-                    Logs.DebugMessage.SignalReceived(self, signal, "BL1<-CMS1")
+                    Logs.DebugMessage.SignalReceived(self, signal, "BL1<-CCS1")
                     Logs.InfoMessage.SimpleInfo(self, "<FINISH SETUP>")
                 if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "END_TURN":
                     Logs.DebugMessage.SignalReceived(self, signal, "BL1<-?BL101")
 
                 Logs.InfoMessage.SimpleInfo(self, "NASTĘPNA POSTAĆ")
-                emit_signal = pygame.event.Event(BattleLogic.QUEUE_MODEL_SIGNAL, {"event": "QUEUE_MODEL_SIGNAL", "subtype": "STANDARD"})
+                emit_signal = pygame.event.Event(BattleLogic.QUEUE_CONTROLLER_SIGNAL, {"event": "QUEUE_CONTROLLER_SIGNAL", "subtype": "STANDARD"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL1->QM1")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL1->QC1")
                 return
 
             # BL2
-            if signal.type == BattleLogic.QUEUE_MODEL_RESPONSE and signal.subtype == "STANDARD":
-                Logs.DebugMessage.SignalReceived(self, signal, "BL2<-QM1")
+            if signal.type == BattleLogic.QUEUE_CONTROLLER_RESPONSE and signal.subtype == "STANDARD":
+                Logs.DebugMessage.SignalReceived(self, signal, "BL2<-QC1")
 
-                emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_SIGNAL, {"event": "ACTION_MODEL_SIGNAL", "subtype": "PRE_TURN"})
+                emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_SIGNAL, {"event": "ACTION_CONTROLLER_SIGNAL", "subtype": "PRE_TURN"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL2->AM1")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL2->AC1")
                 return
 
             # LOOP (DRAW)
             # BL3
-            if signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "PRE_TURN" or \
-                    signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "POST_DRAW":
+            if signal.type == BattleLogic.ACTION_CONTROLLER_RESPONSE and signal.subtype == "PRE_TURN" or \
+                    signal.type == BattleLogic.ACTION_CONTROLLER_RESPONSE and signal.subtype == "POST_DRAW":
 
-                if signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "PRE_TURN":
-                    Logs.DebugMessage.SignalReceived(self, signal, "BL3<-AM1")
-                if signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "POST_DRAW":
-                    Logs.DebugMessage.SignalReceived(self, signal, "BL3<-AM3")
+                if signal.type == BattleLogic.ACTION_CONTROLLER_RESPONSE and signal.subtype == "PRE_TURN":
+                    Logs.DebugMessage.SignalReceived(self, signal, "BL3<-AC1")
+                if signal.type == BattleLogic.ACTION_CONTROLLER_RESPONSE and signal.subtype == "POST_DRAW":
+                    Logs.DebugMessage.SignalReceived(self, signal, "BL3<-AC3")
 
                 # IF Czy dobiera kartę?
                 Logs.InfoMessage.SimpleInfo(self, "CZY DOBIERA KARTĘ?")
@@ -221,7 +221,7 @@ class BattleLogic(GameObjectSharedResource):
 
                     emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_SIGNAL, {"event": "SHUFFLE_DECK_SIGNAL", "subtype": "STANDARD"})
                     pygame.event.post(emit_signal)
-                    Logs.DebugMessage.SignalEmit(self, emit_signal, "BL3A->CM2")
+                    Logs.DebugMessage.SignalEmit(self, emit_signal, "BL3A->CC2")
                     return
                 if len(self.current_character.draw_pile) >= 1:
                     Logs.InfoMessage.SimpleInfo(self, "TAK")
@@ -236,31 +236,31 @@ class BattleLogic(GameObjectSharedResource):
                     signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "NO_SHUFFLE":
 
                 if signal.type == BattleLogic.SHUFFLE_DECK_RESPONSE and signal.subtype == "STANDARD":
-                    Logs.DebugMessage.SignalReceived(self, signal, "BL4<-CM2")
+                    Logs.DebugMessage.SignalReceived(self, signal, "BL4<-CC2")
                 if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "NO_SHUFFLE":
                     Logs.DebugMessage.SignalReceived(self, signal, "BL4<-BL3A")
 
-                emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_SIGNAL, {"event": "ACTION_MODEL_SIGNAL", "subtype": "PRE_DRAW"})
+                emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_SIGNAL, {"event": "ACTION_CONTROLLER_SIGNAL", "subtype": "PRE_DRAW"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL4->AM2")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL4->AC2")
                 return
 
             # BL5
-            if signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "PRE_DRAW":
-                Logs.DebugMessage.SignalReceived(self, signal, "BL5<-AM2")
+            if signal.type == BattleLogic.ACTION_CONTROLLER_RESPONSE and signal.subtype == "PRE_DRAW":
+                Logs.DebugMessage.SignalReceived(self, signal, "BL5<-AC2")
 
                 emit_signal = pygame.event.Event(BattleLogic.DRAW_CARD_SIGNAL, {"event": "DRAW_CARD_SIGNAL", "subtype": "STANDARD"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL5->CM3")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL5->CC3")
                 return
 
             # BL6
             if signal.type == BattleLogic.DRAW_CARD_RESPONSE and signal.subtype == "STANDARD":
-                Logs.DebugMessage.SignalReceived(self, signal, "BL6<-CM3")
+                Logs.DebugMessage.SignalReceived(self, signal, "BL6<-CC3")
 
-                emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_SIGNAL, {"event": "ACTION_MODEL_SIGNAL", "subtype": "POST_DRAW"})
+                emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_SIGNAL, {"event": "ACTION_CONTROLLER_SIGNAL", "subtype": "POST_DRAW"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL6->AM3")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL6->AC3")
                 return
 
             # BL7
@@ -284,7 +284,7 @@ class BattleLogic(GameObjectSharedResource):
             #         return
 
             if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "END_DRAW" or \
-                    signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "POST_ACTION":
+                    signal.type == BattleLogic.ACTION_CONTROLLER_RESPONSE and signal.subtype == "POST_ACTION":
                 Logs.DebugMessage.SignalReceived(self, signal, "BL7<-BL3")
                 # IF Czy postać może wykonać akcję?:
                 Logs.InfoMessage.SimpleInfo(self, "CZY POSTAĆ MOŻE WYKONAĆ AKCJĘ?")
@@ -308,12 +308,12 @@ class BattleLogic(GameObjectSharedResource):
             # PLAYER TURN
             # BL8
             # if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "PLAYER_TURN" or \
-            #         signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "POST_ACTION":
+            #         signal.type == BattleLogic.ACTION_CONTROLLER_RESPONSE and signal.subtype == "POST_ACTION":
             #
             #     if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "PLAYER_TURN":
             #         Logs.DebugMessage.SignalReceived(self, signal, "BL8<-BL7")
-            #     if signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "POST_ACTION":
-            #         Logs.DebugMessage.SignalReceived(self, signal, "BL8<-AM5")
+            #     if signal.type == BattleLogic.ACTION_CONTROLLER_RESPONSE and signal.subtype == "POST_ACTION":
+            #         Logs.DebugMessage.SignalReceived(self, signal, "BL8<-AC5")
             #
             #     # IF Czy postać może wykonać akcję?:
             #     Logs.InfoMessage.SimpleInfo(self, "CZY POSTAĆ MOŻE WYKONAĆ AKCJĘ?")
@@ -369,69 +369,69 @@ class BattleLogic(GameObjectSharedResource):
                 item = False
                 if card:
                     Logs.InfoMessage.SimpleInfo(self, "UŻYTA KARTA")
-                    emit_signal = pygame.event.Event(BattleLogic.CARD_MODEL_SIGNAL, {"event": "CARD_MODEL_SIGNAL", "subtype": "STANDARD"})
+                    emit_signal = pygame.event.Event(BattleLogic.CARD_CONTROLLER_SIGNAL, {"event": "CARD_CONTROLLER_SIGNAL", "subtype": "STANDARD"})
                     pygame.event.post(emit_signal)
-                    Logs.DebugMessage.SignalEmit(self, emit_signal, "BL9->CM4")
+                    Logs.DebugMessage.SignalEmit(self, emit_signal, "BL9->CC4")
                     return
 
-                # Nie ma ItemModel
+                # Nie ma ItemController
                 if item:
                     Logs.InfoMessage.SimpleInfo(self, "UŻYTY PRZEDMIOT")
-                    emit_signal = pygame.event.Event(BattleLogic.ITEM_MODEL_SIGNAL, {"event": "ITEM_MODEL_SIGNAL", "subtype": "STANDARD"})
+                    emit_signal = pygame.event.Event(BattleLogic.ITEM_CONTROLLER_SIGNAL, {"event": "ITEM_CONTROLLER_SIGNAL", "subtype": "STANDARD"})
                     pygame.event.post(emit_signal)
-                    Logs.DebugMessage.SignalEmit(self, emit_signal, "BL9->IM1")
+                    Logs.DebugMessage.SignalEmit(self, emit_signal, "BL9->IC1")
                     return
 
             # BL12
-            if signal.type == BattleLogic.CARD_MODEL_RESPONSE and signal.subtype == "STANDARD" or \
-                    signal.type == BattleLogic.ITEM_MODEL_RESPONSE and signal.subtype == "STANDARD":
+            if signal.type == BattleLogic.CARD_CONTROLLER_RESPONSE and signal.subtype == "STANDARD" or \
+                    signal.type == BattleLogic.ITEM_CONTROLLER_RESPONSE and signal.subtype == "STANDARD":
 
-                if signal.type == BattleLogic.CARD_MODEL_RESPONSE and signal.subtype == "STANDARD":
-                    Logs.DebugMessage.SignalReceived(self, signal, "BL12<-CM4")
-                if signal.type == BattleLogic.ITEM_MODEL_RESPONSE and signal.subtype == "STANDARD":
-                    Logs.DebugMessage.SignalReceived(self, signal, "BL12<-IM1")
+                if signal.type == BattleLogic.CARD_CONTROLLER_RESPONSE and signal.subtype == "STANDARD":
+                    Logs.DebugMessage.SignalReceived(self, signal, "BL12<-CC4")
+                if signal.type == BattleLogic.ITEM_CONTROLLER_RESPONSE and signal.subtype == "STANDARD":
+                    Logs.DebugMessage.SignalReceived(self, signal, "BL12<-IC1")
 
-                emit_signal = pygame.event.Event(BattleLogic.CHARACTER_MODEL_SIGNAL, {"event": "CHARACTER_MODEL_SIGNAL", "subtype": "STANDARD"})
+                emit_signal = pygame.event.Event(BattleLogic.CHARACTER_CONTROLLER_SIGNAL, {"event": "CHARACTER_CONTROLLER_SIGNAL", "subtype": "STANDARD"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL12->ChM1")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL12->ChC1")
                 return
 
             # BL13
-            if signal.type == BattleLogic.CHARACTER_MODEL_RESPONSE and signal.subtype == "STANDARD" or \
+            if signal.type == BattleLogic.CHARACTER_CONTROLLER_RESPONSE and signal.subtype == "STANDARD" or \
                     signal.type == BattleLogic.AI_CONTROLLER_RESPONSE and signal.subtype == "STANDARD":
 
-                if signal.type == BattleLogic.CHARACTER_MODEL_RESPONSE and signal.subtype == "STANDARD":
-                    Logs.DebugMessage.SignalReceived(self, signal, "BL13<-ChM1")
+                if signal.type == BattleLogic.CHARACTER_CONTROLLER_RESPONSE and signal.subtype == "STANDARD":
+                    Logs.DebugMessage.SignalReceived(self, signal, "BL13<-ChC1")
                 if signal.type == BattleLogic.AI_CONTROLLER_RESPONSE and signal.subtype == "STANDARD":
                     Logs.DebugMessage.SignalReceived(self, signal, "BL13<-AIC1")
 
 
-                emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_SIGNAL, {"event": "ACTION_MODEL_SIGNAL", "subtype": "STANDARD"})
+                emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_SIGNAL, {"event": "ACTION_CONTROLLER_SIGNAL", "subtype": "STANDARD"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL13->AM4")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL13->AC4")
                 return
 
             # BL14
-            if signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "STANDARD":
-                Logs.DebugMessage.SignalReceived(self, signal, "BL14<-AM4")
+            if signal.type == BattleLogic.ACTION_CONTROLLER_RESPONSE and signal.subtype == "STANDARD":
+                Logs.DebugMessage.SignalReceived(self, signal, "BL14<-AC4")
 
-                emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_SIGNAL, {"event": "ACTION_MODEL_SIGNAL", "subtype": "POST_ACTION"})
+                emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_SIGNAL, {"event": "ACTION_CONTROLLER_SIGNAL", "subtype": "POST_ACTION"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL14->AM5")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "BL14->AC5")
                 return
 
             # ?BL100
             if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "NO_ACTION":
                 Logs.DebugMessage.SignalReceived(self, signal, "?BL100<-BL8")
 
-                emit_signal = pygame.event.Event(BattleLogic.ACTION_MODEL_SIGNAL, {"event": "ACTION_MODEL_SIGNAL", "subtype": "POST_TURN"})
+                emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_SIGNAL, {"event": "ACTION_CONTROLLER_SIGNAL", "subtype": "POST_TURN"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "?#BL100->?AM100")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "?#BL100->?AC100")
                 return
 
             # ?BL101
-            if signal.type == BattleLogic.ACTION_MODEL_RESPONSE and signal.subtype == "POST_TURN":
-                Logs.DebugMessage.SignalReceived(self, signal, "?BL101<-?AM100")
+            if signal.type == BattleLogic.ACTION_CONTROLLER_RESPONSE and signal.subtype == "POST_TURN":
+                Logs.DebugMessage.SignalReceived(self, signal, "?BL101<-?AC100")
 
                 # IF Czy walka zakończona?:
                 Logs.InfoMessage.SimpleInfo(self, "CZY WALKA ZAKOŃCZONA?")

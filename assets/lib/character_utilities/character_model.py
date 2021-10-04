@@ -1,11 +1,11 @@
 from game_object.game_object import GameObject
 
-from assets.lib.battle_system.ai_preferences import Preferences
+from assets.lib.battle_system.ai_utilities.ai_preferences import Preferences
 from assets.lib.character_utilities.attributes import Attributes
 from assets.lib.card_utilities.deck import Deck
 from assets.lib.item_utilities.equipment import Equipment
 from assets.lib.item_utilities.inventory import Inventory
-from assets.lib.item_utilities.item import NoCardInItemException
+from assets.lib.item_utilities.item_model import NoCardInItemException
 from assets.lib.item_utilities.item_manager import ItemManager
 
 
@@ -39,6 +39,7 @@ class BaseCharacter(GameObject):
         self.status_list.append(status)
 
     def remove_status(self, status):
+        print(f'usunięto status: {status.name}')
         self.status_list.remove(status)
 
     def add_equip(self, slot, item):

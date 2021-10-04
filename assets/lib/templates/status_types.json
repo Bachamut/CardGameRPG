@@ -43,7 +43,7 @@
     "persistance": "BATTLE_ONLY",
     "status_role": "temporary_modifier",
     "rate": "instant",
-    "activation": "POST_ACTION",
+    "activation": "None",
     "deactivation": "PRE_TURN"
   }
 }

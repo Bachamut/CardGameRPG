@@ -1,6 +1,6 @@
 import json
 
-from assets.lib.character_utilities.character import BaseCharacter
+from assets.lib.character_utilities.character_model import BaseCharacter
 
 
 class CharacterManager:

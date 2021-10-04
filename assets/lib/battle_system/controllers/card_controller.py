@@ -8,8 +8,6 @@ from property.initialize_property import InitializeState, InitializeProperty
 
 from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.card_utilities.card_manager import CardManager
-from assets.lib.battle_system.character_model import CharacterModel
-from assets.lib.game_logic import GameLogic
 from resource_manager.shared_resource import SharedResource
 from assets.lib.battle_system.log import Logs
 from assets.lib.game_object_shared_resource import GameObjectSharedResource
@@ -18,10 +16,10 @@ CARD_VIEW_ON_RISE = pygame.event.custom_type()
 CARD_VIEW_ON_FALL = pygame.event.custom_type()
 
 
-class CardModel(GameObjectSharedResource):
+class CardController(GameObjectSharedResource):
 
 
-    # CardModel SharedResources definitions
+    # CardController SharedResources definitions
 
     @property
     def onboard_cards(self):
@@ -44,7 +42,7 @@ class CardModel(GameObjectSharedResource):
     _initialized = False
 
     def __init__(self):
-        super(CardModel, self).__init__()
+        super(CardController, self).__init__()
 
         self._onboard_cards = SharedResource()
         self._onboard_cards = list()
@@ -60,16 +58,16 @@ class CardModel(GameObjectSharedResource):
     def _initialize(self):
 
         if InitializeProperty.check_status(self, InitializeState.INITIALIZED):
-            super(CardModel, self)._initialize()
+            super(CardController, self)._initialize()
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.SimpleInfo(self, "CardModel Initialized [ OK ]")
+            Logs.InfoMessage.SimpleInfo(self, "CardController Initialized [ OK ]")
 
             return
 
         if InitializeProperty.check_status(self, InitializeState.STARTED):
             InitializeProperty.started(self)
             self.property('SignalProperty').property_enable()
-            Logs.InfoMessage.SimpleInfo(self, "CharacterModel Started [ OK ]")
+            Logs.InfoMessage.SimpleInfo(self, "CharacterController Started [ OK ]")
 
             return
 
@@ -105,7 +103,7 @@ class CardModel(GameObjectSharedResource):
     @staticmethod
     def shuffle_deck(character):
         for it in range(0, len(character.discard_pile)):
-            CardModel.revert_discard(character)
+            CardController.revert_discard(character)
         random.shuffle(character.draw_pile)
 
     @staticmethod
@@ -116,7 +114,7 @@ class CardModel(GameObjectSharedResource):
     @staticmethod
     def discard_draw_pile(character):
         for it in range(0, len(character.draw_pile)):
-            CardModel.discard_top_card(character)
+            CardController.discard_top_card(character)
 
     @staticmethod
     def discard_top_card(character):
@@ -132,7 +130,7 @@ class CardModel(GameObjectSharedResource):
     @staticmethod
     def draw_hand(character):
         for it in range(0, character.card_draw):
-            CardModel.draw_card(character)
+            CardController.draw_card(character)
 
     @staticmethod
     def discard_hand_card(character):
@@ -142,7 +140,7 @@ class CardModel(GameObjectSharedResource):
     @staticmethod
     def discard_hand(character):
         for it in range(0, len(character.hand)):
-            CardModel.discard_hand_card(character)
+            CardController.discard_hand_card(character)
 
     def on_script(self):
         pass
@@ -157,67 +155,67 @@ class CardModel(GameObjectSharedResource):
 
     def on_signal(self, signal):
 
-            # CMS1
+            # CCS1
             if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "INITIAL":
-                Logs.DebugMessage.SignalReceived(self, signal, "CMS1<-BLS2")
+                Logs.DebugMessage.SignalReceived(self, signal, "CCS1<-BLS2")
 
                 # Shuffling deck
                 for character in (self.battle_ally + self.battle_enemies):
-                    CardModel.shuffle_deck(character)
+                    CardController.shuffle_deck(character)
 
                 emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "CMS1->BL1")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "CCS1->BL1")
                 return
 
-            # CM2
+            # CC2
             if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "STANDARD":
-                Logs.DebugMessage.SignalReceived(self, signal, "CM2<-BL3A")
+                Logs.DebugMessage.SignalReceived(self, signal, "CC2<-BL3A")
 
                 # Deck shuffle if there is no cards in draw_pile
-                CardModel.shuffle_deck(self.current_character)
+                CardController.shuffle_deck(self.current_character)
 
                 emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "STANDARD"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "CM2->BL4")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "CC2->BL4")
                 return
 
-            # CM3
+            # CC3
             if signal.type == BattleLogic.DRAW_CARD_SIGNAL and signal.subtype == "STANDARD":
-                Logs.DebugMessage.SignalReceived(self, signal, "CM3<-BL5")
+                Logs.DebugMessage.SignalReceived(self, signal, "CC3<-BL5")
 
                 # Card_draw
-                CardModel.draw_card(self.current_character)
+                CardController.draw_card(self.current_character)
                 # print(f'{self.current_character.name} hand: {self.current_character.hand}')
 
                 emit_signal = pygame.event.Event(BattleLogic.DRAW_CARD_RESPONSE, {"event": "DRAW_CARD_RESPONSE", "subtype": "STANDARD"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "CM3->BL6")
+                Logs.DebugMessage.SignalEmit(self, emit_signal, "CC3->BL6")
                 return
 
-            # CM4
-            if signal.type == BattleLogic.CARD_MODEL_SIGNAL and signal.subtype == "STANDARD" or \
-                    signal.type == BattleLogic.CARD_MODEL_SIGNAL and signal.subtype == "CARD_SELECTION":
+            # CC4
+            if signal.type == BattleLogic.CARD_CONTROLLER_SIGNAL and signal.subtype == "STANDARD" or \
+                    signal.type == BattleLogic.CARD_CONTROLLER_SIGNAL and signal.subtype == "CARD_SELECTION":
 
-                if signal.type == BattleLogic.CARD_MODEL_SIGNAL and signal.subtype == "STANDARD":
-                    Logs.DebugMessage.SignalReceived(self, signal, "CM4<-BL9")
-                # if signal.type == BattleLogic.CARD_MODEL_SIGNAL and signal.subtype == "CARD_SELECTION":
-                #     Logs.DebugMessage.SignalReceived(self, signal, "CM4<-CM4")
+                if signal.type == BattleLogic.CARD_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
+                    Logs.DebugMessage.SignalReceived(self, signal, "CC4<-BL9")
+                # if signal.type == BattleLogic.CARD_CONTROLLER_SIGNAL and signal.subtype == "CARD_SELECTION":
+                #     Logs.DebugMessage.SignalReceived(self, signal, "CC4<-CC4")
 
                 # Arrows event block for card choose
-                if signal.type == BattleLogic.CARD_MODEL_SIGNAL and signal.subtype == "STANDARD":
+                if signal.type == BattleLogic.CARD_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
                     Logs.InfoMessage.SimpleInfo(self, "ARROW EVENT LOOP STARTED")
                     self._card_confirmed = False
                     self.property('EventProperty').property_enable()
-                    emit_signal = pygame.event.Event(BattleLogic.CARD_MODEL_SIGNAL, {"event": "CARD_MODEL_SIGNAL", "subtype": "CARD_SELECTION"})
+                    emit_signal = pygame.event.Event(BattleLogic.CARD_CONTROLLER_SIGNAL, {"event": "CARD_CONTROLLER_SIGNAL", "subtype": "CARD_SELECTION"})
                     pygame.event.post(emit_signal)
                     return
 
                 if self._card_confirmed == False:
                     # Logs.InfoMessage.SimpleInfo(self, "PRESS ARROW")
-                    emit_signal = pygame.event.Event(BattleLogic.CARD_MODEL_SIGNAL, {"event": "CARD_MODEL_SIGNAL", "subtype": "CARD_SELECTION"})
+                    emit_signal = pygame.event.Event(BattleLogic.CARD_CONTROLLER_SIGNAL, {"event": "CARD_CONTROLLER_SIGNAL", "subtype": "CARD_SELECTION"})
                     pygame.event.post(emit_signal)
-                    # Logs.DebugMessage.SignalEmit(self, emit_signal, "CM4->CM4")
+                    # Logs.DebugMessage.SignalEmit(self, emit_signal, "CC4->CC4")
                     return
 
                 if self._card_confirmed == True:
@@ -225,9 +223,9 @@ class CardModel(GameObjectSharedResource):
                     self.property('EventProperty').property_disable()
                     # Set previous_character
                     self.previous_character = self.current_character
-                    emit_signal = pygame.event.Event(BattleLogic.CARD_MODEL_RESPONSE, {"event": "CARD_MODEL_RESPONSE", "subtype": "STANDARD"})
+                    emit_signal = pygame.event.Event(BattleLogic.CARD_CONTROLLER_RESPONSE, {"event": "CARD_CONTROLLER_RESPONSE", "subtype": "STANDARD"})
                     pygame.event.post(emit_signal)
-                    Logs.DebugMessage.SignalEmit(self, emit_signal, "CM4->BL12")
+                    Logs.DebugMessage.SignalEmit(self, emit_signal, "CC4->BL12")
                     return
 
     def _on_arrow_right(self, event):

@@ -1,13 +1,14 @@
 import pygame
 from property.initialize_property import InitializeProperty, InitializeState
 
-from assets.lib.battle_system.action_process import ActionProcess
+from assets.lib.battle_system.action_utilities.action_process import ActionProcess
 from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.battle_system.log import Logs
 from assets.lib.game_object_shared_resource import GameObjectSharedResource
 
 
 class AIController(GameObjectSharedResource):
+    """Control block for AI algorithm"""
 
     _initialized = False
 
