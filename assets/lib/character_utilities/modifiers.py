@@ -1,7 +1,9 @@
 
 class Modifiers:
 
-    def __init__(self, attributes, value):
+    def __init__(self, attribute, value, related_status):
 
-        self.attributes = attributes
+        self._related_status = related_status
+
+        self.attribute = attribute
         self.value = value

@@ -1,7 +1,9 @@
 import pygame
 
+from assets.lib.battle_system.battle_modifiers import BattleModifiers
 from assets.lib.character_utilities.attributes import Attributes
 from assets.lib.character_utilities.character_model import BaseCharacter
+from assets.lib.character_utilities.modifiers import Modifiers
 
 
 class BattleCharacter(BaseCharacter):
@@ -33,7 +35,7 @@ class BattleCharacter(BaseCharacter):
 
         self.character_view = None
         self.battle_attributes = self.base_attributes + self.base_modifiers
-        self.battle_modifiers = Attributes()
+        self.battle_modifiers = BattleModifiers()
         self.battle_deck = list()
         self.draw_pile = list()
         self.discard_pile = list()
@@ -46,11 +48,16 @@ class BattleCharacter(BaseCharacter):
         setattr(self.battle_attributes, attribute, battle_attributes_value + value)
         print(f'{self.name}: battle_attributes.{attribute}:{getattr(self.battle_attributes, attribute)}')
 
-    def modify_battle_modifiers(self, attribute, value):
-        print(f'{self.name}: battle_modifiers.{attribute}:{getattr(self.battle_modifiers, attribute)}')
-        battle_modifiers_value = getattr(self.battle_modifiers, attribute)
-        setattr(self.battle_modifiers, attribute, battle_modifiers_value + value)
-        print(f'{self.name}: battle_modifiers.{attribute}:{getattr(self.battle_modifiers, attribute)}')
+    def modify_battle_modifiers(self, attribute, value, related_status):
+
+        modifier = Modifiers(attribute, value, related_status)
+
+        self.battle_modifiers.add_modifier(modifier)
+
+        # print(f'{self.name}: battle_modifiers.{attribute}:{getattr(self.battle_modifiers, attribute)}')
+        # battle_modifiers_value = getattr(self.battle_modifiers, attribute)
+        # setattr(self.battle_modifiers, attribute, battle_modifiers_value + value)
+        # print(f'{self.name}: battle_modifiers.{attribute}:{getattr(self.battle_modifiers, attribute)}')
 
     @staticmethod
     def create_character_models(base_models):

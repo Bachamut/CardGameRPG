@@ -106,7 +106,11 @@ class ActionProcess:
     def status_expire(character, status):
 
         if status.duration == 0:
+
+            # remove battle_modifiers related to status
+            character.battle_modifiers.remove_related_modifier(status)
             character.remove_status(status)
+
         for status in character.status_list:
             print(f' {status.name}: duration = {status.duration}')
 

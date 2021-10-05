@@ -22,21 +22,29 @@ class ActionType:
     @staticmethod
     def status_stun(character, status):
 
+        # status.duration -= 1
+        # character.modify_battle_modifiers("action_points", -status.value)
+
+        # TODO: Uncomment this after debug
         status.duration -= 1
-        character.modify_battle_modifiers("action_points", -status.value)
+        character.modify_battle_modifiers("strength", -status.value, status)
 
     @staticmethod
     def status_harden(character, status):
 
         status.duration -= 1
-        character.modify_battle_modifiers("physical_resist", status.value)
+        character.modify_battle_modifiers("physical_resist", status.value, status)
 
     # Action types definition
     @staticmethod
     def basic_attack(caster, target, card):
 
-        value = (card.base_value + (caster.battle_attribute("strength") * \
-                         card.multiplier)) * (100 - target.battle_attribute("physical_resist")) / 100
+        # value = (card.base_value + (caster.battle_attribute("strength") * \
+        #                  card.multiplier)) * (100 - target.battle_attribute("physical_resist")) / 100
+
+        value = (card.base_value + ((caster.battle_attributes.strength + caster.battle_modifiers.strength) * \
+                         card.multiplier)) * (100 - (target.battle_attributes.physical_resist + target.battle_modifiers.physical_resist)) / 100
+
         return value
 
     @staticmethod
