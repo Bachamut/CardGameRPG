@@ -26,3 +26,4 @@ class Status(StatusType):
 
         self.value = value
         self.duration = duration
+        self.source = None

@@ -18,6 +18,7 @@ class ActionProcess:
         # status processing for target
         for status_type, parameters in card.target_status.items():
             status = Status(status_type, parameters['value'], parameters['duration'])
+            status.source = caster.name
 
             target.add_status(status)
             if status.rate == "instant":
@@ -26,6 +27,7 @@ class ActionProcess:
         # status processing for caster
         for status_type, parameters in card.caster_status.items():
             status = Status(status_type, parameters['value'], parameters['duration'])
+            status.source = caster.name
 
             caster.add_status(status)
             if status.rate == "instant":
@@ -98,7 +100,7 @@ class ActionProcess:
             if status.status_role == "action":
                 print(f'{status.name} nie ma dezaktywacji')
         else:
-            print(f'Nie ma statusu do deaktywacji')
+            print(f'Nie ma statusu do dezaktywacji')
 
     @staticmethod
     def status_expire(character, status):

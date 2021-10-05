@@ -3,6 +3,7 @@
   {
     "status_type": "bleed_1",
     "name": "bleed",
+    "sort": "dot",
     "description": "typical bleeding",
     "persistance": "BATTLE_ONLY",
     "status_role": "action",
@@ -15,6 +16,7 @@
   {
     "status_type": "poison_1",
     "name": "poison",
+    "sort": "dot",
     "description": "serious poison",
     "persistance": "BATTLE_ONLY",
     "status_role": "action",
@@ -27,11 +29,12 @@
   {
     "status_type": "stun_1",
     "name": "stun",
+    "sort": "debuff",
     "description": "Stun lowers character action points",
     "persistance": "BATTLE_ONLY",
-    "status_role": "permanent_modifier",
+    "status_role": "temporary_modifier",
     "rate": "instant",
-    "activation": "PRE_TURN",
+    "activation": "None",
     "deactivation": "POST_TURN"
   },
 
@@ -39,11 +42,24 @@
   {
     "status_type": "harden_1",
     "name": "harden",
+    "sort": "buff",
     "description": "Harden your physical resistance",
     "persistance": "BATTLE_ONLY",
     "status_role": "temporary_modifier",
     "rate": "instant",
     "activation": "None",
     "deactivation": "PRE_TURN"
+  },
+    "regeneration_1":
+  {
+    "status_type": "regeneration_1",
+    "name": "regeneration",
+    "sort": "buff",
+    "description": "regenerate health over time",
+    "persistance": "BATTLE_ONLY",
+    "status_role": "action",
+    "rate": "instant",
+    "activation": "POST_TURN",
+    "deactivation": "POST_TURN"
   }
 }

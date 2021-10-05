@@ -104,6 +104,79 @@ class AIController(GameObjectSharedResource):
 
         return cards_values
 
+    def card_target_status_values(self, card):
+
+        card_target_status_values = list()
+        status_matrix = list()
+        for status_type, parameters in card.target_status.items():
+
+            if status_type == "bleed_1":
+                status_value = parameters['value'] * parameters['duration'] * 2
+                status_matrix = [status_value, 0, 0]
+            if status_type == "poison_1":
+                status_value = parameters['value'] * parameters['duration'] * 3
+                status_matrix = [status_value, 0, 0]
+            if status_type == "stun_1":
+                status_value = parameters['value'] * parameters['duration'] * 5
+                status_matrix = [0, 0, status_value]
+            if status_type == "harden_1":
+                status_value = parameters['value'] * parameters['duration'] / 5
+                status_matrix = [0, 0, status_value]
+            if status_type == "regeneration_1":
+                status_value = parameters['value'] * parameters['duration'] * 2
+                status_matrix = [0, status_value, 0]
+
+            card_target_status_values.append(status_matrix)
+
+        return card_target_status_values
+
+    def card_caster_status_values(self, card):
+
+        card_caster_status_values = list()
+        status_matrix = list()
+
+        for status_type, parameters in card.caster_status.items():
+
+            if status_type == "bleed_1":
+                status_value = parameters['value'] * parameters['duration'] * 2
+                status_matrix = [status_value, 0, 0]
+            if status_type == "poison_1":
+                status_value = parameters['value'] * parameters['duration'] * 3
+                status_matrix = [status_value, 0, 0]
+            if status_type == "stun_1":
+                status_value = parameters['value'] * parameters['duration'] * 5
+                status_matrix = [0, 0, status_value]
+            if status_type == "harden_1":
+                status_value = parameters['value'] * parameters['duration'] / 5
+                status_matrix = [0, 0, status_value]
+            if status_type == "regeneration_1":
+                status_value = parameters['value'] * parameters['duration'] * 2
+                status_matrix = [0, status_value, 0]
+
+            card_caster_status_values.append(status_matrix)
+
+        return card_caster_status_values
+
+    def card_target_own_value(self, card):
+
+        card_target_own_value = list()
+
+
+    def values_by_targets(self, card):
+
+        values_by_targets = dict()
+        for target in self.battle_ally + self.battle_enemies:
+
+            card_matrix = list()
+            value = ActionProcess.value_calculation(self.current_character, target, card)
+            if card.sort == "dmg":
+                card_matrix = [value, 0 , 0]
+            if card.sort == "heal":
+                card_matrix = [0, value, 0]
+
+            values_by_targets[target] = card_matrix
+
+        return values_by_targets
 
 
 
