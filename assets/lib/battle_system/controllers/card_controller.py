@@ -138,6 +138,11 @@ class CardController(GameObjectSharedResource):
         character.discard_pile.append(card)
 
     @staticmethod
+    def discard_used_card(character, card):
+        character.hand.remove(card)
+        character.discard_pile.append(card)
+
+    @staticmethod
     def discard_hand(character):
         for it in range(0, len(character.hand)):
             CardController.discard_hand_card(character)

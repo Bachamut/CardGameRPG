@@ -7,6 +7,7 @@ from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.battle_system.controllers.card_controller import CardController
 from assets.lib.battle_system.log import Logs
 from assets.lib.card_utilities.card_manager import CardManager
+from assets.lib.card_utilities.card_model import BaseCard
 
 from assets.lib.game_object_shared_resource import GameObjectSharedResource
 
@@ -87,7 +88,10 @@ class ActionController(GameObjectSharedResource):
         if signal.type == BattleLogic.ACTION_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
             Logs.DebugMessage.SignalReceived(self, signal, "AC4<-BL13")
 
-            ActionController.action_controller_signal(self.current_character, self.confirmed_target, CardManager.create_battle_card(self.confirmed_card))
+            ActionController.action_controller_signal(self.current_character, self.confirmed_target, self.confirmed_card)
+
+            self.confirmed_target.clear()
+            self.confirmed_card = None
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_RESPONSE, {"event": "ACTION_CONTROLLER_RESPONSE", "subtype": "STANDARD"})
             pygame.event.post(emit_signal)
@@ -127,8 +131,14 @@ class ActionController(GameObjectSharedResource):
     @staticmethod
     def action_controller_signal(caster, targets, card):
 
+
+        CardController.discard_used_card(caster, card)
+
+        if not isinstance(card, BaseCard):
+            card = CardManager.create_battle_card(card)
+
         caster.modify_battle_attributes("action_points", -card.ap_cost)
-        # caster.base_attributes.action_points -= card.ap_cost
+
         print(f'{caster.name}: AP:{caster.battle_attribute("action_points")}')
 
         for target in targets:

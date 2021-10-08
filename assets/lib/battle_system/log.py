@@ -8,9 +8,9 @@ class Logs:
     # LogMessage DebugMessage InfoMessage
 
     target_point_enable = False
-    simple_info_enable = True
-    signal_emit_enable = True
-    signal_received_enable = True
+    simple_info_enable = False
+    signal_emit_enable = False
+    signal_received_enable = False
     event_key_press_enable = False
 
     class InfoMessage:

@@ -14,6 +14,7 @@ class ActionProcess:
         # health processing
         value = ActionProcess.value_calculation(caster, target, card)
         target.take_damage(value)
+        print(f'{caster.name} używa "{card.card_name}" na {target.name}, zadaje {value} obrażeń!')
 
         # status processing for target
         for status_type, parameters in card.target_status.items():
@@ -32,6 +33,8 @@ class ActionProcess:
             caster.add_status(status)
             if status.rate == "instant":
                 ActionProcess.activate_status(caster, status)
+
+        print(f'{caster.name} posiada {len(caster.status_list)} statusów:')
 
         # create action for caster and target
         caster_action = {card.action_type: value}
@@ -72,10 +75,8 @@ class ActionProcess:
 
         for index, status in enumerate(character.status_list):
             if status.deactivation == stage:
-                ActionProcess.deactivate_status(character, status)
+                # ActionProcess.deactivate_status(character, status)
                 ActionProcess.status_expire(character, status)
-
-        print(f'{character.name} posiada {len(character.status_list)} statusów:')
 
     @staticmethod
     def activate_status(character, status):
@@ -88,6 +89,7 @@ class ActionProcess:
             ActionType.status_stun(character, status)
         if status.status_type == "harden_1":
             ActionType.status_harden(character, status)
+        print(f'{character.name}: aktywowano {status.name} (pozostałe duration: {status.duration})')
 
     @staticmethod
     def deactivate_status(character, status):
@@ -106,13 +108,9 @@ class ActionProcess:
     def status_expire(character, status):
 
         if status.duration == 0:
-
             # remove battle_modifiers related to status
             character.battle_modifiers.remove_related_modifier(status)
             character.remove_status(status)
-
-        for status in character.status_list:
-            print(f' {status.name}: duration = {status.duration}')
 
     @staticmethod
     def restock_action_points(character):

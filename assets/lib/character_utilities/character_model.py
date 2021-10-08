@@ -36,10 +36,12 @@ class BaseCharacter(GameObject):
 
 
     def add_status(self, status):
+        print(f'{self.name}: otrzymano status {status.name}')
         self.status_list.append(status)
 
+
     def remove_status(self, status):
-        print(f'usunięto status: {status.name}')
+        print(f'{self.name}: usunięto status {status.name}')
         self.status_list.remove(status)
 
     def add_equip(self, slot, item):

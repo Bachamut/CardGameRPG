@@ -8,13 +8,15 @@ class ActionType:
     def status_bleed(character, status):
 
         status.duration -= 1
-        character.take_damage(status.value)
+        # character.take_damage(status.value)
+        character.modify_battle_attributes("health", -status.value)
 
     @staticmethod
     def status_poison(character, status):
 
         status.duration -= 1
-        character.take_damage(status.value)
+        # character.take_damage(status.value)
+        character.modify_battle_attributes("health", -status.value)
 
         if status.value >= 1:
             status.value -= 1
