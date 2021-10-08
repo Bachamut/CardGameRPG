@@ -15,12 +15,11 @@
     "target": "single",
     "caster_status":
     {
-      "bleed_1": {"value": 8, "duration": 1}
+
     },
     "target_status":
     {
-      "bleed_1": {"value": 5, "duration": 1},
-      "poison_1": {"value": 3, "duration": 3}
+      "bleed_1": {"value": 5, "duration": 2}
     }
   },
 
@@ -40,7 +39,7 @@
     "target": "single",
     "caster_status":
     {
-      "regeneration_1": {"value": 5, "duration": 3}
+
     },
     "target_status":
     {
