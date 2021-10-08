@@ -46,26 +46,12 @@ class AIController(GameObjectSharedResource):
         if signal.type == BattleLogic.AI_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
             Logs.DebugMessage.SignalReceived(self, signal, "AIC1<-BL8")
 
-            card = CardManager.create_battle_card(self.current_character.hand[0])
-            targets = self.battle_ally + self.battle_enemies
+            best_card, best_character = self.action_calculation()
 
-            possible_targets = self.possible_targets()
-            # focus_factor = self.focus_factor()
-
-            # card_target_status_value = self.target_status_by_targets(targets, card)
-
-            # value_by_targets = self.card_dmg_value_by_affiliation(targets, card)
-
-            self.confirmed_target, self.confirmed_card = self.action_calculation()
-            # cards_values = self.calculating_cards_values()
+            self.confirmed_card = best_card
+            self.confirmed_target.append(best_character)
 
             print(f'\nAI choosing action')
-
-            # print(f'card_target_status_value: \n{card_target_status_value}\n')
-
-            # Setting target and card
-            # self.confirmed_target.append(possible_targets[0])
-            # self.confirmed_card = self.current_character.hand[0]
 
             emit_signal = pygame.event.Event(BattleLogic.AI_CONTROLLER_RESPONSE, {"event": "AI_CONTROLLER_RESPONSE", "subtype": "STANDARD"})
             pygame.event.post(emit_signal)
@@ -102,9 +88,7 @@ class AIController(GameObjectSharedResource):
         for card in self.current_character.hand:
 
             battle_card = CardManager.create_battle_card(card)
-
             value_by_targets = self.card_value_by_affiliation(targets, battle_card)
-            # cards_values[battle_card] = value_by_targets
 
             for target, value_matrix in value_by_targets.items():
 
@@ -112,15 +96,13 @@ class AIController(GameObjectSharedResource):
                     value_matrix[index] *= value
 
                 value_by_targets[target] = sum(value_matrix)
-                # value_by_targets[target] = value_matrix
 
-            cards_values[battle_card] = value_by_targets
+            cards_values[card] = value_by_targets
 
         return cards_values
 
     def card_value_by_affiliation(self, targets, card):
 
-        # value_by_targets = self.card_dmg_value(card)
         value_by_targets = dict()
 
         for target in targets:
@@ -212,18 +194,7 @@ class AIController(GameObjectSharedResource):
             zipped_lists = zip(sum_value, status_matrix)
             sum_value = [x + y for (x, y) in zipped_lists]
 
-            # card_target_status_values.append(status_matrix)
-
         return sum_value
-
-    # def target_status_by_targets(self, targets, card):
-    #
-    #     card_target_status_value_by_targets = dict()
-    #     for target in targets:
-    #         card_target_status_values = self.target_status_value_calculation(target, card)
-    #         card_target_status_value_by_targets[target] = card_target_status_values
-    #
-    #     return card_target_status_value_by_targets
 
     def possible_targets(self):
 
@@ -247,11 +218,3 @@ class AIController(GameObjectSharedResource):
             focus_factor[target.name] = health_factor
 
         return focus_factor
-
-
-
-
-
-
-
-
