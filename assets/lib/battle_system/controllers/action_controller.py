@@ -1,4 +1,5 @@
 import pygame
+from asserts.type_assert import TypeAssert
 from property.initialize_property import InitializeProperty, InitializeState
 
 from assets.lib.battle_system.action_utilities.action_process import ActionProcess
@@ -131,6 +132,7 @@ class ActionController(GameObjectSharedResource):
     @staticmethod
     def action_controller_signal(caster, targets, card):
 
+        TypeAssert.equal(card, BaseCard)
 
         CardController.discard_used_card(caster, card)
 
