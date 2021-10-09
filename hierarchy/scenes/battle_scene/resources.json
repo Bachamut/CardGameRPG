@@ -1,185 +1,184 @@
 {
-  "resources":
-          [
-            {
-              "key": "GameLogic",
-              "type": "script",
-              "path": "assets/lib",
-              "file": "game_logic"
-            },
-            {
-              "key": "BattleLogic",
-              "type": "script",
-              "path": "assets/lib/battle_system",
-              "file": "battle_logic"
-            },
-            {
-              "key": "BaseCharacter",
-              "type": "script",
-              "path": "assets/lib/character_utilities",
-              "file": "character_model"
-            },
-            {
-              "key": "BaseCard",
-              "type": "script",
-              "path": "assets/lib/card_utilities",
-              "file": "card_model"
-            },
-            {
-              "key": "Item",
-              "type": "script",
-              "path": "assets/lib/item_utilities",
-              "file": "item_model"
-            },
-            {
-              "key": "CharacterController",
-              "type": "script",
-              "path": "assets/lib/battle_system/controllers",
-              "file": "character_controller"
-            },
-            {
-              "key": "AIController",
-              "type": "script",
-              "path": "assets/lib/battle_system/controllers",
-              "file": "ai_controller"
-            },
-            {
-              "key": "QueueController",
-              "type": "script",
-              "path": "assets/lib/battle_system/controllers",
-              "file": "queue_controller"
-            },
-            {
-              "key": "CharacterIcon",
-              "type": "image",
-              "path": "assets/battle_system",
-              "file": "character_icon.png"
-            },
-            {
-              "key": "CardController",
-              "type": "script",
-              "path": "assets/lib/battle_system/controllers",
-              "file": "card_controller"
-            },
-            {
-              "key": "ItemController",
-              "type": "script",
-              "path": "assets/lib/battle_system/controllers",
-              "file": "item_controller"
-            },
-            {
-              "key": "ActionController",
-              "type": "script",
-              "path": "assets/lib/battle_system/controllers",
-              "file": "action_controller"
-            },
-            {
-              "key": "PartyView",
-              "type": "script",
-              "path": "assets/lib/battle_system",
-              "file": "party_view"
-            },
-            {
-              "key": "EnemyView",
-              "type": "script",
-              "path": "assets/lib/battle_system",
-              "file": "enemy_view"
-            },
-            {
-              "key": "QueueView",
-              "type": "script",
-              "path": "assets/lib/battle_system",
-              "file": "queue_view"
-            },
-            {
-              "key": "BattleCharacterViewManager",
-              "type": "script",
-              "path": "assets/lib/battle_system",
-              "file": "battle_character_view_manager"
-            },
-            {
-              "key": "CardView",
-              "type": "script",
-              "path": "assets/lib/battle_system",
-              "file": "card_view"
-            },
-            {
-              "key": "ItemView",
-              "type": "script",
-              "path": "assets/lib",
-              "file": "item_view"
-            },
-            {
-              "key": "BattleBackground",
-              "type": "image",
-              "path": "assets",
-              "file": "BattleBackground.png"
-            },
-            {
-              "key": "Players",
-              "type": "image",
-              "path": "assets",
-              "file": "Players.png"
-            },
-            {
-              "key": "Enemies",
-              "type": "image",
-              "path": "assets",
-              "file": "Enemies.png"
-            },
-            {
-              "key": "ArcanaShotCard",
-              "type": "image",
-              "path": "assets/cards",
-              "file": "ArcanaShot.png"
-            },
-            {
-              "key": "BowShotCard",
-              "type": "image",
-              "path": "assets/cards",
-              "file": "BowShot.png"
-            },
-            {
-              "key": "FastStrikeCard",
-              "type": "image",
-              "path": "assets/cards",
-              "file": "FastStrike.png"
-            },
-            {
-              "key": "HeavyStrikeCard",
-              "type": "image",
-              "path": "assets/cards",
-              "file": "HeavyStrike.png"
-            },
-            {
-              "key": "MagicStrikeCard",
-              "type": "image",
-              "path": "assets/cards",
-              "file": "MagicStrike.png"
-            },
-            {
-              "key": "NimbleStrikeCard",
-              "type": "image",
-              "path": "assets/cards",
-              "file": "NimbleStrike.png"
-            },
-            {
-              "key": "PiercingStrikeCard",
-              "type": "image",
-              "path": "assets/cards",
-              "file": "PiercingStrike.png"
-            },
-            {
-              "key": "ShadowDaggerCard",
-              "type": "image",
-              "path": "assets/cards",
-              "file": "ShadowDagger.png"
-            },
-            {
-              "key": "ShieldBashCard",
-              "type": "image",
-              "path": "assets/cards",
-              "file": "ShieldBash.png"
-            }
-          ]
+  "resources": [
+    {
+      "key": "GameLogic",
+      "type": "script",
+      "path": "assets/lib",
+      "file": "game_logic"
+    },
+    {
+      "key": "BattleLogic",
+      "type": "script",
+      "path": "assets/lib/battle_system",
+      "file": "battle_logic"
+    },
+    {
+      "key": "BaseCharacter",
+      "type": "script",
+      "path": "assets/lib/character_utilities",
+      "file": "character_model"
+    },
+    {
+      "key": "BaseCard",
+      "type": "script",
+      "path": "assets/lib/card_utilities",
+      "file": "card_model"
+    },
+    {
+      "key": "Item",
+      "type": "script",
+      "path": "assets/lib/item_utilities",
+      "file": "item_model"
+    },
+    {
+      "key": "CharacterController",
+      "type": "script",
+      "path": "assets/lib/battle_system/controllers",
+      "file": "character_controller"
+    },
+    {
+      "key": "AIController",
+      "type": "script",
+      "path": "assets/lib/battle_system/controllers",
+      "file": "ai_controller"
+    },
+    {
+      "key": "QueueController",
+      "type": "script",
+      "path": "assets/lib/battle_system/controllers",
+      "file": "queue_controller"
+    },
+    {
+      "key": "CharacterIcon",
+      "type": "image",
+      "path": "assets/battle_system",
+      "file": "character_icon.png"
+    },
+    {
+      "key": "CardController",
+      "type": "script",
+      "path": "assets/lib/battle_system/controllers",
+      "file": "card_controller"
+    },
+    {
+      "key": "ItemController",
+      "type": "script",
+      "path": "assets/lib/battle_system/controllers",
+      "file": "item_controller"
+    },
+    {
+      "key": "ActionController",
+      "type": "script",
+      "path": "assets/lib/battle_system/controllers",
+      "file": "action_controller"
+    },
+    {
+      "key": "PartyView",
+      "type": "script",
+      "path": "assets/lib/battle_system",
+      "file": "party_view"
+    },
+    {
+      "key": "EnemyView",
+      "type": "script",
+      "path": "assets/lib/battle_system",
+      "file": "enemy_view"
+    },
+    {
+      "key": "QueueView",
+      "type": "script",
+      "path": "assets/lib/battle_system",
+      "file": "queue_view"
+    },
+    {
+      "key": "BattleCharacterViewController",
+      "type": "script",
+      "path": "assets/lib/battle_system/view_controllers",
+      "file": "battle_character_view_controller"
+    },
+    {
+      "key": "BattleCharacterViewManager",
+      "type": "script",
+      "path": "assets/lib/battle_system/view_controllers",
+      "file": "battle_character_view_manager"
+    },
+    {
+      "key": "CardView",
+      "type": "script",
+      "path": "assets/lib/battle_system",
+      "file": "card_view"
+    },
+    {
+      "key": "ItemView",
+      "type": "script",
+      "path": "assets/lib",
+      "file": "item_view"
+    },
+    {
+      "key": "BattleBackground",
+      "type": "image",
+      "path": "assets",
+      "file": "BattleBackground.png"
+    },
+    {
+      "key": "Enemies",
+      "type": "image",
+      "path": "assets",
+      "file": "Enemies.png"
+    },
+    {
+      "key": "ArcanaShotCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "ArcanaShot.png"
+    },
+    {
+      "key": "BowShotCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "BowShot.png"
+    },
+    {
+      "key": "FastStrikeCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "FastStrike.png"
+    },
+    {
+      "key": "HeavyStrikeCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "HeavyStrike.png"
+    },
+    {
+      "key": "MagicStrikeCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "MagicStrike.png"
+    },
+    {
+      "key": "NimbleStrikeCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "NimbleStrike.png"
+    },
+    {
+      "key": "PiercingStrikeCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "PiercingStrike.png"
+    },
+    {
+      "key": "ShadowDaggerCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "ShadowDagger.png"
+    },
+    {
+      "key": "ShieldBashCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "ShieldBash.png"
+    }
+  ]
 }

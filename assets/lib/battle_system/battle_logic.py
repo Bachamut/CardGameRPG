@@ -2,7 +2,7 @@ import pygame
 
 from property.initialize_property import InitializeProperty, InitializeState
 
-from assets.lib.battle_system.battle_character_model import BattleCharacter
+from assets.lib.battle_system.battle_character_utilities.battle_character_model import BattleCharacter
 from assets.lib.card_utilities.card_manager import CardManager
 from assets.lib.battle_system.log import Logs
 from assets.lib.game_object_shared_resource import GameObjectSharedResource
@@ -50,14 +50,14 @@ class BattleLogic(GameObjectSharedResource):
 
     def _initialize(self):
 
-        if InitializeProperty.check_status(self, InitializeState.NOT_INITIALIZED):
+        if InitializeProperty.check_is_ready(self, InitializeState.NOT_INITIALIZED):
             super(BattleLogic, self)._initialize()
             InitializeProperty.initialize_enable(self)
             Logs.InfoMessage.SimpleInfo(self, "BattleLogic Initialized [ OK ]")
 
             return
 
-        if InitializeProperty.check_status(self, InitializeState.STARTED):
+        if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
             InitializeProperty.started(self)
             self.property('ScriptProperty').property_enable()
             self.property('SignalProperty').property_enable()

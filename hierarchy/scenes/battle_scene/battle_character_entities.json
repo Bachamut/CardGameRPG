@@ -1,0 +1,22 @@
+{
+  "scene_name": "battle_scene",
+  "include": null,
+  "resources": ["battle_character_resources.json"],
+  "entities": [
+    {
+      "entity": "Players",
+      "object":
+      {
+        "object_class": "GameObject",
+        "object_type": null,
+        "object_label": "Players",
+        "create": false,
+        "properties": ["SpriteProperty", "BlitProperty", "TransformProperty", "TranslateProperty"],
+        "configure_properties":
+        {
+          "SpriteProperty": {"set_resource": "Players"}
+        }
+      }
+    }
+  ]
+}

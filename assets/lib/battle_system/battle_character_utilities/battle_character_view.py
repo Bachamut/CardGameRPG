@@ -26,7 +26,6 @@ class BattleCharacterView(GameObject):
 
                 return
 
-
         if signal.type == BattleLogic.CHARACTER_VIEW_SIGNAL and signal.subtype == "CASTER":
             if signal.receiver.object_hash == self.character_model.object_hash:
 

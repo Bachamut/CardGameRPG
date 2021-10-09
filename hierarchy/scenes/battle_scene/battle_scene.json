@@ -1,5 +1,6 @@
 {
   "scene_name": "battle_scene",
+  "include": ["battle_character_entities"],
   "resources": ["resources.json"],
 
   "entities":
@@ -173,6 +174,23 @@
               }
             },
             {
+              "entity": "BattleCharacterViewController",
+              "object":
+              {
+                "object_class": "BattleCharacterViewController",
+                "object_type": null,
+                "object_label": "BattleCharacterViewController",
+                "create": true,
+                "properties": ["InitializeProperty", "ScriptProperty", "SignalProperty"],
+                "configure_properties":
+                {
+                  "ScriptProperty": {"set_script": "BattleCharacterViewController", "property_state": "Disabled"},
+                  "SignalProperty": {"property_state": "Disabled"},
+                  "InitializeProperty": {"init_req": ["BattleCharacterViewManager.Initialized"], "start_req": ["BattleCharacterViewManager.Started"]}
+                }
+              }
+            },
+            {
               "entity": "PartyView",
               "object":
               {
@@ -244,21 +262,6 @@
                 "configure_properties":
                 {
                   "ScriptProperty": {"set_script": "CardView"}
-                }
-              }
-            },
-            {
-              "entity": "Players",
-              "object":
-              {
-                "object_class": "GameObject",
-                "object_type": null,
-                "object_label": "Players",
-                "create": true,
-                "properties": ["SpriteProperty", "BlitProperty", "TransformProperty", "TranslateProperty"],
-                "configure_properties":
-                {
-                  "SpriteProperty": {"set_resource": "Players"}
                 }
               }
             },

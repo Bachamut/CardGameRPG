@@ -3,7 +3,8 @@ from asserts.type_assert import TypeAssert
 from property.initialize_property import InitializeProperty, InitializeState
 
 from assets.lib.battle_system.action_utilities.action_process import ActionProcess
-from assets.lib.battle_system.battle_character_view_manager import BattleCharacterViewManager
+from assets.lib.battle_system.battle_character_utilities.battle_character_model import BattleCharacter
+from assets.lib.battle_system.view_controllers.battle_character_view_manager import BattleCharacterViewManager
 from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.battle_system.controllers.card_controller import CardController
 from assets.lib.battle_system.log import Logs
@@ -23,14 +24,14 @@ class ActionController(GameObjectSharedResource):
 
     def _initialize(self):
 
-        if InitializeProperty.check_status(self, InitializeState.INITIALIZED):
+        if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
             super(ActionController, self)._initialize()
             InitializeProperty.initialize_enable(self)
             Logs.InfoMessage.SimpleInfo(self, "ActionController Initialized [ OK ]")
 
             return
 
-        if InitializeProperty.check_status(self, InitializeState.STARTED):
+        if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
             InitializeProperty.started(self)
             self.property('SignalProperty').property_enable()
             Logs.InfoMessage.SimpleInfo(self, "ActionController Started [ OK ]")
@@ -132,6 +133,8 @@ class ActionController(GameObjectSharedResource):
     @staticmethod
     def action_controller_signal(caster, targets, card):
 
+        TypeAssert.equal(caster, BattleCharacter)
+        TypeAssert.islist_equal(targets, BattleCharacter)
         TypeAssert.equal(card, BaseCard)
 
         CardController.discard_used_card(caster, card)

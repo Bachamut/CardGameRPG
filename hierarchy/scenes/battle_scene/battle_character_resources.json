@@ -1,0 +1,10 @@
+{
+  "resources": [
+    {
+      "key": "Players",
+      "type": "image",
+      "path": "assets",
+      "file": "Players.png"
+    }
+  ]
+}
