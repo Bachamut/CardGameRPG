@@ -5,10 +5,11 @@ from assets.lib.card_utilities.card_model import BaseCard, DescriptiveCard, Batt
 
 class CardManager:
 
-    card_config = {}
+    card_config = dict()
 
     @staticmethod
     def load_config(filename):
+
         with open(filename, 'r') as file:
             config = json.load(file)
             for key, value in config.items():
@@ -16,6 +17,7 @@ class CardManager:
 
     @staticmethod
     def create_base_card(key):
+
         config = CardManager.card_config[key]
         card = BaseCard()
 
@@ -26,41 +28,44 @@ class CardManager:
         return card
 
     @staticmethod
-    def create_descriptive_card(base):
-        config = CardManager.card_config[base.card_id]
-        card = DescriptiveCard(base)
+    def create_descriptive_card(base_base):
 
-        card.card_name = config['card_name']
-        card.info_description = config['description']
+        config = CardManager.card_config[base_base.card_id]
+        descriptive_card = DescriptiveCard(base_base)
 
-        return card
+        descriptive_card.card_name = config['card_name']
+        descriptive_card.info_description = config['description']
 
-    @staticmethod
-    def create_battle_card(base):
-        config = CardManager.card_config[base.card_id]
-        card = BattleCard(base)
-
-        card.character_class = config['character_class']
-
-        card.action_type = config['action_type']
-        card.base_value = config['base_value']
-        card.multiplier = config['multiplier']
-        card.ap_cost = config['ap_cost']
-        card.energy_cost = config['energy_cost']
-        card.target = config['target']
-        card.caster_status = config['caster_status']
-        card.target_status = config['target_status']
-
-        return card
+        return descriptive_card
 
     @staticmethod
-    def create_full_card(base):
-        config = CardManager.card_config[base.card_id]
-        card = FullCard(base,
-                        CardManager.create_descriptive_card(base),
-                        CardManager.create_battle_card(base))
+    def create_battle_card(base_base):
 
-        card.usage_description = config['description']
+        config = CardManager.card_config[base_base.card_id]
+        battle_card = BattleCard(base_base)
+
+        battle_card.character_class = config['character_class']
+
+        battle_card.action_type = config['action_type']
+        battle_card.base_value = config['base_value']
+        battle_card.multiplier = config['multiplier']
+        battle_card.ap_cost = config['ap_cost']
+        battle_card.energy_cost = config['energy_cost']
+        battle_card.target = config['target']
+        battle_card.caster_status = config['caster_status']
+        battle_card.target_status = config['target_status']
+
+        return battle_card
+
+    @staticmethod
+    def create_full_card(base_base):
+
+        config = CardManager.card_config[base_base.card_id]
+        full_card = FullCard(base_base,
+                        CardManager.create_descriptive_card(base_base),
+                        CardManager.create_battle_card(base_base))
+
+        full_card.usage_description = config['description']
         # self.picture = config['picture']
 
-        return card
+        return full_card

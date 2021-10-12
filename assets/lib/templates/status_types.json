@@ -54,7 +54,7 @@
   {
     "status_type": "regeneration_1",
     "name": "regeneration",
-    "sort": "buff",
+    "sort": "heal",
     "description": "regenerate health over time",
     "persistance": "BATTLE_ONLY",
     "status_role": "action",

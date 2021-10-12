@@ -11,6 +11,8 @@ class ActionProcess:
 
         card = CardManager.create_battle_card(base_card)
 
+        caster.modify_battle_attributes("action_points", -card.ap_cost)
+
         # health processing
         value = ActionProcess.value_calculation(caster, target, card)
         target.take_damage(value)
