@@ -14,9 +14,24 @@
         "properties": ["SpriteProperty", "BlitProperty", "TransformProperty", "TranslateProperty"],
         "configure_properties":
         {
-          "SpriteProperty": {"set_resource": "Players"}
+          "SpriteProperty": {"set_resource": "Players", "package":  "battle_scene"}
         }
       }
+    },
+    {
+        "entity": "Enemies",
+        "object":
+        {
+          "object_class": "GameObject",
+          "object_type": null,
+          "object_label": "Enemies",
+          "create": false,
+          "properties": ["SpriteProperty", "BlitProperty", "TransformProperty", "TranslateProperty"],
+          "configure_properties":
+          {
+            "SpriteProperty": {"set_resource": "Enemies", "package":  "battle_scene"}
+          }
+        }
     }
   ]
 }

@@ -42,9 +42,11 @@ class ProjectController(GameObject):
         if event.type == ProjectController.UNLOAD_START_SCENE_TIME_EVENT:
 
             pygame.time.set_timer(ProjectController.UNLOAD_START_SCENE_TIME_EVENT, 0)
-
             SceneCreator.destroy(SceneCreator._scene)
-            obp = GameObject.get_object_pool()
 
-            pass
-
+            SceneCreator._scene = "battle_scene"
+            SceneCreator.load_entity_config(SceneCreator._scene)
+            SceneCreator.load_resource_config(SceneCreator._scene)
+            scene_config = SceneCreator.get_scene_resources_config(SceneCreator._scene)
+            ResourceManager.load_resources(scene_config)
+            SceneCreator.create_scene(SceneCreator._scene)

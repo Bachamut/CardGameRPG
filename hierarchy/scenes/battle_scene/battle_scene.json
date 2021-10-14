@@ -49,7 +49,7 @@
                 "properties": ["BlitProperty", "SpriteProperty", "TransformProperty"],
                 "configure_properties":
                 {
-                  "SpriteProperty": {"set_resource": "BattleBackground"}
+                  "SpriteProperty": {"set_resource": "BattleBackground", "package":  "battle_scene"}
                 }
               }
             },
@@ -212,7 +212,7 @@
                 "object_class": "EnemyView",
                 "object_type": null,
                 "object_label": "EnemyView",
-                "create": true,
+                "create": false,
                 "properties": ["ScriptProperty", "TransformProperty", "SignalProperty"],
                 "configure_properties":
                 {
@@ -266,21 +266,6 @@
               }
             },
             {
-              "entity": "Enemies",
-              "object":
-              {
-                "object_class": "GameObject",
-                "object_type": null,
-                "object_label": "Enemies",
-                "create": true,
-                "properties": ["SpriteProperty", "BlitProperty", "TransformProperty", "TranslateProperty"],
-                "configure_properties":
-                {
-                  "SpriteProperty": {"set_resource": "Enemies"}
-                }
-              }
-            },
-            {
               "entity": "ArcanaShot",
               "object":
               {
@@ -291,7 +276,7 @@
                 "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
                 "configure_properties":
                 {
-                  "SpriteProperty": {"set_resource": "ArcanaShotCard"}
+                  "SpriteProperty": {"set_resource": "ArcanaShotCard", "package":  "battle_scene"}
                 }
               }
             },
@@ -306,7 +291,7 @@
                 "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
                 "configure_properties":
                 {
-                  "SpriteProperty": {"set_resource": "BowShotCard"}
+                  "SpriteProperty": {"set_resource": "BowShotCard", "package":  "battle_scene"}
                 }
               }
             },
@@ -321,7 +306,7 @@
                 "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
                 "configure_properties":
                 {
-                  "SpriteProperty": {"set_resource": "FastStrikeCard"}
+                  "SpriteProperty": {"set_resource": "FastStrikeCard", "package":  "battle_scene"}
                 }
               }
             },
@@ -336,7 +321,7 @@
                 "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
                 "configure_properties":
                 {
-                  "SpriteProperty": {"set_resource": "HeavyStrikeCard"}
+                  "SpriteProperty": {"set_resource": "HeavyStrikeCard", "package":  "battle_scene"}
                 }
               }
             },
@@ -351,7 +336,7 @@
                 "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
                 "configure_properties":
                 {
-                  "SpriteProperty": {"set_resource": "MagicStrikeCard"}
+                  "SpriteProperty": {"set_resource": "MagicStrikeCard", "package":  "battle_scene"}
                 }
               }
             },
@@ -366,7 +351,7 @@
                 "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
                 "configure_properties":
                 {
-                  "SpriteProperty": {"set_resource": "NimbleStrikeCard"}
+                  "SpriteProperty": {"set_resource": "NimbleStrikeCard", "package":  "battle_scene"}
                 }
               }
             },
@@ -381,7 +366,7 @@
                 "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
                 "configure_properties":
                 {
-                  "SpriteProperty": {"set_resource": "PiercingStrikeCard"}
+                  "SpriteProperty": {"set_resource": "PiercingStrikeCard", "package":  "battle_scene"}
                 }
               }
             },
@@ -396,7 +381,7 @@
                 "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
                 "configure_properties":
                 {
-                  "SpriteProperty": {"set_resource": "ShadowDaggerCard"}
+                  "SpriteProperty": {"set_resource": "ShadowDaggerCard", "package":  "battle_scene"}
                 }
               }
             },
@@ -411,7 +396,7 @@
                 "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
                 "configure_properties":
                 {
-                  "SpriteProperty": {"set_resource": "ShieldBashCard"}
+                  "SpriteProperty": {"set_resource": "ShieldBashCard", "package":  "battle_scene"}
                 }
               }
             }

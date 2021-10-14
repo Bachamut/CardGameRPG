@@ -4,6 +4,7 @@ from property.initialize_property import InitializeProperty, InitializeState
 from assets.lib.battle_system.log import Logs
 from assets.lib.battle_system.view_controllers.battle_character_view_manager import BattleCharacterViewManager
 from assets.lib.game_object_shared_resource import GameObjectSharedResource
+from assets.lib.ui.container import Container
 
 
 class BattleCharacterViewController(GameObjectSharedResource):
@@ -24,7 +25,16 @@ class BattleCharacterViewController(GameObjectSharedResource):
 
         if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
 
-            entity = ObjectCreator.create_entity('Players')
+            view_container = Container()
+            view_container.property('TransformProperty').position.x = 200
+            view_container.property('TransformProperty').position.y = 200
+
+            players = ObjectCreator.create_entity('battle_scene', 'Players')
+            view_container.attach_child(players)
+
+            enemies = ObjectCreator.create_entity('battle_scene', 'Enemies')
+            view_container.attach_child(enemies)
+            enemies.property('TransformProperty').position.x = 550
 
             InitializeProperty.started(self)
             self.property('SignalProperty').property_enable()

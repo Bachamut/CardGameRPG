@@ -5,6 +5,12 @@
       "type": "image",
       "path": "assets",
       "file": "Players.png"
+    },
+    {
+      "key": "Enemies",
+      "type": "image",
+      "path": "assets",
+      "file": "Enemies.png"
     }
   ]
 }

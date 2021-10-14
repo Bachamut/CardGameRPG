@@ -121,12 +121,6 @@
       "file": "BattleBackground.png"
     },
     {
-      "key": "Enemies",
-      "type": "image",
-      "path": "assets",
-      "file": "Enemies.png"
-    },
-    {
       "key": "ArcanaShotCard",
       "type": "image",
       "path": "assets/cards",
