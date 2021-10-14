@@ -1,0 +1,21 @@
+{
+  "scene_name": "basic_ui",
+  "include": null,
+  "resources": ["resources.json"],
+
+  "entities":
+  [
+    {
+      "entity": "TextBox",
+      "object":
+      {
+        "object_class": "TextBox",
+        "object_type": null,
+        "object_label": "TextBox",
+        "create": true,
+        "properties": null,
+        "configure_properties": null
+      }
+    }
+  ]
+}

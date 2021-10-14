@@ -1,0 +1,26 @@
+{
+  "scene_name": "project_controller",
+  "include": null,
+  "resources": ["resources.json"],
+  "controller": "ProjectController",
+
+  "entities":
+          [
+            {
+              "entity": "ProjectController",
+              "object":
+              {
+                "object_class": "ProjectController",
+                "object_type": "ProjectController",
+                "object_label": "ProjectController",
+                "create": true,
+                "properties": ["InitializeProperty", "EventProperty"],
+                "configure_properties":
+                {
+                  "InitializeProperty": {"init_req": null, "start_req": null},
+                  "EventProperty": {"property_state": "Disabled"}
+                }
+              }
+            }
+          ]
+}

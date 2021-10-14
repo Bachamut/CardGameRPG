@@ -1,0 +1,16 @@
+{
+  "resources": [
+    {
+      "key": "StartScreenController",
+      "type": "script",
+      "path": "assets/lib/start_screen",
+      "file": "start_screen_controller"
+    },
+    {
+      "key": "PressToStartView",
+      "type": "script",
+      "path": "assets/lib/start_screen",
+      "file": "press_to_start_view"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "resources": [
+    {
+      "key": "ProjectController",
+      "type": "script",
+      "path": "assets/lib/project_controller",
+      "file": "project_controller"
+    }
+  ]
+}

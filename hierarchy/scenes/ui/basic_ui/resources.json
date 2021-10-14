@@ -1,0 +1,10 @@
+{
+  "resources": [
+    {
+      "key": "TextBox",
+      "type": "script",
+      "path": "assets/lib/ui/base_ui",
+      "file": "text_box"
+    }
+  ]
+}

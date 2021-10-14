@@ -1,0 +1,43 @@
+{
+  "scene_name": "start_scene",
+  "include": null,
+  "resources": ["resources.json"],
+  "controller": "StartScreenController",
+
+  "entities":
+          [
+            {
+              "entity": "StartScreenController",
+              "object":
+              {
+                "object_class": "StartScreenController",
+                "object_type": null,
+                "object_label": "StartScreenController",
+                "create": true,
+                "properties": ["InitializeProperty", "EventProperty"],
+                "configure_properties":
+                {
+                  "InitializeProperty": {"init_req": null, "start_req": ["PressToStartView.Initialized"]},
+                  "EventProperty": {"property_state": "Disabled"}
+                }
+              }
+            },
+            {
+              "entity": "PressToStartView",
+              "object":
+              {
+                "object_class": "PressToStartView",
+                "object_type": null,
+                "object_label": "PressToStartView",
+                "create": true,
+                "properties": ["InitializeProperty", "ScriptProperty", "EventProperty", "TransformProperty"],
+                "configure_properties":
+                {
+                  "InitializeProperty": {"init_req": ["StartScreenController.Initialized"], "start_req": ["StartScreenController.Started"]},
+                  "ScriptProperty": {"set_script": "PressToStartView", "property_state": "Disabled"},
+                  "EventProperty": {"property_state":  "Disabled"}
+                }
+              }
+            }
+          ]
+}

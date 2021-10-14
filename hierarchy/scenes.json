@@ -1,4 +1,5 @@
 {
-  "starting_scene": "battle_scene",
-  "scenes": ["battle_scene"]
+  "package_path": "hierarchy/scenes",
+  "starting_scene": "project_controller",
+  "scenes": ["start_scene", "battle_scene"]
 }

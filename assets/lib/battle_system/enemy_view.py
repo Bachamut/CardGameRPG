@@ -2,7 +2,7 @@ import pygame
 
 from game_object.game_object import GameObject
 from assets.lib.battle_system.controllers.character_controller import CharacterController
-from assets.lib.text_line import TextLine
+from assets.lib.ui.base_ui.text_line import TextLine
 
 
 class EnemyView(GameObject):
