@@ -41,9 +41,7 @@ class CharacterManager:
 
         character.preferences.do_dmg = config['do_dmg']
         character.preferences.do_heal = config['do_heal']
-        character.preferences.do_effect = config['do_effect']
-        character.preferences.factor_alpha = config['factor_alpha']
-        character.preferences.factor_beta = config['factor_beta']
-        character.preferences.factor_gamma = config['factor_gamma']
+        character.preferences.do_buff = config['do_buff']
+        character.preferences.do_debuff = config['do_buff']
 
         return character

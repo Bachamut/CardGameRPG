@@ -139,15 +139,11 @@ class ActionController(GameObjectSharedResource):
 
         CardController.discard_used_card(caster, card)
 
-        battle_card = CardManager.create_battle_card(card)
-
-        caster.modify_battle_attributes("action_points", -battle_card.ap_cost)
-
         print(f'{caster.name}: AP:{caster.battle_attribute("action_points")}')
 
         for target in targets:
 
-            target_action, caster_action = ActionProcess.action_process(caster, target, battle_card)
+            target_action, caster_action = ActionProcess.action_process(caster, target, card)
 
             target_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_SIGNAL,
                                                {"event": "CHARACTER_VIEW_SIGNAL",

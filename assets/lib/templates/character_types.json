@@ -17,10 +17,8 @@
     "magic_resist": 5,
     "do_dmg": 0.5,
     "do_heal": 0.5,
-    "do_effect": 0.5,
-    "factor_alpha": 1,
-    "factor_beta": 1,
-    "factor_gamma": 1
+    "do_buff": 0.5,
+    "do_debuff": 0.5
   },
 
   "character_lucius":
@@ -41,10 +39,8 @@
     "magic_resist": 5,
     "do_dmg": 0.5,
     "do_heal": 0.5,
-    "do_effect": 0.5,
-    "factor_alpha": 1,
-    "factor_beta": 1,
-    "factor_gamma": 1
+    "do_buff": 0.5,
+    "do_debuff": 0.5
   },
 
   "warrior_goblin":
@@ -65,10 +61,8 @@
     "magic_resist": 0,
     "do_dmg": 0.5,
     "do_heal": 0.5,
-    "do_effect": 0.5,
-    "factor_alpha": 1,
-    "factor_beta": 1,
-    "factor_gamma": 1
+    "do_buff": 0.5,
+    "do_debuff": 0.5
   },
 
   "archer_goblin":
@@ -89,9 +83,7 @@
     "magic_resist": 0,
     "do_dmg": 0.5,
     "do_heal": 0.5,
-    "do_effect": 0.5,
-    "factor_alpha": 1,
-    "factor_beta": 1,
-    "factor_gamma": 1
+    "do_buff": 0.5,
+    "do_debuff": 0.5
   }
 }

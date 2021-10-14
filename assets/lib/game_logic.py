@@ -1,5 +1,6 @@
 from game_object.game_object import GameObject
 
+from assets.lib.battle_system.ai_utilities.ai_condition_manager import AIConditionManager
 from assets.lib.card_utilities.card_manager import CardManager
 from assets.lib.character_utilities.character_manager import CharacterManager
 from assets.lib.item_utilities.item_manager import ItemManager
@@ -24,6 +25,7 @@ class GameLogic(GameObject):
         CharacterManager.load_config('assets/lib/templates/character_types.json')
         ItemManager.load_config('assets/lib/templates/item_types.json')
         StatusManager.load_config('assets/lib/templates/status_types.json')
+        AIConditionManager.load_config('assets/lib/templates/condition_blocks.json')
 
         self._create_party()
         self._create_enemy()
