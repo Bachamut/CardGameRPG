@@ -37,8 +37,6 @@ class BattleCharacterViewManager(GameObjectSharedResource):
 
     def on_signal(self, signal):
 
-        print(f'Waiting for Signal')
-
         # BChVMS1
         if signal.type == BattleLogic.CHARACTER_VIEW_MANAGER_SIGNAL and signal.subtype == "INITIAL":
             Logs.DebugMessage.SignalReceived(self, signal, "BChVMS1<-BLS1")

@@ -1,0 +1,10 @@
+{
+  "resources": [
+    {
+      "key": "BattleCharacterStatusViewController",
+      "type": "script",
+      "path": "assets/lib/battle_system/view_controllers",
+      "file": "battle_character_status_view_controller"
+    }
+  ]
+}

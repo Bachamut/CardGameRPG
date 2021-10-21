@@ -51,6 +51,4 @@ class BattleCharacterViewController(GameObjectSharedResource):
 
     def on_signal(self, signal):
 
-        print(f'Waiting for Signal')
-
         pass

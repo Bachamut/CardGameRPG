@@ -1,0 +1,22 @@
+{
+  "scene_name": "battle_scene",
+  "include": null,
+  "resources": ["battle_character_status_view_controller_resources.json"],
+  "entities": [
+    {
+      "entity": "BattleCharacterStatusViewController",
+      "object":
+      {
+        "object_class": "BattleCharacterStatusViewController",
+        "object_type": null,
+        "object_label": "BattleCharacterStatusViewController",
+        "create": true,
+        "properties": ["InitializeProperty", "TransformProperty"],
+        "configure_properties":
+        {
+          "InitializeProperty": {"init_req": ["BattleLogic.Initialized"], "start_req": ["BattleLogic.Started", "BattleCharacterViewManager.Started"]}
+        }
+      }
+    }
+  ]
+}
