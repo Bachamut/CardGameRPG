@@ -1,6 +1,6 @@
 {
   "scene_name": "battle_scene",
-  "include": ["battle_character_entities", "battle_character_status_view_controller"],
+  "include": ["battle_character_entities", "battle_character_status_view_controller", "card_view_controller", "queue_view_controller"],
   "resources": ["resources.json"],
 
   "entities":

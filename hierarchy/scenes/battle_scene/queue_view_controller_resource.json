@@ -1,0 +1,10 @@
+{
+  "resources": [
+    {
+      "key": "QueueViewController",
+      "type": "script",
+      "path": "assets/lib/battle_system/view_controllers",
+      "file": "queue_view_controller"
+    }
+  ]
+}

@@ -11,10 +11,11 @@
         "object_type": null,
         "object_label": "BattleCharacterStatusViewController",
         "create": true,
-        "properties": ["InitializeProperty", "TransformProperty"],
+        "properties": ["InitializeProperty", "TransformProperty", "ScriptProperty"],
         "configure_properties":
         {
-          "InitializeProperty": {"init_req": ["BattleLogic.Initialized"], "start_req": ["BattleLogic.Started", "BattleCharacterViewManager.Started"]}
+          "InitializeProperty": {"init_req": ["BattleLogic.Initialized"], "start_req": ["BattleLogic.Started", "BattleCharacterViewManager.Started"]},
+          "ScriptProperty": {"property_state": "Disabled"}
         }
       }
     }

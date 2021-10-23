@@ -27,6 +27,13 @@ class TextBox(Widget):
 
     def update(self, text, font_color=(0, 0, 0)):
 
+        if self.has_children():
+
+            for child in self.get_children():
+
+                self.detach_child(child)
+                child.on_destroy()
+
         self._text_lines.clear()
         self._text = str(text)
         self.font_color = font_color

@@ -1,0 +1,10 @@
+{
+  "resources": [
+    {
+      "key": "CardViewController",
+      "type": "script",
+      "path": "assets/lib/battle_system/view_controllers",
+      "file": "card_view_controller"
+    }
+  ]
+}

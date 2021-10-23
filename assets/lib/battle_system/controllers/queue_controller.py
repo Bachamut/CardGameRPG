@@ -57,14 +57,14 @@ class QueueController(GameObjectSharedResource):
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
             super(QueueController, self)._initialize()
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.SimpleInfo(self, "QueueController Initialized [ OK ]")
+            Logs.InfoMessage.SimpleInfo(self, "Queue.Controller Initialized [ OK ]")
 
             return
 
         if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
-            InitializeProperty.started(self)
+            # InitializeProperty.started(self)
             self.property('SignalProperty').property_enable()
-            Logs.InfoMessage.SimpleInfo(self, "QueueController Started [ OK ]")
+            # Logs.InfoMessage.SimpleInfo(self, "QueueController Started [ OK ]")
 
             return
 
@@ -154,6 +154,9 @@ class QueueController(GameObjectSharedResource):
             Logs.DebugMessage.SignalReceived(self, signal, "QCS1<-BLS2")
 
             self.setup_queue()
+
+            InitializeProperty.started(self)
+            Logs.InfoMessage.SimpleInfo(self, "Queue.Controller Started [ OK ]")
 
             emit_signal = pygame.event.Event(BattleLogic.QUEUE_CONTROLLER_RESPONSE, {"event": "QUEUE_CONTROLLER_RESPONSE", "subtype": "INITIAL"})
             pygame.event.post(emit_signal)

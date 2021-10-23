@@ -1,0 +1,23 @@
+{
+  "scene_name": "battle_scene",
+  "include": null,
+  "resources": ["card_view_controller_resource.json"],
+  "entities": [
+    {
+      "entity": "CardViewController",
+      "object":
+      {
+        "object_class": "CardViewController",
+        "object_type": null,
+        "object_label": "CardViewController",
+        "create": true,
+        "properties": ["InitializeProperty", "TransformProperty", "ScriptProperty"],
+        "configure_properties":
+        {
+          "InitializeProperty": {"init_req": ["BattleLogic.Initialized"], "start_req": ["BattleLogic.Started", "CardController.Started"]},
+          "ScriptProperty": {"property_state": "Disabled"}
+        }
+      }
+    }
+  ]
+}

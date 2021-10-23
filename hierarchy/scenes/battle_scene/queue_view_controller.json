@@ -1,0 +1,23 @@
+{
+  "scene_name": "battle_scene",
+  "include": null,
+  "resources": ["queue_view_controller_resource.json"],
+  "entities": [
+    {
+      "entity": "QueueViewController",
+      "object":
+      {
+        "object_class": "QueueViewController",
+        "object_type": null,
+        "object_label": "QueueViewController",
+        "create": true,
+        "properties": ["InitializeProperty", "TransformProperty", "ScriptProperty"],
+        "configure_properties":
+        {
+          "InitializeProperty": {"init_req": ["BattleLogic.Initialized"], "start_req": ["BattleLogic.Started", "QueueController.Started"]},
+          "ScriptProperty": {"property_state": "Disabled"}
+        }
+      }
+    }
+  ]
+}

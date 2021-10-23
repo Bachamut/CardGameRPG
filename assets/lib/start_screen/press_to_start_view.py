@@ -104,7 +104,7 @@ class PressToStartView(GameObject):
         main_container.attach_child(container_en)
         container_en.property('TransformProperty').position.y = 0
 
-        message = "By continuing, you consent andaccept the following terms of use"
+        message = "By continuing, you consent and accept the following terms of use"
         text_box = TextBox(self.font_faces['roboto_h1'])
         container_en.attach_child(text_box)
         text_box.update(message, (255, 255, 255))
