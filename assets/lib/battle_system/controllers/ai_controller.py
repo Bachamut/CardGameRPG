@@ -62,7 +62,6 @@ class AIController(GameObjectSharedResource):
             self.confirmed_card = best_card
             self.confirmed_target.append(best_character)
 
-            print(f'\nAI choosing action')
             Logs.AIControllerMessage.ai_choice_info(self, CardManager.create_battle_card(self.confirmed_card), self.confirmed_target)
 
             emit_signal = pygame.event.Event(BattleLogic.AI_CONTROLLER_RESPONSE, {"event": "AI_CONTROLLER_RESPONSE", "subtype": "STANDARD"})

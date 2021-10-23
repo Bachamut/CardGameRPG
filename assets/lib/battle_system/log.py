@@ -23,7 +23,8 @@ class Logs:
 
             if Logs.deactivate_status_info_enable:
                 time_stamp = datetime.now().time()
-                message = print(f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} {self.__class__.__name__.upper()} choosen card: {card.card_name}, targets: {characters}')
+                targets = ', '.join(str(x.name) for x in characters)
+                message = print(f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} {self.__class__.__name__.upper()}: {self.current_character.name} wybrał {card.card_name}, targets: {targets}')
                 return message
             else:
                 pass
