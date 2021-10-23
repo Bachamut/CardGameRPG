@@ -36,7 +36,7 @@ class BattleCharacterStatusViewController(GameObjectSharedResource):
             container.property('TransformProperty').position.y = 20
 
             interline = 0
-            for character in self.battle_ally:
+            for character in self.battle_ally + self.battle_enemies:
 
                 text_line = TextLine(self.font_faces['open_sans_normal'], (0, 0, 0), f'{character.name} HP:{character.base_attributes.health} EN:{character.base_attributes.energy} AP:{character.base_attributes.action_points}').render()
                 container.attach_child(text_line)
@@ -59,7 +59,7 @@ class BattleCharacterStatusViewController(GameObjectSharedResource):
             if self.current_character == character:
                 mark_current_character = '>'
 
-            update_text = f'{mark_current_character}{character.name} HP:{character.base_attributes.health} EN:{character.base_attributes.energy} AP:{character.base_attributes.action_points}'
+            update_text = f'{mark_current_character}{character.name} HP:{character.battle_attributes.health} EN:{character.battle_attributes.energy} AP:{character.battle_attributes.action_points}'
             self.character_lines[character].update(update_text)
 
     def prepare_font_faces(self):

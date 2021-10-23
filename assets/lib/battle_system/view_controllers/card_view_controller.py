@@ -2,6 +2,7 @@ import pygame
 from property.initialize_property import InitializeProperty, InitializeState
 
 from assets.lib.battle_system.log import Logs
+from assets.lib.card_utilities.card_manager import CardManager
 from assets.lib.game_object_shared_resource import GameObjectSharedResource
 from assets.lib.ui.base_ui.text_box import TextBox
 from assets.lib.ui.base_ui.text_line import TextLine
@@ -78,8 +79,10 @@ class CardViewController(GameObjectSharedResource):
                     mark_confirmed_card = ''
                     if self.confirmed_card == card:
                         mark_confirmed_card = '>>> '
+                    elif self.selected_card == card:
+                        mark_confirmed_card = '> '
 
-                    card_list += f'{mark_confirmed_card}{card.card_name}\n'
+                    card_list += f'{mark_confirmed_card}{card.card_name} AP: {CardManager.create_battle_card(card).ap_cost}\n'
 
         self.elements['card_list'].update(f'{card_list}')
 

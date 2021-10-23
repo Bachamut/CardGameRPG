@@ -243,6 +243,9 @@ class CardController(GameObjectSharedResource):
                 print(f'{self.selected_card_index}: {self.current_character.hand[self.selected_card_index].card_name}')
                 self.current_character.hand[self.selected_card_index].selected = True
 
+                # Mark Card as Selected
+                self.selected_card = self.current_character.hand[self.selected_card_index]
+
     def _on_arrow_left(self, event):
 
         if event.key == pygame.K_LEFT:
@@ -252,6 +255,9 @@ class CardController(GameObjectSharedResource):
                 self.selected_card_index -= 1
                 print(f'{self.selected_card_index}: {self.current_character.hand[self.selected_card_index].card_name}')
                 self.current_character.hand[self.selected_card_index].selected = True
+
+                # Mark Card as Selected
+                self.selected_card = self.current_character.hand[self.selected_card_index]
 
     def _card_selection(self, event):
 

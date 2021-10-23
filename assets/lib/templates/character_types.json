@@ -3,7 +3,7 @@
   {
     "name": "Edward",
     "character_class": "warrior",
-    "character_type": "npc",
+    "character_type": "player",
     "affiliation": "ally",
     "health": 75,
     "energy": 40,
@@ -25,7 +25,7 @@
   {
     "name": "Lucius",
     "character_class": "rogue",
-    "character_type": "npc",
+    "character_type": "player",
     "affiliation": "ally",
     "health": 60,
     "energy": 50,
