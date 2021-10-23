@@ -27,14 +27,14 @@ class ActionController(GameObjectSharedResource):
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
             super(ActionController, self)._initialize()
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.SimpleInfo(self, "ActionController Initialized [ OK ]")
+            Logs.InfoMessage.simple_info(self, "ActionController Initialized [ OK ]")
 
             return
 
         if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
             InitializeProperty.started(self)
             self.property('SignalProperty').property_enable()
-            Logs.InfoMessage.SimpleInfo(self, "ActionController Started [ OK ]")
+            Logs.InfoMessage.simple_info(self, "ActionController Started [ OK ]")
 
             return
 
@@ -49,7 +49,7 @@ class ActionController(GameObjectSharedResource):
 
         # AC1
         if signal.type == BattleLogic.ACTION_CONTROLLER_SIGNAL and signal.subtype == "PRE_TURN":
-            Logs.DebugMessage.SignalReceived(self, signal, "AC1<-BL2")
+            Logs.DebugMessage.signal_received(self, signal, "AC1<-BL2")
 
             ActionProcess.status_for_activation(self.current_character, signal.subtype)
             ActionProcess.status_for_deactivation(self.current_character, signal.subtype)
@@ -59,36 +59,36 @@ class ActionController(GameObjectSharedResource):
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_RESPONSE, {"event": "ACTION_CONTROLLER_RESPONSE", "subtype": "PRE_TURN"})
             pygame.event.post(emit_signal)
-            Logs.DebugMessage.SignalEmit(self, emit_signal, "AC1->BL3")
+            Logs.DebugMessage.signal_emit(self, emit_signal, "AC1->BL3")
             return
 
         # AC2
         if signal.type == BattleLogic.ACTION_CONTROLLER_SIGNAL and signal.subtype == "PRE_DRAW":
-            Logs.DebugMessage.SignalReceived(self, signal, "AC2<-BL4")
+            Logs.DebugMessage.signal_received(self, signal, "AC2<-BL4")
 
             ActionProcess.status_for_activation(self.current_character, signal.subtype)
             ActionProcess.status_for_deactivation(self.current_character, signal.subtype)
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_RESPONSE, {"event": "ACTION_CONTROLLER_RESPONSE", "subtype": "PRE_DRAW"})
             pygame.event.post(emit_signal)
-            Logs.DebugMessage.SignalEmit(self, emit_signal, "AC2->BL5")
+            Logs.DebugMessage.signal_emit(self, emit_signal, "AC2->BL5")
             return
 
         # AC3
         if signal.type == BattleLogic.ACTION_CONTROLLER_SIGNAL and signal.subtype == "POST_DRAW":
-            Logs.DebugMessage.SignalReceived(self, signal, "AC3<-BL6")
+            Logs.DebugMessage.signal_received(self, signal, "AC3<-BL6")
 
             ActionProcess.status_for_activation(self.current_character, signal.subtype)
             ActionProcess.status_for_deactivation(self.current_character, signal.subtype)
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_RESPONSE, {"event": "ACTION_CONTROLLER_RESPONSE", "subtype": "POST_DRAW"})
             pygame.event.post(emit_signal)
-            Logs.DebugMessage.SignalEmit(self, emit_signal, "AC3->BL3")
+            Logs.DebugMessage.signal_emit(self, emit_signal, "AC3->BL3")
             return
 
         # AC4
         if signal.type == BattleLogic.ACTION_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
-            Logs.DebugMessage.SignalReceived(self, signal, "AC4<-BL13")
+            Logs.DebugMessage.signal_received(self, signal, "AC4<-BL13")
 
             ActionController.action_controller_signal(self.current_character, self.confirmed_target, self.confirmed_card)
 
@@ -97,24 +97,24 @@ class ActionController(GameObjectSharedResource):
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_RESPONSE, {"event": "ACTION_CONTROLLER_RESPONSE", "subtype": "STANDARD"})
             pygame.event.post(emit_signal)
-            Logs.DebugMessage.SignalEmit(self, emit_signal, "AC4->BL14")
+            Logs.DebugMessage.signal_emit(self, emit_signal, "AC4->BL14")
             return
 
         # AC5
         if signal.type == BattleLogic.ACTION_CONTROLLER_SIGNAL and signal.subtype == "POST_ACTION":
-            Logs.DebugMessage.SignalReceived(self, signal, "AC5<-BL14")
+            Logs.DebugMessage.signal_received(self, signal, "AC5<-BL14")
 
             ActionProcess.status_for_activation(self.current_character, signal.subtype)
             ActionProcess.status_for_deactivation(self.current_character, signal.subtype)
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_RESPONSE, {"event": "ACTION_CONTROLLER_RESPONSE", "subtype": "POST_ACTION"})
             pygame.event.post(emit_signal)
-            Logs.DebugMessage.SignalEmit(self, emit_signal, "AC5->BL8")
+            Logs.DebugMessage.signal_emit(self, emit_signal, "AC5->BL8")
             return
 
         # ?AC100
         if signal.type == BattleLogic.ACTION_CONTROLLER_SIGNAL and signal.subtype == "POST_TURN":
-            Logs.DebugMessage.SignalReceived(self, signal, "?AC100<-?BL100")
+            Logs.DebugMessage.signal_received(self, signal, "?AC100<-?BL100")
 
             ActionProcess.status_for_activation(self.current_character, signal.subtype)
             ActionProcess.status_for_deactivation(self.current_character, signal.subtype)
@@ -127,7 +127,7 @@ class ActionController(GameObjectSharedResource):
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_RESPONSE, {"event": "ACTION_CONTROLLER_RESPONSE", "subtype": "POST_TURN"})
             pygame.event.post(emit_signal)
-            Logs.DebugMessage.SignalEmit(self, emit_signal, "?AC100->?BL101")
+            Logs.DebugMessage.signal_emit(self, emit_signal, "?AC100->?BL101")
             return
 
     @staticmethod

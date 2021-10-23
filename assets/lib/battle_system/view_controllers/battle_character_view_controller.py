@@ -19,7 +19,7 @@ class BattleCharacterViewController(GameObjectSharedResource):
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
             super(BattleCharacterViewController, self)._initialize()
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.SimpleInfo(self, "BattleCharacterView.Controller Initialized [ OK ]")
+            Logs.InfoMessage.simple_info(self, "BattleCharacterView.Controller Initialized [ OK ]")
 
             return
 
@@ -38,7 +38,7 @@ class BattleCharacterViewController(GameObjectSharedResource):
 
             InitializeProperty.started(self)
             self.property('SignalProperty').property_enable()
-            Logs.InfoMessage.SimpleInfo(self, "BattleCharacterView.Controller Started [ OK ]")
+            Logs.InfoMessage.simple_info(self, "BattleCharacterView.Controller Started [ OK ]")
 
             return
 

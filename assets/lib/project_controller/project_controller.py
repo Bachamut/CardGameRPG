@@ -25,7 +25,7 @@ class ProjectController(GameObject):
             SceneCreator.create_scene(SceneCreator._scene)
 
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.SimpleInfo(self, "Project.Controller Initialized [ OK ]")
+            Logs.InfoMessage.simple_info(self, "Project.Controller Initialized [ OK ]")
 
             return
 
@@ -33,7 +33,7 @@ class ProjectController(GameObject):
             InitializeProperty.started(self)
             self.property('EventProperty').property_enable()
 
-            Logs.InfoMessage.SimpleInfo(self, "Project.Controller Started [ OK ]")
+            Logs.InfoMessage.simple_info(self, "Project.Controller Started [ OK ]")
 
             return
 

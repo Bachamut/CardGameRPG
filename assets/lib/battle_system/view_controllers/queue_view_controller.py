@@ -27,7 +27,7 @@ class QueueViewController(GameObjectSharedResource):
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
             super(QueueViewController, self)._initialize()
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.SimpleInfo(self, "QueueView.Controller Initialized [ OK ]")
+            Logs.InfoMessage.simple_info(self, "QueueView.Controller Initialized [ OK ]")
 
             self.prepare_font_faces()
 
@@ -64,7 +64,7 @@ class QueueViewController(GameObjectSharedResource):
             InitializeProperty.started(self)
             # # self.property('SignalProperty').property_enable()
             self.property('ScriptProperty').property_enable()
-            Logs.InfoMessage.SimpleInfo(self, "QueueView.Controller Started [ OK ]")
+            Logs.InfoMessage.simple_info(self, "QueueView.Controller Started [ OK ]")
 
             return
 

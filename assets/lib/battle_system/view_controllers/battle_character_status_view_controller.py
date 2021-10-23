@@ -22,7 +22,7 @@ class BattleCharacterStatusViewController(GameObjectSharedResource):
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
             super(BattleCharacterStatusViewController, self)._initialize()
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.SimpleInfo(self, "BattleCharacterStatusView.Controller Initialized [ OK ]")
+            Logs.InfoMessage.simple_info(self, "BattleCharacterStatusView.Controller Initialized [ OK ]")
 
             self.prepare_font_faces()
 
@@ -47,7 +47,7 @@ class BattleCharacterStatusViewController(GameObjectSharedResource):
             InitializeProperty.started(self)
             # self.property('SignalProperty').property_enable()
             self.property('ScriptProperty').property_enable()
-            Logs.InfoMessage.SimpleInfo(self, "BattleCharacterStatusView.Controller Started [ OK ]")
+            Logs.InfoMessage.simple_info(self, "BattleCharacterStatusView.Controller Started [ OK ]")
 
             return
 

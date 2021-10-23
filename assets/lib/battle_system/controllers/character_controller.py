@@ -24,14 +24,14 @@ class CharacterController(GameObjectSharedResource):
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
             super(CharacterController, self)._initialize()
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.SimpleInfo(self, "CharacterController Initialized [ OK ]")
+            Logs.InfoMessage.simple_info(self, "CharacterController Initialized [ OK ]")
 
             return
 
         if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
             InitializeProperty.started(self)
             self.property('SignalProperty').property_enable()
-            Logs.InfoMessage.SimpleInfo(self, "CharacterController Started [ OK ]")
+            Logs.InfoMessage.simple_info(self, "CharacterController Started [ OK ]")
 
             return
 
@@ -51,13 +51,13 @@ class CharacterController(GameObjectSharedResource):
                 signal.type == BattleLogic.CHARACTER_CONTROLLER_SIGNAL and signal.subtype == "TARGET_SELECTION":
 
             if signal.type == BattleLogic.CHARACTER_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
-                Logs.DebugMessage.SignalReceived(self, signal, "ChC1<-BL12")
+                Logs.DebugMessage.signal_received(self, signal, "ChC1<-BL12")
             # if signal.type == BattleLogic.CHARACTER_CONTROLLER_SIGNAL and signal.subtype == "TARGET_SELECTION":
             #     Logs.DebugMessage.SignalReceived(self, signal, "ChC1<-ChC1")
 
             # Arrows event block for target choose
             if signal.type == BattleLogic.CHARACTER_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
-                Logs.InfoMessage.SimpleInfo(self, "CHOOSE TARGET: ARROW EVENT LOOP STARTED")
+                Logs.InfoMessage.simple_info(self, "CHOOSE TARGET: ARROW EVENT LOOP STARTED")
                 self._target_confirmed = False
                 self.property('EventProperty').property_enable()
                 emit_signal = pygame.event.Event(BattleLogic.CHARACTER_CONTROLLER_SIGNAL, {"event": "CHARACTER_CONTROLLER_SIGNAL", "subtype": "TARGET_SELECTION"})
@@ -72,17 +72,17 @@ class CharacterController(GameObjectSharedResource):
                 return
 
             if self._target_confirmed == True:
-                Logs.InfoMessage.SimpleInfo(self, "TARGET SELECTED: ARROW EVENT LOOP FINISHED")
+                Logs.InfoMessage.simple_info(self, "TARGET SELECTED: ARROW EVENT LOOP FINISHED")
                 self.property('EventProperty').property_disable()
                 emit_signal = pygame.event.Event(BattleLogic.CHARACTER_CONTROLLER_RESPONSE, {"event": "CHARACTER_CONTROLLER_RESPONSE", "subtype": "STANDARD"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "ChC1->BL13")
+                Logs.DebugMessage.signal_emit(self, emit_signal, "ChC1->BL13")
                 return
 
     def _on_arrow_right(self, event):
 
         if event.key == pygame.K_RIGHT:
-            Logs.DebugMessage.EventKeyPress(self, event, "K_RIGHT")
+            Logs.DebugMessage.event_key_press(self, event, "K_RIGHT")
             if self.selected_target_index < len(self.battle_ally + self.battle_enemies) - 1:
                 self.selected_target_index += 1
                 self.selected_target = (self.battle_ally + self.battle_enemies)[self.selected_target_index]
@@ -95,7 +95,7 @@ class CharacterController(GameObjectSharedResource):
     def _on_arrow_left(self, event):
 
         if event.key == pygame.K_LEFT:
-            Logs.DebugMessage.EventKeyPress(self, event, "K_LEFT")
+            Logs.DebugMessage.event_key_press(self, event, "K_LEFT")
             if self.selected_target_index > 0:
                 self.selected_target_index -= 1
                 self.selected_target = (self.battle_ally + self.battle_enemies)[self.selected_target_index]
@@ -110,7 +110,7 @@ class CharacterController(GameObjectSharedResource):
         if event.key == pygame.K_RETURN:
             self.confirmed_target.clear()
             self._target_confirmed = True
-            Logs.InfoMessage.SimpleInfo(self, "TARGET SELECTED")
+            Logs.InfoMessage.simple_info(self, "TARGET SELECTED")
             # TODO: It should be refactored to keep selected target object in variable not represent as a index in array
             self.confirmed_target.append((self.battle_ally + self.battle_enemies)[self.selected_target_index])
 

@@ -13,14 +13,14 @@ class StartScreenController(GameObject):
 
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.SimpleInfo(self, "StartScreen.Controller Initialized [ OK ]")
+            Logs.InfoMessage.simple_info(self, "StartScreen.Controller Initialized [ OK ]")
 
             return
 
         if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
             InitializeProperty.started(self)
             self.property('EventProperty').property_enable()
-            Logs.InfoMessage.SimpleInfo(self, "StartScreen.Controller Started [ OK ]")
+            Logs.InfoMessage.simple_info(self, "StartScreen.Controller Started [ OK ]")
 
             return
 

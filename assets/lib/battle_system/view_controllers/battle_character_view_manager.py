@@ -19,7 +19,7 @@ class BattleCharacterViewManager(GameObjectSharedResource):
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
             super(BattleCharacterViewManager, self)._initialize()
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.SimpleInfo(self, "BattleCharacterView.Manager Initialized [ OK ]")
+            Logs.InfoMessage.simple_info(self, "BattleCharacterView.Manager Initialized [ OK ]")
 
             return
 
@@ -39,7 +39,7 @@ class BattleCharacterViewManager(GameObjectSharedResource):
 
         # BChVMS1
         if signal.type == BattleLogic.CHARACTER_VIEW_MANAGER_SIGNAL and signal.subtype == "INITIAL":
-            Logs.DebugMessage.SignalReceived(self, signal, "BChVMS1<-BLS1")
+            Logs.DebugMessage.signal_received(self, signal, "BChVMS1<-BLS1")
 
             # Create CharacterViews and register in BattleCharacterViewManager
             for battle_character in self.battle_ally + self.battle_enemies:
@@ -48,9 +48,9 @@ class BattleCharacterViewManager(GameObjectSharedResource):
 
             self.property('SignalProperty').property_disable()
             InitializeProperty.started(self)
-            Logs.InfoMessage.SimpleInfo(self, "BattleCharacterView.Manager Started [ OK ]")
+            Logs.InfoMessage.simple_info(self, "BattleCharacterView.Manager Started [ OK ]")
 
             emit_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_MANAGER_RESPONSE, {"event": "CHARACTER_VIEW_MANAGER_RESPONSE", "subtype": "INITIAL"})
             pygame.event.post(emit_signal)
-            Logs.DebugMessage.SignalEmit(self, emit_signal, "BChVMS1->BLS2")
+            Logs.DebugMessage.signal_emit(self, emit_signal, "BChVMS1->BLS2")
             return

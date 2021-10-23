@@ -23,7 +23,7 @@ class CardViewController(GameObjectSharedResource):
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
             super(CardViewController, self)._initialize()
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.SimpleInfo(self, "CardView.Controller Initialized [ OK ]")
+            Logs.InfoMessage.simple_info(self, "CardView.Controller Initialized [ OK ]")
 
             self.prepare_font_faces()
 
@@ -58,7 +58,7 @@ class CardViewController(GameObjectSharedResource):
             InitializeProperty.started(self)
             # # self.property('SignalProperty').property_enable()
             self.property('ScriptProperty').property_enable()
-            Logs.InfoMessage.SimpleInfo(self, "CardView.Controller Started [ OK ]")
+            Logs.InfoMessage.simple_info(self, "CardView.Controller Started [ OK ]")
 
             return
 

@@ -34,9 +34,9 @@ class ItemController(GameObject):
 
             # IC1
             if signal.type == BattleLogic.ITEM_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
-                Logs.DebugMessage.SignalReceived(self, signal, "IC1<-BL9")
+                Logs.DebugMessage.signal_received(self, signal, "IC1<-BL9")
 
                 emit_signal = pygame.event.Event(BattleLogic.ITEM_CONTROLLER_RESPONSE, {"event": "ITEM_CONTROLLER_RESPONSE", "subtype": "STANDARD"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "CC1->BL12")
+                Logs.DebugMessage.signal_emit(self, emit_signal, "CC1->BL12")
                 return

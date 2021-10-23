@@ -57,7 +57,7 @@ class QueueController(GameObjectSharedResource):
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
             super(QueueController, self)._initialize()
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.SimpleInfo(self, "Queue.Controller Initialized [ OK ]")
+            Logs.InfoMessage.simple_info(self, "Queue.Controller Initialized [ OK ]")
 
             return
 
@@ -151,21 +151,21 @@ class QueueController(GameObjectSharedResource):
 
         # QCS1
         if signal.type == BattleLogic.QUEUE_CONTROLLER_SIGNAL and signal.subtype == "INITIAL":
-            Logs.DebugMessage.SignalReceived(self, signal, "QCS1<-BLS2")
+            Logs.DebugMessage.signal_received(self, signal, "QCS1<-BLS2")
 
             self.setup_queue()
 
             InitializeProperty.started(self)
-            Logs.InfoMessage.SimpleInfo(self, "Queue.Controller Started [ OK ]")
+            Logs.InfoMessage.simple_info(self, "Queue.Controller Started [ OK ]")
 
             emit_signal = pygame.event.Event(BattleLogic.QUEUE_CONTROLLER_RESPONSE, {"event": "QUEUE_CONTROLLER_RESPONSE", "subtype": "INITIAL"})
             pygame.event.post(emit_signal)
-            Logs.DebugMessage.SignalEmit(self, emit_signal, "QCS1->BLS3")
+            Logs.DebugMessage.signal_emit(self, emit_signal, "QCS1->BLS3")
             return
 
         # QC1
         if signal.type == BattleLogic.QUEUE_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
-            Logs.DebugMessage.SignalReceived(self, signal, "QC1<-BL1")
+            Logs.DebugMessage.signal_received(self, signal, "QC1<-BL1")
 
             # Taking next character from QueueController
 
@@ -190,5 +190,5 @@ class QueueController(GameObjectSharedResource):
                 print(f'- {character.name}')
             emit_signal = pygame.event.Event(BattleLogic.QUEUE_CONTROLLER_RESPONSE, {"event": "QUEUE_CONTROLLER_RESPONSE", "subtype": "STANDARD"})
             pygame.event.post(emit_signal)
-            Logs.DebugMessage.SignalEmit(self, emit_signal, "QC1->BL2")
+            Logs.DebugMessage.signal_emit(self, emit_signal, "QC1->BL2")
             return

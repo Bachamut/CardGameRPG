@@ -60,14 +60,14 @@ class CardController(GameObjectSharedResource):
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
             super(CardController, self)._initialize()
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.SimpleInfo(self, "CardController Initialized [ OK ]")
+            Logs.InfoMessage.simple_info(self, "CardController Initialized [ OK ]")
 
             return
 
         if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
             InitializeProperty.started(self)
             self.property('SignalProperty').property_enable()
-            Logs.InfoMessage.SimpleInfo(self, "CharacterController Started [ OK ]")
+            Logs.InfoMessage.simple_info(self, "CharacterController Started [ OK ]")
 
             return
 
@@ -162,7 +162,7 @@ class CardController(GameObjectSharedResource):
 
             # CCS1
             if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "INITIAL":
-                Logs.DebugMessage.SignalReceived(self, signal, "CCS1<-BLS3")
+                Logs.DebugMessage.signal_received(self, signal, "CCS1<-BLS3")
 
                 # Shuffling deck
                 for character in (self.battle_ally + self.battle_enemies):
@@ -170,24 +170,24 @@ class CardController(GameObjectSharedResource):
 
                 emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "CCS1->BLS4")
+                Logs.DebugMessage.signal_emit(self, emit_signal, "CCS1->BLS4")
                 return
 
             # CC2
             if signal.type == BattleLogic.SHUFFLE_DECK_SIGNAL and signal.subtype == "STANDARD":
-                Logs.DebugMessage.SignalReceived(self, signal, "CC2<-BL3A")
+                Logs.DebugMessage.signal_received(self, signal, "CC2<-BL3A")
 
                 # Deck shuffle if there is no cards in draw_pile
                 CardController.shuffle_deck(self.current_character)
 
                 emit_signal = pygame.event.Event(BattleLogic.SHUFFLE_DECK_RESPONSE, {"event": "SHUFFLE_DECK_RESPONSE", "subtype": "STANDARD"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "CC2->BL4")
+                Logs.DebugMessage.signal_emit(self, emit_signal, "CC2->BL4")
                 return
 
             # CC3
             if signal.type == BattleLogic.DRAW_CARD_SIGNAL and signal.subtype == "STANDARD":
-                Logs.DebugMessage.SignalReceived(self, signal, "CC3<-BL5")
+                Logs.DebugMessage.signal_received(self, signal, "CC3<-BL5")
 
                 # Card_draw
                 CardController.draw_card(self.current_character)
@@ -195,7 +195,7 @@ class CardController(GameObjectSharedResource):
 
                 emit_signal = pygame.event.Event(BattleLogic.DRAW_CARD_RESPONSE, {"event": "DRAW_CARD_RESPONSE", "subtype": "STANDARD"})
                 pygame.event.post(emit_signal)
-                Logs.DebugMessage.SignalEmit(self, emit_signal, "CC3->BL6")
+                Logs.DebugMessage.signal_emit(self, emit_signal, "CC3->BL6")
                 return
 
             # CC4
@@ -203,13 +203,13 @@ class CardController(GameObjectSharedResource):
                     signal.type == BattleLogic.CARD_CONTROLLER_SIGNAL and signal.subtype == "CARD_SELECTION":
 
                 if signal.type == BattleLogic.CARD_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
-                    Logs.DebugMessage.SignalReceived(self, signal, "CC4<-BL9")
+                    Logs.DebugMessage.signal_received(self, signal, "CC4<-BL9")
                 # if signal.type == BattleLogic.CARD_CONTROLLER_SIGNAL and signal.subtype == "CARD_SELECTION":
                 #     Logs.DebugMessage.SignalReceived(self, signal, "CC4<-CC4")
 
                 # Arrows event block for card choose
                 if signal.type == BattleLogic.CARD_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
-                    Logs.InfoMessage.SimpleInfo(self, "ARROW EVENT LOOP STARTED")
+                    Logs.InfoMessage.simple_info(self, "ARROW EVENT LOOP STARTED")
                     self._card_confirmed = False
                     self.property('EventProperty').property_enable()
                     emit_signal = pygame.event.Event(BattleLogic.CARD_CONTROLLER_SIGNAL, {"event": "CARD_CONTROLLER_SIGNAL", "subtype": "CARD_SELECTION"})
@@ -224,19 +224,19 @@ class CardController(GameObjectSharedResource):
                     return
 
                 if self._card_confirmed == True:
-                    Logs.InfoMessage.SimpleInfo(self, "ARROW EVENT LOOP FINISHED")
+                    Logs.InfoMessage.simple_info(self, "ARROW EVENT LOOP FINISHED")
                     self.property('EventProperty').property_disable()
                     # Set previous_character
                     self.previous_character = self.current_character
                     emit_signal = pygame.event.Event(BattleLogic.CARD_CONTROLLER_RESPONSE, {"event": "CARD_CONTROLLER_RESPONSE", "subtype": "STANDARD"})
                     pygame.event.post(emit_signal)
-                    Logs.DebugMessage.SignalEmit(self, emit_signal, "CC4->BL12")
+                    Logs.DebugMessage.signal_emit(self, emit_signal, "CC4->BL12")
                     return
 
     def _on_arrow_right(self, event):
 
         if event.key == pygame.K_RIGHT:
-            Logs.DebugMessage.EventKeyPress(self, event, "K_RIGHT")
+            Logs.DebugMessage.event_key_press(self, event, "K_RIGHT")
             if self.selected_card_index < len(self.current_character.hand) - 1:
                 self.current_character.hand[self.selected_card_index].selected = False
                 self.selected_card_index += 1
@@ -246,7 +246,7 @@ class CardController(GameObjectSharedResource):
     def _on_arrow_left(self, event):
 
         if event.key == pygame.K_LEFT:
-            Logs.DebugMessage.EventKeyPress(self, event, "K_LEFT")
+            Logs.DebugMessage.event_key_press(self, event, "K_LEFT")
             if self.selected_card_index > 0:
                 self.current_character.hand[self.selected_card_index].selected = False
                 self.selected_card_index -= 1
@@ -259,7 +259,7 @@ class CardController(GameObjectSharedResource):
             selected_card = CardManager.create_battle_card(self.current_character.hand[self.selected_card_index])
             if selected_card.ap_cost <= self.current_character.battle_attribute("action_points"):
                 self._card_confirmed = True
-                Logs.InfoMessage.SimpleInfo(self, "CARD SELECTED")
+                Logs.InfoMessage.simple_info(self, "CARD SELECTED")
 
                 self.confirmed_card = self.current_character.hand[self.selected_card_index]
                 self.confirmed_card.current = True

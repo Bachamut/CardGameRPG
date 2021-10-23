@@ -1,4 +1,5 @@
 from assets.lib.battle_system.action_utilities.action_types import ActionType
+from assets.lib.battle_system.log import Logs
 from assets.lib.card_utilities.card_model import BaseCard
 from assets.lib.card_utilities.card_manager import CardManager
 from assets.lib.status_utilities.status_model import Status
@@ -77,7 +78,7 @@ class ActionProcess:
 
         for index, status in enumerate(character.status_list):
             if status.deactivation == stage:
-                # ActionProcess.deactivate_status(character, status)
+                ActionProcess.deactivate_status(character, status)
                 ActionProcess.status_expire(character, status)
 
     @staticmethod
@@ -91,20 +92,20 @@ class ActionProcess:
             ActionType.status_stun(character, status)
         if status.status_type == "harden_1":
             ActionType.status_harden(character, status)
-        print(f'{character.name}: aktywowano {status.name} (pozostałe duration: {status.duration})')
+        Logs.ActionProcessMessage.activate_status_info(character, status, ActionProcess.activate_status.__name__)
 
     @staticmethod
     def deactivate_status(character, status):
 
         if status.duration == 0:
             if status.status_role == "temporary_modifier":
-                print(f'{status.name} przy dezaktywacji przywraca poprzednie wartości')
+                Logs.ActionProcessMessage.deactivate_status_info('Dezaktywacja przywraca poprzednie wartości atrybutów', character, status, ActionProcess.deactivate_status.__name__)
             if status.status_role == "permanent_modifier":
-                print(f'{status.name} przy dezaktywaci nie zmieni nic')
+                Logs.ActionProcessMessage.deactivate_status_info('Dezaktywacja nic nie zmienia', character, status, ActionProcess.deactivate_status.__name__)
             if status.status_role == "action":
-                print(f'{status.name} nie ma dezaktywacji')
+                Logs.ActionProcessMessage.deactivate_status_info('Status nie posiada dezaktywacji', character, status, ActionProcess.deactivate_status.__name__)
         else:
-            print(f'Nie ma statusu do dezaktywacji')
+            Logs.ActionProcessMessage.deactivate_status_info('Brak warunku do dezaktywacji', character, status, ActionProcess.deactivate_status.__name__)
 
     @staticmethod
     def status_expire(character, status):
