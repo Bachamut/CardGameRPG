@@ -1,0 +1,142 @@
+{
+  "scene_name": "card_assets",
+  "include": null,
+  "resources": ["card_assets_resource.json"],
+  "entities": [
+    {
+      "entity": "ArcanaShot",
+      "object":
+      {
+        "object_class": "Card",
+        "object_type": "Card",
+        "object_label": "ArcanaShot",
+        "create": false,
+        "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+        "configure_properties":
+        {
+          "SpriteProperty": {"set_resource": "ArcanaShotCard", "package":  "battle_scene"}
+        }
+      }
+    },
+    {
+      "entity": "BowShot",
+      "object":
+      {
+        "object_class": "Card",
+        "object_type": "Card",
+        "object_label": "BowShot",
+        "create": false,
+        "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+        "configure_properties":
+        {
+          "SpriteProperty": {"set_resource": "BowShotCard", "package":  "battle_scene"}
+        }
+      }
+    },
+    {
+      "entity": "FastStrike",
+      "object":
+      {
+        "object_class": "Card",
+        "object_type": "Card",
+        "object_label": "FastStrike",
+        "create": false,
+        "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+        "configure_properties":
+        {
+          "SpriteProperty": {"set_resource": "FastStrikeCard", "package":  "battle_scene"}
+        }
+      }
+    },
+    {
+      "entity": "HeavyStrike",
+      "object":
+      {
+        "object_class": "Card",
+        "object_type": "Card",
+        "object_label": "HeavyStrike",
+        "create": false,
+        "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+        "configure_properties":
+        {
+          "SpriteProperty": {"set_resource": "HeavyStrikeCard", "package":  "battle_scene"}
+        }
+      }
+    },
+    {
+      "entity": "MagicStrike",
+      "object":
+      {
+        "object_class": "Card",
+        "object_type": "Card",
+        "object_label": "MagicStrike",
+        "create": false,
+        "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+        "configure_properties":
+        {
+          "SpriteProperty": {"set_resource": "MagicStrikeCard", "package":  "battle_scene"}
+        }
+      }
+    },
+    {
+      "entity": "NimbleStrike",
+      "object":
+      {
+        "object_class": "Card",
+        "object_type": "Card",
+        "object_label": "NimbleStrike",
+        "create": false,
+        "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+        "configure_properties":
+        {
+          "SpriteProperty": {"set_resource": "NimbleStrikeCard", "package":  "battle_scene"}
+        }
+      }
+    },
+    {
+      "entity": "PiercingStrike",
+      "object":
+      {
+        "object_class": "Card",
+        "object_type": "Card",
+        "object_label": "PiercingStrike",
+        "create": false,
+        "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+        "configure_properties":
+        {
+          "SpriteProperty": {"set_resource": "PiercingStrikeCard", "package":  "battle_scene"}
+        }
+      }
+    },
+    {
+      "entity": "ShadowDagger",
+      "object":
+      {
+        "object_class": "Card",
+        "object_type": "Card",
+        "object_label": "ShadowDagger",
+        "create": false,
+        "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+        "configure_properties":
+        {
+          "SpriteProperty": {"set_resource": "ShadowDaggerCard", "package":  "battle_scene"}
+        }
+      }
+    },
+    {
+      "entity": "ShieldBash",
+      "object":
+      {
+        "object_class": "Card",
+        "object_type": "Card",
+        "object_label": "ShieldBash",
+        "create": false,
+        "properties": ["TransformProperty", "BlitProperty", "SpriteProperty", "TranslateProperty"],
+        "configure_properties":
+        {
+          "SpriteProperty": {"set_resource": "ShieldBashCard", "package":  "battle_scene"}
+        }
+      }
+    }
+  ]
+}

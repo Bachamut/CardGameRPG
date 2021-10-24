@@ -211,6 +211,11 @@ class CardController(GameObjectSharedResource):
                 if signal.type == BattleLogic.CARD_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
                     Logs.InfoMessage.simple_info(self, "ARROW EVENT LOOP STARTED")
                     self._card_confirmed = False
+
+                    # Set first card from hand as Selected.
+                    # (Used by CardViewController to display arrow on first Card on hand before and arrow event)
+                    self.selected_card = self.current_character.hand[0]
+
                     self.property('EventProperty').property_enable()
                     emit_signal = pygame.event.Event(BattleLogic.CARD_CONTROLLER_SIGNAL, {"event": "CARD_CONTROLLER_SIGNAL", "subtype": "CARD_SELECTION"})
                     pygame.event.post(emit_signal)

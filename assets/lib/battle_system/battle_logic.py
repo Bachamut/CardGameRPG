@@ -1,6 +1,8 @@
 import pygame
 
 from property.initialize_property import InitializeProperty, InitializeState
+from resource_manager.resource_manager import ResourceManager
+from scene_creator.scene_creator import SceneCreator
 
 from assets.lib.battle_system.battle_character_utilities.battle_character_model import BattleCharacter
 from assets.lib.card_utilities.card_manager import CardManager
@@ -42,7 +44,6 @@ class BattleLogic(GameObjectSharedResource):
     _initialized = False
     started = False
 
-
     def __init__(self):
         super(BattleLogic, self).__init__()
 
@@ -52,40 +53,33 @@ class BattleLogic(GameObjectSharedResource):
 
         if InitializeProperty.check_is_ready(self, InitializeState.NOT_INITIALIZED):
             super(BattleLogic, self)._initialize()
+
+            # Load Card Assets from card_assets package
+            SceneCreator._scene = "card_assets"
+            SceneCreator.load_entity_config(SceneCreator._scene)
+            SceneCreator.load_resource_config(SceneCreator._scene)
+            scene_config = SceneCreator.get_scene_resources_config(SceneCreator._scene)
+            ResourceManager.load_resources(scene_config)
+            SceneCreator._scene = "battle_scene"
+
             InitializeProperty.initialize_enable(self)
             Logs.InfoMessage.simple_info(self, "BattleLogic Initialized [ OK ]")
 
             return
 
         if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
-            InitializeProperty.started(self)
             self.property('ScriptProperty').property_enable()
             self.property('SignalProperty').property_enable()
-            Logs.InfoMessage.simple_info(self, "BattleLogic Started [ OK ]")
 
             return
 
     def on_script(self):
-
-
-        # if BattleLogic.started == False \
-        #     and len(GameObject.get_object_pool().select_with_label('CharacterController')) != 0 \
-        #     and len(GameObject.get_object_pool().select_with_label('CardController')) != 0 \
-        #     and len(GameObject.get_object_pool().select_with_label('QueueController')) != 0 \
-        #     and len(GameObject.get_object_pool().select_with_label('CardView')) != 0:
-
-        # BattleLogic.started = True
 
         print(f'BATTLE_LOGIC:EMIT_SIGNAL: "event": "BATTLE_LOGIC_SIGNAL", "subtype": "INITIAL"')
         signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "INITIAL"})
         pygame.event.post(signal)
 
         self.property('ScriptProperty').property_disable()
-
-        # elif BattleLogic.started == True:
-        #     # signal = pygame.event.Event(CHARACTER_CHANGED)
-        #     # pygame.event.post(signal)
-        #     pass
 
     def on_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -133,6 +127,9 @@ class BattleLogic(GameObjectSharedResource):
                 emit_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_MANAGER_SIGNAL, {"event": "CHARACTER_VIEW_MANAGER_SIGNAL", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)
                 Logs.DebugMessage.signal_emit(self, emit_signal, "BLS1->BChVMS1")
+
+                InitializeProperty.started(self)
+                Logs.InfoMessage.simple_info(self, "BattleLogic Started [ OK ]")
                 return
 
             # BLS2

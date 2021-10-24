@@ -66,6 +66,6 @@ class CardManager:
                         CardManager.create_battle_card(base_base))
 
         full_card.usage_description = config['description']
-        # self.picture = config['picture']
+        full_card.resource_name = config['resource']
 
         return full_card

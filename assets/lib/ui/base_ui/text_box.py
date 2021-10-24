@@ -29,7 +29,7 @@ class TextBox(Widget):
 
         if self.has_children():
 
-            for child in self.get_children():
+            for child in self.get_children().copy():
 
                 self.detach_child(child)
                 child.on_destroy()

@@ -93,4 +93,4 @@ class FullCard(BaseCard):
             BattleCard.copy(self, battle)
 
         self.usage_description = None
-        self.picture = None
+        self.resource_name = None

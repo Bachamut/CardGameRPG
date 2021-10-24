@@ -17,6 +17,12 @@ class CardViewController(GameObjectSharedResource):
         self.font_faces = dict()
         self.interline = 20
 
+        # Used determine whether View update is required
+        # Otherwise View is not updated to increase rendering performance
+        self._lock_update_on_hand = list()
+        self._lock_update_on_character = None
+        self._lock_update_on_selected_card = None
+        self._lock_update_on_confirmed_card = None
         self.elements = dict()
 
     def _initialize(self):
@@ -65,20 +71,26 @@ class CardViewController(GameObjectSharedResource):
 
     def on_script(self):
 
+        if not self.update_reqiured():
+
+            return
+
+        self.lock_update()
+        Logs.InfoMessage.simple_info(self, f'CardView.Controller OnScript Update locked on {self._lock_update_on_character.name}')
         self.elements['character_name'].update(f'CurrentCharacterName:')
-        card_list = ""
+        card_list = "No Cards"
 
         if self.current_character in self.battle_ally:
 
             self.elements['character_name'].update(f'CurrentCharacterName: {self.current_character.name}')
-
             if len(self.current_character.hand) != 0:
 
+                card_list = ""
                 for card in self.current_character.hand:
 
                     mark_confirmed_card = ''
                     if self.confirmed_card == card:
-                        mark_confirmed_card = '>>> '
+                        mark_confirmed_card = '>> '
                     elif self.selected_card == card:
                         mark_confirmed_card = '> '
 
@@ -89,3 +101,41 @@ class CardViewController(GameObjectSharedResource):
     def prepare_font_faces(self):
 
         self.font_faces['open_sans_normal'] = pygame.font.Font("assets/fonts/open_sans/OpenSans-Regular.ttf", 16)
+
+    def update_reqiured(self):
+
+        # Used determine whether View update is required
+        # Otherwise View is not updated to increase rendering performance
+
+        if self._lock_update_on_character != self.current_character:
+
+            return True
+
+        if self._lock_update_on_selected_card != self.selected_card:
+
+            return True
+
+        if self._lock_update_on_confirmed_card != self.confirmed_card:
+
+            return True
+
+        if len(self._lock_update_on_hand) != len(self.current_character.hand):
+
+            return True
+
+        for index, card in enumerate(self.current_character.hand):
+
+            if card != self._lock_update_on_hand[index]:
+
+                return True
+
+        return False
+
+    def lock_update(self):
+
+        # If View update is required new lock is set to optimise rendering performance
+
+        self._lock_update_on_character = self.current_character
+        self._lock_update_on_hand = self.current_character.hand.copy()
+        self._lock_update_on_selected_card = self.selected_card
+        self._lock_update_on_confirmed_card = self.confirmed_card

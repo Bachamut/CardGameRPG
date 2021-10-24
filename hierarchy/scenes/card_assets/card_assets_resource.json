@@ -1,0 +1,64 @@
+{
+  "resources": [
+    {
+      "key": "BaseCard",
+      "type": "script",
+      "path": "assets/lib/card_utilities",
+      "file": "card_model"
+    },
+    {
+      "key": "ArcanaShotCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "ArcanaShot.png"
+    },
+    {
+      "key": "BowShotCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "BowShot.png"
+    },
+    {
+      "key": "FastStrikeCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "FastStrike.png"
+    },
+    {
+      "key": "HeavyStrikeCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "HeavyStrike.png"
+    },
+    {
+      "key": "MagicStrikeCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "MagicStrike.png"
+    },
+    {
+      "key": "NimbleStrikeCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "NimbleStrike.png"
+    },
+    {
+      "key": "PiercingStrikeCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "PiercingStrike.png"
+    },
+    {
+      "key": "ShadowDaggerCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "ShadowDagger.png"
+    },
+    {
+      "key": "ShieldBashCard",
+      "type": "image",
+      "path": "assets/cards",
+      "file": "ShieldBash.png"
+    }
+  ]
+}
