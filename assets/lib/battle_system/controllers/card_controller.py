@@ -126,6 +126,7 @@ class CardController(GameObjectSharedResource):
         card = character.draw_pile.pop(0)
         character.hand.append(card)
         character.hand[0].selected = True
+        Logs.CardControllerMessage.draw_card_info(card, character)
 
     @staticmethod
     def draw_hand(character):
