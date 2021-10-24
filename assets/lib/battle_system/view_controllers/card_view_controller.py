@@ -17,7 +17,7 @@ class CardViewController(GameObjectSharedResource):
         self.font_faces = dict()
         self.interline = 20
 
-        # Used determine whether View update is required
+        # Used to determine whether View update is required
         # Otherwise View is not updated to increase rendering performance
         self._lock_update_on_hand = list()
         self._lock_update_on_character = None
@@ -71,7 +71,7 @@ class CardViewController(GameObjectSharedResource):
 
     def on_script(self):
 
-        if not self.update_reqiured():
+        if not self.update_required():
 
             return
 
@@ -102,9 +102,9 @@ class CardViewController(GameObjectSharedResource):
 
         self.font_faces['open_sans_normal'] = pygame.font.Font("assets/fonts/open_sans/OpenSans-Regular.ttf", 16)
 
-    def update_reqiured(self):
+    def update_required(self):
 
-        # Used determine whether View update is required
+        # Used to determine whether View update is required
         # Otherwise View is not updated to increase rendering performance
 
         if self._lock_update_on_character != self.current_character:
