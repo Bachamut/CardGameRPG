@@ -1,6 +1,7 @@
 from game_object.game_object import GameObject
 
 from assets.lib.battle_system.ai_utilities.ai_preferences import Preferences
+from assets.lib.battle_system.log import Logs
 from assets.lib.character_utilities.attributes import Attributes
 from assets.lib.card_utilities.deck import Deck
 from assets.lib.item_utilities.equipment import Equipment
@@ -23,6 +24,7 @@ class BaseCharacter(GameObject):
         self.character_class = None
         self.character_type = None
         self.affiliation = None
+        self.state = None
         self.base_attributes = Attributes()
         self.base_modifiers = Attributes()
         self.inventory = Inventory(20)
@@ -36,13 +38,13 @@ class BaseCharacter(GameObject):
 
 
     def add_status(self, status):
-        print(f'{self.name}: otrzymano status {status.name}')
         self.status_list.append(status)
+        Logs.CharacterModelMessage.add_status_info(self, status, BaseCharacter.add_status.__name__)
 
 
     def remove_status(self, status):
-        print(f'{self.name}: usunięto status {status.name}')
         self.status_list.remove(status)
+        Logs.CharacterModelMessage.remove_status_info(self, status, BaseCharacter.add_status.__name__)
 
     def add_equip(self, slot, item):
         # add item to equipment slot
@@ -129,8 +131,8 @@ class BaseCharacter(GameObject):
     def take_damage(self, value):
         self.base_attributes.health -= value
 
-        if self.base_attributes.health <= 0:
-            print(f'{self.name} nie żyje')
+        # if self.base_attributes.health <= 0:
+        #     print(f'{self.name} nie żyje')
 
     def modify_action_points(self, value):
         self.base_attributes.action_points += value

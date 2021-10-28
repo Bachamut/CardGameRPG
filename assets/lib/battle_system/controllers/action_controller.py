@@ -54,6 +54,8 @@ class ActionController(GameObjectSharedResource):
             ActionProcess.status_for_activation(self.current_character, signal.subtype)
             ActionProcess.status_for_deactivation(self.current_character, signal.subtype)
 
+            ActionProcess.battle_state(self.battle_ally, self.battle_enemies)
+
             # Restocking current_character action_points
             ActionProcess.restock_action_points(self.current_character)
 
@@ -69,6 +71,8 @@ class ActionController(GameObjectSharedResource):
             ActionProcess.status_for_activation(self.current_character, signal.subtype)
             ActionProcess.status_for_deactivation(self.current_character, signal.subtype)
 
+            ActionProcess.battle_state(self.battle_ally, self.battle_enemies)
+
             emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_RESPONSE, {"event": "ACTION_CONTROLLER_RESPONSE", "subtype": "PRE_DRAW"})
             pygame.event.post(emit_signal)
             Logs.DebugMessage.signal_emit(self, emit_signal, "AC2->BL5")
@@ -80,6 +84,8 @@ class ActionController(GameObjectSharedResource):
 
             ActionProcess.status_for_activation(self.current_character, signal.subtype)
             ActionProcess.status_for_deactivation(self.current_character, signal.subtype)
+
+            ActionProcess.battle_state(self.battle_ally, self.battle_enemies)
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_RESPONSE, {"event": "ACTION_CONTROLLER_RESPONSE", "subtype": "POST_DRAW"})
             pygame.event.post(emit_signal)
@@ -107,6 +113,8 @@ class ActionController(GameObjectSharedResource):
             ActionProcess.status_for_activation(self.current_character, signal.subtype)
             ActionProcess.status_for_deactivation(self.current_character, signal.subtype)
 
+            ActionProcess.battle_state(self.battle_ally, self.battle_enemies)
+
             emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_RESPONSE, {"event": "ACTION_CONTROLLER_RESPONSE", "subtype": "POST_ACTION"})
             pygame.event.post(emit_signal)
             Logs.DebugMessage.signal_emit(self, emit_signal, "AC5->BL8")
@@ -118,6 +126,8 @@ class ActionController(GameObjectSharedResource):
 
             ActionProcess.status_for_activation(self.current_character, signal.subtype)
             ActionProcess.status_for_deactivation(self.current_character, signal.subtype)
+
+            ActionProcess.battle_state(self.battle_ally, self.battle_enemies)
 
             # Discarding current character hand at turn finish
             print(f'\n{self.current_character.name}:\n AP: {self.current_character.battle_attribute("action_points")}\n HP: {self.current_character.battle_attribute("health")}')

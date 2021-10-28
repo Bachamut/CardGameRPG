@@ -109,7 +109,7 @@ class BattleCharacterStatusViewController(GameObjectSharedResource):
             if self.current_character == character:
                 mark_current_character = '>'
 
-            update_text = f'{mark_current_character}{character.name} HP:{character.base_attributes.health} EN:{character.battle_attributes.energy} AP:{character.battle_attributes.action_points}'
+            update_text = f'{mark_current_character}{character.name} HP:{character.battle_attributes.health} EN:{character.battle_attributes.energy} AP:{character.battle_attributes.action_points}'
             self.character_lines[character].update(update_text)
 
     def prepare_font_faces(self):

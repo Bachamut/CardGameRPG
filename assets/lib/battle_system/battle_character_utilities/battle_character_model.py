@@ -1,6 +1,7 @@
 import pygame
 
 from assets.lib.battle_system.battle_modifiers import BattleModifiers
+from assets.lib.battle_system.log import Logs
 from assets.lib.character_utilities.attributes import Attributes
 from assets.lib.character_utilities.character_model import BaseCharacter
 from assets.lib.character_utilities.modifiers import Modifiers
@@ -21,6 +22,7 @@ class BattleCharacter(BaseCharacter):
         self.character_class = base_character.character_class
         self.character_type = base_character.character_type
         self.affiliation = base_character.affiliation
+        self.state = base_character.state
 
         self.base_attributes = base_character.base_attributes
         self.base_modifiers = base_character.base_modifiers
@@ -43,10 +45,10 @@ class BattleCharacter(BaseCharacter):
         self.hand = list()
 
     def modify_battle_attributes(self, attribute, value):
-        print(f'{self.name}: battle_attributes.{attribute}:{getattr(self.battle_attributes, attribute)}')
+        Logs.CharacterModelMessage.modify_battle_attributes_info(self, attribute, value, BattleCharacter.modify_battle_attributes.__name__)
         battle_attributes_value = getattr(self.battle_attributes, attribute)
         setattr(self.battle_attributes, attribute, battle_attributes_value + value)
-        print(f'{self.name}: battle_attributes.{attribute}:{getattr(self.battle_attributes, attribute)}')
+        Logs.CharacterModelMessage.modify_battle_attributes_info(self, attribute, value, BattleCharacter.modify_battle_attributes.__name__)
 
     def modify_battle_modifiers(self, attribute, value, related_status):
 
@@ -58,6 +60,9 @@ class BattleCharacter(BaseCharacter):
         # battle_modifiers_value = getattr(self.battle_modifiers, attribute)
         # setattr(self.battle_modifiers, attribute, battle_modifiers_value + value)
         # print(f'{self.name}: battle_modifiers.{attribute}:{getattr(self.battle_modifiers, attribute)}')
+
+    def take_damage_battle_attribute(self, value):
+        self.battle_attributes.health -= value
 
     @staticmethod
     def create_character_models(base_models):

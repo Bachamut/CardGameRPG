@@ -212,6 +212,7 @@ class CardController(GameObjectSharedResource):
                 if signal.type == BattleLogic.CARD_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
                     Logs.InfoMessage.simple_info(self, "ARROW EVENT LOOP STARTED")
                     self._card_confirmed = False
+                    self.selected_card_index = 0
 
                     # Set first card from hand as Selected.
                     # (Used by CardViewController to display arrow on first Card on hand before and arrow event)

@@ -7,6 +7,7 @@ class AIProcess:
 
     @staticmethod
     def action_calculation(character, targets):
+
         cards_values = AIProcess.calculating_cards_values(character, targets)
 
         best_card = None
@@ -27,6 +28,7 @@ class AIProcess:
 
     @staticmethod
     def calculating_cards_values(character, targets):
+
         cards_values = dict()
 
         preference_matrix = Preferences.get_preferences(character)
@@ -49,6 +51,7 @@ class AIProcess:
 
     @staticmethod
     def card_value_by_affiliation(character, targets, card):
+
         value_by_targets = dict()
 
         for target in targets:
@@ -56,16 +59,21 @@ class AIProcess:
             affiliation_matrix = AIProcess.affiliation_matrix(character, target)
             caster_matrix = AIProcess.caster_matrix()
 
+            character_state_matrix = AIProcess.character_state_factor(target)
+
             card_matrix = AIProcess.card_value_matrix(character, target, card)
             target_status_matrix = AIProcess.target_status_value_calculation(target, card)
             caster_status_matrix = AIProcess.caster_status_value_calculation(target, card)
 
-            for index, value in enumerate(affiliation_matrix):
-                card_matrix[index] *= value
-                target_status_matrix[index] *= value
+            for index, value1 in enumerate(character_state_matrix):
+                affiliation_matrix[index] *= value1
 
-            for index, value in enumerate(caster_matrix):
-                caster_status_matrix[index] *= value
+            for index, value2 in enumerate(affiliation_matrix):
+                card_matrix[index] *= value2
+                target_status_matrix[index] *= value2
+
+            for index, value3 in enumerate(caster_matrix):
+                caster_status_matrix[index] *= value3
 
             zipped_lists = zip(card_matrix, target_status_matrix, caster_status_matrix)
             target_sum = [x + y + z for (x, y, z) in zipped_lists]
@@ -76,6 +84,7 @@ class AIProcess:
 
     @staticmethod
     def affiliation_matrix(character, target):
+
         if character.affiliation == "enemy" and target.affiliation == "enemy" or \
                 character.affiliation == "ally" and target.affiliation == "ally":
 
@@ -90,11 +99,13 @@ class AIProcess:
 
     @staticmethod
     def caster_matrix():
+
         caster_matrix = [-1, 1, 1, -1]
         return caster_matrix
 
     @staticmethod
     def card_value_matrix(character, target, card):
+
         value = ActionProcess.value_calculation(character, target, card)
         if card.card_type == "physical_attack":
             card_matrix = [value, 0, 0, 0]
@@ -109,14 +120,17 @@ class AIProcess:
 
     @staticmethod
     def target_status_value_calculation(target, card):
+
         return AIProcess._status_value_calculation(target, card.target_status.items())
 
     @staticmethod
     def caster_status_value_calculation(target, card):
+
         return AIProcess._status_value_calculation(target, card.caster_status.items())
 
     @staticmethod
     def _status_value_calculation(target, card_status):
+
         status_matrix = list()
         sum_value = [0, 0, 0, 0]
         for status_type, parameters in card_status:
@@ -142,8 +156,8 @@ class AIProcess:
 
         return sum_value
 
-
     def possible_targets(self):
+
         targets = list()
 
         if self.current_character.affiliation == "enemy":
@@ -152,8 +166,8 @@ class AIProcess:
             targets = self.battle_enemies
         return targets
 
-
     def focus_factor(self):
+
         focus_factor = dict()
         targets = self.possible_targets()
         for target in targets:
@@ -163,3 +177,13 @@ class AIProcess:
             focus_factor[target.name] = health_factor
 
         return focus_factor
+
+    @staticmethod
+    def character_state_factor(target):
+
+        character_state_matrix = [1, 1, 1, 1]
+
+        if target.state == "dead":
+            character_state_matrix = [0, 0, 0, 0]
+
+        return character_state_matrix

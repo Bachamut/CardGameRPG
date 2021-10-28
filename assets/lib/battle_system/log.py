@@ -42,6 +42,7 @@ class Logs:
     action_process_message = True
     activate_status_info_enable = True
     deactivate_status_info_enable = True
+    action_process_info_enable = True
 
     class ActionProcessMessage:
 
@@ -61,6 +62,53 @@ class Logs:
             if Logs.deactivate_status_info_enable and Logs.action_process_message:
                 time_stamp = datetime.now().time()
                 message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} [{method_name}] {character.name}: {status.name} - {Fore.RED} {tag}{Fore.RESET}'
+                return print(message)
+            else:
+                pass
+
+        @staticmethod
+        def action_process_info(caster, target, card, value, method_name):
+
+            if Logs.action_process_info_enable and Logs.action_process_message:
+                time_stamp = datetime.now().time()
+                message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} [{method_name}] {caster.name}: używa "{card.card_name}" na {target.name}, zadaje {value} obrażeń!'
+                return print(message)
+            else:
+                pass
+
+    character_model_message = True
+    add_status_info_enable = True
+    remove_status_info_enable = True
+    modify_battle_attributes_info_enable = True
+
+    class CharacterModelMessage:
+
+        @staticmethod
+        def add_status_info(self, status, method_name):
+
+            if Logs.add_status_info_enable and Logs.character_model_message:
+                time_stamp = datetime.now().time()
+                message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} [{method_name}] {self.name}: otrzymano status "{status.name}"'
+                return print(message)
+            else:
+                pass
+
+        @staticmethod
+        def remove_status_info(self, status, method_name):
+
+            if Logs.remove_status_info_enable and Logs.character_model_message:
+                time_stamp = datetime.now().time()
+                message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} [{method_name}] {self.name}: usunięto status "{status.name}"'
+                return print(message)
+            else:
+                pass
+
+        @staticmethod
+        def modify_battle_attributes_info(self, attribute, value, method_name):
+
+            if Logs.modify_battle_attributes_info_enable and Logs.character_model_message:
+                time_stamp = datetime.now().time()
+                message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} [{method_name}] {self.name}: battle_attributes.{attribute}:{getattr(self.battle_attributes, attribute)}'
                 return print(message)
             else:
                 pass

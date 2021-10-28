@@ -16,8 +16,10 @@ class ActionProcess:
 
         # health processing
         value = ActionProcess.value_calculation(caster, target, card)
-        target.take_damage(value)
-        print(f'{caster.name} używa "{card.card_name}" na {target.name}, zadaje {value} obrażeń!')
+        # target.take_damage(value)
+        target.take_damage_battle_attribute(value)
+
+        Logs.ActionProcessMessage.action_process_info(caster, target, card, value, ActionProcess.action_process.__name__)
 
         # status processing for target
         for status_type, parameters in card.target_status.items():
@@ -119,4 +121,39 @@ class ActionProcess:
     def restock_action_points(character):
 
         character.battle_attributes.action_points = character.base_attributes.action_points + character.base_modifiers.action_points
+
+    @staticmethod
+    def is_character_dead(character):
+        if character.battle_attribute("health") <= 0:
+            character.state = "dead"
+            print(f'{character.name} nie żyje')
+
+    @staticmethod
+    def battle_state(battle_ally, battle_enemies):
+
+        for character in battle_ally + battle_enemies:
+            ActionProcess.is_character_dead(character)
+
+        if ActionProcess.battle_lose(battle_ally):
+            print('wysłano sygnał "battle_lose')
+            # return
+        elif ActionProcess.battle_won(battle_enemies):
+            print(f'wysłano sygnał "battle_won')
+            # return
+        else:
+            pass
+
+    @staticmethod
+    def battle_lose(battle_ally):
+        if any(character.state == "alive" for character in battle_ally):
+            print(f'jeszcze żyjesz')
+        else:
+            print(f'przegrałeś, wszyscy towarzysze nie żyją')
+
+    @staticmethod
+    def battle_won(battle_enemies):
+        if any(character.state == "alive" for character in battle_enemies):
+            print(f'żywi przeciwnicy, kontynuujesz walkę')
+        else:
+            print(f'wygrałeś, wszyscy przeciwnicy nie żyją')
 

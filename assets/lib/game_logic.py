@@ -33,6 +33,7 @@ class GameLogic(GameObject):
 
     def _create_party(self):
         player = CharacterManager.create_character("character_edward")
+        player.state = "alive"
         player.inventory.add_item('Short sword')
         player.inventory.add_item('Simple shield')
         player.add_equip('hand_r', 'Short sword')
@@ -40,12 +41,14 @@ class GameLogic(GameObject):
         GameLogic.party.append(player)
 
         player = CharacterManager.create_character("character_lucius")
+        player.state = "alive"
         player.inventory.add_item('Short sword')
         player.add_equip('hand_r', 'Short sword')
         GameLogic.party.append(player)
 
     def _create_enemy(self):
         enemy = CharacterManager.create_character("warrior_goblin")
+        enemy.state = "alive"
         enemy.inventory.add_item('Short sword')
         enemy.add_equip('hand_r', 'Short sword')
         GameLogic.enemies.append(enemy)
