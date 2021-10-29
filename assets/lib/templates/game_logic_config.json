@@ -1,0 +1,21 @@
+{
+  "game_logic_default":
+  {
+    "card_config": "assets/lib/templates/default/card_types.json",
+    "character_config": "assets/lib/templates/default/character_types.json",
+    "item_config": "assets/lib/templates/default/item_types.json",
+    "status_config": "assets/lib/templates/default/status_types.json",
+    "ai_config": "assets/lib/templates/default/condition_blocks.json"
+  },
+  "game_logic_test":
+  {
+    "card_config": "assets/lib/templates/test/card_types.json",
+    "character_config": "assets/lib/templates/test/character_types.json",
+    "item_config": "assets/lib/templates/test/item_types.json",
+    "status_config": "assets/lib/templates/test/status_types.json",
+    "ai_config": "assets/lib/templates/test/condition_blocks.json"
+  }
+}
+
+
+

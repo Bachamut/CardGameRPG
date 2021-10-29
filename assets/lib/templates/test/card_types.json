@@ -1,0 +1,163 @@
+{
+  "heavy_strike_1":
+  {
+    "resource": "HeavyStrikeCard",
+    "card_id": "heavy_strike_1",
+    "card_name": "Heavy Strike",
+    "card_type": "physical_attack",
+    "action_type": "basic_attack",
+    "description": "Slow crushing blow",
+    "character_class": "warrior",
+    "base_value": 5,
+    "multiplier": 1.2,
+    "ap_cost": 2,
+    "energy_cost": 0,
+    "target": "single",
+    "caster_status":{},
+    "target_status":{}
+  },
+
+  "fast_strike_1":
+  {
+    "resource": "FastStrikeCard",
+    "card_id": "fast_strike_1",
+    "card_name": "Fast Strike",
+    "card_type": "physical_attack",
+    "action_type": "basic_attack",
+    "description": "Quick light attack",
+    "character_class": "warrior",
+    "base_value": 3,
+    "multiplier": 0.5,
+    "ap_cost": 1,
+    "energy_cost": 0,
+    "target": "single",
+    "caster_status":{},
+    "target_status":{}
+  },
+
+    "piercing_strike_1":
+  {
+    "resource": "PiercingStrikeCard",
+    "card_id": "piercing_strike_1",
+    "card_name": "Piercing Strike",
+    "card_type": "physical_attack",
+    "action_type": "piercing_attack",
+    "description": "Armor penetrating attack",
+    "character_class": "warrior",
+    "base_value": 8,
+    "multiplier": 0.5,
+    "ap_cost": 2,
+    "energy_cost": 0,
+    "target": "single",
+    "caster_status": {},
+    "target_status": {}
+  },
+
+    "nimble_strike_1":
+  {
+    "resource": "NimbleStrikeCard",
+    "card_id": "nimble_strike_1",
+    "card_name": "Nimble Strike",
+    "card_type": "physical_attack",
+    "action_type": "agile_attack",
+    "description": "Nimble dagger attack",
+    "character_class": "rogue",
+    "base_value": 2,
+    "multiplier": 0.8,
+    "ap_cost": 1,
+    "energy_cost": 0,
+    "target": "single",
+    "caster_status": {},
+    "target_status": {}
+  },
+
+    "magic_strike_1":
+  {
+    "resource": "MagicStrikeCard",
+    "card_id": "magic_strike_1",
+    "card_name": "Magic Strike",
+    "card_type": "magical_attack",
+    "action_type": "magic_attack",
+    "description": "Magical enhanced attack",
+    "character_class": "mage",
+    "base_value": 2,
+    "multiplier": 1.6,
+    "ap_cost": 2,
+    "energy_cost": 2,
+    "target": "single",
+    "caster_status": {},
+    "target_status": {}
+  },
+
+    "arcana_shot_1":
+  {
+    "resource": "ArcanaShotCard",
+    "card_id": "arcana_shot_1",
+    "card_name": "Arcana Shot",
+    "card_type": "magical_attack",
+    "action_type": "magic_spell",
+    "description": "Magical bolt",
+    "character_class": "mage",
+    "base_value": 0,
+    "multiplier": 1.4,
+    "ap_cost": 1,
+    "energy_cost": 4,
+    "target": "single",
+    "caster_status": {},
+    "target_status": {}
+  },
+
+  "bow_shot_1":
+  {
+    "resource": "BowShotCard",
+    "card_id": "bow_shot_1",
+    "card_name": "Bow Shot",
+    "card_type": "physical_attack",
+    "action_type": "bow_attack",
+    "description": "Bow & arrow",
+    "character_class": "archer",
+    "base_value": 2,
+    "multiplier": 1.8,
+    "ap_cost": 2,
+    "energy_cost": 0,
+    "target": "single",
+    "caster_status": {},
+    "target_status": {}
+  },
+
+  "shadow_dagger_1":
+  {
+    "resource": "ShadowDaggerCard",
+    "card_id": "shadow_dagger_1",
+    "card_name": "Shadow Dagger",
+    "card_type": "physical_attack",
+    "action_type": "agile_attack",
+    "description": "Shadow technique deadly strike",
+    "character_class": "rogue",
+    "base_value": 8,
+    "multiplier": 1.4,
+    "ap_cost": 2,
+    "energy_cost": 5,
+    "target": "single",
+    "caster_status": {},
+    "target_status": {}
+  },
+
+  "shield_bash_1":
+  {
+    "resource": "ShieldBashCard",
+    "card_id": "shield_bash_1",
+    "card_name": "Shield Bash",
+    "card_type": "physical_attack",
+    "action_type": "basic_attack",
+    "description": "Stun your enemy",
+    "character_class": "warrior",
+    "base_value": 2,
+    "multiplier": 0.4,
+    "ap_cost": 1,
+    "energy_cost": 0,
+    "target": "single",
+    "caster_status":{},
+    "target_status":{}
+  }
+}

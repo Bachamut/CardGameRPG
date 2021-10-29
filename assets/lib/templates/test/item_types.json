@@ -1,0 +1,64 @@
+{
+  "Short sword":
+  {
+    "item_id": 1,
+    "item_name": "Short sword",
+    "item_type": "one-handed sword",
+    "slot_type": "hand_r",
+    "description": "Typical short sword, better than nothing",
+    "item_value": 50,
+    "stack_amount": 5,
+    "r_health": 0,
+    "r_energy": 0,
+    "r_strength": 4,
+    "r_dexterity": 2,
+    "r_magic": 0,
+    "r_stamina": 0,
+    "r_physical_resist": 0,
+    "r_magic_resist": 0,
+    "m_health": 0,
+    "m_energy": 0,
+    "m_strength": 1,
+    "m_dexterity": 0,
+    "m_magic": 0,
+    "m_stamina": 0,
+    "m_physical_resist": 0,
+    "m_magic_resist": 0,
+    "add_card":
+    {
+      "fast_strike_1": 4,
+      "heavy_strike_1": 2
+    }
+  },
+
+  "Simple shield":
+  {
+    "item_id": 2,
+    "item_name": "Simple shield",
+    "item_type": "medium shield",
+    "slot_type": "hand_l",
+    "description": "Solid wooden shield, good for blocking",
+    "item_value": 20,
+    "stack_amount": 5,
+    "r_health": 0,
+    "r_energy": 0,
+    "r_strength": 5,
+    "r_dexterity": 3,
+    "r_magic": 0,
+    "r_stamina": 0,
+    "r_physical_resist": 0,
+    "r_magic_resist": 0,
+    "m_health": 0,
+    "m_energy": 0,
+    "m_strength": 0,
+    "m_dexterity": 0,
+    "m_magic": 0,
+    "m_stamina": 0,
+    "m_physical_resist": 10,
+    "m_magic_resist": 0,
+    "add_card":
+    {
+      "shield_bash_1": 2
+    }
+  }
+}
