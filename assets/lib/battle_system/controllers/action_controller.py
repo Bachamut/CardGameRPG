@@ -132,8 +132,6 @@ class ActionController(GameObjectSharedResource):
             # Discarding current character hand at turn finish
             print(f'\n{self.current_character.name}:\n AP: {self.current_character.battle_attribute("action_points")}\n HP: {self.current_character.battle_attribute("health")}')
             CardController.discard_hand(self.current_character)
-            print(f'Zdiscardowano hand {self.current_character.name}')
-            print(f'ilość kart:\n hand: {len(self.current_character.hand)}\n draw_pile: {len(self.current_character.draw_pile)}\n discard_pile: {len(self.current_character.discard_pile)}')
 
             emit_signal = pygame.event.Event(BattleLogic.ACTION_CONTROLLER_RESPONSE, {"event": "ACTION_CONTROLLER_RESPONSE", "subtype": "POST_TURN"})
             pygame.event.post(emit_signal)

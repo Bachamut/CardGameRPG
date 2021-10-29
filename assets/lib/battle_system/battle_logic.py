@@ -37,6 +37,9 @@ class BattleLogic(GameObjectSharedResource):
     CHARACTER_VIEW_SIGNAL = pygame.event.custom_type()
     CHARACTER_VIEW_RESPONSE = pygame.event.custom_type()
 
+    BATTLE_LOST = pygame.event.custom_type()
+    BATTLE_WON = pygame.event.custom_type()
+
     character_model_active = False
     card_model_active = False
     turn_model_active = False
@@ -389,22 +392,43 @@ class BattleLogic(GameObjectSharedResource):
                 return
 
             # ?BL101
-            if signal.type == BattleLogic.ACTION_CONTROLLER_RESPONSE and signal.subtype == "POST_TURN":
-                Logs.DebugMessage.signal_received(self, signal, "?BL101<-?AC100")
+            if signal.type == BattleLogic.ACTION_CONTROLLER_RESPONSE and signal.subtype == "POST_TURN" or \
+                    signal.type == BattleLogic.BATTLE_LOST and signal.subtype == "STANDARD" or \
+                    signal.type == BattleLogic.BATTLE_WON and signal.subtype == "STANDARD":
+
+                if signal.type == BattleLogic.ACTION_CONTROLLER_RESPONSE and signal.subtype == "POST_TURN":
+                    Logs.DebugMessage.signal_received(self, signal, "?BL101<-?AC100")
+                if signal.type == BattleLogic.BATTLE_LOST and signal.subtype == "STANDARD":
+                    Logs.DebugMessage.signal_received(self, signal, "?BL101<-?ActionProcess: battle_lost")
+                if signal.type == BattleLogic.BATTLE_WON and signal.subtype == "STANDARD":
+                    Logs.DebugMessage.signal_received(self, signal, "?BL101<-?ActionProcess: battle_won")
 
                 # IF Czy walka zakończona?:
                 Logs.InfoMessage.simple_info(self, "CZY WALKA ZAKOŃCZONA?")
 
-                answer = False
+                answer = True
                 if answer:
-                    Logs.InfoMessage.simple_info(self, "TAK")
 
-                    emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "END_BATTLE"})
-                    pygame.event.post(emit_signal)
-                    Logs.DebugMessage.signal_emit(self, emit_signal, "?BL101->!!!END BATTLE!!!")
-                    return
-
-                else:
+                # if signal.type == BattleLogic.BATTLE_LOST and signal.subtype == "STANDARD":
+                #     Logs.InfoMessage.simple_info(self, "TAK")
+                #
+                #     emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "BATTLE_LOST"})
+                #     pygame.event.post(emit_signal)
+                #     Logs.DebugMessage.signal_emit(self, emit_signal, "?BL101->!!!END BATTLE!!!")
+                #     # return
+                #     while True:
+                #         print(f'BATTLE_LOST')
+                #
+                # elif signal.type == BattleLogic.BATTLE_WON and signal.subtype == "STANDARD":
+                #
+                #     emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "BATTLE_WON"})
+                #     pygame.event.post(emit_signal)
+                #     Logs.DebugMessage.signal_emit(self, emit_signal, "?BL101->!!!END BATTLE!!!")
+                #     # return
+                #     while True:
+                #         print(f'BATTLE_WON')
+                #
+                # else:
                     Logs.InfoMessage.simple_info(self, "NIE")
 
                     emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "END_TURN"})

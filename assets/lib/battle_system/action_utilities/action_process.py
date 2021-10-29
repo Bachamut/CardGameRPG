@@ -1,4 +1,7 @@
+import pygame
+
 from assets.lib.battle_system.action_utilities.action_types import ActionType
+from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.battle_system.log import Logs
 from assets.lib.card_utilities.card_model import BaseCard
 from assets.lib.card_utilities.card_manager import CardManager
@@ -45,7 +48,7 @@ class ActionProcess:
         caster_action = {card.action_type: value}
         target_action = {card.action_type: value}
 
-        print(f'{target.name} - baseHP:{target.base_attributes.health}')
+        print(f'{target.name} - battleHP:{target.battle_attributes.health}')
         return caster_action, target_action
 
     @staticmethod
@@ -134,26 +137,36 @@ class ActionProcess:
         for character in battle_ally + battle_enemies:
             ActionProcess.is_character_dead(character)
 
-        if ActionProcess.battle_lose(battle_ally):
+        if ActionProcess.battle_lost(battle_ally):
             print('wysłano sygnał "battle_lose')
-            # return
+
         elif ActionProcess.battle_won(battle_enemies):
             print(f'wysłano sygnał "battle_won')
-            # return
+
         else:
             pass
 
     @staticmethod
-    def battle_lose(battle_ally):
+    def battle_lost(battle_ally):
+
         if any(character.state == "alive" for character in battle_ally):
-            print(f'jeszcze żyjesz')
+            Logs.ActionProcessMessage.action_process_simple_info(ActionProcess.battle_lost.__name__, 'jeszcze żyjesz')
         else:
-            print(f'przegrałeś, wszyscy towarzysze nie żyją')
+            Logs.ActionProcessMessage.action_process_simple_info(ActionProcess.battle_lost.__name__, 'przegrałeś, wszyscy towarzysze nie żyją')
+
+            # emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOST, {"event": "BATTLE_LOST", "subtype": "STANDARD"})
+            # pygame.event.post(emit_signal)
+            # return
 
     @staticmethod
     def battle_won(battle_enemies):
+
         if any(character.state == "alive" for character in battle_enemies):
-            print(f'żywi przeciwnicy, kontynuujesz walkę')
+            Logs.ActionProcessMessage.action_process_simple_info(ActionProcess.battle_lost.__name__, 'żywi przeciwnicy, kontynuujesz walkę')
         else:
-            print(f'wygrałeś, wszyscy przeciwnicy nie żyją')
+            Logs.ActionProcessMessage.action_process_simple_info(ActionProcess.battle_lost.__name__, 'wygrałeś, wszyscy przeciwnicy nie żyją')
+
+            # emit_signal = pygame.event.Event(BattleLogic.BATTLE_WON, {"event": "BATTLE_WON", "subtype": "STANDARD"})
+            # pygame.event.post(emit_signal)
+            # return
 

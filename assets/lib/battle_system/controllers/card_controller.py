@@ -145,8 +145,10 @@ class CardController(GameObjectSharedResource):
 
     @staticmethod
     def discard_hand(character):
+
         for it in range(0, len(character.hand)):
             CardController.discard_hand_card(character)
+        Logs.CardControllerMessage.discard_hand_info(character)
 
     def on_script(self):
         pass
@@ -247,8 +249,9 @@ class CardController(GameObjectSharedResource):
             if self.selected_card_index < len(self.current_character.hand) - 1:
                 self.current_character.hand[self.selected_card_index].selected = False
                 self.selected_card_index += 1
-                print(f'{self.selected_card_index}: {self.current_character.hand[self.selected_card_index].card_name}')
                 self.current_character.hand[self.selected_card_index].selected = True
+
+                Logs.CardControllerMessage.arrow_card_select_info(self)
 
                 # Mark Card as Selected
                 self.selected_card = self.current_character.hand[self.selected_card_index]
@@ -260,8 +263,9 @@ class CardController(GameObjectSharedResource):
             if self.selected_card_index > 0:
                 self.current_character.hand[self.selected_card_index].selected = False
                 self.selected_card_index -= 1
-                print(f'{self.selected_card_index}: {self.current_character.hand[self.selected_card_index].card_name}')
                 self.current_character.hand[self.selected_card_index].selected = True
+
+                Logs.CardControllerMessage.arrow_card_select_info(self)
 
                 # Mark Card as Selected
                 self.selected_card = self.current_character.hand[self.selected_card_index]
@@ -272,11 +276,11 @@ class CardController(GameObjectSharedResource):
             selected_card = CardManager.create_battle_card(self.current_character.hand[self.selected_card_index])
             if selected_card.ap_cost <= self.current_character.battle_attribute("action_points"):
                 self._card_confirmed = True
-                Logs.InfoMessage.simple_info(self, "CARD SELECTED")
+                Logs.CardControllerMessage.card_controller_simple_info(self, "CARD SELECTED")
 
                 self.confirmed_card = self.current_character.hand[self.selected_card_index]
                 self.confirmed_card.current = True
-                print(f'wybrana karta: {self.selected_card_index}: {self._battle_logic.confirmed_card.card_name}')
+                Logs.CardControllerMessage.card_selection_info(self)
             else:
-                print(f'Nie masz wystarczającej ilość AP')
+                Logs.CardControllerMessage.card_controller_simple_info(self, "Nie masz wystarczającej ilość AP")
 

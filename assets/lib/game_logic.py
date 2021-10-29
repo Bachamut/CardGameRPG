@@ -1,3 +1,5 @@
+import json
+
 from game_object.game_object import GameObject
 
 from assets.lib.battle_system.ai_utilities.ai_condition_manager import AIConditionManager
@@ -21,15 +23,37 @@ class GameLogic(GameObject):
     def _initialize(self):
         GameLogic._initialized = True
 
-        CardManager.load_config('assets/lib/templates/card_types.json')
-        CharacterManager.load_config('assets/lib/templates/character_types.json')
-        ItemManager.load_config('assets/lib/templates/item_types.json')
-        StatusManager.load_config('assets/lib/templates/status_types.json')
-        AIConditionManager.load_config('assets/lib/templates/condition_blocks.json')
+        card_config, character_config, item_config, status_config, ai_config = GameLogic._load_config_preset('game_logic_test')
+
+        CardManager.load_config(card_config)
+        CharacterManager.load_config(character_config)
+        ItemManager.load_config(item_config)
+        StatusManager.load_config(status_config)
+        AIConditionManager.load_config(ai_config)
 
         self._create_party()
         self._create_enemy()
         # self._create_status_types()
+
+    @staticmethod
+    def _load_config_preset(setup_name):
+
+        filename = 'assets/lib/templates/game_logic_config.json'
+
+        with open(filename, 'r') as file:
+            config = json.load(file)
+            for key, value in config.items():
+                CardManager.card_config.update({key: value})
+
+        config_paths = config[setup_name]
+
+        card_config = config_paths['card_config']
+        character_config = config_paths['character_config']
+        item_config = config_paths['item_config']
+        status_config = config_paths['status_config']
+        ai_config = config_paths['ai_config']
+
+        return card_config, character_config, item_config, status_config, ai_config
 
     def _create_party(self):
         player = CharacterManager.create_character("character_edward")

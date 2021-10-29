@@ -10,6 +10,10 @@ class Logs:
 
     card_controller_message = True
     draw_card_info_enable = True
+    discard_hand_info_enable = True
+    arrow_card_select_info_enable = True
+    card_selection_info_enable = True
+    card_controller_simple_info_enable = True
 
     class CardControllerMessage:
 
@@ -19,6 +23,46 @@ class Logs:
             if Logs.draw_card_info_enable and Logs.card_controller_message:
                 time_stamp = datetime.now().time()
                 message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} {character.name} dobiera "{card.card_name}"'
+                return print(message)
+            else:
+                pass
+
+        @staticmethod
+        def discard_hand_info(character):
+
+            if Logs.discard_hand_info_enable and Logs.card_controller_message:
+                time_stamp = datetime.now().time()
+                message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} {character.name}: zdiscardowano hand\nilość kart:\n hand: {len(character.hand)}\n draw_pile: {len(character.draw_pile)}\n discard_pile: {len(character.discard_pile)}'
+                return print(message)
+            else:
+                pass
+
+        @staticmethod
+        def arrow_card_select_info(self):
+
+            if Logs.arrow_card_select_info_enable and Logs.card_controller_message:
+                time_stamp = datetime.now().time()
+                message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} {self.selected_card_index}: {self.current_character.hand[self.selected_card_index].card_name}'
+                return print(message)
+            else:
+                pass
+
+        @staticmethod
+        def card_selection_info(self):
+
+            if Logs.card_selection_info_enable and Logs.card_controller_message:
+                time_stamp = datetime.now().time()
+                message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} wybrana karta: {self.selected_card_index}: {self._battle_logic.confirmed_card.card_name}'
+                return print(message)
+            else:
+                pass
+
+        @staticmethod
+        def card_controller_simple_info(self, tag):
+
+            if Logs.card_controller_simple_info_enable and Logs.card_controller_message:
+                time_stamp = datetime.now().time()
+                message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} {tag}'
                 return print(message)
             else:
                 pass
@@ -43,6 +87,7 @@ class Logs:
     activate_status_info_enable = True
     deactivate_status_info_enable = True
     action_process_info_enable = True
+    action_process_simple_info_enable = True
 
     class ActionProcessMessage:
 
@@ -72,6 +117,16 @@ class Logs:
             if Logs.action_process_info_enable and Logs.action_process_message:
                 time_stamp = datetime.now().time()
                 message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} [{method_name}] {caster.name}: używa "{card.card_name}" na {target.name}, zadaje {value} obrażeń!'
+                return print(message)
+            else:
+                pass
+
+        @staticmethod
+        def action_process_simple_info(method_name, tag):
+
+            if Logs.action_process_simple_info_enable and Logs.action_process_message:
+                time_stamp = datetime.now().time()
+                message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} [{method_name}] {tag})'
                 return print(message)
             else:
                 pass
