@@ -77,6 +77,12 @@ class GameLogic(GameObject):
         enemy.add_equip('hand_r', 'Short sword')
         GameLogic.enemies.append(enemy)
 
+        enemy = CharacterManager.create_character("healer_goblin")
+        enemy.state = "alive"
+        enemy.inventory.add_item('Healer wand')
+        enemy.add_equip('hand_r', 'Healer wand')
+        GameLogic.enemies.append(enemy)
+
     # def _create_status_types(self):
     #     StatusManager.create_status_types()
     #     print(f'status_types:')

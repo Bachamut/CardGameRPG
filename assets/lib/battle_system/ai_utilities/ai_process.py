@@ -10,21 +10,31 @@ class AIProcess:
 
         cards_values = AIProcess.calculating_cards_values(character, targets)
 
+        best_pairs = dict()
+
         best_card = None
         best_character = None
         best_value = None
 
-        for card, collection in cards_values.items():
+        for it in range(0, (len(cards_values))):
 
-            temp_character = max(collection, key=collection.get)
-            temp_value = collection[temp_character]
+            for card, collection in cards_values.items():
 
-            if best_value is None or temp_value > best_value:
-                best_card = card
-                best_character = temp_character
-                best_value = temp_value
+                temp_character = max(collection, key=collection.get)
+                temp_value = collection[temp_character]
 
-        return best_card, best_character
+                if best_value is None or temp_value > best_value:
+                    best_card = card
+                    best_character = temp_character
+                    best_value = temp_value
+
+            best_pairs[best_card] = best_character
+            cards_values.pop(best_card, best_character)
+
+            best_value = None
+
+        return best_pairs
+
 
     @staticmethod
     def calculating_cards_values(character, targets):

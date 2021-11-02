@@ -84,3 +84,9 @@ class ActionType:
                          card.multiplier)) * (100 - target.battle_attribute("physical_resist") * 2.0) / 100
         return value
 
+    @staticmethod
+    def heal_spell(caster, target, card):
+        value = (card.base_value + (caster.battle_attribute("magic") * \
+                                    card.multiplier))
+        return value
+

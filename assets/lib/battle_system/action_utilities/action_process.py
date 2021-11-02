@@ -20,7 +20,10 @@ class ActionProcess:
         # health processing
         value = ActionProcess.value_calculation(caster, target, card)
         # target.take_damage(value)
-        target.take_damage_battle_attribute(value)
+        if card.card_type == "heal":
+            target.take_damage_battle_attribute(-value)
+        else:
+            target.take_damage_battle_attribute(value)
 
         Logs.ActionProcessMessage.action_process_info(caster, target, card, value, ActionProcess.action_process.__name__)
 
@@ -68,6 +71,8 @@ class ActionProcess:
             value = ActionType.magic_spell(caster, target, card)
         elif card.action_type == 'bow_attack':
             value = ActionType.bow_attack(caster, target, card)
+        elif card.action_type == 'heal_spell':
+            value = ActionType.heal_spell(caster, target, card)
         return value
 
     @staticmethod

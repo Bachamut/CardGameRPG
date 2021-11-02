@@ -57,14 +57,24 @@ class AIController(GameObjectSharedResource):
         if signal.type == BattleLogic.AI_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
             Logs.DebugMessage.signal_received(self, signal, "AIC1<-BL8")
 
-            best_card, best_character = AIProcess.action_calculation(self.current_character, self.battle_ally + self.battle_enemies)
+            if self.current_character.state == 'alive':
 
-            self.confirmed_card = best_card
-            self.confirmed_target.append(best_character)
+                best_pairs = AIProcess.action_calculation(self.current_character, self.battle_ally + self.battle_enemies)
 
-            Logs.AIControllerMessage.ai_choice_info(self, CardManager.create_battle_card(self.confirmed_card), self.confirmed_target)
+                self.confirmed_card = next(iter(best_pairs))
+                self.confirmed_target.append(best_pairs[self.confirmed_card])
 
-            emit_signal = pygame.event.Event(BattleLogic.AI_CONTROLLER_RESPONSE, {"event": "AI_CONTROLLER_RESPONSE", "subtype": "STANDARD"})
-            pygame.event.post(emit_signal)
-            Logs.DebugMessage.signal_emit(self, emit_signal, "AIC1->BL13")
-            return
+                Logs.AIControllerMessage.ai_choice_info(self, CardManager.create_battle_card(self.confirmed_card), self.confirmed_target)
+
+                emit_signal = pygame.event.Event(BattleLogic.AI_CONTROLLER_RESPONSE, {"event": "AI_CONTROLLER_RESPONSE", "subtype": "STANDARD"})
+                pygame.event.post(emit_signal)
+                Logs.DebugMessage.signal_emit(self, emit_signal, "AIC1->BL13")
+                return
+
+            else:
+                Logs.AIControllerMessage.ai_controller_simple_info('Turn skipped')
+
+                emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "NO_ACTION"})
+                pygame.event.post(emit_signal)
+                Logs.DebugMessage.signal_emit(self, emit_signal, "AIC1->?BL100")
+                return

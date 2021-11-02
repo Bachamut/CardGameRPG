@@ -159,5 +159,39 @@
     "target": "single",
     "caster_status":{},
     "target_status":{}
+  },
+  "heal_1":
+  {
+    "resource": "HealCard",
+    "card_id": "heal_1",
+    "card_name": "Heal",
+    "card_type": "heal",
+    "action_type": "heal_spell",
+    "description": "heals target wounds",
+    "character_class": "healer",
+    "base_value": 5,
+    "multiplier": 0.8,
+    "ap_cost": 2,
+    "energy_cost": 0,
+    "target": "single",
+    "caster_status":{},
+    "target_status":{}
+  },
+  "cleanse_1":
+  {
+    "resource": "CleanseCard",
+    "card_id": "cleanse_1",
+    "card_name": "Cleanse",
+    "card_type": "cleanse",
+    "action_type": "cleanse_spell",
+    "description": "cleanse",
+    "character_class": "healer",
+    "base_value": 0,
+    "multiplier": 0,
+    "ap_cost": 2,
+    "energy_cost": 0,
+    "target": "single",
+    "caster_status":{},
+    "target_status":{}
   }
 }
