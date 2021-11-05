@@ -147,7 +147,7 @@ class ActionController(GameObjectSharedResource):
 
         CardController.discard_used_card(caster, card)
 
-        print(f'{caster.name}: AP:{caster.battle_attribute("action_points")}')
+        Logs.ActionControllerMessage.action_controller_info(ActionController.action_controller_signal.__name__, caster)
 
         for target in targets:
 

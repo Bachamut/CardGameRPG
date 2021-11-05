@@ -94,6 +94,20 @@ class Logs:
             else:
                 pass
 
+    action_controller_message = True
+
+    class ActionControllerMessage:
+
+        @staticmethod
+        def action_controller_info(method_name, caster):
+
+            if Logs.action_process_info_enable and Logs.action_controller_message:
+                time_stamp = datetime.now().time()
+                message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} [{method_name}] {caster.name}: AP:{caster.battle_attribute("action_points")}'
+                return print(message)
+            else:
+                pass
+
     action_process_message = True
     activate_status_info_enable = True
     deactivate_status_info_enable = True
