@@ -64,6 +64,9 @@ class BattleCharacter(BaseCharacter):
     def take_damage_battle_attribute(self, value):
         self.battle_attributes.health -= value
 
+    def heal_health_battle_attribute(self, value):
+        self.battle_attributes.health += value
+
     @staticmethod
     def create_character_models(base_models):
         characters_list = list()

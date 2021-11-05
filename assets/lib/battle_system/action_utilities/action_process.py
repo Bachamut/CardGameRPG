@@ -1,7 +1,5 @@
-import pygame
 
 from assets.lib.battle_system.action_utilities.action_types import ActionType
-from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.battle_system.log import Logs
 from assets.lib.card_utilities.card_model import BaseCard
 from assets.lib.card_utilities.card_manager import CardManager
@@ -17,13 +15,14 @@ class ActionProcess:
 
         caster.modify_battle_attributes("action_points", -card.ap_cost)
 
-        # health processing
-        value = ActionProcess.value_calculation(caster, target, card)
-        # target.take_damage(value)
+        if card.card_type == "physical_attack":
+            value = ActionProcess.physical_attack(caster, target, card)
+
+        if card.card_type == "spell":
+            value = ActionProcess.spell(caster, target, card)
+
         if card.card_type == "heal":
-            target.take_damage_battle_attribute(-value)
-        else:
-            target.take_damage_battle_attribute(value)
+            value = ActionProcess.heal(caster, target, card)
 
         Logs.ActionProcessMessage.action_process_info(caster, target, card, value, ActionProcess.action_process.__name__)
 
@@ -55,10 +54,38 @@ class ActionProcess:
         return caster_action, target_action
 
     @staticmethod
+    def physical_attack(caster, target, card):
+
+        for it in range(0, card.amount):
+            value = ActionProcess.value_calculation(caster, target, card)
+            target.take_damage_battle_attribute(value)
+
+        return value
+
+    @staticmethod
+    def spell(caster, target, card):
+
+        for it in range(0, card.amount):
+            value = ActionProcess.value_calculation(caster, target, card)
+            target.take_damage_battle_attribute(value)
+
+        return value
+
+    @staticmethod
+    def heal(caster, target, card):
+
+        for it in range(0, card.amount):
+            value = ActionProcess.value_calculation(caster, target, card)
+            target.heal_health_battle_attribute(value)
+
+        return value
+
+    @staticmethod
     def value_calculation(caster, target, card):
 
         if isinstance(card, BaseCard):
             card = CardManager.create_battle_card(card)
+
         if card.action_type == 'magic_attack':
             value = ActionType.magic_attack(caster, target, card)
         elif card.action_type == 'basic_attack':
