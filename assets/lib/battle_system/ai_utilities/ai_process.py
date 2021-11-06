@@ -75,15 +75,15 @@ class AIProcess:
             target_status_matrix = AIProcess.target_status_value_calculation(target, card)
             caster_status_matrix = AIProcess.caster_status_value_calculation(target, card)
 
-            for index, value1 in enumerate(character_state_matrix):
-                affiliation_matrix[index] *= value1
+            for index1, value1 in enumerate(character_state_matrix):
+                affiliation_matrix[index1] *= value1
 
-            for index, value2 in enumerate(affiliation_matrix):
-                card_matrix[index] *= value2
-                target_status_matrix[index] *= value2
+            for index2, value2 in enumerate(affiliation_matrix):
+                card_matrix[index2] *= value2
+                target_status_matrix[index2] *= value2
 
-            for index, value3 in enumerate(caster_matrix):
-                caster_status_matrix[index] *= value3
+            for index3, value3 in enumerate(caster_matrix):
+                caster_status_matrix[index3] *= value3
 
             zipped_lists = zip(card_matrix, target_status_matrix, caster_status_matrix)
             target_sum = [x + y + z for (x, y, z) in zipped_lists]
@@ -121,7 +121,7 @@ class AIProcess:
             card_matrix = [value, 0, 0, 0]
         if card.card_type == "heal":
             card_matrix = [0, value, 0, 0]
-        if card.card_type == "buff":
+        if card.card_type == "buff" or card.card_type == "skill":
             card_matrix = [0, 0, value, 0]
         if card.card_type == "debuff":
             card_matrix = [0, 0, 0, value]
@@ -160,6 +160,9 @@ class AIProcess:
             if status_type == "regeneration_1":
                 status_value = parameters['value'] * parameters['duration'] * 2
                 status_matrix = [0, status_value, 0, 0]
+            if status_type == "counter_attack_1":
+                status_value = parameters['value'] * parameters['duration'] * 2
+                status_matrix = [0, 0, status_value, 0]
 
             zipped_lists = zip(sum_value, status_matrix)
             sum_value = [x + y for (x, y) in zipped_lists]

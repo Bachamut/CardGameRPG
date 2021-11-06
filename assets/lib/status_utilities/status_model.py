@@ -13,7 +13,7 @@ class StatusType:
                 self.status_type = value['status_type']
                 self.name = value['name']
                 self.description = value['description']
-                self.persistance = value['persistance']
+                self.persistence = value['persistence']
                 self.status_role = value['status_role']
                 self.rate = value['rate']
                 self.activation = value['activation']

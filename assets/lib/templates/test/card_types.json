@@ -33,7 +33,48 @@
     "ap_cost": 1,
     "energy_cost": 0,
     "target": "single",
+    "caster_status": {},
+    "target_status":{}
+  },
+
+  "multi_strike_1":
+  {
+    "resource": "HeavyStrikeCard",
+    "card_id": "multi_strike_1",
+    "card_name": "Multi Strike",
+    "card_type": "physical_attack",
+    "action_type": "basic_attack",
+    "description": "hit multiple times",
+    "character_class": "warrior",
+    "amount": 3,
+    "base_value": 2,
+    "multiplier": 1.0,
+    "ap_cost": 2,
+    "energy_cost": 0,
+    "target": "single",
     "caster_status":{},
+    "target_status":{}
+  },
+
+  "counter_stance_1":
+  {
+    "resource": "FastStrikeCard",
+    "card_id": "counter_stance_1",
+    "card_name": "Counter Stance",
+    "card_type": "skill",
+    "action_type": "self_skill",
+    "description": "You will counter every melee attack",
+    "character_class": "warrior",
+    "amount": 1,
+    "base_value": 0,
+    "multiplier": 0,
+    "ap_cost": 2,
+    "energy_cost": 0,
+    "target": "single",
+    "caster_status":
+    {
+      "counter_attack_1": {"value": 6, "duration": 1}
+    },
     "target_status":{}
   },
 

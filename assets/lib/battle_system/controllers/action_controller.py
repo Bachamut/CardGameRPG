@@ -149,27 +149,29 @@ class ActionController(GameObjectSharedResource):
 
         Logs.ActionControllerMessage.action_controller_info(ActionController.action_controller_signal.__name__, caster)
 
-        for target in targets:
+        action_scenario = ActionProcess.action_process(caster, targets, card)
 
-            target_action, caster_action = ActionProcess.action_process(caster, target, card)
-
-            target_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_SIGNAL,
-                                               {"event": "CHARACTER_VIEW_SIGNAL",
-                                                "subtype": "TARGET",
-                                                "receiver": target,
-                                                "second_character": caster,
-                                                "actions": target_action
-                                                })
-            pygame.event.post(target_signal)
-
-        caster_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_SIGNAL,
-                                           {"event": "CHARACTER_VIEW_SIGNAL",
-                                            "subtype": "CASTER",
-                                            "receiver": caster,
-                                            "second_character": target,
-                                            "actions": caster_action
-                                            })
-        pygame.event.post(caster_signal)
-
-        list = BattleCharacterViewManager.battle_character_view_list
+        # for target in targets:
+        #
+        #     target_action, caster_action = ActionProcess.action_process(caster, target, card)
+        #
+        #     target_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_SIGNAL,
+        #                                        {"event": "CHARACTER_VIEW_SIGNAL",
+        #                                         "subtype": "TARGET",
+        #                                         "receiver": target,
+        #                                         "second_character": caster,
+        #                                         "actions": target_action
+        #                                         })
+        #     pygame.event.post(target_signal)
+        #
+        # caster_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_SIGNAL,
+        #                                    {"event": "CHARACTER_VIEW_SIGNAL",
+        #                                     "subtype": "CASTER",
+        #                                     "receiver": caster,
+        #                                     "second_character": target,
+        #                                     "actions": caster_action
+        #                                     })
+        # pygame.event.post(caster_signal)
+        #
+        # list = BattleCharacterViewManager.battle_character_view_list
         print(f'')
