@@ -1,8 +1,10 @@
 import pygame
 from property.initialize_property import InitializeProperty, InitializeState
+from resource_manager.resource_manager import ResourceManager
 
 from assets.lib.battle_system.log import Logs
 from assets.lib.card_utilities.card_manager import CardManager
+from assets.lib.card_utilities.card_view import HandCardView
 from assets.lib.game_object_shared_resource import GameObjectSharedResource
 from assets.lib.ui.base_ui.text_box import TextBox
 from assets.lib.ui.base_ui.text_line import TextLine
@@ -32,12 +34,14 @@ class CardViewController(GameObjectSharedResource):
             InitializeProperty.initialize_enable(self)
             Logs.InfoMessage.simple_info(self, "CardView.Controller Initialized [ OK ]")
 
+            # Prepare Text display
+
             self.prepare_font_faces()
 
             container = Container()
             self.attach_child(container)
             container.property('TransformProperty').position.x = 240
-            container.property('TransformProperty').position.y = 600
+            container.property('TransformProperty').position.y = 550
 
             text_line = TextLine(self.font_faces['open_sans_normal'], (0, 0, 0), "CardView.Controller")
             container.attach_child(text_line)
@@ -53,6 +57,13 @@ class CardViewController(GameObjectSharedResource):
             container.attach_child(text_box)
             self.elements['card_list'] = text_box
             text_box.property('TransformProperty').position.y = 24
+
+            # Prepare Graphical display
+
+            self.card_view_container = Container()
+            self.attach_child(self.card_view_container)
+            self.card_view_container.property('TransformProperty').position.x = 480
+            self.card_view_container.property('TransformProperty').position.y = 580
 
             return
 
@@ -74,6 +85,34 @@ class CardViewController(GameObjectSharedResource):
         if not self.update_required():
 
             return
+
+        # Prepare Graphic display
+
+        if self.card_view_container.has_children():
+            for card_view in self.card_view_container.get_children():
+
+                self.card_view_container.detach_child(card_view)
+                card_view.on_destroy()
+
+        card_padding = 120
+        for index, card in enumerate(self.current_character.hand):
+
+            characters_card = self.current_character.hand[0]
+            card_model = CardManager.create_full_card(characters_card)
+            card_view = HandCardView(card_model)
+            self.card_view_container.attach_child(card_view)
+            card_view.property('TransformProperty').position.x = index * card_padding
+
+            if self.confirmed_card == card:
+
+                card_view.property('TransformProperty').position.y = -50
+
+            elif self.selected_card == card:
+
+                card_view.property('TransformProperty').position.y = -100
+
+
+        # Prepare Text display
 
         self.lock_update()
         Logs.InfoMessage.simple_info(self, f'CardView.Controller OnScript Update locked on {self._lock_update_on_character.name}')

@@ -1,10 +1,10 @@
-from game_object.game_object import GameObject
+# from game_object.game_object import GameObject
 
 
-class BaseCard(GameObject):
+class BaseCard():
 
     def __init__(self):
-        super(BaseCard, self).__init__()
+        # super(BaseCard, self).__init__()
 
         self.card_id = None
         self.card_type = None
