@@ -21,6 +21,8 @@ class QueueViewController(GameObjectSharedResource):
         self.elements = dict()
 
         self.queue_controller = None
+        self._lock_update_on_character = None
+        self._lock_update_on_queue = None
 
     def _initialize(self):
 
@@ -70,10 +72,15 @@ class QueueViewController(GameObjectSharedResource):
 
     def on_script(self):
 
-        self.elements['character_name'].update(f'CurrentCharacterName:')
-        queue_list = ""
+        if not self.update_required():
+
+            return
+
+        self.lock_update()
+        Logs.InfoMessage.simple_info(self, f'QueueView.Controller OnScript Update locked')
 
         self.elements['character_name'].update(f'CurrentCharacterName: {self.current_character.name}')
+        queue_list = ""
 
         for character in self.queue_controller.queue:
 
@@ -88,3 +95,29 @@ class QueueViewController(GameObjectSharedResource):
     def prepare_font_faces(self):
 
         self.font_faces['open_sans_normal'] = pygame.font.Font("assets/fonts/open_sans/OpenSans-Regular.ttf", 16)
+
+    def update_required(self):
+
+        # Used to determine whether View update is required
+        # Otherwise View is not updated to increase rendering performance
+
+        if self._lock_update_on_character != self.current_character:
+
+            return True
+
+        if len(self.queue_controller.queue) != len(self._lock_update_on_queue):
+
+            return True
+
+        for index, character in enumerate(self.queue_controller.queue):
+
+            if self._lock_update_on_queue[index] != character:
+
+                return True
+
+    def lock_update(self):
+
+        # If View update is required new lock is set to optimise rendering performance
+
+        self._lock_update_on_character = self.current_character
+        self._lock_update_on_queue = self.queue_controller.queue.copy()
