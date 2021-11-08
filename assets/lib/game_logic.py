@@ -57,12 +57,12 @@ class GameLogic(GameObject):
     def _create_party(self):
         player = CharacterManager.create_character("character_edward")
         player.state = "alive"
-        # player.inventory.add_item('Short sword')
-        # player.inventory.add_item('Simple shield')
-        # player.add_equip('hand_r', 'Short sword')
-        # player.add_equip('hand_l', 'Simple shield')
-        # player.deck['multi_strike_1'] = 2
-        player.deck['counter_stance_1'] = 3
+        player.inventory.add_item('Short sword')
+        player.inventory.add_item('Simple shield')
+        player.add_equip('hand_r', 'Short sword')
+        player.add_equip('hand_l', 'Simple shield')
+        player.deck['multi_strike_1'] = 2
+        player.deck['counter_stance_1'] = 1
         GameLogic.party.append(player)
 
         # player = CharacterManager.create_character("character_lucius")
@@ -74,11 +74,11 @@ class GameLogic(GameObject):
     def _create_enemy(self):
         enemy = CharacterManager.create_character("warrior_goblin")
         enemy.state = "alive"
-        # enemy.inventory.add_item('Short sword')
-        # enemy.add_equip('hand_r', 'Short sword')
+        enemy.inventory.add_item('Short sword')
+        enemy.add_equip('hand_r', 'Short sword')
         # enemy.deck['multi_strike_1'] = 5
-        # enemy.deck['counter_stance_1'] = 5
-        enemy.deck['fast_strike_1'] = 5
+        enemy.deck['counter_stance_1'] = 1
+        # enemy.deck['fast_strike_1'] = 5
         GameLogic.enemies.append(enemy)
 
         # enemy = CharacterManager.create_character("healer_goblin")

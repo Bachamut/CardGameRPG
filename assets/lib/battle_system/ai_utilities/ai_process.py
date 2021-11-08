@@ -35,7 +35,6 @@ class AIProcess:
 
         return best_pairs
 
-
     @staticmethod
     def calculating_cards_values(character, targets):
 
@@ -181,7 +180,7 @@ class AIProcess:
 
     def focus_factor(self):
 
-        focus_factor = dict()
+        focus_factor = list()
         targets = self.possible_targets()
         for target in targets:
             health_percentage = (target.battle_attributes.health / target.battle_attributes.health)

@@ -3,7 +3,7 @@
   {
     "name": "Edward",
     "character_class": "warrior",
-    "character_type": "npc",
+    "character_type": "player",
     "affiliation": "ally",
     "health": 75,
     "energy": 40,
@@ -47,7 +47,7 @@
   {
     "name": "Goblin warrior",
     "character_class": "warrior",
-    "character_type": "npc",
+    "character_type": "player",
     "affiliation": "enemy",
     "health": 90,
     "energy": 25,
