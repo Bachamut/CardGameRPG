@@ -89,7 +89,7 @@ class CardViewController(GameObjectSharedResource):
         # Prepare Graphic display
 
         if self.card_view_container.has_children():
-            for card_view in self.card_view_container.get_children():
+            for card_view in self.card_view_container.get_children().copy():
 
                 self.card_view_container.detach_child(card_view)
                 card_view.on_destroy()
@@ -97,19 +97,18 @@ class CardViewController(GameObjectSharedResource):
         card_padding = 120
         for index, card in enumerate(self.current_character.hand):
 
-            characters_card = self.current_character.hand[0]
-            card_model = CardManager.create_full_card(characters_card)
+            card_model = CardManager.create_full_card(card)
             card_view = HandCardView(card_model)
             self.card_view_container.attach_child(card_view)
             card_view.property('TransformProperty').position.x = index * card_padding
 
             if self.confirmed_card == card:
 
-                card_view.property('TransformProperty').position.y = -50
+                card_view.property('TransformProperty').position.y = -35
 
             elif self.selected_card == card:
 
-                card_view.property('TransformProperty').position.y = -100
+                card_view.property('TransformProperty').position.y = -10
 
 
         # Prepare Text display
