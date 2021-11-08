@@ -77,6 +77,7 @@ class QueueViewController(GameObjectSharedResource):
             return
 
         self.lock_update()
+        Logs.InfoMessage.simple_info(self, f'QueueView.Controller OnScript Update locked')
 
         self.elements['character_name'].update(f'CurrentCharacterName: {self.current_character.name}')
         queue_list = ""
