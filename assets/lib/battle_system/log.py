@@ -69,6 +69,7 @@ class Logs:
 
     ai_controller_message = True
     ai_choice_info_enable = True
+    ai_controller_simple_info_enable = True
 
     class AIControllerMessage:
 
@@ -79,6 +80,30 @@ class Logs:
                 time_stamp = datetime.now().time()
                 targets = ', '.join(str(x.name) for x in characters)
                 message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} {self.__class__.__name__.upper()}: {self.current_character.name} wybrał {card.card_name}, targets: {targets}'
+                return print(message)
+            else:
+                pass
+
+        @staticmethod
+        def ai_controller_simple_info(tag):
+
+            if Logs.ai_controller_simple_info_enable and Logs.ai_controller_message:
+                time_stamp = datetime.now().time()
+                message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} {tag})'
+                return print(message)
+            else:
+                pass
+
+    action_controller_message = True
+
+    class ActionControllerMessage:
+
+        @staticmethod
+        def action_controller_info(method_name, caster):
+
+            if Logs.action_process_info_enable and Logs.action_controller_message:
+                time_stamp = datetime.now().time()
+                message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} [{method_name}] {caster.name}: AP:{caster.battle_attribute("action_points")}'
                 return print(message)
             else:
                 pass
@@ -126,7 +151,7 @@ class Logs:
 
             if Logs.action_process_simple_info_enable and Logs.action_process_message:
                 time_stamp = datetime.now().time()
-                message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} [{method_name}] {tag})'
+                message = f'{Fore.LIGHTBLACK_EX}[{time_stamp}]{Fore.RESET} [{method_name}] {tag}'
                 return print(message)
             else:
                 pass

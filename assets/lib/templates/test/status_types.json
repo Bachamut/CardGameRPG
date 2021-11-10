@@ -5,7 +5,7 @@
     "name": "bleed",
     "sort": "dot",
     "description": "typical bleeding",
-    "persistance": "BATTLE_ONLY",
+    "persistence": "BATTLE_ONLY",
     "status_role": "action",
     "rate": "normal",
     "activation": "POST_TURN",
@@ -18,7 +18,7 @@
     "name": "poison",
     "sort": "dot",
     "description": "serious poison",
-    "persistance": "BATTLE_ONLY",
+    "persistence": "BATTLE_ONLY",
     "status_role": "action",
     "rate": "normal",
     "activation": "PRE_TURN",
@@ -31,7 +31,7 @@
     "name": "stun",
     "sort": "debuff",
     "description": "Stun lowers character action points",
-    "persistance": "BATTLE_ONLY",
+    "persistence": "BATTLE_ONLY",
     "status_role": "temporary_modifier",
     "rate": "instant",
     "activation": "None",
@@ -44,7 +44,7 @@
     "name": "harden",
     "sort": "buff",
     "description": "Harden your physical resistance",
-    "persistance": "BATTLE_ONLY",
+    "persistence": "BATTLE_ONLY",
     "status_role": "temporary_modifier",
     "rate": "instant",
     "activation": "None",
@@ -56,10 +56,23 @@
     "name": "regeneration",
     "sort": "heal",
     "description": "regenerate health over time",
-    "persistance": "BATTLE_ONLY",
+    "persistence": "BATTLE_ONLY",
     "status_role": "action",
     "rate": "instant",
     "activation": "POST_TURN",
     "deactivation": "POST_TURN"
+  },
+
+  "counter_attack_1":
+  {
+    "status_type": "counter_attack_1",
+    "name": "counter attack",
+    "sort": "buff",
+    "description": "counter melee attack",
+    "persistence": "BATTLE_ONLY",
+    "status_role": "action",
+    "rate": "instant",
+    "activation": "PRE_TURN",
+    "deactivation": "PRE_TURN"
   }
 }

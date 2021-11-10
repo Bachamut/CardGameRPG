@@ -47,6 +47,7 @@ class CardManager:
         battle_card.character_class = config['character_class']
 
         battle_card.action_type = config['action_type']
+        battle_card.amount = config['amount']
         battle_card.base_value = config['base_value']
         battle_card.multiplier = config['multiplier']
         battle_card.ap_cost = config['ap_cost']

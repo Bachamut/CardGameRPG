@@ -1,7 +1,5 @@
-import pygame
-
+from assets.lib.battle_system.action_utilities.action_block import ActionBlock
 from assets.lib.battle_system.action_utilities.action_types import ActionType
-from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.battle_system.log import Logs
 from assets.lib.card_utilities.card_model import BaseCard
 from assets.lib.card_utilities.card_manager import CardManager
@@ -11,51 +9,145 @@ from assets.lib.status_utilities.status_model import Status
 class ActionProcess:
 
     @staticmethod
-    def action_process(caster, target, base_card):
+    def action_process(caster, targets, base_card):
+
+        action_scenario = list()
 
         card = CardManager.create_battle_card(base_card)
 
         caster.modify_battle_attributes("action_points", -card.ap_cost)
 
-        # health processing
+        for target in targets:
+
+            # card.amount = 2
+
+            for it in range(0, card.amount):
+
+                if card.card_type == "physical_attack":
+                    action_sequence = ActionProcess.physical_attack(caster, target, card)
+
+                elif card.card_type == "spell":
+                    action_sequence = ActionProcess.spell(caster, target, card)
+
+                elif card.card_type == "heal":
+                    action_sequence = ActionProcess.heal(caster, target, card)
+
+                elif card.card_type == "skill":
+                    action_sequence = ActionProcess.skill(caster, target, card)
+
+                action_scenario.append(action_sequence)
+
+            # Logs.ActionProcessMessage.action_process_info(caster, target, card, value, ActionProcess.action_process.__name__)
+
+            # status processing for target
+            for status_type, parameters in card.target_status.items():
+                status = Status(status_type, parameters['value'], parameters['duration'])
+                status.source = caster.name
+
+                target.add_status(status)
+                if status.rate == "instant":
+                    ActionProcess.activate_status(target, status)
+
+            # status processing for caster
+            for status_type, parameters in card.caster_status.items():
+                status = Status(status_type, parameters['value'], parameters['duration'])
+                status.source = caster.name
+
+                caster.add_status(status)
+                if status.rate == "instant":
+                    ActionProcess.activate_status(caster, status)
+
+            print(f'{caster.name} posiada {len(caster.status_list)} statusów:')
+
+        # # create action for caster and target
+        # caster_action = {card.action_type: value}
+        # target_action = {card.action_type: value}
+        #
+        # print(f'{target.name} - battleHP:{target.battle_attributes.health}')
+        # return caster_action, target_action
+
+        return action_scenario
+
+    @staticmethod
+    def physical_attack(caster, target, card):
+
+        action_sequence = list()
+
         value = ActionProcess.value_calculation(caster, target, card)
-        # target.take_damage(value)
-        target.take_damage_battle_attribute(value)
 
-        Logs.ActionProcessMessage.action_process_info(caster, target, card, value, ActionProcess.action_process.__name__)
+        if value is not None:
+            target.take_damage_battle_attribute(value)
 
-        # status processing for target
-        for status_type, parameters in card.target_status.items():
-            status = Status(status_type, parameters['value'], parameters['duration'])
-            status.source = caster.name
+        action_block = ActionBlock(caster, target, 'physical_attack', value)
+        action_sequence.append(action_block)
 
-            target.add_status(status)
-            if status.rate == "instant":
-                ActionProcess.activate_status(target, status)
+        for status in target.status_list:
+            if status.status_type == "counter_attack_1":
 
-        # status processing for caster
-        for status_type, parameters in card.caster_status.items():
-            status = Status(status_type, parameters['value'], parameters['duration'])
-            status.source = caster.name
+                # TODO There should be card object for "card"
 
-            caster.add_status(status)
-            if status.rate == "instant":
-                ActionProcess.activate_status(caster, status)
+                counter_value = ActionProcess.value_calculation(target, caster, card)
+                caster.take_damage_battle_attribute(counter_value)
 
-        print(f'{caster.name} posiada {len(caster.status_list)} statusów:')
+                action_block = ActionBlock(target, caster, 'counter_attack', counter_value)
+                action_sequence.append(action_block)
 
-        # create action for caster and target
-        caster_action = {card.action_type: value}
-        target_action = {card.action_type: value}
+        return action_sequence
 
-        print(f'{target.name} - battleHP:{target.battle_attributes.health}')
-        return caster_action, target_action
+    @staticmethod
+    def spell(caster, target, card):
+
+        action_sequence = list()
+
+        for status in target.status_list:
+            if status.status_type == "reflect_spell":
+
+                action_block = ActionBlock(caster, target, 'cast_spell')
+                action_sequence.append(action_block)
+
+                reflect_value = ActionProcess.value_calculation(target, caster, card)
+                caster.take_damage_battle_attribute(reflect_value)
+
+                action_block = ActionBlock(target, caster, 'reflect_spell', reflect_value)
+                action_sequence.append(action_block)
+
+            else:
+                value = ActionProcess.value_calculation(caster, target, card)
+                target.take_damage_battle_attribute(value)
+                action_block = ActionBlock(caster, target, 'cast_spell', value)
+                action_sequence.append(action_block)
+
+        return action_sequence
+
+    @staticmethod
+    def heal(caster, target, card):
+
+        action_sequence = list()
+
+        value = ActionProcess.value_calculation(caster, target, card)
+        target.heal_health_battle_attribute(value)
+
+        action_block = ActionBlock(caster, target, 'heal', value)
+        action_sequence.append(action_block)
+
+        return action_sequence
+
+    @staticmethod
+    def skill(caster, target, card):
+
+        action_sequence = list()
+
+        action_block = ActionBlock(caster, target, 'skill')
+        action_sequence.append(action_block)
+
+        return action_sequence
 
     @staticmethod
     def value_calculation(caster, target, card):
 
         if isinstance(card, BaseCard):
             card = CardManager.create_battle_card(card)
+
         if card.action_type == 'magic_attack':
             value = ActionType.magic_attack(caster, target, card)
         elif card.action_type == 'basic_attack':
@@ -68,6 +160,10 @@ class ActionProcess:
             value = ActionType.magic_spell(caster, target, card)
         elif card.action_type == 'bow_attack':
             value = ActionType.bow_attack(caster, target, card)
+        elif card.action_type == 'heal_spell':
+            value = ActionType.heal_spell(caster, target, card)
+        elif card.action_type == 'self_skill':
+            value = ActionType.self_skill(caster, target, card)
         return value
 
     @staticmethod
@@ -96,6 +192,8 @@ class ActionProcess:
         if status.status_type == "stun_1":
             ActionType.status_stun(character, status)
         if status.status_type == "harden_1":
+            ActionType.status_harden(character, status)
+        if status.status_type == "counter_attack_1":
             ActionType.status_harden(character, status)
         Logs.ActionProcessMessage.activate_status_info(character, status, ActionProcess.activate_status.__name__)
 

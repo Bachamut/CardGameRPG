@@ -49,6 +49,7 @@ class BattleCard(BaseCard):
         self.allowed_character_class = list()
 
         self.action_type = None
+        self.amount = None
         self.base_value = None
         self.multiplier = None
         self.ap_cost = None
@@ -64,6 +65,7 @@ class BattleCard(BaseCard):
 
         self.allowed_character_class = obj.allowed_character_class
         self.action_type = obj.action_type
+        self.amount = obj.amount
         self.base_value = obj.base_value
         self.multiplier = obj.multiplier
         self.ap_cost = obj.ap_cost

@@ -25,7 +25,7 @@ class StatusManager:
     #         status_type.status_type = value['status_type']
     #         status_type.name = value['name']
     #         status_type.description = value['description']
-    #         status_type.persistance = value['persistance']
+    #         status_type.persistence = value['persistence']
     #         status_type.status_role = value['status_role']
     #         status_type.activation = value['activation']
     #         status_type.deactivation = value['deactivation']

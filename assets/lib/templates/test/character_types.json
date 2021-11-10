@@ -3,7 +3,7 @@
   {
     "name": "Edward",
     "character_class": "warrior",
-    "character_type": "npc",
+    "character_type": "player",
     "affiliation": "ally",
     "health": 75,
     "energy": 40,
@@ -47,9 +47,9 @@
   {
     "name": "Goblin warrior",
     "character_class": "warrior",
-    "character_type": "npc",
+    "character_type": "player",
     "affiliation": "enemy",
-    "health": 40,
+    "health": 90,
     "energy": 25,
     "action_points": 2,
     "strength": 5,
@@ -85,5 +85,26 @@
     "do_heal": 0.5,
     "do_buff": 0.5,
     "do_debuff": 0.5
+  },
+  "healer_goblin":
+  {
+    "name": "Goblin healer",
+    "character_class": "healer",
+    "character_type": "npc",
+    "affiliation": "enemy",
+    "health": 60,
+    "energy": 40,
+    "action_points": 2,
+    "strength": 2,
+    "dexterity": 5,
+    "magic": 8,
+    "speed": 17,
+    "stamina": 4,
+    "physical_resist": 60,
+    "magic_resist": 0,
+    "do_dmg": 0.2,
+    "do_heal": 1.5,
+    "do_buff": 0.8,
+    "do_debuff": 0.3
   }
 }

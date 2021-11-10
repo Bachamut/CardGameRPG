@@ -33,7 +33,6 @@ class GameLogic(GameObject):
 
         self._create_party()
         self._create_enemy()
-        # self._create_status_types()
 
     @staticmethod
     def _load_config_preset(setup_name):
@@ -62,27 +61,32 @@ class GameLogic(GameObject):
         player.inventory.add_item('Simple shield')
         player.add_equip('hand_r', 'Short sword')
         player.add_equip('hand_l', 'Simple shield')
+        player.deck['multi_strike_1'] = 2
+        player.deck['counter_stance_1'] = 1
         GameLogic.party.append(player)
 
-        player = CharacterManager.create_character("character_lucius")
-        player.state = "alive"
-        player.inventory.add_item('Short sword')
-        player.add_equip('hand_r', 'Short sword')
-        GameLogic.party.append(player)
+        # player = CharacterManager.create_character("character_lucius")
+        # player.state = "alive"
+        # player.inventory.add_item('Short sword')
+        # player.add_equip('hand_r', 'Short sword')
+        # GameLogic.party.append(player)
 
     def _create_enemy(self):
         enemy = CharacterManager.create_character("warrior_goblin")
         enemy.state = "alive"
         enemy.inventory.add_item('Short sword')
         enemy.add_equip('hand_r', 'Short sword')
+        # enemy.deck['multi_strike_1'] = 5
+        enemy.deck['counter_stance_1'] = 1
+        # enemy.deck['fast_strike_1'] = 5
         GameLogic.enemies.append(enemy)
 
-    # def _create_status_types(self):
-    #     StatusManager.create_status_types()
-    #     print(f'status_types:')
-    #     for status_type in StatusManager.status_type_list:
-    #         print(f'{status_type.status_id}')
-        
+        # enemy = CharacterManager.create_character("healer_goblin")
+        # enemy.state = "alive"
+        # enemy.inventory.add_item('Healer wand')
+        # enemy.add_equip('hand_r', 'Healer wand')
+        # GameLogic.enemies.append(enemy)
+
     def on_create(self):
         pass
 
