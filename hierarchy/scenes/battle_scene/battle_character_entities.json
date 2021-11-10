@@ -7,11 +7,11 @@
       "entity": "Players",
       "object":
       {
-        "object_class": "GameObject",
+        "object_class": "BattleCharacterView",
         "object_type": null,
-        "object_label": "Players",
+        "object_label": "BattleCharacterView",
         "create": false,
-        "properties": ["SpriteProperty", "BlitProperty", "TransformProperty", "TranslateProperty"],
+        "properties": ["SpriteProperty", "BlitProperty", "TransformProperty", "TranslateProperty", "ScriptProperty"],
         "configure_properties":
         {
           "SpriteProperty": {"set_resource": "Players", "package":  "battle_scene"}

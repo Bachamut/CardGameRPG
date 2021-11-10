@@ -1,6 +1,7 @@
 from object_creator.object_creator import ObjectCreator
 from property.initialize_property import InitializeProperty, InitializeState
 
+from assets.lib.battle_system.battle_character_utilities.battle_character_view import BattleCharacterView
 from assets.lib.battle_system.log import Logs
 from assets.lib.battle_system.view_controllers.battle_character_view_manager import BattleCharacterViewManager
 from assets.lib.game_object_shared_resource import GameObjectSharedResource
@@ -30,6 +31,7 @@ class BattleCharacterViewController(GameObjectSharedResource):
             view_container.property('TransformProperty').position.y = 200
 
             players = ObjectCreator.create_entity('battle_scene', 'Players')
+            players.initialize(self.battle_ally[0])
             view_container.attach_child(players)
 
             enemies = ObjectCreator.create_entity('battle_scene', 'Enemies')

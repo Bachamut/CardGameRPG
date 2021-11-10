@@ -1,10 +1,16 @@
 {
   "resources": [
     {
+      "key": "BattleCharacterView",
+      "type": "script",
+      "path": "assets/lib/battle_system/battle_character_utilities",
+      "file": "battle_character_view"
+    },
+    {
       "key": "Players",
       "type": "image",
-      "path": "assets",
-      "file": "Players.png"
+      "path": "assets/sheets",
+      "file": "spr_Attack_strip.png"
     },
     {
       "key": "Enemies",

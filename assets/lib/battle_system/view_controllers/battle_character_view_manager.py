@@ -42,9 +42,9 @@ class BattleCharacterViewManager(GameObjectSharedResource):
             Logs.DebugMessage.signal_received(self, signal, "BChVMS1<-BLS1")
 
             # Create CharacterViews and register in BattleCharacterViewManager
-            for battle_character in self.battle_ally + self.battle_enemies:
-                battle_character_view = BattleCharacterView(battle_character)
-                BattleCharacterViewManager.register(battle_character_view)
+            # for battle_character in self.battle_ally + self.battle_enemies:
+            #     battle_character_view = BattleCharacterView().initialize(battle_character)
+            #     BattleCharacterViewManager.register(battle_character_view)
 
             self.property('SignalProperty').property_disable()
             InitializeProperty.started(self)
