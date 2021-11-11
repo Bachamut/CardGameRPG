@@ -1,0 +1,14 @@
+{
+    "header":
+    {
+        "type": "sprite_sheet_animation",
+        "sprite_sheet": "spr_Leap_strip.png",
+        "rect_width": 10400,
+        "rect_height": 128,
+        "frame_width": 260,
+        "frame_height": 128,
+        "frames": 40,
+        "rows": 1,
+        "columns": 40
+    }
+}

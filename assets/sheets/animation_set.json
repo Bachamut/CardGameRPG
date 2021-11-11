@@ -2,12 +2,19 @@
     "header":
     {
         "type": "sprite_sheet_animation_set",
-        "components": 2,
+        "components": 9,
         "default_set": "idle"
     },
     "sprite_sheet_set":
     {
         "idle": "spr_Idle_strip.json",
-        "attack": "spr_Attack_strip.json"
+        "attack": "spr_Attack_strip.json",
+        "dash": "spr_Dash_strip.json",
+        "death": "spr_Death_strip.json",
+        "jump": "spr_Jump_strip.json",
+        "leap": "spr_Leap_strip.json",
+        "spin_attack": "spr_SpinAttack_strip.json",
+        "taunt": "spr_Taunt_strip.json",
+        "walk": "spr_Walk_strip.json"
     }
 }

@@ -1,0 +1,14 @@
+{
+    "header":
+    {
+        "type": "sprite_sheet_animation",
+        "sprite_sheet": "spr_Jump_strip.png",
+        "rect_width": 5500,
+        "rect_height": 96,
+        "frame_width": 220,
+        "frame_height": 96,
+        "frames": 25,
+        "rows": 1,
+        "columns": 25
+    }
+}

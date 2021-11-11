@@ -1,0 +1,14 @@
+{
+    "header":
+    {
+        "type": "sprite_sheet_animation",
+        "sprite_sheet": "spr_Taunt_strip.png",
+        "rect_width": 3060,
+        "rect_height": 96,
+        "frame_width": 170,
+        "frame_height": 96,
+        "frames": 18,
+        "rows": 1,
+        "columns": 18
+    }
+}
