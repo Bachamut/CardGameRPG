@@ -7,10 +7,10 @@
       "file": "battle_character_view"
     },
     {
-      "key": "Players",
-      "type": "image",
+      "key": "AnimationSet",
+      "type": "sprite_sheet_animation_set",
       "path": "assets/sheets",
-      "file": "spr_Attack_strip.png"
+      "file": "animation_set.json"
     },
     {
       "key": "Enemies",

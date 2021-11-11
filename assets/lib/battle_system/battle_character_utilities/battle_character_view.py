@@ -12,6 +12,12 @@ class BattleCharacterView(GameObject):
         self.add_property("SignalProperty")
         self.property("SignalProperty").property_enable()
 
+        self._scale = 1
+        self.active_set = None
+        self.frame = 0
+        self.max_frames = 0
+        self.alphe = 256
+
     def initialize(self, battle_character):
         # reference to character
         self.character_model = battle_character
@@ -19,24 +25,27 @@ class BattleCharacterView(GameObject):
 
         print(f'name: {battle_character.name} hash: {battle_character.object_hash}')
 
-        self.x = 4
-        # self.property('SpriteProperty').surface = pygame.transform.scale(self.property('SpriteProperty').surface, (2720 * self.x, 96 * self.x))
-        # self.property('SpriteProperty').rect = pygame.Rect(0, 0, 170 * self.x, 96 * self.x)
+        self.active_set = self.property('SpriteSheetAnimationProperty').active_set
+        self.frame = self.property('SpriteSheetAnimationProperty').frame
+        self.max_frames = self.property('SpriteSheetAnimationProperty').max_frames
 
-        self.property('SpriteProperty').surface = pygame.transform.scale(self.property('SpriteProperty').surface, (5100 * self.x, 96 * self.x))
-        self.property('SpriteProperty').rect = pygame.Rect(0, 0, 170 * self.x, 96 * self.x)
+    def change_set(self, animation_set):
+
+        self.property('SpriteSheetAnimationProperty').change_set(animation_set)
+
+    def scale(self, scale):
+
+        self._scale = scale
+        self.property('SpriteSheetAnimationProperty').scale(self._scale)
+
+    def set_alpha(self, alpha):
+
+        self.alphe = alpha
+        self.property('SpriteSheetAnimationProperty').set_alpha(alpha)
 
     def on_script(self):
 
-        # self.property('SpriteProperty').rect.left += 170 * self.x
-        # if self.property('SpriteProperty').rect.left > 2720 * self.x - 170 * self.x:
-        #
-        #     self.property('SpriteProperty').rect.left = 0
-
-        self.property('SpriteProperty').rect.left += 170 * self.x
-        if self.property('SpriteProperty').rect.left > 5100 * self.x - 170 * self.x:
-
-            self.property('SpriteProperty').rect.left = 0
+        self.property('SpriteSheetAnimationProperty').next_frame()
 
     def on_signal(self, signal):
 

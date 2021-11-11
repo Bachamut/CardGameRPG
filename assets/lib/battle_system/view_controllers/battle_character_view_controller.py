@@ -34,6 +34,10 @@ class BattleCharacterViewController(GameObjectSharedResource):
             players.initialize(self.battle_ally[0])
             view_container.attach_child(players)
 
+            players.change_set('attack')
+            # players.set_alpha(50)
+            players.scale(4)
+
             enemies = ObjectCreator.create_entity('battle_scene', 'Enemies')
             view_container.attach_child(enemies)
             enemies.property('TransformProperty').position.x = 550

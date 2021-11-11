@@ -1,0 +1,14 @@
+{
+    "header":
+    {
+        "type": "sprite_sheet_animation",
+        "sprite_sheet": "spr_Attack_strip.png",
+        "rect_width": 5100,
+        "rect_height": 96,
+        "frame_width": 170,
+        "frame_height": 96,
+        "frames": 30,
+        "rows": 1,
+        "columns": 30
+    }
+}

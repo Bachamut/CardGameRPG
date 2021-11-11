@@ -1,0 +1,14 @@
+{
+    "header":
+    {
+        "type": "sprite_sheet_animation",
+        "sprite_sheet": "spr_Idle_strip.png",
+        "rect_width": 2720,
+        "rect_height": 96,
+        "frame_width": 170,
+        "frame_height": 96,
+        "frames": 16,
+        "rows": 1,
+        "columns": 16
+    }
+}

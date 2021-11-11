@@ -1,0 +1,13 @@
+{
+    "header":
+    {
+        "type": "sprite_sheet_animation_set",
+        "components": 2,
+        "default_set": "idle"
+    },
+    "sprite_sheet_set":
+    {
+        "idle": "spr_Idle_strip.json",
+        "attack": "spr_Attack_strip.json"
+    }
+}
