@@ -15,6 +15,9 @@ class BattleCharacterViewController(GameObjectSharedResource):
     def __init__(self):
         super(BattleCharacterViewController, self).__init__()
 
+        self.players = None
+        self.animation_reset = False
+
     def _initialize(self):
 
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
@@ -30,13 +33,12 @@ class BattleCharacterViewController(GameObjectSharedResource):
             view_container.property('TransformProperty').position.x = 200
             view_container.property('TransformProperty').position.y = 200
 
-            players = ObjectCreator.create_entity('battle_scene', 'Players')
-            players.initialize(self.battle_ally[0])
-            view_container.attach_child(players)
+            self.players = ObjectCreator.create_entity('battle_scene', 'Players')
+            self.players.initialize(self.battle_ally[0])
+            view_container.attach_child(self.players)
 
-            players.change_set('attack')
-            # players.set_alpha(50)
-            players.scale(4)
+            self.players.change_set('attack')
+            self.players.scale(4)
 
             enemies = ObjectCreator.create_entity('battle_scene', 'Enemies')
             view_container.attach_child(enemies)
@@ -44,6 +46,7 @@ class BattleCharacterViewController(GameObjectSharedResource):
 
             InitializeProperty.started(self)
             self.property('SignalProperty').property_enable()
+            self.property('ScriptProperty').property_enable()
             Logs.InfoMessage.simple_info(self, "BattleCharacterView.Controller Started [ OK ]")
 
             return
@@ -53,7 +56,22 @@ class BattleCharacterViewController(GameObjectSharedResource):
         BattleCharacterViewController.battle_character_view_list.append(battle_character_view)
 
     def on_script(self):
-        pass
+
+        if self.animation_reset is False:
+
+            if self.players.property('SpriteSheetAnimationProperty').frame >= self.players.max_frames:
+
+                self.animation_reset = True
+                self.players.change_set('idle')
+                self.players.scale(4)
+
+        if self.animation_reset is True:
+
+            if self.players.property('SpriteSheetAnimationProperty').frame >= self.players.max_frames - 1:
+
+                self.animation_reset = False
+                self.players.change_set('attack')
+                self.players.scale(4)
 
     def on_signal(self, signal):
 
