@@ -1,0 +1,14 @@
+{
+    "header":
+    {
+        "type": "sprite_sheet_animation",
+        "sprite_sheet": "spr_Death_strip.png",
+        "rect_width": 600,
+        "rect_height": 150,
+        "frame_width": 150,
+        "frame_height": 150,
+        "frames": 4,
+        "rows": 1,
+        "columns": 4
+    }
+}

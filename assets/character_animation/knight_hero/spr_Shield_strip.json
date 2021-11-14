@@ -1,0 +1,14 @@
+{
+    "header":
+    {
+        "type": "sprite_sheet_animation",
+        "sprite_sheet": "spr_Shield_strip.png",
+        "rect_width": 672,
+        "rect_height": 64,
+        "frame_width": 96,
+        "frame_height": 64,
+        "frames": 7,
+        "rows": 1,
+        "columns": 7
+    }
+}

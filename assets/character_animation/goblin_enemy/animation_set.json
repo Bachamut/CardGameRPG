@@ -1,0 +1,17 @@
+{
+    "header":
+    {
+        "type": "sprite_sheet_animation_set",
+        "components": 5,
+        "default_set": "idle"
+    },
+    "sprite_sheet_set":
+    {
+
+        "attack": "spr_Attack_strip.json",
+        "death": "spr_Death_strip.json",
+        "idle": "spr_Idle_strip.json",
+        "run": "spr_Run_strip.json",
+        "take_hit": "spr_TakeHit_strip.json"
+    }
+}

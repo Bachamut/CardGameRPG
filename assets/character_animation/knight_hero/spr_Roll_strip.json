@@ -1,0 +1,14 @@
+{
+    "header":
+    {
+        "type": "sprite_sheet_animation",
+        "sprite_sheet": "spr_Roll_strip.png",
+        "rect_width": 2700,
+        "rect_height": 64,
+        "frame_width": 180,
+        "frame_height": 64,
+        "frames": 15,
+        "rows": 1,
+        "columns": 15
+    }
+}
