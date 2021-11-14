@@ -22,6 +22,7 @@ class BattleCharacter(BaseCharacter):
         self.character_class = base_character.character_class
         self.character_type = base_character.character_type
         self.affiliation = base_character.affiliation
+        self.set_resource = base_character.set_resource
         self.state = base_character.state
 
         self.base_attributes = base_character.base_attributes

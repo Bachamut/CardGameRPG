@@ -9,8 +9,12 @@ class BattleCharacterView(GameObject):
     def __init__(self):
         super(BattleCharacterView, self).__init__()
 
-        self.add_property("SignalProperty")
-        self.property("SignalProperty").property_enable()
+        self.add_property('SpriteSheetAnimationProperty')
+        self.add_property('BlitProperty')
+        self.add_property('TransformProperty')
+        self.add_property('ScriptProperty')
+        self.add_property('SignalProperty')
+        self.property('SignalProperty').property_enable()
 
         self._scale = 1
         self.active_set = None
@@ -18,16 +22,19 @@ class BattleCharacterView(GameObject):
         self.max_frames = 0
         self.alphe = 256
 
-    def initialize(self, battle_character):
+    def initialize(self, battle_character, set_resource):
         # reference to character
         self.character_model = battle_character
         self.character_model_hash = battle_character.object_hash
 
-        print(f'name: {battle_character.name} hash: {battle_character.object_hash}')
+        # print(f'name: {battle_character.name} hash: {battle_character.object_hash}')
 
+        self.property('SpriteSheetAnimationProperty').configure(set_resource)
         self.active_set = self.property('SpriteSheetAnimationProperty').active_set
         self.frame = self.property('SpriteSheetAnimationProperty').frame
         self.max_frames = self.property('SpriteSheetAnimationProperty').max_frames
+
+        return self
 
     def change_set(self, animation_set):
 

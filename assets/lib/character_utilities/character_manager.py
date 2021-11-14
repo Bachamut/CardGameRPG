@@ -23,6 +23,7 @@ class CharacterManager:
         character.character_class = config['character_class']
         character.character_type = config['character_type']
         character.affiliation = config['affiliation']
+        character.set_resource = config['set_resource']
 
         character.base_attributes.health = config['health']
         character.base_attributes.max_heath = config['health']

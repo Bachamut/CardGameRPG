@@ -163,7 +163,7 @@
           "object_class": "BattleCharacterViewManager",
           "object_type": null,
           "object_label": "BattleCharacterViewManager",
-          "create": true,
+          "create": false,
           "properties": ["InitializeProperty", "ScriptProperty", "SignalProperty"],
           "configure_properties":
           {
@@ -186,7 +186,7 @@
           {
             "ScriptProperty": {"set_script": "BattleCharacterViewController", "property_state": "Disabled"},
             "SignalProperty": {"property_state": "Disabled"},
-            "InitializeProperty": {"init_req": ["BattleCharacterViewManager.Initialized"], "start_req": ["BattleCharacterViewManager.Started"]}
+            "InitializeProperty": {"init_req": ["BattleLogic.Initialized"], "start_req": ["BattleLogic.Started"]}
           }
         }
       },

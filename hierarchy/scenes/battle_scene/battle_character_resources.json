@@ -7,16 +7,22 @@
       "file": "battle_character_view"
     },
     {
-      "key": "AnimationSet",
+      "key": "HammerHeroAnimationSet",
       "type": "sprite_sheet_animation_set",
-      "path": "assets/sheets",
+      "path": "assets/character_animation/hammer_hero",
       "file": "animation_set.json"
     },
     {
-      "key": "Enemies",
-      "type": "image",
-      "path": "assets",
-      "file": "Enemies.png"
+      "key": "KnightHeroAnimationSet",
+      "type": "sprite_sheet_animation_set",
+      "path": "assets/character_animation/knight_hero",
+      "file": "animation_set.json"
+    },
+    {
+      "key": "GoblinEnemyAnimationSet",
+      "type": "sprite_sheet_animation_set",
+      "path": "assets/character_animation/goblin_enemy",
+      "file": "animation_set.json"
     }
   ]
 }

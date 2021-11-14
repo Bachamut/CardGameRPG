@@ -24,6 +24,7 @@ class BaseCharacter(GameObject):
         self.character_class = None
         self.character_type = None
         self.affiliation = None
+        self.set_resource = None
         self.state = None
         self.base_attributes = Attributes()
         self.base_modifiers = Attributes()

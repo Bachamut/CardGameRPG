@@ -21,7 +21,7 @@ class BattleLogic(GameObjectSharedResource):
     CARD_CONTROLLER_SIGNAL = pygame.event.custom_type()
     ITEM_CONTROLLER_SIGNAL = pygame.event.custom_type()
     CHARACTER_CONTROLLER_SIGNAL = pygame.event.custom_type()
-    CHARACTER_VIEW_MANAGER_SIGNAL = pygame.event.custom_type()
+    CHARACTER_VIEW_CONTROLLER_SIGNAL = pygame.event.custom_type()
     AI_CONTROLLER_SIGNAL = pygame.event.custom_type()
 
     QUEUE_CONTROLLER_RESPONSE = pygame.event.custom_type()
@@ -31,7 +31,7 @@ class BattleLogic(GameObjectSharedResource):
     CARD_CONTROLLER_RESPONSE = pygame.event.custom_type()
     ITEM_CONTROLLER_RESPONSE = pygame.event.custom_type()
     CHARACTER_CONTROLLER_RESPONSE = pygame.event.custom_type()
-    CHARACTER_VIEW_MANAGER_RESPONSE = pygame.event.custom_type()
+    CHARACTER_VIEW_CONTROLLER_RESPONSE = pygame.event.custom_type()
     AI_CONTROLLER_RESPONSE = pygame.event.custom_type()
 
     CHARACTER_VIEW_SIGNAL = pygame.event.custom_type()
@@ -73,6 +73,7 @@ class BattleLogic(GameObjectSharedResource):
         if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
             self.property('ScriptProperty').property_enable()
             self.property('SignalProperty').property_enable()
+            InitializeProperty.started(self)
 
             return
 
@@ -127,16 +128,16 @@ class BattleLogic(GameObjectSharedResource):
                             # Populating draw_pile as a working copy of battle_deck
                             character.draw_pile = character.battle_deck.copy()
 
-                emit_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_MANAGER_SIGNAL, {"event": "CHARACTER_VIEW_MANAGER_SIGNAL", "subtype": "INITIAL"})
+                emit_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_CONTROLLER_SIGNAL, {"event": "CHARACTER_VIEW_CONTROLLER_SIGNAL", "subtype": "INITIAL"})
                 pygame.event.post(emit_signal)
                 Logs.DebugMessage.signal_emit(self, emit_signal, "BLS1->BChVMS1")
 
-                InitializeProperty.started(self)
+                # InitializeProperty.started(self)
                 Logs.InfoMessage.simple_info(self, "BattleLogic Started [ OK ]")
                 return
 
             # BLS2
-            if signal.type == BattleLogic.CHARACTER_VIEW_MANAGER_RESPONSE and signal.subtype == "INITIAL":
+            if signal.type == BattleLogic.CHARACTER_VIEW_CONTROLLER_RESPONSE and signal.subtype == "INITIAL":
                 Logs.DebugMessage.signal_received(self, signal, "BLS2<-BChVMS1")
 
                 emit_signal = pygame.event.Event(BattleLogic.QUEUE_CONTROLLER_SIGNAL, {"event": "QUEUE_CONTROLLER_SIGNAL", "subtype": "INITIAL"})
