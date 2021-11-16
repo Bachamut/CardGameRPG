@@ -65,14 +65,14 @@ class GameLogic(GameObject):
         player.deck['counter_stance_1'] = 1
         GameLogic.party.append(player)
 
-        # player = CharacterManager.create_character("character_lucius")
-        # player.state = "alive"
-        # player.inventory.add_item('Short sword')
-        # player.add_equip('hand_r', 'Short sword')
-        # GameLogic.party.append(player)
+        player = CharacterManager.create_character("character_lucius")
+        player.state = "alive"
+        player.inventory.add_item('Short sword')
+        player.add_equip('hand_r', 'Short sword')
+        GameLogic.party.append(player)
 
     def _create_enemy(self):
-        enemy = CharacterManager.create_character("warrior_goblin")
+        enemy = CharacterManager.create_character("character_lucius")
         enemy.state = "alive"
         enemy.inventory.add_item('Short sword')
         enemy.add_equip('hand_r', 'Short sword')

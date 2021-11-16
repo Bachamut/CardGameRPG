@@ -12,56 +12,65 @@ from assets.lib.ui.container import Container
 
 class BattleCharacterViewController(GameObjectSharedResource):
 
-    battle_character_view_list = BattleCharacterViewManager.battle_character_view_list
-
     def __init__(self):
         super(BattleCharacterViewController, self).__init__()
 
         self.change = False
+        self.main_container = Container()
+        self.left_container = Container()
+        self.right_container = Container()
+
+        self.main_container.attach_child(self.left_container)
+        self.main_container.attach_child(self.right_container)
+
+        self.battle_character_view_list = list()
+        self.battle_character_field = dict()
 
     def _initialize(self):
 
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
             super(BattleCharacterViewController, self)._initialize()
+
+            # Setup containers
+            self.main_container.property('TransformProperty').position.x = 130
+            self.main_container.property('TransformProperty').position.y = 150
+            self.right_container.property('TransformProperty').position.x = 450
+
+            # Setup Board Fields on left Container
+            for index in range(0, 3):
+
+                field_name = f'field_0{index}'
+                container = Container()
+                self.left_container.attach_child(container)
+                container.property('TransformProperty').position.y = index * -45
+
+                self.battle_character_field[field_name] = container
+
+            # Setup Board Fields on left Container
+            for index in range(3, 6):
+
+                field_name = f'field_0{index}'
+                container = Container()
+                self.right_container.attach_child(container)
+                container.property('TransformProperty').position.y = (index - 3) * 45
+
+                self.battle_character_field[field_name] = container
+
+
             InitializeProperty.initialize_enable(self)
             self.property('SignalProperty').property_enable()
             Logs.InfoMessage.simple_info(self, "BattleCharacterView.Controller Initialized [ OK ]")
 
             return
 
-        # if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
-        #
-        #     view_container = Container()
-        #     view_container.property('TransformProperty').position.x = 200
-        #     view_container.property('TransformProperty').position.y = 200
-        #
-        #     # self.players = ObjectCreator.create_entity('battle_scene', 'Players')
-        #     # self.players.initialize(self.battle_ally[0])
-        #     # view_container.attach_child(self.players)
-        #     #
-        #     # self.players.change_set('leap')
-        #     # self.players.scale(4)
-        #     #
-        #     # enemies = ObjectCreator.create_entity('battle_scene', 'Enemies')
-        #     # view_container.attach_child(enemies)
-        #     # enemies.property('TransformProperty').position.x = 550
-        #
-        #     InitializeProperty.started(self)
-        #     self.property('SignalProperty').property_enable()
-        #     self.property('ScriptProperty').property_enable()
-        #     Logs.InfoMessage.simple_info(self, "BattleCharacterView.Controller Started [ OK ]")
-        #
-        #     return
-
-    @staticmethod
-    def register(battle_character_view):
-        BattleCharacterViewController.battle_character_view_list.append(battle_character_view)
+    def register(self, battle_character_view):
+        self.battle_character_view_list.append(battle_character_view)
 
     def on_script(self):
 
         if self.change is False:
 
-            character = BattleCharacterViewController.battle_character_view_list[0]
+            character = self.battle_character_view_list[0]
             character.change_set('idle')
             character.scale(4)
 
@@ -91,18 +100,28 @@ class BattleCharacterViewController(GameObjectSharedResource):
         if signal.type == BattleLogic.CHARACTER_VIEW_CONTROLLER_SIGNAL and signal.subtype == "INITIAL":
             Logs.DebugMessage.signal_received(self, signal, "BChVCS1<-BLS1")
 
-            padding = 0
+            index = 0
 
             # Create CharacterViews and register in BattleCharacterViewManager
-            for battle_character in self.battle_ally + self.battle_enemies:
+            for battle_character in self.battle_ally:
                 package, set_resource = battle_character.set_resource.split('/')
                 battle_character_view = BattleCharacterView().initialize(battle_character, {'package': package, 'set_resource': set_resource})
-                BattleCharacterViewManager.register(battle_character_view)
+                self.register(battle_character_view)
+                field_index = f'field_0{index}'
+                index += 1
+                self.battle_character_field[field_index].attach_child(battle_character_view)
                 battle_character_view.property('SpriteSheetAnimationProperty').scale(4)
-                battle_character_view.property('TransformProperty').position.x = padding
-                battle_character_view.property('TransformProperty').position.y = 200
 
-                padding += 160
+            index = 3
+
+            for battle_character in self.battle_enemies:
+                package, set_resource = battle_character.set_resource.split('/')
+                battle_character_view = BattleCharacterView().initialize(battle_character, {'package': package, 'set_resource': set_resource})
+                self.register(battle_character_view)
+                field_index = f'field_0{index}'
+                index += 1
+                self.battle_character_field[field_index].attach_child(battle_character_view)
+                battle_character_view.property('SpriteSheetAnimationProperty').scale(4)
 
             self.property('SignalProperty').property_disable()
             InitializeProperty.started(self)
