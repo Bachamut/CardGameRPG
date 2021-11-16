@@ -23,6 +23,12 @@
       "type": "sprite_sheet_animation_set",
       "path": "assets/character_animation/goblin_enemy",
       "file": "animation_set.json"
+    },
+    {
+      "key": "ArcherHeroAnimationSet",
+      "type": "sprite_sheet_animation_set",
+      "path": "assets/character_animation/archer_hero",
+      "file": "animation_set.json"
     }
   ]
 }

@@ -1,0 +1,14 @@
+{
+    "header":
+    {
+        "type": "sprite_sheet_animation",
+        "sprite_sheet": "spr_Melee_strip.png",
+        "rect_width": 3584,
+        "rect_height": 128,
+        "frame_width": 128,
+        "frame_height": 128,
+        "frames": 28,
+        "rows": 1,
+        "columns": 28
+    }
+}

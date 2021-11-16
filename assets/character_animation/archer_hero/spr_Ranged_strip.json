@@ -1,0 +1,14 @@
+{
+    "header":
+    {
+        "type": "sprite_sheet_animation",
+        "sprite_sheet": "spr_Ranged_strip.png",
+        "rect_width": 2520,
+        "rect_height": 128,
+        "frame_width": 180,
+        "frame_height": 128,
+        "frames": 14,
+        "rows": 1,
+        "columns": 14
+    }
+}

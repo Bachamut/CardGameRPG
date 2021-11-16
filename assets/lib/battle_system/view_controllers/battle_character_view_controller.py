@@ -62,7 +62,7 @@ class BattleCharacterViewController(GameObjectSharedResource):
         if self.change is False:
 
             character = BattleCharacterViewController.battle_character_view_list[0]
-            character.change_set('attack')
+            character.change_set('idle')
             character.scale(4)
 
             self.change = True

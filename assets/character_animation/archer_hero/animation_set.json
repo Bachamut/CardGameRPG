@@ -1,0 +1,18 @@
+{
+    "header":
+    {
+        "type": "sprite_sheet_animation_set",
+        "components": 7,
+        "default_set": "idle"
+    },
+    "sprite_sheet_set":
+    {
+        "dash": "spr_Dash_strip.json",
+        "death": "spr_Death_strip.json",
+        "idle": "spr_Idle_strip.json",
+        "jump": "spr_Jump_strip.json",
+        "melee": "spr_Melee_strip.json",
+        "ranged": "spr_Ranged_strip.json",
+        "run": "spr_Run_strip.json"
+    }
+}

@@ -28,7 +28,7 @@
     "character_class": "rogue",
     "character_type": "npc",
     "affiliation": "ally",
-    "set_resource": "battle_scene/HammerHeroAnimationSet",
+    "set_resource": "battle_scene/ArcherHeroAnimationSet",
     "health": 60,
     "energy": 50,
     "action_points": 3,

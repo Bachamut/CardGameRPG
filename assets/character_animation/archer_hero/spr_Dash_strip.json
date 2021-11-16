@@ -1,0 +1,14 @@
+{
+    "header":
+    {
+        "type": "sprite_sheet_animation",
+        "sprite_sheet": "spr_Dash_strip.png",
+        "rect_width": 1792,
+        "rect_height": 128,
+        "frame_width": 128,
+        "frame_height": 128,
+        "frames": 14,
+        "rows": 1,
+        "columns": 14
+    }
+}
