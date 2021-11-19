@@ -35,7 +35,7 @@ class ActionProcess:
                 elif card.card_type == "skill":
                     action_sequence = ActionProcess.skill(caster, target, card)
 
-                action_scenario.append(action_sequence)
+                action_scenario += action_sequence
 
             # Logs.ActionProcessMessage.action_process_info(caster, target, card, value, ActionProcess.action_process.__name__)
 

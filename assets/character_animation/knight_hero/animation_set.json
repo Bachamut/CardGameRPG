@@ -8,7 +8,7 @@
     "sprite_sheet_set":
     {
 
-        "attack": "spr_Attack_strip.json",
+        "melee": "spr_Melee_strip.json",
         "death": "spr_Death_strip.json",
         "idle": "spr_Idle_strip.json",
         "jump_and_fall": "spr_JumpAndFall_strip.json",

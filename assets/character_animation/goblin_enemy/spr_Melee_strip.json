@@ -2,7 +2,7 @@
     "header":
     {
         "type": "sprite_sheet_animation",
-        "sprite_sheet": "spr_Attack_strip.png",
+        "sprite_sheet": "spr_Melee_strip.png",
         "rect_width": 1200,
         "rect_height": 150,
         "frame_width": 150,

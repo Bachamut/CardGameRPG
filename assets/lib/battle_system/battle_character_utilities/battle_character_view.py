@@ -22,6 +22,8 @@ class BattleCharacterView(GameObject):
         self.max_frames = 0
         self.alphe = 256
 
+        self.animation_queue = list()
+
     def initialize(self, battle_character, set_resource):
         # reference to character
         self.character_model = battle_character

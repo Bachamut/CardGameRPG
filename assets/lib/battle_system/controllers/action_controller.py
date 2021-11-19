@@ -174,4 +174,10 @@ class ActionController(GameObjectSharedResource):
         # pygame.event.post(caster_signal)
         #
         # list = BattleCharacterViewManager.battle_character_view_list
+
+        emit_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_CONTROLLER_SIGNAL, {"event": "CHARACTER_VIEW_CONTROLLER_SIGNAL", "subtype": "STANDARD", "action_scenario": action_scenario})
+        pygame.event.post(emit_signal)
+        Logs.DebugMessage.signal_emit(emit_signal, "AP1->BChVC1")
+
         print(f'')
+
