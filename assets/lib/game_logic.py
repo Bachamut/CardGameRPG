@@ -55,20 +55,33 @@ class GameLogic(GameObject):
         return card_config, character_config, item_config, status_config, ai_config
 
     def _create_party(self):
-        player = CharacterManager.create_character("character_edward")
+        # player = CharacterManager.create_character("character_edward")
+        # player.state = "alive"
+        # player.inventory.add_item('Short sword')
+        # # player.inventory.add_item('Simple shield')
+        # player.add_equip('hand_r', 'Short sword')
+        # player.add_equip('hand_l', 'Simple shield')
+        # player.deck['multi_strike_1'] = 2
+        # player.deck['counter_stance_1'] = 1
+        # player.deck['super_strike_1'] = 5
+        # GameLogic.party.append(player)
+
+
+        # player = CharacterManager.create_character("character_lucius")
+        # player.state = "alive"
+        # player.inventory.add_item('Short sword')
+        # player.add_equip('hand_r', 'Short sword')
+        # player.deck['bow_shot_1'] = 5
+        # GameLogic.party.append(player)
+
+        player = CharacterManager.create_character("character_siegfried")
         player.state = "alive"
         player.inventory.add_item('Short sword')
         player.inventory.add_item('Simple shield')
         player.add_equip('hand_r', 'Short sword')
         player.add_equip('hand_l', 'Simple shield')
         # player.deck['multi_strike_1'] = 2
-        # player.deck['counter_stance_1'] = 1
-        GameLogic.party.append(player)
-
-        player = CharacterManager.create_character("character_lucius")
-        player.state = "alive"
-        player.inventory.add_item('Short sword')
-        player.add_equip('hand_r', 'Short sword')
+        player.deck['counter_stance_1'] = 4
         GameLogic.party.append(player)
 
     def _create_enemy(self):

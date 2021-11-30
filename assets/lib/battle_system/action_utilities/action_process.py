@@ -78,7 +78,7 @@ class ActionProcess:
         if value is not None:
             target.take_damage_battle_attribute(value)
 
-        action_block = ActionBlock(caster, target, 'physical_attack', value)
+        action_block = ActionBlock(caster, target, card.action_type, value)
         action_sequence.append(action_block)
 
         for status in target.status_list:
@@ -114,7 +114,7 @@ class ActionProcess:
             else:
                 value = ActionProcess.value_calculation(caster, target, card)
                 target.take_damage_battle_attribute(value)
-                action_block = ActionBlock(caster, target, 'cast_spell', value)
+                action_block = ActionBlock(caster, target, card.action_type, value)
                 action_sequence.append(action_block)
 
         return action_sequence
@@ -127,7 +127,7 @@ class ActionProcess:
         value = ActionProcess.value_calculation(caster, target, card)
         target.heal_health_battle_attribute(value)
 
-        action_block = ActionBlock(caster, target, 'heal', value)
+        action_block = ActionBlock(caster, target, card.action_type, value)
         action_sequence.append(action_block)
 
         return action_sequence
@@ -137,7 +137,7 @@ class ActionProcess:
 
         action_sequence = list()
 
-        action_block = ActionBlock(caster, target, 'skill')
+        action_block = ActionBlock(caster, target, card.action_type)
         action_sequence.append(action_block)
 
         return action_sequence
@@ -164,6 +164,8 @@ class ActionProcess:
             value = ActionType.heal_spell(caster, target, card)
         elif card.action_type == 'self_skill':
             value = ActionType.self_skill(caster, target, card)
+        elif card.action_type == 'special_attack':
+            value = ActionType.basic_attack(caster, target, card)
         return value
 
     @staticmethod

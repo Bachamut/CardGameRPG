@@ -71,17 +71,33 @@ class BattleCharacterViewController(GameObjectSharedResource):
         for character_view in self.battle_character_view_list:
             if character_view.property('SpriteSheetAnimationProperty').frame >= character_view.max_frames:
                 # self.animation_reset = True
-                character_view.change_set('idle')
+                character_view.change_set(character_view.default_set)
                 character_view.scale(4)
 
             # testing
             if character_view.animation_queue:
                 if character_view.property('SpriteSheetAnimationProperty').frame >= character_view.max_frames - 1:
 
-                    if character_view.animation_queue[0].action == "physical_attack":
+                    if character_view.animation_queue[0].action_type == "basic_attack" or character_view.animation_queue[0].action_type == "counter_attack":
                         character_view.change_set('melee')
                         character_view.scale(4)
                         character_view.animation_queue.remove(character_view.animation_queue[0])
+
+                    elif character_view.animation_queue[0].action_type == "bow_attack":
+                        character_view.change_set('ranged')
+                        character_view.scale(4)
+                        character_view.animation_queue.remove(character_view.animation_queue[0])
+
+                    elif character_view.animation_queue[0].action_type == "self_skill":
+                        character_view.change_set('shield')
+                        character_view.scale(4)
+                        character_view.animation_queue.remove(character_view.animation_queue[0])
+
+                    elif character_view.animation_queue[0].action_type == "special_attack":
+                        character_view.change_set('leap')
+                        character_view.scale(4)
+                        character_view.animation_queue.remove(character_view.animation_queue[0])
+
                 else:
                     print(f'trwa animacja')
 
@@ -166,6 +182,7 @@ class BattleCharacterViewController(GameObjectSharedResource):
         for battle_character in team:
             package, set_resource = battle_character.set_resource.split('/')
             battle_character_view = BattleCharacterView().initialize(battle_character, {'package': package, 'set_resource': set_resource})
+            battle_character_view.default_set = 'idle'
             self.register(battle_character_view)
             field_index = f'field_0{index}'
             index += 1

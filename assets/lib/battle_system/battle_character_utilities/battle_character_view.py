@@ -23,6 +23,7 @@ class BattleCharacterView(GameObject):
         self.alphe = 256
 
         self.animation_queue = list()
+        self.default_set = None
 
     def initialize(self, battle_character, set_resource):
         # reference to character

@@ -56,6 +56,25 @@
     "target_status":{}
   },
 
+  "super_strike_1":
+  {
+    "resource": "PiercingStrikeCard",
+    "card_id": "super_strike_1",
+    "card_name": "Super Strike",
+    "card_type": "physical_attack",
+    "action_type": "special_attack",
+    "description": "super attack",
+    "character_class": "warrior",
+    "amount": 2,
+    "base_value": 4,
+    "multiplier": 1.5,
+    "ap_cost": 2,
+    "energy_cost": 0,
+    "target": "single",
+    "caster_status":{},
+    "target_status":{}
+  },
+
   "counter_stance_1":
   {
     "resource": "FastStrikeCard",
