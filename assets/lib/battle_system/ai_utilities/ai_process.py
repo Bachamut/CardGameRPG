@@ -28,7 +28,7 @@ class AIProcess:
                     best_character = temp_character
                     best_value = temp_value
 
-            best_pairs[best_card] = best_character
+            best_pairs[best_card] = [best_character, best_value]
             cards_values.pop(best_card, best_character)
 
             best_value = None

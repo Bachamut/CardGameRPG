@@ -60,21 +60,35 @@ class AIController(GameObjectSharedResource):
             if self.current_character.state == 'alive':
 
                 best_pairs = AIProcess.action_calculation(self.current_character, self.battle_ally + self.battle_enemies)
+                self.get_confirmed_objects(best_pairs)
 
-                self.confirmed_card = next(iter(best_pairs))
-                self.confirmed_target.append(best_pairs[self.confirmed_card])
+                # Check if value of action is positive
+                if self.action_validation(best_pairs):
 
-                Logs.AIControllerMessage.ai_choice_info(self, CardManager.create_battle_card(self.confirmed_card), self.confirmed_target)
+                    Logs.AIControllerMessage.ai_choice_info(self, CardManager.create_battle_card(self.confirmed_card), self.confirmed_target)
 
-                emit_signal = pygame.event.Event(BattleLogic.AI_CONTROLLER_RESPONSE, {"event": "AI_CONTROLLER_RESPONSE", "subtype": "STANDARD"})
-                pygame.event.post(emit_signal)
-                Logs.DebugMessage.signal_emit(self, emit_signal, "AIC1->BL13")
-                return
+                    emit_signal = pygame.event.Event(BattleLogic.AI_CONTROLLER_RESPONSE, {"event": "AI_CONTROLLER_RESPONSE", "subtype": "STANDARD"})
+                    pygame.event.post(emit_signal)
+                    Logs.DebugMessage.signal_emit(self, emit_signal, "AIC1->BL13")
+                    return
 
-            else:
-                Logs.AIControllerMessage.ai_controller_simple_info('Turn skipped')
+            Logs.AIControllerMessage.ai_controller_simple_info('Turn skipped')
 
-                emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "NO_ACTION"})
-                pygame.event.post(emit_signal)
-                Logs.DebugMessage.signal_emit(self, emit_signal, "AIC1->?BL100")
-                return
+            emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "NO_ACTION"})
+            pygame.event.post(emit_signal)
+            Logs.DebugMessage.signal_emit(self, emit_signal, "AIC1->?BL100")
+            return
+
+    def get_confirmed_objects(self, best_pairs):
+
+        self.confirmed_card = next(iter(best_pairs))
+        self.confirmed_target.append(best_pairs[self.confirmed_card][0])
+
+    def action_validation(self, best_pairs):
+
+        action_value = best_pairs[self.confirmed_card][1]
+
+        if action_value > 0:
+            return True
+        else:
+            return False
