@@ -1,0 +1,26 @@
+{
+  "scene_name": "character_sheet_scene",
+  "include": null,
+  "resources": ["resources.json"],
+  "controller": "CharacterSheetViewController",
+
+  "entities":
+          [
+            {
+              "entity": "CharacterSheetViewController",
+              "object":
+              {
+                "object_class": "CharacterSheetViewController",
+                "object_type": null,
+                "object_label": "CharacterSheetViewController",
+                "create": true,
+                "properties": ["InitializeProperty", "EventProperty"],
+                "configure_properties":
+                {
+                  "InitializeProperty": {"init_req": null, "start_req": null},
+                  "EventProperty": {"property_state": "Disabled"}
+                }
+              }
+            }
+          ]
+}

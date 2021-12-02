@@ -1,0 +1,10 @@
+{
+  "resources": [
+    {
+      "key": "CharacterSheetViewController",
+      "type": "script",
+      "path": "assets/lib/character_sheet",
+      "file": "character_sheet_view_controller"
+    }
+  ]
+}
