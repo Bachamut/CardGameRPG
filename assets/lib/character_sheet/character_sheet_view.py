@@ -4,23 +4,28 @@ from property.initialize_property import InitializeProperty, InitializeState
 
 from assets.lib.battle_system.log import Logs
 from assets.lib.project_controller.project_controller import ProjectController
-from assets.lib.ui.base_ui.text_line import TextLine
 from assets.lib.ui.base_ui.text_box import TextBox
+from assets.lib.ui.base_ui.text_line import TextLine
 from assets.lib.ui.container import Container
 
 
-class PressToStartView(GameObject):
+class CharacterSheetView(GameObject):
 
     def __init__(self):
-        super(PressToStartView, self).__init__()
-        self.messages = dict()
+        super(CharacterSheetView, self).__init__()
+
+        self.sheet_template = [3, 2, 1]
+        self.character = None
+        self.row_container_list = list()
         self.font_faces = dict()
+
+        self.messages = dict()
 
     def _initialize(self):
 
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.simple_info(self, "PressToStart.View Initialized [ OK ]")
+            Logs.InfoMessage.simple_info(self, "CharacterSheet.View Initialized [ OK ]")
 
             self.prepare_font_faces()
             self.prepare_messages()
@@ -31,7 +36,7 @@ class PressToStartView(GameObject):
             InitializeProperty.started(self)
             self.property('ScriptProperty').property_enable()
             self.property('EventProperty').property_enable()
-            Logs.InfoMessage.simple_info(self, "PressToStart.View Started [ OK ]")
+            Logs.InfoMessage.simple_info(self, "CharacterSheet.View Started [ OK ]")
 
             self.timer_event = pygame.event.custom_type()
             pygame.time.set_timer(self.timer_event, 5000)
@@ -42,6 +47,7 @@ class PressToStartView(GameObject):
             self.start_time = pygame.time.get_ticks()
 
             return
+
 
     def on_script(self):
 
@@ -103,41 +109,12 @@ class PressToStartView(GameObject):
         main_container.attach_child(container_en)
         container_en.property('TransformProperty').position.y = 0
 
-        message = "By continuing, you consent and accept the following terms of use"
+        message = "CHARACTER SHEET"
         text_box = TextBox(self.font_faces['roboto_h1'])
         container_en.attach_child(text_box)
         text_box.update(message, (255, 255, 255))
         text_box.property('TransformProperty').position.y = 0
         self.messages['en_title'] = text_box
-
-        message = "This product is the intellectual property of its creators. Using, including storage, startup\n" \
-                  "and dissemination without the consent of the creators is prohibited. Storing the source code,\n" \
-                  "its modification and dissemination without the consent of the creators is prohibited."
-        text_box = TextBox(self.font_faces['open_sans_normal'])
-        container_en.attach_child(text_box)
-        text_box.update(message, (255, 255, 255))
-        text_box.property('TransformProperty').position.y = 40
-        self.messages['en_message'] = text_box
-
-        container_jp = Container()
-        main_container.attach_child(container_jp)
-        container_jp.property('TransformProperty').position.y = 200
-
-        message = "続行することにより、以下の利用規約に同意し、同意したことになります"
-        text_box = TextBox(self.font_faces['noto_sans_jp_h1'])
-        container_jp.attach_child(text_box)
-        text_box.update(message, (255, 255, 255))
-        text_box.property('TransformProperty').position.y = 0
-        self.messages['jp_title'] = text_box
-
-        message = "この商品はそのクリエイターの知的財産です。 クリエイターの同意なしに\n" \
-                  "保管、起動および普及を含む使用は禁止されています。 ソースコードの保存\n" \
-                  "作成者の同意なしにその変更および普及は禁止されています。"
-        text_box = TextBox(self.font_faces['noto_sans_jp_normal'])
-        container_jp.attach_child(text_box)
-        text_box.update(message, (255, 255, 255))
-        text_box.property('TransformProperty').position.y = 50
-        self.messages['jp_message'] = text_box
 
         message = "[Press any key to continue]"
         text_line = TextLine(self.font_faces['open_sans_normal'], (255, 255, 255), message)
@@ -153,3 +130,25 @@ class PressToStartView(GameObject):
             if type(tb) == TextBox:
                 for line in tb._text_lines:
                     line.property('SpriteProperty').set_alpha(0)
+
+    def prepare_content(self):
+
+        interspace = 0
+        for row in self.sheet_template:
+
+            row_container = Container()
+            # self.attach_child(row_container)
+            row_container.property('TransformProperty').position.x = 520 + interspace
+            row_container.property('TransformProperty').position.y = 220
+
+            for column in range(row):
+
+                # text_line = TextLine(self.font_faces['open_sans_normal'], (0, 0, 0), f'SKILL').render()
+
+                skill_container = Container()
+                # self.attach_child(skill_container)
+                skill_container.property('TransformProperty').position.x = 40
+                skill_container.property('TransformProperty').position.y = 20 + interspace
+                # skill_container.attach_child(text_line)
+
+            interspace += 40

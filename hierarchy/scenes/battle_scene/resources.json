@@ -103,12 +103,6 @@
       "file": "battle_character_view_manager"
     },
     {
-      "key": "CharacterSheetViewController",
-      "type": "script",
-      "path": "assets/lib/character_sheet",
-      "file": "character_sheet_view_controller"
-    },
-    {
       "key": "CardView",
       "type": "script",
       "path": "assets/lib/battle_system",
