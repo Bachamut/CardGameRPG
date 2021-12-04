@@ -1,0 +1,43 @@
+{
+  "scene_name": "character_sheet_scene",
+  "include": null,
+  "resources": ["resources.json"],
+  "controller": "CharacterSheetScreenController",
+
+  "entities":
+          [
+            {
+              "entity": "CharacterSheetScreenController",
+              "object":
+              {
+                "object_class": "CharacterSheetScreenController",
+                "object_type": null,
+                "object_label": "CharacterSheetScreenController",
+                "create": true,
+                "properties": ["InitializeProperty", "EventProperty"],
+                "configure_properties":
+                {
+                  "InitializeProperty": {"init_req": null, "start_req": ["CharacterSheetView.Initialized"]},
+                  "EventProperty": {"property_state": "Disabled"}
+                }
+              }
+            },
+            {
+              "entity": "CharacterSheetView",
+              "object":
+              {
+                "object_class": "CharacterSheetView",
+                "object_type": null,
+                "object_label": "CharacterSheetView",
+                "create": true,
+                "properties": ["InitializeProperty", "ScriptProperty", "EventProperty", "TransformProperty"],
+                "configure_properties":
+                {
+                  "InitializeProperty": {"init_req": ["CharacterSheetScreenController.Initialized"], "start_req": ["CharacterSheetScreenController.Started"]},
+                  "ScriptProperty": {"set_script": "CharacterSheetView", "property_state": "Disabled"},
+                  "EventProperty": {"property_state":  "Disabled"}
+                }
+              }
+            }
+          ]
+}
