@@ -1,0 +1,44 @@
+{
+  "scene_name": "end_scene",
+  "include": null,
+  "resources": ["resources.json"],
+  "controller": "EndScreenController",
+
+  "entities":
+          [
+            {
+              "entity": "EndScreenController",
+              "object":
+              {
+                "object_class": "EndScreenController",
+                "object_type": null,
+                "object_label": "EndScreenController",
+                "create": true,
+                "properties": ["InitializeProperty", "EventProperty"],
+                "configure_properties":
+                {
+                  "InitializeProperty": {"init_req": null, "start_req": ["EndScreenView.Initialized"]},
+                  "EventProperty": {"property_state": "Disabled"}
+                }
+              }
+            },
+            {
+              "entity": "EndScreenView",
+              "object":
+              {
+                "object_class": "EndScreenView",
+                "object_type": null,
+                "object_label": "EndScreenView",
+                "create": true,
+                "properties": ["InitializeProperty", "ScriptProperty", "SignalProperty", "EventProperty", "TransformProperty"],
+                "configure_properties":
+                {
+                  "InitializeProperty": {"init_req": ["EndScreenController.Initialized"], "start_req": ["EndScreenController.Started"]},
+                  "ScriptProperty": {"set_script": "EndScreenView", "property_state": "Disabled"},
+                  "SignalProperty": {"property_state":  "Disabled"},
+                  "EventProperty": {"property_state":  "Disabled"}
+                }
+              }
+            }
+          ]
+}

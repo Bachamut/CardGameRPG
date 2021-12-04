@@ -1,5 +1,8 @@
+import pygame
+
 from assets.lib.battle_system.action_utilities.action_block import ActionBlock
 from assets.lib.battle_system.action_utilities.action_types import ActionType
+from assets.lib.battle_system.battle_logic import BattleLogic
 from assets.lib.battle_system.log import Logs
 from assets.lib.card_utilities.card_model import BaseCard
 from assets.lib.card_utilities.card_manager import CardManager
@@ -254,9 +257,9 @@ class ActionProcess:
         else:
             Logs.ActionProcessMessage.action_process_simple_info(ActionProcess.battle_lost.__name__, 'przegrałeś, wszyscy towarzysze nie żyją')
 
-            # emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOST, {"event": "BATTLE_LOST", "subtype": "STANDARD"})
-            # pygame.event.post(emit_signal)
-            # return
+            emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOST, {"event": "BATTLE_LOST", "subtype": "STANDARD"})
+            pygame.event.post(emit_signal)
+            return
 
     @staticmethod
     def battle_won(battle_enemies):
@@ -266,7 +269,7 @@ class ActionProcess:
         else:
             Logs.ActionProcessMessage.action_process_simple_info(ActionProcess.battle_lost.__name__, 'wygrałeś, wszyscy przeciwnicy nie żyją')
 
-            # emit_signal = pygame.event.Event(BattleLogic.BATTLE_WON, {"event": "BATTLE_WON", "subtype": "STANDARD"})
-            # pygame.event.post(emit_signal)
-            # return
+            emit_signal = pygame.event.Event(BattleLogic.BATTLE_WON, {"event": "BATTLE_WON", "subtype": "STANDARD"})
+            pygame.event.post(emit_signal)
+            return
 

@@ -1,0 +1,16 @@
+{
+  "resources": [
+    {
+      "key": "EndScreenController",
+      "type": "script",
+      "path": "assets/lib/end_screen",
+      "file": "end_screen_controller"
+    },
+    {
+      "key": "EndScreenView",
+      "type": "script",
+      "path": "assets/lib/end_screen",
+      "file": "end_screen_view"
+    }
+  ]
+}

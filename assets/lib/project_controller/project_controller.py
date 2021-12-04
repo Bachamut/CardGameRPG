@@ -10,6 +10,8 @@ from assets.lib.battle_system.log import Logs
 class ProjectController(GameObject):
 
     UNLOAD_START_SCENE_TIME_EVENT = pygame.event.custom_type()
+    UNLOAD_END_SCENE_TIME_EVENT = pygame.event.custom_type()
+    UNLOAD_BATTLE_SCENE_TIME_EVENT = pygame.event.custom_type()
 
     def __init__(self):
         super(ProjectController, self).__init__()
@@ -17,7 +19,7 @@ class ProjectController(GameObject):
     def _initialize(self):
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
 
-            SceneCreator._scene = "start_scene"
+            SceneCreator._scene = "battle_scene"
             SceneCreator.load_entity_config(SceneCreator._scene)
             SceneCreator.load_resource_config(SceneCreator._scene)
             scene_config = SceneCreator.get_scene_resources_config(SceneCreator._scene)
@@ -45,6 +47,30 @@ class ProjectController(GameObject):
             SceneCreator.destroy(SceneCreator._scene)
 
             SceneCreator._scene = "battle_scene"
+            SceneCreator.load_entity_config(SceneCreator._scene)
+            SceneCreator.load_resource_config(SceneCreator._scene)
+            scene_config = SceneCreator.get_scene_resources_config(SceneCreator._scene)
+            ResourceManager.load_resources(scene_config)
+            SceneCreator.create_scene(SceneCreator._scene)
+
+        if event.type == ProjectController.UNLOAD_BATTLE_SCENE_TIME_EVENT:
+
+            pygame.time.set_timer(ProjectController.UNLOAD_BATTLE_SCENE_TIME_EVENT, 0)
+            SceneCreator.destroy(SceneCreator._scene)
+
+            SceneCreator._scene = "end_scene"
+            SceneCreator.load_entity_config(SceneCreator._scene)
+            SceneCreator.load_resource_config(SceneCreator._scene)
+            scene_config = SceneCreator.get_scene_resources_config(SceneCreator._scene)
+            ResourceManager.load_resources(scene_config)
+            SceneCreator.create_scene(SceneCreator._scene)
+
+        if event.type == ProjectController.UNLOAD_END_SCENE_TIME_EVENT:
+
+            pygame.time.set_timer(ProjectController.UNLOAD_END_SCENE_TIME_EVENT, 0)
+            SceneCreator.destroy(SceneCreator._scene)
+
+            SceneCreator._scene = "start_scene"
             SceneCreator.load_entity_config(SceneCreator._scene)
             SceneCreator.load_resource_config(SceneCreator._scene)
             scene_config = SceneCreator.get_scene_resources_config(SceneCreator._scene)

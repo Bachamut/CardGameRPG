@@ -78,7 +78,8 @@ class BattleCharacterViewController(GameObjectSharedResource):
             if character_view.animation_queue:
                 if character_view.property('SpriteSheetAnimationProperty').frame >= character_view.max_frames - 1:
 
-                    if character_view.animation_queue[0].action_type == "basic_attack" or character_view.animation_queue[0].action_type == "counter_attack":
+                    if character_view.animation_queue[0].action_type == "basic_attack" or \
+                            character_view.animation_queue[0].action_type == "counter_attack":
                         character_view.change_set('melee')
                         character_view.scale(4)
                         character_view.animation_queue.remove(character_view.animation_queue[0])
@@ -173,7 +174,15 @@ class BattleCharacterViewController(GameObjectSharedResource):
             #             character_view.change_set('death')
             #             character_view.scale(4)
 
-            pass
+            return
+
+        # BChVC2
+        if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "DESTROY_VIEW":
+            Logs.DebugMessage.signal_received(self, signal, "BChVC1<-?BL101")
+
+            self.destroy_character_view()
+
+            return
 
     def character_view_setup(self, team, initial_index):
 
@@ -188,3 +197,15 @@ class BattleCharacterViewController(GameObjectSharedResource):
             index += 1
             self.battle_character_field[field_index].attach_child(battle_character_view)
             battle_character_view.property('SpriteSheetAnimationProperty').scale(4)
+
+    def destroy_character_view(self):
+
+        # self.battle_character_view_list.clear()
+        # self.battle_character_field.clear()
+        self.main_container.property('TransformProperty').position.y = 1000
+
+        # for character_view in self.battle_character_view_list:
+        #
+        #     character_view.change_set('death')
+        #     character_view.scale(4)
+
