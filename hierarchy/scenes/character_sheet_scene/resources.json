@@ -1,10 +1,16 @@
 {
   "resources": [
     {
-      "key": "CharacterSheetViewController",
+      "key": "CharacterSheetScreenController",
       "type": "script",
       "path": "assets/lib/character_sheet",
-      "file": "character_sheet_view_controller"
+      "file": "character_sheet_screen_controller"
+    },
+    {
+      "key": "CharacterSheetView",
+      "type": "script",
+      "path": "assets/lib/character_sheet",
+      "file": "character_sheet_view"
     }
   ]
 }
