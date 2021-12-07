@@ -428,7 +428,7 @@ class BattleLogic(GameObjectSharedResource):
 
                         # pygame.time.set_timer(ProjectController.UNLOAD_BATTLE_SCENE_TIME_EVENT, 1)
 
-                        emit_signal = pygame.event.Event(ProjectController.UNLOAD_BATTLE_SCENE_TIME_EVENT, {"event": "UNLOAD_BATTLE_SCENE_TIME_EVENT", "subtype": "BATTLE_LOST"})
+                        emit_signal = pygame.event.Event(ProjectController.START_END_SCENE_TIME_EVENT, {"event": "START_END_SCENE_TIME_EVENT", "subtype": "BATTLE_LOST"})
                         pygame.event.post(emit_signal)
                         return
 

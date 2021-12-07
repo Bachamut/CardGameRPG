@@ -85,17 +85,11 @@ class BattleSummaryScreenView(GameObject):
 
         if self.wait_to_press and event.type == pygame.KEYDOWN:
 
-            pygame.time.set_timer(ProjectController.UNLOAD_END_SCENE_TIME_EVENT, 900)
+            pygame.time.set_timer(ProjectController.START_MAIN_MENU_SCENE_TIME_EVENT, 900)
 
     def on_signal(self, signal):
 
-        if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "BATTLE_LOST":
-
-            pass
-
-        if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "BATTLE_WON":
-
-            pass
+        pass
 
     def prepare_font_faces(self):
 
@@ -109,7 +103,7 @@ class BattleSummaryScreenView(GameObject):
         main_container = Container()
         self.attach_child(main_container)
         main_container.property('TransformProperty').position.x = 240
-        main_container.property('TransformProperty').position.y = 370
+        main_container.property('TransformProperty').position.y = 200
 
         container_en = Container()
         main_container.attach_child(container_en)

@@ -10,10 +10,10 @@ from assets.lib.ui.base_ui.text_box import TextBox
 from assets.lib.ui.container import Container
 
 
-class EndScreenView(GameObject):
+class MainMenuScreenView(GameObject):
 
     def __init__(self):
-        super(EndScreenView, self).__init__()
+        super(MainMenuScreenView, self).__init__()
         self.messages = dict()
         self.font_faces = dict()
 
@@ -21,7 +21,7 @@ class EndScreenView(GameObject):
 
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
             InitializeProperty.initialize_enable(self)
-            Logs.InfoMessage.simple_info(self, "EndScreen.View Initialized [ OK ]")
+            Logs.InfoMessage.simple_info(self, "MainMenuScreen.View Initialized [ OK ]")
 
             self.prepare_font_faces()
             self.prepare_messages()
@@ -33,7 +33,7 @@ class EndScreenView(GameObject):
             self.property('ScriptProperty').property_enable()
             self.property('EventProperty').property_enable()
             self.property('SignalProperty').property_enable()
-            Logs.InfoMessage.simple_info(self, "EndScreen.View Started [ OK ]")
+            Logs.InfoMessage.simple_info(self, "MainMenuScreen.View Started [ OK ]")
 
             self.timer_event = pygame.event.custom_type()
             pygame.time.set_timer(self.timer_event, 5000)
@@ -85,21 +85,17 @@ class EndScreenView(GameObject):
 
         if self.wait_to_press and event.type == pygame.KEYDOWN:
 
-            pygame.time.set_timer(ProjectController.START_MAIN_MENU_SCENE_TIME_EVENT, 900)
+            pygame.time.set_timer(ProjectController.START_BATTLE_SCENE_SCENE_TIME_EVENT, 900)
 
     def on_signal(self, signal):
 
-        if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "BATTLE_LOST":
-
-            pass
-
-        if signal.type == BattleLogic.BATTLE_LOGIC_SIGNAL and signal.subtype == "BATTLE_WON":
-
-            pass
+        pass
 
     def prepare_font_faces(self):
 
         self.font_faces['roboto_h1'] = pygame.font.Font("assets/fonts/roboto/Roboto-Regular.ttf", 56)
+        self.font_faces['roboto_h2'] = pygame.font.Font("assets/fonts/roboto/Roboto-Regular.ttf", 42)
+        self.font_faces['roboto_h3'] = pygame.font.Font("assets/fonts/roboto/Roboto-Regular.ttf", 30)
         self.font_faces['open_sans_normal'] = pygame.font.Font("assets/fonts/open_sans/OpenSans-Regular.ttf", 16)
         self.font_faces['noto_sans_jp_h1'] = pygame.font.Font("assets/fonts/noto_sans_jp/NotoSansJP-Regular.otf", 24)
         self.font_faces['noto_sans_jp_normal'] = pygame.font.Font("assets/fonts/noto_sans_jp/NotoSansJP-Regular.otf", 16)
@@ -109,19 +105,51 @@ class EndScreenView(GameObject):
         main_container = Container()
         self.attach_child(main_container)
         main_container.property('TransformProperty').position.x = 240
-        main_container.property('TransformProperty').position.y = 370
+        main_container.property('TransformProperty').position.y = 200
 
-        container_en = Container()
-        main_container.attach_child(container_en)
-        container_en.property('TransformProperty').position.y = 0
+        title_bar = Container()
+        main_container.attach_child(title_bar)
+        title_bar.property('TransformProperty').position.x = 0
+        title_bar.property('TransformProperty').position.y = 0
 
-        message = "YOU DIED"
+        message = "CARD GAME RPG"
         text_box = TextBox(self.font_faces['roboto_h1'])
-        container_en.attach_child(text_box)
+        title_bar.attach_child(text_box)
         text_box.update(message, (255, 255, 255))
-        text_box.property('TransformProperty').position.y = 0
-        text_box.property('TransformProperty').position.x = 260
-        self.messages['en_title'] = text_box
+        text_box.property('TransformProperty').position.x = 180
+        text_box.property('TransformProperty').position.y = -140
+
+        self.messages['title_bar'] = text_box
+
+        # Left Vertical Container configuration
+        left_vertical_container = Container()
+        main_container.attach_child(left_vertical_container)
+        left_vertical_container.property('TransformProperty').position.x = -80
+        left_vertical_container.property('TransformProperty').position.y = 0
+
+        title_bar = Container()
+        left_vertical_container.attach_child(title_bar)
+        title_bar.property('TransformProperty').position.x = 0
+        title_bar.property('TransformProperty').position.y = 0
+
+        text = "Main Menu"
+        text_box = TextBox(self.font_faces['roboto_h2'])
+        title_bar.attach_child(text_box)
+        text_box.update(text, (255, 255, 255))
+
+        self.messages['main_menu'] = text_box
+
+        container = Container()
+        left_vertical_container.attach_child(container)
+        container.property('TransformProperty').position.x = 0
+        container.property('TransformProperty').position.y = 80
+
+        text = "New Game"
+        text_box = TextBox(self.font_faces['roboto_h3'])
+        container.attach_child(text_box)
+        text_box.update(text, (255, 255, 255))
+
+        self.messages['new_game'] = text_box
 
         message = "[Press any key to continue]"
         text_line = TextLine(self.font_faces['open_sans_normal'], (255, 255, 255), message)

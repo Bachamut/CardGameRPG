@@ -1,40 +1,40 @@
 {
-  "scene_name": "battle_summary_scene",
+  "scene_name": "main_menu_scene",
   "include": null,
   "resources": ["resources.json"],
-  "controller": "BattleSummaryScreenController",
+  "controller": "MainMenuScreenController",
 
   "entities":
           [
             {
-              "entity": "BattleSummaryScreenController",
+              "entity": "MainMenuScreenController",
               "object":
               {
-                "object_class": "BattleSummaryScreenController",
+                "object_class": "MainMenuScreenController",
                 "object_type": null,
-                "object_label": "BattleSummaryScreenController",
+                "object_label": "MainMenuScreenController",
                 "create": true,
                 "properties": ["InitializeProperty", "EventProperty"],
                 "configure_properties":
                 {
-                  "InitializeProperty": {"init_req": null, "start_req": ["BattleSummaryScreenView.Initialized"]},
+                  "InitializeProperty": {"init_req": null, "start_req": ["MainMenuScreenView.Initialized"]},
                   "EventProperty": {"property_state": "Disabled"}
                 }
               }
             },
             {
-              "entity": "BattleSummaryScreenView",
+              "entity": "MainMenuScreenView",
               "object":
               {
-                "object_class": "BattleSummaryScreenView",
+                "object_class": "MainMenuScreenView",
                 "object_type": null,
-                "object_label": "BattleSummaryScreenView",
+                "object_label": "MainMenuScreenView",
                 "create": true,
                 "properties": ["InitializeProperty", "ScriptProperty", "SignalProperty", "EventProperty", "TransformProperty"],
                 "configure_properties":
                 {
-                  "InitializeProperty": {"init_req": ["BattleSummaryScreenController.Initialized"], "start_req": ["BattleSummaryScreenController.Started"]},
-                  "ScriptProperty": {"set_script": "BattleSummaryScreenView", "property_state": "Disabled"},
+                  "InitializeProperty": {"init_req": ["MainMenuScreenController.Initialized"], "start_req": ["MainMenuScreenController.Started"]},
+                  "ScriptProperty": {"set_script": "MainMenuScreenView", "property_state": "Disabled"},
                   "SignalProperty": {"property_state":  "Disabled"},
                   "EventProperty": {"property_state":  "Disabled"}
                 }

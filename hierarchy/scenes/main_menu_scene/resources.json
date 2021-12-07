@@ -1,0 +1,16 @@
+{
+  "resources": [
+    {
+      "key": "MainMenuScreenController",
+      "type": "script",
+      "path": "assets/lib/main_menu_screen",
+      "file": "main_menu_screen_controller"
+    },
+    {
+      "key": "MainMenuScreenView",
+      "type": "script",
+      "path": "assets/lib/main_menu_screen",
+      "file": "main_menu_screen_view"
+    }
+  ]
+}

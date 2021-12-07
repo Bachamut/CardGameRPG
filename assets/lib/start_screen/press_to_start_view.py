@@ -83,7 +83,7 @@ class PressToStartView(GameObject):
 
         if self.wait_to_press and event.type == pygame.KEYDOWN:
 
-            pygame.time.set_timer(ProjectController.UNLOAD_START_SCENE_TIME_EVENT, 900)
+            pygame.time.set_timer(ProjectController.START_MAIN_MENU_SCENE_TIME_EVENT, 900)
 
     def prepare_font_faces(self):
 
