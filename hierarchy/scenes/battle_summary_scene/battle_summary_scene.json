@@ -1,0 +1,44 @@
+{
+  "scene_name": "battle_summary_scene",
+  "include": null,
+  "resources": ["resources.json"],
+  "controller": "BattleSummaryScreenController",
+
+  "entities":
+          [
+            {
+              "entity": "BattleSummaryScreenController",
+              "object":
+              {
+                "object_class": "BattleSummaryScreenController",
+                "object_type": null,
+                "object_label": "BattleSummaryScreenController",
+                "create": true,
+                "properties": ["InitializeProperty", "EventProperty"],
+                "configure_properties":
+                {
+                  "InitializeProperty": {"init_req": null, "start_req": ["BattleSummaryScreenView.Initialized"]},
+                  "EventProperty": {"property_state": "Disabled"}
+                }
+              }
+            },
+            {
+              "entity": "BattleSummaryScreenView",
+              "object":
+              {
+                "object_class": "BattleSummaryScreenView",
+                "object_type": null,
+                "object_label": "BattleSummaryScreenView",
+                "create": true,
+                "properties": ["InitializeProperty", "ScriptProperty", "SignalProperty", "EventProperty", "TransformProperty"],
+                "configure_properties":
+                {
+                  "InitializeProperty": {"init_req": ["BattleSummaryScreenController.Initialized"], "start_req": ["BattleSummaryScreenController.Started"]},
+                  "ScriptProperty": {"set_script": "EndScreenView", "property_state": "Disabled"},
+                  "SignalProperty": {"property_state":  "Disabled"},
+                  "EventProperty": {"property_state":  "Disabled"}
+                }
+              }
+            }
+          ]
+}

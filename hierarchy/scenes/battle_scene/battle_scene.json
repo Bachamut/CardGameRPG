@@ -181,7 +181,7 @@
           "object_type": null,
           "object_label": "BattleCharacterViewController",
           "create": true,
-          "properties": ["InitializeProperty", "ScriptProperty", "SignalProperty"],
+          "properties": ["InitializeProperty", "ScriptProperty", "SignalProperty", "TransformProperty"],
           "configure_properties":
           {
             "ScriptProperty": {"set_script": "BattleCharacterViewController", "property_state": "Disabled"},

@@ -17,6 +17,9 @@ class BattleCharacterViewController(GameObjectSharedResource):
 
         self.change = False
         self.main_container = Container()
+
+        self.attach_child(self.main_container)
+
         self.left_container = Container()
         self.right_container = Container()
 

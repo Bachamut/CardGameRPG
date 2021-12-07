@@ -25,7 +25,7 @@
   "character_siegfried": {
     "name": "Edward",
     "character_class": "knight",
-    "character_type": "player",
+    "character_type": "npc",
     "affiliation": "ally",
     "set_resource": "battle_scene/KnightHeroAnimationSet",
     "health": 950,
@@ -75,7 +75,7 @@
     "character_type": "npc",
     "affiliation": "enemy",
     "set_resource": "battle_scene/GoblinEnemyAnimationSet",
-    "health": 90,
+    "health": 10,
     "energy": 25,
     "action_points": 2,
     "strength": 5,

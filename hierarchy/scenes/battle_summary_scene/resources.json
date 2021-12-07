@@ -1,0 +1,16 @@
+{
+  "resources": [
+    {
+      "key": "BattleSummaryScreenController",
+      "type": "script",
+      "path": "assets/lib/battle_summary_screen",
+      "file": "battle_summary_screen_controller"
+    },
+    {
+      "key": "BattleSummaryScreenView",
+      "type": "script",
+      "path": "assets/lib/battle_summary_screen",
+      "file": "battle_summary_screen_view"
+    }
+  ]
+}

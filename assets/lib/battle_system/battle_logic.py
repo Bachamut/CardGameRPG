@@ -73,6 +73,7 @@ class BattleLogic(GameObjectSharedResource):
 
         if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
             self.property('ScriptProperty').property_enable()
+            self.property('EventProperty').property_enable()
             self.property('SignalProperty').property_enable()
             InitializeProperty.started(self)
 
@@ -94,6 +95,13 @@ class BattleLogic(GameObjectSharedResource):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:
                 pass
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_c:
+
+                emit_signal = pygame.event.Event(ProjectController.START_CHARACTER_SHEET_SCENE_TIME_EVENT)
+                pygame.event.post(emit_signal)
+                return
 
     def on_signal(self, signal):
 
@@ -418,17 +426,17 @@ class BattleLogic(GameObjectSharedResource):
 
                     if signal.type == BattleLogic.BATTLE_LOST and signal.subtype == "STANDARD":
 
-                        pygame.time.set_timer(ProjectController.UNLOAD_BATTLE_SCENE_TIME_EVENT, 1)
+                        # pygame.time.set_timer(ProjectController.UNLOAD_BATTLE_SCENE_TIME_EVENT, 1)
 
-                        emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "BATTLE_LOST"})
+                        emit_signal = pygame.event.Event(ProjectController.UNLOAD_BATTLE_SCENE_TIME_EVENT, {"event": "UNLOAD_BATTLE_SCENE_TIME_EVENT", "subtype": "BATTLE_LOST"})
                         pygame.event.post(emit_signal)
                         return
 
                     elif signal.type == BattleLogic.BATTLE_WON and signal.subtype == "STANDARD":
 
-                        pygame.time.set_timer(ProjectController.UNLOAD_BATTLE_SCENE_TIME_EVENT, 1)
+                        # pygame.time.set_timer(ProjectController.UNLOAD_BATTLE_SCENE_TIME_EVENT, 1)
 
-                        emit_signal = pygame.event.Event(BattleLogic.BATTLE_LOGIC_SIGNAL, {"event": "BATTLE_LOGIC_SIGNAL", "subtype": "BATTLE_WON"})
+                        emit_signal = pygame.event.Event(ProjectController.START_BATTLE_SUMMARY_SCENE_TIME_EVENT, {"event": "START_BATTLE_SUMMARY_SCENE_TIME_EVENT", "subtype": "BATTLE_WON"})
                         pygame.event.post(emit_signal)
                         return
 
