@@ -1,0 +1,44 @@
+{
+  "scene_name": "card_collection_scene",
+  "include": null,
+  "resources": ["resources.json"],
+  "controller": "CardCollectionScreenController",
+
+  "entities":
+          [
+            {
+              "entity": "CardCollectionScreenController",
+              "object":
+              {
+                "object_class": "CardCollectionScreenController",
+                "object_type": null,
+                "object_label": "CardCollectionScreenController",
+                "create": true,
+                "properties": ["InitializeProperty", "EventProperty"],
+                "configure_properties":
+                {
+                  "InitializeProperty": {"init_req": null, "start_req": ["CardCollectionScreenView.Initialized"]},
+                  "EventProperty": {"property_state": "Disabled"}
+                }
+              }
+            },
+            {
+              "entity": "CardCollectionScreenView",
+              "object":
+              {
+                "object_class": "CardCollectionScreenView",
+                "object_type": null,
+                "object_label": "CardCollectionScreenView",
+                "create": true,
+                "properties": ["InitializeProperty", "ScriptProperty", "SignalProperty", "EventProperty", "TransformProperty"],
+                "configure_properties":
+                {
+                  "InitializeProperty": {"init_req": ["CardCollectionScreenController.Initialized"], "start_req": ["CardCollectionScreenController.Started"]},
+                  "ScriptProperty": {"set_script": "CardCollectionScreenView", "property_state": "Disabled"},
+                  "SignalProperty": {"property_state":  "Disabled"},
+                  "EventProperty": {"property_state":  "Disabled"}
+                }
+              }
+            }
+          ]
+}

@@ -1,0 +1,16 @@
+{
+  "resources": [
+    {
+      "key": "CardCollectionScreenController",
+      "type": "script",
+      "path": "assets/lib/card_collection_screen",
+      "file": "card_collection_screen_controller"
+    },
+    {
+      "key": "CardCollectionScreenView",
+      "type": "script",
+      "path": "assets/lib/card_collection_screen",
+      "file": "card_collection_screen_view"
+    }
+  ]
+}

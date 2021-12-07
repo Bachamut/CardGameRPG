@@ -94,12 +94,13 @@ class BattleLogic(GameObjectSharedResource):
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:
-                pass
+                    emit_signal = pygame.event.Event(ProjectController.START_CHARACTER_SHEET_SCENE_TIME_EVENT)
+                    pygame.event.post(emit_signal)
+                    return
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_c:
-
-                emit_signal = pygame.event.Event(ProjectController.START_CHARACTER_SHEET_SCENE_TIME_EVENT)
+                emit_signal = pygame.event.Event(ProjectController.START_CARD_COLLECTION_SCENE_TIME_EVENT)
                 pygame.event.post(emit_signal)
                 return
 

@@ -15,6 +15,7 @@ class ProjectController(GameObject):
     START_MAIN_MENU_SCENE_TIME_EVENT = pygame.event.custom_type()
     START_BATTLE_SCENE_SCENE_TIME_EVENT = pygame.event.custom_type()
     START_END_SCENE_TIME_EVENT = pygame.event.custom_type()
+    START_CARD_COLLECTION_SCENE_TIME_EVENT = pygame.event.custom_type()
 
     def __init__(self):
         super(ProjectController, self).__init__()
@@ -78,6 +79,13 @@ class ProjectController(GameObject):
             SceneCreator.destroy(SceneCreator._scene)
 
             ProjectController.load_scene("battle_scene")
+
+        if event.type == ProjectController.START_CARD_COLLECTION_SCENE_TIME_EVENT:
+
+            pygame.time.set_timer(ProjectController.START_CARD_COLLECTION_SCENE_TIME_EVENT, 0)
+            SceneCreator.destroy(SceneCreator._scene)
+
+            ProjectController.load_scene("card_collection_scene")
 
     @staticmethod
     def load_scene(scene_name):
