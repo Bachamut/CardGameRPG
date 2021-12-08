@@ -12,7 +12,7 @@
     "strength": 8,
     "dexterity": 5,
     "magic": 0,
-    "speed": 24,
+    "speed": 28,
     "stamina": 9,
     "physical_resist": 10,
     "magic_resist": 5,
@@ -23,7 +23,7 @@
   },
 
   "character_siegfried": {
-    "name": "Edward",
+    "name": "Siegfried",
     "character_class": "knight",
     "character_type": "npc",
     "affiliation": "ally",
@@ -58,7 +58,7 @@
     "strength": 5,
     "dexterity": 8,
     "magic": 0,
-    "speed": 28,
+    "speed": 26,
     "stamina": 9,
     "physical_resist": 0,
     "magic_resist": 5,

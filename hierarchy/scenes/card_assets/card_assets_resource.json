@@ -28,7 +28,7 @@
       "key": "HeavyStrikeCard",
       "type": "image",
       "path": "assets/cards",
-      "file": "HeavyStrike.png"
+      "file": "HeavyStrike1.png"
     },
     {
       "key": "MagicStrikeCard",
@@ -58,7 +58,7 @@
       "key": "ShieldBashCard",
       "type": "image",
       "path": "assets/cards",
-      "file": "ShieldBash.png"
+      "file": "ShieldBash1.png"
     }
   ]
 }
