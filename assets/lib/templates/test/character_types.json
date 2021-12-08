@@ -3,7 +3,7 @@
   {
     "name": "Edward",
     "character_class": "warrior",
-    "character_type": "npc",
+    "character_type": "player",
     "affiliation": "ally",
     "set_resource": "battle_scene/HammerHeroAnimationSet",
     "health": 75,
@@ -49,7 +49,7 @@
   {
     "name": "Lucius",
     "character_class": "rogue",
-    "character_type": "npc",
+    "character_type": "player",
     "affiliation": "ally",
     "set_resource": "battle_scene/ArcherHeroAnimationSet",
     "health": 60,

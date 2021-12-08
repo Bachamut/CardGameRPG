@@ -24,7 +24,7 @@ class ProjectController(GameObject):
     def _initialize(self):
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
 
-            SceneCreator._scene = "start_scene"
+            SceneCreator._scene = "battle_scene"
             SceneCreator.load_entity_config(SceneCreator._scene)
             SceneCreator.load_resource_config(SceneCreator._scene)
             scene_config = SceneCreator.get_scene_resources_config(SceneCreator._scene)
