@@ -1,0 +1,44 @@
+{
+  "scene_name": "pause_menu_scene",
+  "include": null,
+  "resources": ["resources.json"],
+  "controller": "PauseMenuScreenController",
+
+  "entities":
+          [
+            {
+              "entity": "PauseMenuScreenController",
+              "object":
+              {
+                "object_class": "PauseMenuScreenController",
+                "object_type": null,
+                "object_label": "PauseMenuScreenController",
+                "create": true,
+                "properties": ["InitializeProperty", "EventProperty"],
+                "configure_properties":
+                {
+                  "InitializeProperty": {"init_req": null, "start_req": ["PauseMenuScreenView.Initialized"]},
+                  "EventProperty": {"property_state": "Disabled"}
+                }
+              }
+            },
+            {
+              "entity": "PauseMenuScreenView",
+              "object":
+              {
+                "object_class": "PauseMenuScreenView",
+                "object_type": null,
+                "object_label": "PauseMenuScreenView",
+                "create": true,
+                "properties": ["InitializeProperty", "ScriptProperty", "SignalProperty", "EventProperty", "TransformProperty"],
+                "configure_properties":
+                {
+                  "InitializeProperty": {"init_req": ["PauseMenuScreenController.Initialized"], "start_req": ["PauseMenuScreenController.Started"]},
+                  "ScriptProperty": {"set_script": "PauseMenuScreenView", "property_state": "Disabled"},
+                  "SignalProperty": {"property_state":  "Disabled"},
+                  "EventProperty": {"property_state":  "Disabled"}
+                }
+              }
+            }
+          ]
+}

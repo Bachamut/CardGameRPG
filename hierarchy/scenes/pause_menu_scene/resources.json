@@ -1,0 +1,16 @@
+{
+  "resources": [
+    {
+      "key": "PauseMenuScreenController",
+      "type": "script",
+      "path": "assets/lib/pause_menu_screen",
+      "file": "pause_menu_screen_controller"
+    },
+    {
+      "key": "PauseMenuScreenView",
+      "type": "script",
+      "path": "assets/lib/pause_menu_screen",
+      "file": "pause_menu_screen_view"
+    }
+  ]
+}

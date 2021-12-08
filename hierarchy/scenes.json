@@ -1,5 +1,5 @@
 {
   "package_path": "hierarchy/scenes",
   "starting_scene": "project_controller",
-  "scenes": ["project_controller", "start_scene", "battle_scene", "end_scene", "character_sheet_scene", "battle_summary_scene", "main_menu_scene", "card_collection_scene"]
+  "scenes": ["project_controller", "start_scene", "battle_scene", "end_scene", "character_sheet_scene", "battle_summary_scene", "main_menu_scene", "card_collection_scene", "pause_menu_scene"]
 }
