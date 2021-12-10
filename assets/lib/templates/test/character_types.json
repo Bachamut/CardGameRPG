@@ -3,7 +3,7 @@
   {
     "name": "Edward",
     "character_class": "warrior",
-    "character_type": "player",
+    "character_type": "npc",
     "affiliation": "ally",
     "set_resource": "battle_scene/HammerHeroAnimationSet",
     "health": 75,
@@ -22,7 +22,8 @@
     "do_debuff": 0.5
   },
 
-  "character_siegfried": {
+  "character_siegfried":
+  {
     "name": "Siegfried",
     "character_class": "knight",
     "character_type": "npc",
@@ -49,7 +50,7 @@
   {
     "name": "Lucius",
     "character_class": "rogue",
-    "character_type": "player",
+    "character_type": "npc",
     "affiliation": "ally",
     "set_resource": "battle_scene/ArcherHeroAnimationSet",
     "health": 60,
@@ -75,7 +76,7 @@
     "character_type": "npc",
     "affiliation": "enemy",
     "set_resource": "battle_scene/GoblinEnemyAnimationSet",
-    "health": 10,
+    "health": 100,
     "energy": 25,
     "action_points": 2,
     "strength": 5,
