@@ -1,13 +1,14 @@
 import pygame
 from asserts.type_assert import TypeAssert
-from game_object.game_object import GameObject
 
+from assets.lib.battle_system.action_utilities.action_process import ActionProcess
 from assets.lib.card_utilities.card_model import FullCard
+from assets.lib.game_object_shared_resource import GameObjectSharedResource
 from assets.lib.ui.base_ui.text_box import TextBox
 from assets.lib.ui.container import Container
 
 
-class HandCardView(GameObject):
+class HandCardView(GameObjectSharedResource):
 
     def __init__(self, full_card_model):
         TypeAssert.equal(full_card_model, FullCard)
@@ -88,7 +89,32 @@ class HandCardView(GameObject):
 
         self.messages['description_container'] = text_box
 
+        # Values container
+        values_container = Container()
+        main_container.attach_child(values_container)
+        values_container.property('TransformProperty').position.x = 0
+        values_container.property('TransformProperty').position.y = 150
 
+        message = self.prepare_value_description()
+        text_box = TextBox(self.font_faces['roboto_h2'])
+        values_container.attach_child(text_box)
+        text_box.update(message, (0, 0, 0))
+        text_box.property('TransformProperty').position.x = 24
+        text_box.property('TransformProperty').position.y = 10
+
+        self.messages['description_container'] = text_box
+
+    def prepare_value_description(self):
+
+        # if self.selected_target:
+        #
+        #     value = ActionProcess.value_calculation(self.current_character, self.selected_target, self.confirmed_card)
+
+            for attribute, multiplier_value in self._model.attribute_multiplier.items():
+
+                message = "Deal " + str(multiplier_value) + " damage x " + str(attribute)
+
+            return message
 
     def prepare_font_faces(self):
 
