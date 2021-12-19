@@ -48,6 +48,7 @@ class BattleCharacterViewManager(GameObjectSharedResource):
 
             self.property('SignalProperty').property_disable()
             InitializeProperty.started(self)
+            self.property('InitializeProperty').property_disable()
             Logs.InfoMessage.simple_info(self, "BattleCharacterView.Manager Started [ OK ]")
 
             emit_signal = pygame.event.Event(BattleLogic.CHARACTER_VIEW_CONTROLLER_RESPONSE, {"event": "CHARACTER_VIEW_CONTROLLER_RESPONSE", "subtype": "INITIAL"})

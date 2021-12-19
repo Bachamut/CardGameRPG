@@ -66,6 +66,9 @@ class QueueView(GameObject):
             line.update(
                 f'{self.queue[index].name}')
 
+        # InitializeProperty.started(self)
+        self.property('InitializeProperty').property_disable()
+
     def on_create(self):
         pass
 

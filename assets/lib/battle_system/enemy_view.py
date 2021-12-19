@@ -50,6 +50,9 @@ class EnemyView(GameObject):
 
         # self.setup_party()
 
+        # InitializeProperty.started(self)
+        self.property('InitializeProperty').property_disable()
+
     def setup_party(self):
         step = 0
         for character in self.enemies:

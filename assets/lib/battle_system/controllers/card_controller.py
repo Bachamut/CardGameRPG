@@ -67,6 +67,7 @@ class CardController(GameObjectSharedResource):
         if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
             InitializeProperty.started(self)
             self.property('SignalProperty').property_enable()
+            self.property('InitializeProperty').property_disable()
             Logs.InfoMessage.simple_info(self, "CardController Started [ OK ]")
 
             return

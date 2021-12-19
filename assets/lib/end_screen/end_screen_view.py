@@ -43,6 +43,8 @@ class EndScreenView(GameObject):
             self.wait_to_press = False
             self.start_time = pygame.time.get_ticks()
 
+            self.property('InitializeProperty').property_disable()
+
             return
 
     def on_script(self):

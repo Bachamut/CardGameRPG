@@ -108,6 +108,9 @@ class CardView(GameObject):
         self.position.y = 576
         self.position.x = 24
 
+        # InitializeProperty.started(self)
+        self.property('InitializeProperty').property_disable()
+
     def on_signal(self, signal):
         pass
 

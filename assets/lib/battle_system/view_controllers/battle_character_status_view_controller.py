@@ -91,6 +91,7 @@ class BattleCharacterStatusViewController(GameObjectSharedResource):
 
             InitializeProperty.started(self)
             self.property('ScriptProperty').property_enable()
+            self.property('InitializeProperty').property_disable()
             Logs.InfoMessage.simple_info(self, "BattleCharacterStatusView.Controller Started [ OK ]")
 
             return

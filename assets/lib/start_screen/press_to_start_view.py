@@ -31,6 +31,7 @@ class PressToStartView(GameObject):
             InitializeProperty.started(self)
             self.property('ScriptProperty').property_enable()
             self.property('EventProperty').property_enable()
+            self.property('InitializeProperty').property_disable()
             Logs.InfoMessage.simple_info(self, "PressToStart.View Started [ OK ]")
 
             self.timer_event = pygame.event.custom_type()

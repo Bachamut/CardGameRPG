@@ -62,8 +62,9 @@ class QueueController(GameObjectSharedResource):
             return
 
         if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
-            # InitializeProperty.started(self)
             self.property('SignalProperty').property_enable()
+            InitializeProperty.started(self)
+            self.property('InitializeProperty').property_disable()
             # Logs.InfoMessage.SimpleInfo(self, "QueueController Started [ OK ]")
 
             return

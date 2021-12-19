@@ -155,6 +155,9 @@ class PartyView(GameObject):
 
         #self.current_character_status = CurrentPartyCharacterView(self._current_character)
 
+        # InitializeProperty.started(self)
+        self.property('InitializeProperty').property_disable()
+
     def setup_party(self):
         step = 0
         for character in self.ally:

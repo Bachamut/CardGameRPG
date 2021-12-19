@@ -34,6 +34,9 @@ class GameLogic(GameObject):
         self._create_party()
         self._create_enemy()
 
+        # InitializeProperty.started(self)
+        # self.property('InitializeProperty').property_disable()
+
     @staticmethod
     def _load_config_preset(setup_name):
 

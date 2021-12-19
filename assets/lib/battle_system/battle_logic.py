@@ -75,7 +75,8 @@ class BattleLogic(GameObjectSharedResource):
             self.property('ScriptProperty').property_enable()
             self.property('EventProperty').property_enable()
             self.property('SignalProperty').property_enable()
-            InitializeProperty.started(self)
+            # InitializeProperty.started(self)
+            self.property('InitializeProperty').property_disable()
 
             return
 
@@ -142,7 +143,7 @@ class BattleLogic(GameObjectSharedResource):
                 pygame.event.post(emit_signal)
                 Logs.DebugMessage.signal_emit(self, emit_signal, "BLS1->BChVMS1")
 
-                # InitializeProperty.started(self)
+                InitializeProperty.started(self)
                 Logs.InfoMessage.simple_info(self, "BattleLogic Started [ OK ]")
                 return
 

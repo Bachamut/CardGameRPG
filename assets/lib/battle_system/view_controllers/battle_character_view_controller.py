@@ -16,12 +16,12 @@ class BattleCharacterViewController(GameObjectSharedResource):
         super(BattleCharacterViewController, self).__init__()
 
         self.change = False
-        self.main_container = Container()
+        self.main_container = Container().set_label('main_container')
 
         self.attach_child(self.main_container)
 
-        self.left_container = Container()
-        self.right_container = Container()
+        self.left_container = Container().set_label('left_container')
+        self.right_container = Container().set_label('right_container')
 
         self.main_container.attach_child(self.left_container)
         self.main_container.attach_child(self.right_container)
@@ -62,6 +62,8 @@ class BattleCharacterViewController(GameObjectSharedResource):
 
             InitializeProperty.initialize_enable(self)
             self.property('SignalProperty').property_enable()
+            InitializeProperty.started(self)
+            self.property('InitializeProperty').property_disable()
             Logs.InfoMessage.simple_info(self, "BattleCharacterView.Controller Initialized [ OK ]")
 
             return

@@ -33,6 +33,7 @@ class BattleSummaryScreenView(GameObject):
             self.property('ScriptProperty').property_enable()
             self.property('EventProperty').property_enable()
             self.property('SignalProperty').property_enable()
+            self.property('InitializeProperty').property_disable()
             Logs.InfoMessage.simple_info(self, "BattleSummaryScreen.View Started [ OK ]")
 
             self.timer_event = pygame.event.custom_type()

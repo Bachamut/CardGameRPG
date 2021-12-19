@@ -20,6 +20,7 @@ class CardCollectionScreenController(GameObject):
         if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
             InitializeProperty.started(self)
             self.property('EventProperty').property_enable()
+            self.property('InitializeProperty').property_disable()
             Logs.InfoMessage.simple_info(self, "CardCollectionScreen.Controller Started [ OK ]")
 
             return

@@ -20,6 +20,8 @@ class ItemController(GameObject):
 
     def _initialize(self):
         ItemController._initialized = True
+        # InitializeProperty.started(self)
+        self.property('InitializeProperty').property_disable()
         print("ItemController initialized")
 
     def on_script(self):

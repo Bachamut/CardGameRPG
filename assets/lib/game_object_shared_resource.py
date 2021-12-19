@@ -41,7 +41,6 @@ class GameObjectSharedResource(GameObject):
         self._base_ally.set(_game_logic.party)
         self._base_enemies.set(_game_logic.enemies)
 
-
     # SharedResources definitions
 
     @property

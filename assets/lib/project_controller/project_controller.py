@@ -1,5 +1,6 @@
 import pygame.time
 from game_object.game_object import GameObject
+from game_object.object_state import ObjectState
 from property.initialize_property import InitializeProperty, InitializeState
 from resource_manager.resource_manager import ResourceManager
 from scene_creator.scene_creator import SceneCreator
@@ -22,6 +23,7 @@ class ProjectController(GameObject):
         super(ProjectController, self).__init__()
 
     def _initialize(self):
+
         if InitializeProperty.check_is_ready(self, InitializeState.INITIALIZED):
 
             SceneCreator._scene = "battle_scene"
@@ -30,6 +32,7 @@ class ProjectController(GameObject):
             scene_config = SceneCreator.get_scene_resources_config(SceneCreator._scene)
             ResourceManager.load_resources(scene_config)
             SceneCreator.create_scene(SceneCreator._scene)
+            # SceneCreator.set_state(ObjectState.Suspended)
 
             InitializeProperty.initialize_enable(self)
             Logs.InfoMessage.simple_info(self, "Project.Controller Initialized [ OK ]")
@@ -39,7 +42,7 @@ class ProjectController(GameObject):
         if InitializeProperty.check_is_ready(self, InitializeState.STARTED):
             InitializeProperty.started(self)
             self.property('EventProperty').property_enable()
-
+            self.property('InitializeProperty').property_disable()
             Logs.InfoMessage.simple_info(self, "Project.Controller Started [ OK ]")
 
             return
