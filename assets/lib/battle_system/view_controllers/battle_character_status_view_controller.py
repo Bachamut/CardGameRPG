@@ -1,4 +1,6 @@
 import pygame
+from game_object.game_object import GameObject
+from object_creator.object_creator import ObjectCreator
 from property.initialize_property import InitializeProperty, InitializeState
 
 from assets.lib.battle_system.log import Logs
@@ -89,6 +91,15 @@ class BattleCharacterStatusViewController(GameObjectSharedResource):
                 self._lock_update_on_status[character] = BattleCharacterStatusLockUpdate()
                 self._lock_update_on_status[character].lock_update(character)
 
+            icon = BattleCharacterStatusViewBar()
+            container.attach_child(icon)
+
+            # Obiekt tworzony kreatorem
+            health_bar = ObjectCreator.create_entity('battle_scene', 'HealthBar')
+            health_bar.property('TransformProperty').position.x = 20
+            health_bar.property('TransformProperty').position.y = 520
+            container.attach_child(health_bar)
+
             InitializeProperty.started(self)
             self.property('ScriptProperty').property_enable()
             self.property('InitializeProperty').property_disable()
@@ -135,3 +146,16 @@ class BattleCharacterStatusViewController(GameObjectSharedResource):
         for character, text_line in self.character_lines.items():
 
             self._lock_update_on_status[character].lock_update(character)
+
+
+# Obiekt tworzony ręcznie
+class BattleCharacterStatusViewBar(GameObject):
+
+    def __init__(self):
+
+        super(BattleCharacterStatusViewBar, self).__init__()
+
+        self.add_property('SpriteProperty')
+        self.property('SpriteProperty').configure({'package': 'battle_scene', 'set_resource': 'BattleCharacterStatusViewBar'})
+        self.add_property('TransformProperty')
+        self.add_property('BlitProperty')

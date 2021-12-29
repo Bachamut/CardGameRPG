@@ -94,7 +94,7 @@ class CardViewController(GameObjectSharedResource):
             for card_view in self.card_view_container.get_children().copy():
 
                 self.card_view_container.detach_child(card_view)
-                card_view.on_destroy()
+                card_view.destroy()
 
         card_padding = 120
         for index, card in enumerate(self.current_character.hand):

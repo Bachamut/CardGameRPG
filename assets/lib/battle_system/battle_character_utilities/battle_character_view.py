@@ -28,9 +28,9 @@ class BattleCharacterView(GameObject):
     def initialize(self, battle_character, set_resource):
         # reference to character
         self.character_model = battle_character
-        self.character_model_hash = battle_character.object_hash
+        self.character_model_hash = battle_character.get_hash()
 
-        # print(f'name: {battle_character.name} hash: {battle_character.object_hash}')
+        # print(f'name: {battle_character.name} hash: {battle_character._object_hash}')
 
         self.property('SpriteSheetAnimationProperty').configure(set_resource)
         self.active_set = self.property('SpriteSheetAnimationProperty').active_set
@@ -60,14 +60,14 @@ class BattleCharacterView(GameObject):
     def on_signal(self, signal):
 
         if signal.type == BattleLogic.CHARACTER_VIEW_SIGNAL and signal.subtype == "TARGET":
-            if signal.receiver.object_hash == self.character_model.object_hash:
+            if signal.receiver.get_hash() == self.character_model.get_hash():
 
                 print(f'CHARACTER_VIEW_SIGNAL:TARGET processed on receiver')
 
                 return
 
         if signal.type == BattleLogic.CHARACTER_VIEW_SIGNAL and signal.subtype == "CASTER":
-            if signal.receiver.object_hash == self.character_model.object_hash:
+            if signal.receiver.get_hash() == self.character_model.get_hash():
 
                 print(f'CHARACTER_VIEW_SIGNAL:CASTER processed on receiver')
 

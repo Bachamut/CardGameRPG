@@ -5,6 +5,18 @@
       "type": "script",
       "path": "assets/lib/battle_system/view_controllers",
       "file": "battle_character_status_view_controller"
+    },
+    {
+      "key": "BattleCharacterStatusViewBar",
+      "type": "image",
+      "path": "assets/battle_system",
+      "file": "character_icon.png"
+    },
+    {
+      "key": "BattleCharacterHealthBar",
+      "type": "image",
+      "path": "assets/battle_system",
+      "file": "health_bar.png"
     }
   ]
 }

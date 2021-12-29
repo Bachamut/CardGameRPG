@@ -95,9 +95,19 @@ class ProjectController(GameObject):
             if event.key == pygame.K_p:
 
                 pygame.time.set_timer(ProjectController.START_PAUSE_MENU_SCENE_TIME_EVENT, 0)
-                SceneCreator.destroy(SceneCreator._scene)
+                # SceneCreator.destroy(SceneCreator._scene)
+                SceneCreator.set_state(ObjectState.Stopped)
 
-                ProjectController.load_scene("pause_menu_scene")
+                # ProjectController.load_scene("pause_menu_scene")
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_o:
+
+                pygame.time.set_timer(ProjectController.START_BATTLE_SCENE_SCENE_TIME_EVENT, 0)
+                # SceneCreator.destroy(SceneCreator._scene)
+                SceneCreator.set_state(ObjectState.Active)
+
+                # ProjectController.load_scene("pause_menu_scene")
 
     @staticmethod
     def load_scene(scene_name):

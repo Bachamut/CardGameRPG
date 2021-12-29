@@ -85,9 +85,9 @@ class CardController(GameObjectSharedResource):
             for it in range(0, amount):
                 card_instance = CardManager.create_card(card)
 
-                card_instance.object_class = 'Card'
-                card_instance.object_type = 'Card'
-                card_instance.object_label = card_instance.card_name
+                card_instance.set_class('Card')
+                card_instance.set_type('Card')
+                card_instance.set_label(card_instance.card_name)
                 card_instance.add_property('TransformProperty')
                 card_instance.add_property('BlitProperty')
                 card_instance.add_property('SpriteProperty')
@@ -208,7 +208,7 @@ class CardController(GameObjectSharedResource):
 
                 if signal.type == BattleLogic.CARD_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
                     Logs.DebugMessage.signal_received(self, signal, "CC4<-BL9")
-                # if signal.type == BattleLogic.CARD_CONTROLLER_SIGNAL and signal.subtype == "CARD_SELECTION":
+                # if signal.object_type == BattleLogic.CARD_CONTROLLER_SIGNAL and signal.subtype == "CARD_SELECTION":
                 #     Logs.DebugMessage.SignalReceived(self, signal, "CC4<-CC4")
 
                 # Arrows event block for card choose
@@ -282,6 +282,7 @@ class CardController(GameObjectSharedResource):
                 self.confirmed_card = self.current_character.hand[self.selected_card_index]
                 self.confirmed_card.current = True
                 Logs.CardControllerMessage.card_selection_info(self)
+
             else:
                 Logs.CardControllerMessage.card_controller_simple_info(self, "Nie masz wystarczającej ilość AP")
 

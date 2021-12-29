@@ -32,7 +32,7 @@ class TextBox(Widget):
             for child in self.get_children().copy():
 
                 self.detach_child(child)
-                child.on_destroy()
+                child.destroy()
 
         self._text_lines.clear()
         self._text = str(text)

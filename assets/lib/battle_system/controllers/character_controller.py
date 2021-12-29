@@ -53,7 +53,7 @@ class CharacterController(GameObjectSharedResource):
 
             if signal.type == BattleLogic.CHARACTER_CONTROLLER_SIGNAL and signal.subtype == "STANDARD":
                 Logs.DebugMessage.signal_received(self, signal, "ChC1<-BL12")
-            # if signal.type == BattleLogic.CHARACTER_CONTROLLER_SIGNAL and signal.subtype == "TARGET_SELECTION":
+            # if signal.object_type == BattleLogic.CHARACTER_CONTROLLER_SIGNAL and signal.subtype == "TARGET_SELECTION":
             #     Logs.DebugMessage.SignalReceived(self, signal, "ChC1<-ChC1")
 
             # Arrows event block for target choose

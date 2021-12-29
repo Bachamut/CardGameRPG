@@ -18,6 +18,21 @@
           "ScriptProperty": {"property_state": "Disabled"}
         }
       }
+    },
+    {
+        "entity": "HealthBar",
+        "object":
+        {
+          "object_class": "GameObject",
+          "object_type": null,
+          "object_label": "HealthBar",
+          "create": true,
+          "properties": ["BlitProperty", "SpriteProperty", "TransformProperty"],
+          "configure_properties":
+          {
+            "SpriteProperty": {"set_resource": "BattleCharacterHealthBar", "package":  "battle_scene"}
+          }
+        }
     }
   ]
 }
